@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <div class="left-content">
+        <i (click)="goback()" class="go-back"></i>
+        <i class="search-icon"></i>
+        <input type="text" placeholder="搜索" />
+      </div>
+      <i (click)="billingFilter($event)" class="filter"></i>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section>
+    <div class="content-wrap" (click)="gotoBillingDetail(item)" *ngFor="let item of billingList; let i=index">
+      <div class="content-group">
+        <span id="status">{{statusType[item.status]}}</span>
+        <i (click)="moreClick($event,item)" class="more"></i>
+      </div>
+      <div class="content-group">
+        <span>AMOUNT</span>
+        <span id="money">{{item.amount[0].value}}</span>
+      </div>
+      <div class="content-group BALANCE">
+        <span>BALANCE</span>
+        <span id="money">{{item.balance[0].value}}</span>
+      </div>
+      <div class="content-group">
+        <span>INVOICE</span>
+        <span>{{item.billNo}}</span>
+      </div>
+      <div class="content-group">
+        <span>ISSUE DATE</span>
+        <span>{{getTime(item.issuedDate)}}</span>
+      </div>
+      <div class="content-group">
+        <span>DUE DATE</span>
+        <span>{{getTime(item.dueDate)}}</span>
+      </div>
+    </div>
+  </section>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="getBillingList({},$event)">
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

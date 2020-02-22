@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="dismissModal()" class="go-back"></i>
+      <h5 class="font-18">筛选</h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <form formGroupName="profileForm">
+    <div>
+      <ion-select
+        name="etaetd"
+        [interfaceOptions]="{ header: '请选择',cssClass :'ion-select-my-class' }"
+        interface="action-sheet"
+        [value] = "profileForm.etaetd"
+        placeholder="预计到港或出发"
+        (ionChange) = "etChange($event)"
+      >
+        <ion-select-option value="ETD">ETD</ion-select-option>
+        <ion-select-option value="ETA">ETA</ion-select-option>
+      </ion-select>
+      <div class="my-icon"></div>
+    </div>
+    <div>
+      <label class="date-title" for="">日期</label>
+      <ion-datetime [pickerOptions] = "{cssClass :'ion-datetime-my-class'}" [value]="profileForm.date" placeholder="请选择日期"></ion-datetime>
+    </div>
+    <div>
+      <ion-select
+        name="week"
+        [interfaceOptions]="{ header: '请选择周期',cssClass :'ion-select-my-class' }"
+        interface="action-sheet"
+        placeholder="周期"
+        [value] = "profileForm.week"
+        (ionChange) = "weekChange($event)"
+      >
+        <ion-select-option value="1">一周</ion-select-option>
+        <ion-select-option value="2">两周</ion-select-option>
+        <ion-select-option value="3">三周</ion-select-option>
+        <ion-select-option value="4">四周</ion-select-option>
+      </ion-select>
+      <div class="my-icon"></div>
+    </div>
+    
+  </form>
+  <ion-button (click)="confirm()" expand="block">确认</ion-button>
+</ion-content>

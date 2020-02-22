@@ -1,0 +1,221 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="goback()" class="go-back"></i>
+      <h5 class="font-18">{{routeDetail?.shipmentNo}}</h5>
+      <div class="bg-group">
+        <i class="location"></i>
+        <i class="kefu"></i>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section *ngIf="mapShow" class="map-wrap">
+    <div>这是地图</div>
+  </section>
+  <section [ngClass]="{'top-class': mapShow}" class="content-wrap base-wrap">
+    <div
+      (swipeup)="swipeup()"
+      (click)="toggle()"
+      (swipedown)="swipedown()"
+      class="control-map-show-wrap"
+    >
+      <div></div>
+    </div>
+    <div class="type-wrap">
+      <app-business-type [title] = "businessTypeTitle"  [status] = "statusType[routeDetail.status]" ></app-business-type>
+    </div>
+    <div class="detail-wrap">
+      <label class="title">Basic</label>
+      <p>
+        <span>Freight Type</span>
+        <span>{{agreement}}</span>
+      </p>
+      <p>
+        <span>Incoterms</span>
+        <span>{{basicDetail.incotermsString}}</span>
+      </p>
+      <p>
+        <span>Container Type</span>
+        <span>{{getContainerType(basicDetail)}}</span>
+      </p>
+      <div *ngIf="baseShow">
+        <label class="title">Reference Numbers</label>
+        <p>
+          <span>House Bill Number</span>
+          <span>{{basicDetail?.billOfLadingNo}}</span>
+        </p>
+        <p>
+          <span>Container No</span>
+          <span>{{basicDetail?.containerNos}}</span>
+        </p>
+        <label class="title">Cargo</label>
+        <p>
+          <span>Quantity</span>
+          <span>{{basicDetail?.quantityString}}</span>
+        </p>
+        <p>
+          <span>Total Weight</span>
+          <span>{{basicDetail?.totalWeightString}}</span>
+        </p>
+        <p>
+          <span>Total Volume</span>
+          <span>{{basicDetail?.totalVolumeString}}</span>
+        </p>
+        <ng-container *ngIf="basicDetail?.specialInstructions">
+          <label class="title">Specifics</label>
+          <p>
+            <span>Special Instructions</span>
+          </p>
+          <p>
+            <span>{{basicDetail?.specialInstructions}}</span>
+          </p>
+        </ng-container>
+      </div>
+
+      <div></div>
+    </div>
+    <div (click)="baseShow = !baseShow" class="control-group">
+      <i
+        class="arrow-bg"
+        [ngClass]="{'baseShow': baseShow,'baseNotShow': !baseShow}"
+      ></i>
+    </div>
+  </section>
+  <section
+    class="content-wrap message-wrap"
+    [ngClass]="{'margin-top-class': !mapShow}"
+  >
+    <div class="detail-wrap">
+      <label *ngIf="routeDetail?.routeDetails?.shipperInfos.length" class="title"
+        >起运地</label
+      >
+      <ng-container
+        *ngFor="let shipperInfo of routeDetail?.routeDetails?.shipperInfos; let i=index"
+      >
+        <ng-container *ngIf="originPortShow || i ===0">
+          <p [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
+            <span>出发地公司名称</span>
+          </p>
+          <p
+            [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'"
+          >
+            <span>{{shipperInfo.shipperNetWorkInfo.streetAddress}}</span>
+          </p>
+          <p [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
+            <span>Container#/货柜号</span>
+            <span>{{shipperInfo.containerNo}}</span>
+          </p>
+          <p [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
+            <span>Cargo Ready Date/准备就绪日期</span>
+            <span>{{getTime(shipperInfo.cargoReadyDate)}}</span>
+          </p>
+        </ng-container>
+      </ng-container>
+
+      <p
+        (click)="originPortShow = !originPortShow"
+        id="arrow-bg-wrap"
+        *ngIf="routeDetail?.routeDetails?.shipperInfos.length>1"
+      >
+        <i
+          class="arrow-bg"
+          [ngClass]="{'originPortShow': originPortShow,'originPortNotShow': !originPortShow}"
+        ></i>
+      </p>
+
+      <label
+        [class]="routeDetail?.status>=3?'left-line title':'left-dashed-line title'"
+        >起运港</label
+      >
+      <p
+        [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'"
+      >
+        <span>{{routeDetail?.routeDetails?.originPort.name}}</span>
+      </p>
+      <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
+        <span>#/港口编码</span>
+        <span>{{routeDetail?.routeDetails?.originPort.code}}</span>
+      </p>
+      <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
+        <span>Arrived/抵达</span>
+        <span
+          >{{getTime(routeDetail?.routeDetails?.actualDepatureOrginPortDate)}}</span
+        >
+      </p>
+      <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
+        <span>Carrier/承运人</span>
+        <span>{{routeDetail?.routeDetails?.carrierCustomerName}}</span>
+      </p>
+      <label
+        [class]="routeDetail?.status>=5?'left-line title':'left-dashed-line title'"
+        >目的港</label
+      >
+      <p
+        [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'"
+      >
+        <span>{{routeDetail?.routeDetails?.destinationPort.name}}</span>
+      </p>
+      <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+        <span>#/港口编码</span>
+        <span>{{routeDetail?.routeDetails?.destinationPort.code}}</span>
+      </p>
+      <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+        <span>Estimated Arrival/预计到达时间</span>
+        <span
+          >{{getTime(routeDetail?.routeDetails?.actualArrivalDestinationPortDate)}}</span
+        >
+      </p>
+      <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+        <span>Estimated Pick-Up/预计上车时间</span>
+        <span
+          >{{getTime(routeDetail?.routeDetails?.actualPickUpTruckDestinationDate)}}</span
+        >
+      </p>
+      <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+        <span>Carrier/承运人</span>
+        <span>{{routeDetail?.routeDetails?.truckCustomerName}}</span>
+      </p>
+      <label
+        *ngIf="routeDetail?.routeDetails?.consigneeInfos.length"
+        [class]="routeDetail?.status>=7?'left-line':'left-dashed-line title'"
+        >目的地</label
+      >
+      <ng-container
+        *ngFor="let consigneeInfo of routeDetail?.routeDetails?.consigneeInfos; let i=index"
+      >
+        <ng-container *ngIf="consigneeShow || i ===0">
+          <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+            <span>目的地公司名称</span>
+          </p>
+          <p
+            [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'"
+          >
+            <span>{{consigneeInfo.consigneeNetWorkInfo?.streetAddress}}</span>
+          </p>
+          <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+            <span>Container#/货柜号</span>
+            <span>{{consigneeInfo.containerNo}}</span>
+          </p>
+          <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+            <span>Cargo Ready Date/准备就绪日期</span>
+            <span>{{getTime(consigneeInfo.actualTruckDeliveryDate)}}</span>
+          </p>
+        </ng-container>
+      </ng-container>
+
+      <p
+        (click)="consigneeShow = !consigneeShow"
+        id="arrow-bg-wrap"
+        *ngIf="routeDetail?.routeDetails?.consigneeInfos.length>1"
+      >
+        <i
+          class="arrow-bg"
+          [ngClass]="{'originPortShow': consigneeShow,'originPortNotShow': !consigneeShow}"
+        ></i>
+      </p>
+    </div>
+  </section>
+</ion-content>

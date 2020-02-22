@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="goback()" class="go-back"></i>
+      <h5 class="font-18">Billing详情</h5>
+      <div class="bg-group">
+        <i class="kefu"></i>
+        <i (click)="moreClick()" class="more"></i>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="type-wrap">
+    <app-business-type
+      [title]="{title1:billingDetail.billNo}"
+      [status]="statusType[billingDetail.status]"
+    ></app-business-type>
+  </div>
+  <section class="content-wrap base-wrap">
+    <div class="detail-wrap">
+      <label class="title">Basic</label>
+
+      <ng-container *ngIf="baseShow">
+        <p>
+          <span>ISSUE DATE</span>
+          <span>{{getTime(billingDetail.issuedDate)}}</span>
+        </p>
+        <p>
+          <span>DUE DATE</span>
+          <span>{{getTime(billingDetail.dueDate)}}</span>
+        </p>
+        <p>
+          <span>AMOUT</span>
+          <span>{{billingDetail.amount[0].value}}</span>
+        </p>
+        <p>
+          <span>BALANCE</span>
+          <span>{{billingDetail.balance[0].value}}</span>
+        </p>
+      </ng-container>
+    </div>
+    <div (click)="baseShow = !baseShow" class="control-group">
+      <i class="arrow-bg" [ngClass]="{'arrowRotate': baseShow}"></i>
+    </div>
+  </section>
+  <section class="content-wrap message-wrap">
+    <div class="detail-wrap">
+      <label class="title">Recipient</label>
+      <p>
+        <span>{{billingDetail?.recipient?.value}}</span>
+      </p>
+      <label class="title">Rate information</label>
+
+      <div class="rate-information" *ngFor="let rateInformation of rateInformations">
+        <h5 class="title second-title">
+          {{rateInformation.title}}
+          <i (click)="rateInformation['Notshow'] = !rateInformation['Notshow']" [ngClass]="{'arrowRotate': !rateInformation['Notshow']}" class="arrow-bg right-control"></i>
+        </h5>
+        <ng-container *ngIf="!rateInformation.Notshow">
+          <ng-container *ngFor="let item of rateInformation.type">
+            <label class="title">{{item.name}}</label>
+            <p>
+              <span>Rate</span>
+              <span>{{item.Rate}}</span>
+            </p>
+            <p>
+              <span>Quantity</span>
+              <span>{{item.Quantity}}</span>
+            </p>
+            <p>
+              <span>Amount</span>
+              <span>{{item.Amount}}</span>
+            </p>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="rate-information SUBTOTAL">
+        <label for="">SUBTOTAL</label>
+        <span>$2,600</span>
+      </div>
+      <ng-container *ngIf="billingDetail.paymentRecords">
+
+      </ng-container>
+      
+      <label class="title">Payment History</label>
+      <p>
+        <span>{{billingDetail?.recipient?.value}}</span>
+      </p>
+    </div>
+  </section>
+</ion-content>

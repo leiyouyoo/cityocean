@@ -1,0 +1,114 @@
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-contacts",
+  templateUrl: "contacts.page.html",
+  styleUrls: ["contacts.page.scss"]
+})
+export class ContactsPage {
+  items=[
+    {
+      count:1,
+      theme:'张三',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'李四',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'王五',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'张麻子',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'张三',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'李四',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'王五',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'张麻子',
+      integral:123
+    },{
+      count:1,
+      theme:'张三',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'李四',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'王五',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'张麻子',
+      integral:123
+    },{
+      count:1,
+      theme:'张三',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'李四',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'王五',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'张麻子',
+      integral:123
+    },{
+      count:1,
+      theme:'张三',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'李四',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'王五',
+      integral:123
+    },
+    {
+      count:1,
+      theme:'张麻子',
+      integral:123
+    }
+  ]
+  constructor() {}
+  ionViewWillEnter() {}
+  deleteItem(i: any, node) {
+    node.close();
+    this.items.splice(i,1)
+  }
+}

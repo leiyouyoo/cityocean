@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="goback()" class="go-back"></i>
+      <h5 class="font-18">Booking Details</h5>
+      <div class="bg-group">
+        <i class="kefu"></i>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="type-wrap">
+    <app-business-type
+      [title]="{title1:bookingDetail.bookingNo}"
+      [status]="statusType[bookingDetail.status]"
+    ></app-business-type>
+  </div>
+  <section class="request-wrap">
+    <p>Booking request is submitted</p>
+    <div *ngFor="let process of requestProcess"  [ngClass]="{ 'not-check-bg': !process.checked,'check-bg':process.checked}">
+      <i class="checked-flag"></i>
+      <span>{{process.name}}</span>
+    </div>
+  </section>
+  <section class="content-wrap base-wrap">
+    <div class="detail-wrap">
+      <label class="title">Basic</label>
+      <p>
+        <span>Cargo Ready day</span>
+        <span>{{getTime(bookingDetail.cargoReadyDate)}}</span>
+      </p>
+      <p>
+        <span>Incoterms</span>
+        <span>{{bookingDetail.incotermsString}}</span>
+      </p>
+      <p>
+        <span>Container Type</span>
+        <span>{{getContainerType(bookingDetail)}}</span>
+      </p>
+      <div *ngIf="baseShow">
+        <label class="title">Cargo</label>
+        <p>
+          <span>Quantity</span>
+          <span>{{bookingDetail?.quantity}}</span>
+        </p>
+        <p>
+          <span>Total Weight</span>
+          <span>{{bookingDetail?.weight}}{{bookingDetail?.weightUnitString}}</span>
+        </p>
+        <p>
+          <span>Total Volume</span>
+          <span>{{bookingDetail?.volume}}{{bookingDetail?.volumeUnitString}}</span>
+        </p>
+        <ng-container *ngIf="bookingDetail?.isContainsSpecialGoods">
+          <label class="title">Specifics</label>
+          <label class="title">Description Of Products</label>
+          <p>
+            <span>PLASTIC STORAGE BOX PLASTIC STORAGE BOX</span>
+          </p>
+          <label class="title">Special goods</label>
+          <p>
+            <span>{{getSpecialGoodsName(bookingDetail?.containsSpecialGoodsTypes)}}</span>
+          </p>
+          <label class="title">Special Instructions</label>
+          <p>
+            <span>{{bookingDetail?.specialInstructions}}</span>
+          </p>
+        </ng-container>
+      </div>
+    </div>
+    <div (click)="baseShow = !baseShow" class="control-group">
+      <i class="arrow-bg" [ngClass]="{'baseShow': baseShow,'baseNotShow': !baseShow}"></i>
+    </div>
+  </section>
+  <section class="content-wrap message-wrap">
+    <div class="detail-wrap">
+      <label class="title">Fron to</label>
+      <p>
+        <span>{{bookingDetail?.shipperAddress?.name}}</span>
+      </p>
+      <p>
+        <span>{{bookingDetail?.shipperAddress.tenantName}}</span>
+      </p>
+      <label class="title">起运地</label>
+      <p [class]="bookingDetail?.status>=7?'arrival-location':'unarrival-location'">
+        <span>{{bookingDetail.shipperAddress.streetAddress}}</span>
+      </p>
+
+      <label [class]="bookingDetail?.status>=3?'left-line title':'left-dashed-line title'">起运港</label>
+      <p [class]="bookingDetail?.status>=3?'arrival-location':'unarrival-location'">
+        <span>{{bookingDetail?.originPort?.name}}</span>
+      </p>
+
+      <label [class]="bookingDetail?.status>=5?'left-line title':'left-dashed-line title'">目的港</label>
+      <p [class]="bookingDetail?.status>=7?'arrival-location':'unarrival-location'">
+        <span>{{bookingDetail?.destinationPort?.name}}</span>
+      </p>
+
+      <label [class]="bookingDetail?.status>=7?'left-line':'left-dashed-line title'">目的地</label>
+      <p [class]="bookingDetail?.status>=7?'arrival-location':'unarrival-location'">
+        <span>{{bookingDetail?.consigneeAddress?.streetAddress}}</span>
+      </p>
+    </div>
+  </section>
+</ion-content>

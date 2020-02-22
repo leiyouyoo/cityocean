@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="dismissModal()" class="go-back"></i>
+      <span class="font-18 selete">选择联系人</span>
+      <span (click)="save()" class="font-16 save">Save</span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+    <section>
+      <div class="add-member-wrap">
+        <span class="add-member-text font-16">Add members</span>
+        <i></i>
+      </div>
+      <div class="member-wrap" *ngFor="let item of membersList">
+        <div 
+        (click)="item['checked'] = !item['checked']"
+        [ngClass]="{ 'not-check-bg': !item.checked,'check-bg':item.checked}"></div>
+        <img src="../../../../../../assets/icon/home/chat/touxian2@3x.png" alt="" />
+        <div class="role-wrap">
+          <span class="member-name font-16">{{item.nameCard?item.nameCard:item.userID}}</span>
+          <span class="member-type font-14">{{item.role?item.role:"角色未设置"}}</span>
+        </div>
+      </div>
+    </section>
+</ion-content>

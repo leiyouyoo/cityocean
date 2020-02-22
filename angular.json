@@ -29,6 +29,16 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "src/assets/svg",
+                "output": "./svg"
+              },
+              {
+                "glob": "abp.signalr-client.js",
+                "input": "src/app/3rd-party-libs/abp",
+                "output": "assets/abp"
               }
             ],
             "styles": [
@@ -39,7 +49,9 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": []
+            "scripts": [
+              "src/app/3rd-party-libs/abp/abp.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -99,7 +111,9 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "styles": [],
-            "scripts": [],
+            "scripts": [
+              "src/app/3rd-party-libs/abp/abp.js"
+            ],
             "assets": [
               {
                 "glob": "favicon.ico",
@@ -110,6 +124,11 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "abp.signalr-client.js",
+                "input": "src/app/3rd-party-libs/abp",
+                "output": "/assets/abp"
               }
             ]
           },

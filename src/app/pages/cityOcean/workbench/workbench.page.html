@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar [ngClass]="{'padding-edit': !isEditing}">
+    <section *ngIf="isEditing" class="edit-wrap">
+      <span class="font-18 title">工作台</span>
+      <span
+        (click)="isEditing = !isEditing;confirm()"
+        class="font-16 edit"
+        >完成</span
+      >
+    </section>
+    <section *ngIf="!isEditing" class="default-wrap">
+      <!-- <ion-select  interface="popover" value="shipment" placeholder="Select One">
+        <ion-select-option value="shipment">shipment</ion-select-option>
+        <ion-select-option value="booking">booking</ion-select-option>
+      </ion-select> -->
+      <div (click)="businessChange()" class="business-change-wrap">
+        <span>shipment</span>
+        <div></div>
+      </div>
+      <div class="message-group">
+        <div>
+          <i class="intransit"></i>
+          <p>
+            <span>在途</span>
+            <span>1</span>
+          </p>
+        </div>
+        <div>
+          <i class="finished"></i>
+          <p>
+            <span>已完成</span>
+            <span>2</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section [ngClass]="{'default-content': !isEditing}" *ngIf="!isEditing">
+    <div *ngIf="searchTransportationCost" class="search-detail">
+      <div class="qiyungang">
+        <i></i>
+        <input (click)="searchLocaltion('start')" [(ngModel)]="orignPort.name" type="text" placeholder="请输入起运港" />
+      </div>
+      <div class="search-line"></div>
+      <div class="mudigang">
+        <i></i>
+        <input type="text" (click)="searchLocaltion('destination')" [(ngModel)]="deliveryPort.name" placeholder="请输入目的港" />
+      </div>
+      <button (click)="searchConfirm()" class="search-yunjia font-12">{{searchType | translate}}</button>
+    </div>
+    <div class="title">
+      <span>All applications</span>
+      <button (click)="isEditing = !isEditing">添加到首页</button>
+    </div>
+    <div class="all-applications">
+      <div *ngFor="let item of typeList">
+        <p  (click)="typeClick(item)">
+          <i [class]="'icon-'+item.type"></i>
+          <span>{{item.name}}</span>
+        </p>
+      </div>
+    </div>
+  </section>
+  <section  *ngIf="isEditing">
+    <label>首页快捷</label>
+    <div class="quick-enter-applictions">
+      <div *ngFor="let item of quickEnterList;let i = index">
+        <p>
+          <i [class]="'icon-'+item.type">
+            <i (click)="delete($event,item,i)" class="icon-delete"></i>
+          </i>
+          <span>{{item.name}}</span>
+        </p>
+      </div>
+    </div>
+    <label>更多应用</label>
+    <div class="more-applictions">
+      <div *ngFor="let item of moreTypeList;let i =index">
+        <p>
+          <i [class]="'icon-'+item.type">
+            <i  (click)="add($event,item,i)" class="icon-add"></i>
+          </i>
+          <span>{{item.name}}</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- <ion-reorder-group id="reorder" (ionItemReorder)="reorder($event)">
+      <div (click)="goRouter(item)" class="content-wrap" *ngFor="let item of typeList">
+        <div class="name-group">
+          <i class="logo-icon"></i>
+          <span>{{item.name}}</span>
+        </div>
+        <i *ngIf="!isEditing" class="right-arrow"></i>
+        <div *ngIf="isEditing" class="toggle-group">
+          <ion-toggle [(ngModel)]="item.checked"></ion-toggle>
+          <ion-reorder class="toggle-group" slot="end">
+            <i></i>
+          </ion-reorder>
+        </div>
+      </div>
+    </ion-reorder-group> -->
+  </section>
+</ion-content>

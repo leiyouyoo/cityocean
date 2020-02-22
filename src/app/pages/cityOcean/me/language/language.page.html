@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Choose Language' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selectedLanguage" (ionChange)="onLanguage()">
+      <ion-item>
+        <ion-label>English</ion-label>
+        <ion-radio slot="start" value="en"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>简体中文</ion-label>
+        <ion-radio slot="start" value="zh"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>

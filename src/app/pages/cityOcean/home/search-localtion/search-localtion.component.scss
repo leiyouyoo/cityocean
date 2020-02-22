@@ -1,0 +1,101 @@
+@import "../../../../../theme/variables";
+
+ion-header {
+    ion-toolbar {
+        --background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
+
+        &>div {
+            display: flex;
+            align-items: center;
+            padding: 0 px2rem(16px);
+            height: px2rem(64px);
+
+            div.search-wrap {
+                flex: auto;
+                display: flex;
+                align-items: center;
+                position: relative;
+                position: relative;
+
+                i {
+                    width: px2rem(20px);
+                    height: px2rem(20px);
+                    display: inline-block;
+                    position: absolute;
+                    left: px2rem(16px);
+                    @include bg-image("../../../../../assets/icon/home/chat/white-search");
+                }
+
+                input {
+                    background: rgba(255, 255, 255, 0.15);
+                    color: rgba(255, 255, 255, 0.7);
+                    border-radius: px2rem(18px);
+                    width: 100%;
+                    height: px2rem(35px);
+                    padding-left: px2rem(43px);
+
+                    &::-webkit-input-placeholder {
+                        color: rgba(255, 255, 255, 0.7);
+                        font-family: PingFangSC-Regular, PingFang SC;
+                        @include font-dpr(13px);
+                        font-weight: 400;
+                    }
+                }
+            }
+
+            span {
+                @include font-dpr(16px);
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: rgba(255, 255, 255, 1);
+                margin-left: px2rem(9px);
+            }
+        }
+    }
+}
+
+ion-content {
+    section {
+        margin-top: px2rem(20px);
+        .search-history {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 px2rem(16px) 0 px2rem(20px);
+
+            span {
+                height: px2rem(22px);
+                font-size: 16px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: rgba(76, 75, 94, 1);
+                line-height: px2rem(22px);
+            }
+
+            i {
+                display: inline-block;
+                width: px2rem(20px);
+                height: px2rem(20px);
+                @include bg-image("../../../../../assets/icon/qingkong")
+            }
+        }
+
+        .search-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 px2rem(5px) 0 px2rem(20px);
+            margin-top: px2rem(20px);
+            span {
+                height: px2rem(30px);
+                background: rgba(0, 122, 255, 0.15);
+                border-radius: px2rem(15px);
+                white-space: pre;
+                padding: px2rem(6px) px2rem(16px);
+                margin-bottom: px2rem(10px);
+            }
+            span:nth-of-type(odd){
+                margin-right: px2rem(16px);
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@cityocean/common-library",
+  "version": "0.4.24",
+  "peerDependencies": {
+    "@angular/common": "^8.1.2",
+    "@angular/core": "^8.1.2",
+    "@delon/auth": "^8.4.0"
+  }
+}

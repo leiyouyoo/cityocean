@@ -1,0 +1,63 @@
+<ion-content>
+  <ion-list lines="none">
+      <ion-item tappable class="mine-header" color="title">
+          <ion-thumbnail slot="start">
+              <img src="assets/images/Logo.png" class="user" />
+          </ion-thumbnail>
+          <ion-label>
+              <ion-button (click)="register()" *ngIf="!userLogin" color="light">注册</ion-button>
+              <ion-button (click)="login()" *ngIf="!userLogin" color="danger" style="margin-left: 1em">登录</ion-button>
+          <ion-text *ngIf="userLogin" color="white">test01</ion-text>
+          </ion-label>
+      </ion-item>
+  </ion-list>
+
+  <div class="content"></div>
+  <ion-list lines="full">
+    <ion-item detail tappable (click)="onThemePage()">
+      <ion-button slot="start" fill="clear">
+        <ion-icon slot="icon-only" name="cog" color="dark"></ion-icon>
+      </ion-button>
+      <ion-label>{{'Theme Setting' | translate }}</ion-label>
+    </ion-item>
+
+    <ion-item detail tappable (click)="onLanguagePage()">
+      <ion-button slot="start" fill="clear">
+        <ion-icon slot="icon-only" name="language" color="dark"></ion-icon>
+      </ion-button>
+      <ion-label>{{'Language Setting' | translate}}</ion-label>
+    </ion-item>
+
+    <ion-item detail tappable (click)="onAboutPage()">
+      <ion-button slot="start" fill="clear">
+        <ion-icon slot="icon-only" name="alert-circle-outline" color="dark"></ion-icon>
+      </ion-button>
+    <ion-label>{{'About Us' | translate}}</ion-label>
+    </ion-item>
+
+    <ion-item detail tappable (click)="onLogout()" *ngIf="isAndroid">
+      <ion-button slot="start" fill="clear">
+        <ion-icon slot="icon-only" name="log-out" color="danger"></ion-icon>
+      </ion-button>
+      <ion-label color="danger">退出软件</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div style="width: 100px;height: 100px;">
+    <div style="color: red"></div>
+    <div style="color: blue;"></div>
+    <div style="color: black;"></div>
+    <div style="color: gray;"></div>
+  </div>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>联系</ion-fab-button>
+      <ion-fab-button>拒绝</ion-fab-button>
+      <ion-fab-button>接受</ion-fab-button>
+      <ion-fab-button (click)="toLogin()">登录</ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

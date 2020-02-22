@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="goback()" class="go-back"></i>
+      <h5 class="font-18">Rates</h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment value="20gp">
+    <ion-segment-button value="20gp" (ionSelect)="segmentButtonClicked($event)" checked>
+      <ion-label>20GP</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="40gp">
+      <ion-label>40GP</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="40hq">
+      <ion-label>40HQ</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="45hq">
+      <ion-label>45HQ</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <section>
+    <div class="content-wrap">
+      <span class="title">FREIGHT CHARGES/运费</span>
+      <div>
+        <span>Ocean Freight/海运费</span>
+        <span>USD 824</span>
+      </div>
+      <div>
+        <span>Quantity/数量</span>
+        <span>×1 container</span>
+      </div>
+      <div>
+        <span>总额</span>
+        <span>USD 824</span>
+      </div>
+    </div>
+
+    <div class="content-wrap">
+      <span class="title">ORIGIN CHARGES/起运港费用</span>
+      <div>
+        <span>Terminal Handling Charge/码头费</span>
+        <span>USD 824</span>
+      </div>
+      <div>
+        <span>Quantity/数量</span>
+        <span>×1 container</span>
+      </div>
+      <div>
+        <span>总额</span>
+        <span>RMB 100</span>
+      </div>
+
+      <div class="second-content">
+        <span>Export Service Fee/码头费</span>
+        <span>USD 824</span>
+      </div>
+      <div>
+        <span>Quantity/数量</span>
+        <span>×1 container</span>
+      </div>
+      <div>
+        <span>总额</span>
+        <span>RMB 100</span>
+      </div>
+    </div>
+
+    <div class="content-wrap">
+      <span class="title">DESTINATION CHARGES/目的港费用</span>
+      <div>
+        <span>Terminal Handling Charge/码头费</span>
+        <span>USD 824</span>
+      </div>
+      <div>
+        <span>Quantity/数量</span>
+        <span>×1 container</span>
+      </div>
+      <div>
+        <span>总额</span>
+        <span>USD 27.5</span>
+      </div>
+
+      <div class="second-content">
+        <span>Local Logistics Fee Import/进口物流费</span>
+        <span>USD 824</span>
+      </div>
+      <div>
+        <span>Quantity/数量</span>
+        <span>×1 container</span>
+      </div>
+      <div>
+        <span>总额</span>
+        <span>USD 27.5</span>
+      </div>
+
+      <div class="second-content">
+        <span>Terminal Security Charge/安全费</span>
+        <span>USD 824</span>
+      </div>
+      <div>
+        <span>Quantity/数量</span>
+        <span>×1 container</span>
+      </div>
+      <div>
+        <span>总额</span>
+        <span>USD 27.5</span>
+      </div>
+    </div>
+
+    <div class="content-wrap">
+      <div class="last-content">
+        <span>总额</span>
+        <span>USD 824</span>
+      </div>
+      <div>
+        <span>Expiry date/有效期</span>
+        <span>2019/9/27</span>
+      </div>
+    </div>
+  </section>
+  <img src="../../../../../../assets/icon/workbench/rates/icon_kefu@3x.png" alt="" >
+</ion-content>

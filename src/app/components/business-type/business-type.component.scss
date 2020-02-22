@@ -1,0 +1,66 @@
+@import "../../../theme/variables";
+
+.type-bg {
+    @include bg-image("../../../assets/icon/home/chat/bg");
+    width: 100%;
+    height: px2rem(90px);
+    padding: 0 px2rem(34px) 0 px2rem(20px);
+
+    .type-wrap {
+        height: px2rem(80px);
+        border-radius: px2rem(4px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .type-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .title {
+                @include font-dpr(14px);
+                font-family: PingFangSC-Semibold, PingFang SC;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 1);
+                height: px2rem(20px);
+                line-height: px2rem(20px);
+                letter-spacing: px2rem(1px);
+                text-shadow: 0px px2rem(8px) px2rem(7px) rgba(0, 0, 0, 0.09);
+            }
+
+            .detail {
+                height: px2rem(17px);
+                @include font-dpr(12px);
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: rgba(255, 255, 255, 1);
+                margin-top: px2rem(8px);
+                line-height: px2rem(17px);
+                text-shadow: 0px px2rem(8px) px2rem(7px) rgba(0, 0, 0, 0.09);
+            }
+        }
+
+        .type-rigth {
+            display: inline-block;
+            @include bg-image("../../../assets/icon/home/chat/Icon-chuanyun");
+            width: px2rem(40px);
+            height: px2rem(40px);
+        }
+
+        .chat {
+            height: px2rem(60px);
+            width: px2rem(60px);
+            @include bg-image("../../../assets/images/guide/guide_to_right");
+        }
+
+        .status {
+            font-size: 14px;
+            font-family: PingFangSC-Semibold, PingFang SC;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 1);
+            letter-spacing: px2rem(1px);
+            text-shadow: 0px px2rem(8px) px2rem(7px) rgba(0, 0, 0, 0.09);
+        }
+    }
+}

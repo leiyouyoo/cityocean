@@ -1,0 +1,39 @@
+@import "../../../theme/variables";
+
+.massge-rolling-wrap {
+  position: relative;
+  height: px2rem(30px);
+
+  #massage {
+    height: px2rem(30px);
+    overflow: hidden;
+    text-align: center;
+    margin: px2rem(16px);
+    p{
+      height: px2rem(30px);
+      display: flex;
+      align-items: center;
+    }
+    i {
+      display: inline-block;
+      width: px2rem(28px);
+      height: px2rem(16px);
+      margin-right: px2rem(5px);
+      @include bg-image("../../../assets/icon/home/xitong")
+    }
+  }
+
+  #massage div span {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: px2rem(14px);
+    font-size: 10px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(76, 75, 94, 1);
+    line-height: px2rem(14px);
+  }
+}

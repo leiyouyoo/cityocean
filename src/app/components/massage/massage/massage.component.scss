@@ -1,0 +1,135 @@
+@import "../../../../theme/variables";
+
+.icom-size {
+    display: inline-block;
+    width: px2rem(48px) !important;
+    height: px2rem(48px) !important;
+    flex: none;
+}
+
+.massage-group {
+    display: flex;
+    align-items: center;
+    padding: px2rem(12px) 0;
+    height: px2rem(82px);
+    position: relative;
+    box-sizing: border-box;
+
+    i.C2C {
+        @extend .icom-size;
+        @include bg-image("../../../../assets/icon/home/chat/touxian5");
+    }
+
+    i.booking {
+        @extend .icom-size;
+        @include bg-image("../../../../assets/icon/home/icon_booking");
+    }
+    i.order {
+        @extend .icom-size;
+        @include bg-image("../../../../assets/icon/home/Order");
+    }
+    i.quote {
+        @extend .icom-size;
+        @include bg-image("../../../../assets/icon/home/icon_quote");
+    }
+
+    i.billing {
+        @extend .icom-size;
+        @include bg-image("../../../../assets/icon/home/icon_billing");
+    }
+
+    i.shipment {
+        @extend .icom-size;
+        @include bg-image("../../../../assets/icon/home/icon_shipment");
+    }
+
+    span.time {
+        height: px2rem(17px);
+        font-family: PingFang-SC-Medium, PingFang-SC;
+        font-weight: 500;
+        @include font-dpr(12px);
+        color: rgba(204, 204, 204, 1);
+        line-height: px2rem(17px);
+    }
+
+    .text-group {
+        flex: auto;
+        margin-left: px2rem(8px);
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .number-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span.number-text {
+                @include font-dpr(10px);
+            }
+
+            span.lables {
+                height: px2rem(16px);
+                line-height: px2rem(16px);
+                color:#4C4B5E;
+                @include font-dpr(10px);
+                background: rgba(96, 71, 255, 0.14);
+                border-radius: px2rem(2px);
+                padding: px2rem(1px) px2rem(4px);
+                margin-left: px2rem(4px);
+            }
+
+            span.number-text {
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: rgba(76, 75, 94, 1)
+            }
+
+            span.lable-booking {
+                background:rgba(0,219,224,0.14);
+            }
+
+            span.lable-quote {
+                background:rgba(100,74,255,0.13);
+            }
+            span.lable-order {
+                background:rgba(255,51,101,0.14);
+            }
+            span.lable-shipment {
+                background: rgba(0, 122, 255, 0.13);
+            }
+
+            span.lable-billing {
+                background: rgba(255, 205, 97, 0.14);
+            }
+        }
+
+        p.state {
+            height: px2rem(20px);
+            line-height: px2rem(20px);
+            color: rgba(76, 75, 94, 0.8);
+            @include font-dpr(14px);
+            font-weight: bold;
+            letter-spacing: px2rem(1px);
+            font-family: PingFang-SC-Medium;
+            max-width: px2rem(270px);
+            overflow: hidden;
+        }
+
+        span.description {
+            line-height: px2rem(17px);
+            width: px2rem(270px);
+            font-family: PingFang-SC-Regular, PingFang-SC;
+            font-weight: 400;
+            @include font-dpr(10px);
+            color: rgba(159, 159, 175, 1);
+            letter-spacing: px2rem(1px);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+        }
+    }
+}

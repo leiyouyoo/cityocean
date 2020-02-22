@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ 'Contacts' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list style="margin-bottom: 1%">
+    <ion-item-sliding *ngFor="let item of items; let i = index" #slide>
+      <ion-item>
+        <ion-row style="width: 100%">
+          <ion-col size="4">
+            <ion-row>
+              <ion-icon name="chatbubbles" style="font-size: 24px; color: #99CC33"></ion-icon>
+            </ion-row>
+            <ion-row>
+              <div style="font-size: 14px; margin-top: 7%">
+                {{item.count}}人回答
+              </div>
+            </ion-row>
+          </ion-col>
+          <ion-col size="4">
+            <ion-row>
+              <ion-label>{{item.theme}}</ion-label>
+            </ion-row>
+            <ion-row style="margin-top: 10%; padding-left: 12%">
+              <div style="font-size: 14px;">{{item.integral}}积分</div>
+            </ion-row>
+          </ion-col>
+          <ion-col size="4">
+            <ion-row style="padding-left: 73%">
+              <ion-icon
+                *ngIf="item.states==2"
+                name="radio-button-on"
+                style="font-size: 24px; color: #FF9966"
+              ></ion-icon>
+            </ion-row>
+            <ion-row style="float: right; margin-top: 7%;">
+              <div style="padding-top:11%; font-size: 14px">已结束</div>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item-options>
+        <ion-button color="primary" expand="full" style="width:15%;height:90%" (click)="deleteItem(i,slide)">
+          {{ 'Delete' | translate}}
+        </ion-button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-item>
+    <ion-label position="fixed">Fixed Label</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+</ion-footer>

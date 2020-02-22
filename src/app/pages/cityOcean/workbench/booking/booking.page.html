@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <div class="left-content">
+        <i (click)="goback()" class="go-back"></i>
+        <i class="search-icon"></i>
+        <input type="text" placeholder="搜索" />
+      </div>
+      <i (click)="bookingFilter($event)" class="filter"></i>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section>
+    <div class="content-wrap" (click)="gotoBookingDetail(item)" *ngFor="let item of bookingList; let i=index">
+      <div class="content-group no-group-wrap">
+        <div class="no-group">
+          <i
+            [ngClass]="{'ship-icon': item.freightMethodType ==1,'air-icon': item.transportType ==2}"
+            class="ship-icon"
+          ></i>
+          <div>
+            <span>{{item.name}}</span>
+          </div>
+        </div>
+        <div class="status">{{statusType[item.status]}}</div>
+      </div>
+      <div class="Shipper content-group line-class">
+        <div>
+          <div class="flag"></div>
+          <span>Shipper</span>
+        </div>
+        <span class="address-name">{{item.shipperAddress?.name}}</span>
+      </div>
+      <div class="Consignee content-group line-class">
+        <div>
+          <div class="flag"></div>
+          <span>Consignee</span>
+        </div>
+        <span>{{item.consigneeAddress?.name}}</span>
+      </div>
+      <div  class="Cargo content-group">
+        <div>
+          <span>Cargo ready date</span>
+        </div>
+        <span>{{getTime(item.cargoReadyDate)}}</span>
+      </div>
+      <div  class="Cargo content-group">
+        <div>
+          <span>Cargo details</span>
+        </div>
+        <span>{{item.weight}}kg <span>{{item.volume}}cbm</span></span>
+      </div>
+    </div>
+  </section>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="getBookingList({},$event)">
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

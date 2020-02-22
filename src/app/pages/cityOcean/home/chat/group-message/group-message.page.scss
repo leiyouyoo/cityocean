@@ -1,0 +1,154 @@
+@import "../../../../../../theme/variables";
+
+ion-header {
+    background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
+
+    ion-toolbar {
+        --background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
+        padding: 0 px2rem(16px);
+        width: 100%;
+        height: px2rem(64px);
+        line-height: px2rem(64px);
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            i.go-back {
+                display: inline-block;
+                width: px2rem(24px);
+                height: px2rem(24px);
+                z-index: 10;
+                @include bg-image("../../../../../../assets/icon/home/chat/white_back");
+            }
+
+            span {
+                @include font-dpr(18px);
+                font-family: PingFangSC-Semibold, PingFang SC;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 1);
+                flex: auto;
+                text-align: center;
+                position: relative;
+                left: px2rem(-24px);
+            }
+        }
+
+    }
+}
+
+ion-content {
+    label {
+        font-family: PingFangSC-Regular;
+        color: rgba(76, 75, 94, 1)
+    }
+
+    section.member-group {
+        margin-left: px2rem(17px);
+        padding: px2rem(20px) 0;
+        border-bottom: px2rem(1px) solid #F2F2F9;
+
+        div.add-members {
+            display: flex;
+            align-items: center;
+            margin: px2rem(20px) 0;
+
+            i {
+                display: inline-block;
+                width: px2rem(44px);
+                height: px2rem(44px);
+                margin-right: px2rem(16px);
+                z-index: 10;
+                @include bg-image("../../../../../../assets/icon/home/chat/add");
+            }
+
+            span {
+                font-family: PingFangSC-Regular;
+                color: rgba(76, 75, 94, 1);
+            }
+        }
+
+        div.member-wrap {
+            display: flex;
+            align-items: center;
+            margin-bottom: px2rem(20px);
+
+            img {
+                display: inline-block;
+                width: px2rem(42px);
+                height: px2rem(42px);
+                margin-right: px2rem(16px);
+            }
+
+            &>div {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .member-name {
+                    @include font-dpr(16px);
+                    font-family: PingFangSC-Regular;
+                    color: rgba(112, 111, 126, 1);
+                }
+
+                .member-type {
+                    @include font-dpr(14px);
+                    font-family: PingFangSC-Regular, PingFang SC;
+                    font-weight: 400;
+                    color: rgba(159, 159, 175, 0.6);
+                }
+            }
+        }
+
+        div.member-wrap:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    section.setting-group {
+        margin-left: px2rem(17px);
+        padding: px2rem(20px) 0;
+
+        &>div {
+            display: flex;
+            align-items: center;
+            margin-top: px2rem(20px);
+
+            span {
+                font-family: PingFangSC-Regular;
+                color: rgba(76, 75, 94, 0.8);
+            }
+        }
+
+        i {
+            display: inline-block;
+            width: px2rem(18px);
+            height: px2rem(18px);
+            margin-right: px2rem(16px);
+        }
+
+        i.right-arrow {
+            position: absolute;
+            right: 0;
+            @include bg-image("../../../../../../assets/icon/home/chat/jinru");
+        }
+
+        i.search {
+            @include bg-image("../../../../../../assets/icon/home/chat/grey-search");
+        }
+
+        i.change-group-name {
+            @include bg-image("../../../../../../assets/icon/home/chat/wrrite");
+        }
+
+        i.change-wallpaper {
+            @include bg-image("../../../../../../assets/icon/home/chat/wrrite_bg");
+        }
+
+        i.exit-group {
+            @include bg-image("../../../../../../assets/icon/home/chat/tuichu");
+        }
+    }
+}
+

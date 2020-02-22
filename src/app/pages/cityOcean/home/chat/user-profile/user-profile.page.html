@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="goback()" class="go-back"></i>
+      <span class="font-18">详细信息</span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section>
+    <div class="bg-wrap">
+      <img src="../../../../../../assets/icon/home/chat/touxian2@3x.png" alt="头像" srcset="">
+    </div>
+    <div class="text-wrap">
+      <span class="font-18 name">Nicholas Gordon</span>
+      <span class="font-15 role">Manager</span>
+      <div class="change-remarks-wrap">
+        <span class="remarks font-15">备注和描述</span>
+        <i (click)= "changeRemarks()" class="change-remarks"></i>
+      </div>
+      <span class="description font-14">描述描述描述</span>
+    </div>
+
+  </section>
+</ion-content>
+
+<ion-footer id='keyboard-flex'>
+  <div class="foot-wrap font-16">
+    发消息
+  </div>
+</ion-footer>

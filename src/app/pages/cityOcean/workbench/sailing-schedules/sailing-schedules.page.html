@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="goback()" class="go-back"></i>
+      <h5 class="font-18">船期</h5>
+      <i (click)="sailingFilter($event)" class="filter"></i>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section>
+    <div class="content-wrap" (click)="gotoSailingDetail(item)" *ngFor="let item of sailingList; let i=index">
+      <div class="content-group no-group-wrap">
+        <div class="sailing-message">
+          <!-- <i class="ship-icon"></i> -->
+          <img [src]="item.imageUrl" />
+          <div >
+            <span>{{item['Vessel/Voyage']}}</span>
+            <span>{{item.carrierCode}}</span>
+          </div>
+        </div>
+        <p class="day-group">
+          <i [class] = "item.type"></i>
+          <span class="day-bg">{{item['T/T']}}</span>Day
+        </p>
+      </div>
+      <!-- <div class="first content-group line-class">
+        <div>
+          <div class="flag"></div>
+          <span>{{item['Port of Loading']}}</span>
+        </div>
+          <span>{{item.first}}</span>
+      </div> -->
+      <div class="start content-group line-class">
+        <div>
+          <div class="flag"></div>
+          <span>Port of Loading</span>
+        </div>
+          <span>{{item['Port of Loading']}}
+            <div>
+              <span>ETD</span>
+              <span>{{item.etd}}</span>
+            </div>
+          </span>
+      </div>
+      <div class="transit content-group line-class">
+        <div>
+          <div class="flag"></div>
+          <span>Transit Port</span>
+        </div>
+          <span>Transit</span>
+      </div>
+      <div class="end content-group line-class">
+        <div>
+          <div class="flag"></div>
+          <span>目的港</span>
+        </div>
+          <span>{{item['Port of Discharge']}}
+            <div>
+              <span>ETA</span>
+              <span>{{item.eta}}</span>
+            </div>
+          </span>
+      </div>
+      <div *ngIf="item.finally" class="finally content-group line-class">
+        <div>
+          <div class="flag"></div>
+          <span>最终目的地</span>
+        </div>
+          <span>{{item.finally}}</span>
+      </div>
+    </div>
+  </section>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="getSailingList(null,$event)">
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

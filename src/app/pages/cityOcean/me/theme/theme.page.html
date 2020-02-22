@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>我的主题</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+      <ion-radio-group [(ngModel)]="ThemeType" (ionChange)="onChoose($event)">
+          <ion-item>
+              <ion-label>蓝色</ion-label>
+              <ion-radio slot="start" value="blue"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+              <ion-label>黑色</ion-label>
+              <ion-radio slot="start" value="dark"></ion-radio>
+          </ion-item>
+      </ion-radio-group>
+  </ion-list>
+</ion-content>

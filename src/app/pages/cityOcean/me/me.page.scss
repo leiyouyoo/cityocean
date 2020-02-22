@@ -1,0 +1,32 @@
+ion-icon {
+    color: var(--ion-color-medium);
+  }
+  
+  .list-md {
+    padding: 0 !important;
+  }
+  
+  .mine-header {
+    background: var(--ion-color-primary) !important;
+    padding: 4em 0.2em !important;
+    ion-thumbnail {
+      img {
+        border-radius: 4px;
+      }
+    }
+    ion-label {
+      h2 {
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+    }
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+  
+  .user {
+    background: var(--ion-color-dark);
+    border-radius: 100% !important;
+  }
+  

@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <i (click)="dismissModal()" class="go-back"></i>
+      <h5 class="font-18">筛选</h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <form formGroupName="profileForm">
+    <div>
+      <ion-select
+        name="process"
+        [interfaceOptions]="{ header: 'All shipments in progress',cssClass :'ion-select-my-class' }"
+        multiple="true"
+        placeholder="Select One"
+        (ionChange) = "processChange($event)"
+        [value]="profileForm.process"
+        (ngModelChange)="processOptionClick($event)"
+      >
+        <ion-select-option (click)="processOptionClick(item.value)" *ngFor="let item of processOptionList" [value]="item.value">{{item.name}}</ion-select-option>
+      </ion-select>
+      <div class="my-icon"></div>
+    </div>
+    <div>
+      <ion-select
+        name="mode"
+        [interfaceOptions]="{ header: 'Select  all mode',cssClass :'ion-select-my-class' }"
+        multiple="true"
+        placeholder="Select One"
+        [value] = "profileForm.mode"
+        (ionChange) = "modeChange($event)"
+      >
+        <ion-select-option selected value="all">Select  all</ion-select-option>
+        <ion-select-option value="air">Air</ion-select-option>
+        <ion-select-option value="LCL">Ocean LCL</ion-select-option>
+        <ion-select-option value="FCL">Ocean FCl</ion-select-option>
+      </ion-select>
+      <div class="my-icon"></div>
+    </div>
+    <div>
+      <ion-select
+        name="date"
+        [interfaceOptions]="{ header: 'Sort By',cssClass :'ion-select-my-class' }"
+        interface="action-sheet"
+        placeholder="Select One"
+        [value] = "profileForm.date"
+        (ionChange) ="dateChange($event)"
+      >
+        <ion-select-option selected value="deliveryDate">Delivery Date</ion-select-option>
+        <ion-select-option value="mostRecentEvent">Most Recent Event</ion-select-option>
+        <ion-select-option value="cargoReadyDate">Cargo Ready Date</ion-select-option>
+        <ion-select-option value="creationTime">Time of Creation</ion-select-option>
+      </ion-select>
+      <div class="my-icon"></div>
+    </div>
+  </form>
+  <ion-button (click)="confirm()" expand="block">确认</ion-button>
+</ion-content>

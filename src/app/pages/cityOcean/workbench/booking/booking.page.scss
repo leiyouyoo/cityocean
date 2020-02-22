@@ -1,0 +1,206 @@
+@import "../../../../../theme/variables";
+
+ion-header {
+    display: flex;
+    align-items: flex-end;
+    height: px2rem(64px);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px px2rem(2px) px2rem(30px) 0px rgba(0, 0, 0, 0.06);
+
+    ion-toolbar {
+        padding: 0 px2rem(16px);
+        width: 100%;
+
+        &>div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: px2rem(64px);
+            line-height: px2rem(64px);
+            position: relative;
+            .left-content{
+                display: flex;
+                align-items: center;
+                flex: auto;
+                input{
+                    flex: auto;
+                    &::-webkit-input-placeholder {
+                        font-size:12px;
+                        font-family:PingFangSC-Regular,PingFang SC;
+                        font-weight:400;
+                        color:rgba(122,134,154,1);  
+                    }
+                }
+            }
+        }
+
+        i {
+            display: inline-block;
+            width: px2rem(24px);
+            height: px2rem(24px);
+        }
+
+        i.go-back {
+            @include bg-image("../../../../../assets/icon/home/chat/icon-back");
+        }
+
+        i.filter {
+            @include bg-image("../../../../../assets/icon/workbench/shaixuan");
+        }
+
+        i.search-icon{
+            width: px2rem(20px);
+            height: px2rem(20px);
+            margin: 0 px2rem(10px) 0 px2rem(25px);
+            @include bg-image("../../../../../assets/icon/workbench/search");
+        }
+        h5 {
+            font-family: PingFangSC-Semibold, PingFang SC;
+            font-weight: 600;
+            color: rgba(76, 75, 94, 1);
+            @include font-dpr(18px);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+    }
+}
+
+ion-content {
+    section {
+        padding: px2rem(16px) px2rem(8px);
+
+        i {
+            display: inline-block;
+        }
+
+        .content-wrap {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0px 0px px2rem(4px) 0px rgba(0, 0, 0, 0.08), 0px px2rem(2px) px2rem(10px) 0px rgba(0, 0, 0, 0.1);
+            border-radius: px2rem(8px);
+            padding: px2rem(16px);
+            margin-bottom: px2rem(16px);
+
+            .no-group-wrap {
+                margin-top: 0 !important;
+                align-items: flex-start !important;
+            }
+
+            .no-group {
+                align-items: flex-start !important;
+
+                &>div {
+                    display: flex;
+                    flex-direction: column;
+
+                    span {
+                        height: px2rem(17px);
+                        font-size: 12px;
+                        font-family: PingFangSC-Semibold, PingFang SC;
+                        font-weight: 600;
+                        color: var(--ion-color-dark);
+                        line-height: px2rem(17px);
+                    }
+                }
+            }
+
+            .ship-icon {
+                width: px2rem(16px);
+                height: px2rem(16px);
+                margin-right: px2rem(6px);
+                flex-shrink: 0;
+                @include bg-image("../../../../../assets/icon/workbench/icon_shipment")
+            }
+
+            .air-icon {
+                width: px2rem(16px);
+                height: px2rem(16px);
+                margin-right: px2rem(6px);
+                flex-shrink: 0;
+                @include bg-image("../../../../../assets/icon/workbench/icon_shipment_air")
+            }
+
+            .status {
+                height: px2rem(22px);
+                background: rgba(255, 255, 255, 1);
+                border-radius: px2rem(11px);
+                border: 1px solid rgba(0, 122, 255, 1);
+                padding: px2rem(2px) px2rem(9px);
+                font-size: 12px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: rgba(0, 122, 255, 1);
+            }
+
+            .content-group {
+                display: flex;
+                align-items: flex-start ;
+                justify-content: space-between;
+                margin-top: px2rem(20px);
+                position: relative;
+
+                &>div {
+                    display: flex;
+                    align-items: center;
+
+                    &>span {
+                        height: px2rem(17px);
+                        font-size: 12px;
+                        font-family: PingFangSC-Regular, PingFang SC;
+                        font-weight: 400;
+                        line-height: px2rem(17px);
+                        color: rgba(159, 159, 175, 1);
+                        margin: 0 px2rem(11px);
+                    }
+                }
+
+                &>span {
+                    font-size: 12px;
+                    font-family: PingFangSC-Regular, PingFang SC;
+                    font-weight: 400;
+                    color: rgba(76, 75, 94, 1);
+                    text-align: right;
+                }
+
+                .flag {
+                    border-radius: 100%;
+                    width: px2rem(10px);
+                    height: px2rem(10px);
+                }
+
+
+            }
+
+            .line-class::before {
+                content: "";
+                position: absolute;
+                height: px2rem(20px);
+                border-left: px2rem(1px) solid #E4E4E4;
+                bottom: 100%;
+                left: px2rem(4.5px);
+            }
+
+            .line-class:nth-child(2):before {
+                border: 0 !important;
+            }
+
+            .Shipper {
+                .flag {
+                    background: #05C099;
+                }
+            }
+
+            .Consignee {
+                border-bottom: px2rem(1px) solid #E6EAF7;
+                padding-bottom: px2rem(10px);
+                .flag {
+                    background: #DE6717;
+                }
+            }
+            .Cargo{
+                margin-top: px2rem(12px);
+            }
+        }
+    }
+}

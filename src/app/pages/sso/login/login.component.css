@@ -1,0 +1,30 @@
+.login-main {
+  width: 584px;
+  height: 600px;
+  padding: 24px 35px 50px 39px;
+  color: #17191a;
+  background: #fff;
+}
+.login-main form > div {
+  display: flex;
+  align-items: center;
+}
+.login-main .form-logo {
+  margin-bottom: 20px;
+  width: 91px;
+  height: 43px;
+  font-size: 36px;
+  font-weight: 300;
+  color: #51657e;
+}
+.login-main .form-logo img {
+  width: 100%;
+  height: 100%;
+}
+.login-main .icon-pwd img {
+  width: 21px;
+  height: 22px;
+}
+.pwshow {
+  font-size: 16px;
+}

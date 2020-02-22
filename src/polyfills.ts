@@ -52,12 +52,13 @@
  *
  */
 
-import './zone-flags';
+import './zone-flags.ts';
 
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-
+import 'tim-js-sdk';
+import './app/3rd-party-libs/lib-generate-test-usersig.min.js';
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 

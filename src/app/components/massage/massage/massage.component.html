@@ -1,0 +1,19 @@
+<div *ngIf="detail" class="massage-group">
+  <i class="massage-avatar" [class]="detail.type"></i>
+  <div class="text-group">
+    <div *ngIf="detail" class="number-wrap">
+      <div>
+        <span class="number-text font-10">{{ detail.name }}</span>
+        <span
+          *ngIf="detail?.type && detail?.type != 'im'"
+          [ngClass]="{ 'lables': true,'font-10':true}"
+          [class]="'lable-' + detail?.type"
+          >{{ detail?.type }}</span>
+      </div>
+      
+      <span class="time font-12">{{ detail.lastMessage.lastTime }}</span>
+    </div>
+    <p class="state font-14"  [innerHtml] ="detail.lastMessage.messageForShow"></p>
+    <span class="description font-10" [innerHtml] ="detail.lastMessage.messageForShow"></span>
+  </div>
+</div>

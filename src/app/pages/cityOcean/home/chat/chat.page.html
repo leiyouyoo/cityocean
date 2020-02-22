@@ -1,0 +1,62 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/cityOcean/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>transportationCost</ion-title>
+  </ion-toolbar> -->
+  <ion-toolbar>
+    <div>
+      <i (click)="goback()" class="go-back"></i>
+      <h5 class="font-18">{{groupName}}</h5>
+      <div class="tool-wrap">
+        <i *ngIf="!isC2C" (click)="gotoGroup()" class="group-massege"></i>
+        <i (click)="chooseMoreType($event)" class="more"></i>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh) = "doRefresh($event)" id="refresher">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!isC2C" class="type-wrap">
+    <app-business-type (click)="gotoDetail()" [type] = "'chat'"></app-business-type>
+  </div>
+  <section [ngClass]="{'chat-content-wrap-margin': !isC2C}" class="chat-content-wrap">
+    <ion-card *ngFor="let item of chatList" [class]="'card-' + item.flow +'-group'">
+      <img *ngIf="item.flow=='out'" (click)="gotoUserProfile(item.from)" [class]="'anchor-' + item.flow" class="head-anchor"
+        src="../../../../../assets/icon/home/chat/touxian5@3x.png" />
+      <img *ngIf="item.flow=='in'"  (click)="gotoUserProfile(item.from)"  [class]="'anchor-' + item.flow" class="head-anchor"
+        src="../../../../../assets/icon/home/chat/touxian2@3x.png" />
+      <ion-card-content>
+        <span class="font-14" [innerHtml]="item.payload?.text"></span>
+      </ion-card-content>
+    </ion-card>
+  </section>
+</ion-content>
+<ion-footer  id='keyboard-flex'>
+  <div class="foot-wrap">
+    <i class="yuyin"></i>
+    <input type="text" [(ngModel)]="sendingMessage" (click)="showTools = false" placeholder="Type a message" name=""
+      id="inputElement" />
+    <i *ngIf="!sendingMessage && !showTools" (click)="showTools = true" class="change"></i>
+    <i *ngIf="!sendingMessage && showTools" (click)="showTools = false" class="qiehuan"></i>
+    <i *ngIf="sendingMessage" (click)="send()" class="send"></i>
+  </div>
+  <div class="hide-tools" *ngIf="showTools">
+    <div (click)="imgUpload()">
+      <i class="camera"></i>
+      <span>拍照</span>
+    </div>
+    <div (click)="imageUpload()">
+      <i class="photo"></i>
+      <span>照片</span>
+    </div>
+    <div>
+      <i class="business-card"></i>
+      <span>个人名片</span>
+    </div>
+  </div>
+</ion-footer>

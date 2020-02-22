@@ -1,0 +1,114 @@
+<ion-content>
+  <section class="logo-group">
+    <i class="logo-wrap"></i>
+    <span class="logo-text font-36">{{ 'Login' | translate }}</span>
+  </section>
+  <section class="bottom-wrap">
+    <form [formGroup]="validateForm" autocomplete="off" class="input-group">
+      <div class="email-wrap">
+        <ion-label class="font-9" color="primary">{{ 'Email Adress' | translate }}</ion-label>
+        <input
+          (keyup)="onUsernameKeyup($event)"
+          [ngClass]="{
+            'input-invalid': username.invalid && (username.dirty || username.touched),
+            'input-success-border': !username.invalid && (username.dirty || username.touched)
+          }"
+          formControlName="username"
+          type="text"
+          placeholder="johndoe@doe.com"
+          autocomplete="username"
+        />
+        <i *ngIf="!username.invalid && (username.dirty || username.touched)" class="input-success"></i>
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-error font-9">
+          <div *ngIf="username.errors.required">
+            .{{ 'Email Adress' | translate }}
+          </div>
+          <div *ngIf="username.errors.email">
+            {{ 'Check your mail address again' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="password-wrap">
+        <ion-label color="primary">{{ 'Password' | translate }}</ion-label>
+        <input
+          id="passwordElement"
+          autocomplete="new-password"
+          formControlName="password"
+          (click)="$event.stopPropagation()"
+          type="{{ !pwshow ? 'password' : 'text' }}"
+          [ngClass]="{
+            'input-invalid': password.invalid && (password.dirty || password.touched),
+            'input-success-border': !password.invalid && (password.dirty || password.touched),
+            'input-writing': focusPassword
+          }"
+          placeholder="johndoe@doe.com"
+        />
+        <i
+          *ngIf="focusPassword"
+          class="pwicon"
+          [ngClass]="{ showpwicon: !pwshow, notpwicon: pwshow }"
+          (click)="controlPwshow($event)"
+        ></i>
+        <i
+          *ngIf="!password.invalid && (password.dirty || password.touched) && !focusPassword"
+          class="input-success"
+        ></i>
+      </div>
+    </form>
+    <section class="button-group">
+      <div (click)="login()" class="login-group">
+        <span class="font-16">{{ 'Login' | translate }}</span>
+        <i></i>
+      </div>
+      <span class="login-other font-9">or login via</span>
+      <div class="facebook-group">
+        <span class="font-16">{{ 'Facebook' | translate }}</span>
+        <i></i>
+      </div>
+      <div class="wechat-group">
+        <span class="font-16">{{ 'Wechat' | translate }}</span>
+        <i></i>
+      </div>
+    </section>
+  </section>
+</ion-content>
+
+<!-- <div class="login-main">
+  <form [formGroup]="validateForm" class="login-form" autocomplete="off">
+    <div class="form-logo">{{ 'LOGIN.login' | translate }}</div>
+    <div>
+      <i class="icon-pwd"
+        ><img src="/assets//images/icon_denglu@3x.png" alt=""
+      /></i>
+      <input
+        type="text"
+        autocomplete="username"
+        name="lastname_74758209201093747"
+        class="input-field"
+        formControlName="username"
+        placeholder="Username"
+        (keyup)="onUsernameKeyup($event)"
+      />
+    </div>
+    <div>
+      <i class="icon-pwd"
+        ><img src="/assets//images/icon_suo@3x.png" alt=""
+      /></i>
+      <input
+        type="{{ !pwshow ? 'text' : 'password' }}"
+        class="input-field"
+        formControlName="password"
+        placeholder="Password"
+        autocomplete="new-password"
+      />
+      <ion-icon
+        class="pwshow"
+        (click)="pwshow = !pwshow"
+        name="{{ pwshow ? 'eye-off' : 'eye' }}"
+      ></ion-icon>
+      <p class="infoMessage option-block">
+      </p>
+    </div>
+    <button class="login-form-button" (click)="login()">LOGIN</button>
+  </form>
+</div> -->

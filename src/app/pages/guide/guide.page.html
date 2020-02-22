@@ -1,0 +1,23 @@
+<!-- <ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Slides</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content fullscreen scroll-y="false" >
+  <ion-slides  #ionslides (ionSlideDrag)="ionSlideDrag()">
+    <ion-slide *ngFor="let item of slides,let i = index">
+      <span (click)="skipGuide()" class="skip-guide font-16">跳过</span>
+      <div [class]="'guide_bg_' + (i+1)">
+        <div class="arrow_group">
+          <div class="Rectangle-gorup">
+            <i [ngStyle]="{order:item.order0}" class="Rectangle-big"></i>
+            <i [ngStyle]="{order:item.order1}" class="Rectangle-small"></i>
+            <i [ngStyle]="{order:item.order2}" class="Rectangle-small"></i>
+          </div>
+          <i (click) = "slideNext()" class="guide_to_right"></i>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

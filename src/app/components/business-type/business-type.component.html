@@ -1,0 +1,10 @@
+<div class="type-bg">
+  <div class="type-wrap">
+    <div class="type-left">
+      <span class="title font-14">{{title?.title1}}</span>
+      <span *ngIf="title?.title2" class="detail font-12">{{title?.title2}}</span>
+    </div>
+    <i *ngIf="type" [class]="type"></i>
+    <span class="status" *ngIf="status">{{status}}</span>
+  </div>
+</div>

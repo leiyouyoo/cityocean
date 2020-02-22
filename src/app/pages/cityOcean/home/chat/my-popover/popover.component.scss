@@ -1,0 +1,43 @@
+@import "../.././../../../../theme/variables";
+
+.popover-wrap {
+    &>div {
+        width: px2rem(160px);
+        height: px2rem(44px);
+        display: flex;
+        align-items: center;
+        padding-left: px2rem(17px);
+        i {
+            display: inline-block;
+            width: px2rem(24px);
+            height: px2rem(24px);
+           
+        }
+
+        i.rates {
+            @include bg-image("../../../../../../assets/icon/home/chat/more/rates");
+        }
+
+        i.quotes {
+            @include bg-image("../../../../../../assets/icon/home/chat/more/quotes");
+        }
+
+        i.booking {
+            @include bg-image("../../../../../../assets/icon/home/chat/more/booking");
+        }
+
+        i.biling {
+            @include bg-image("../../../../../../assets/icon/home/chat/more/biling");
+        }
+
+        i.contacts {
+            @include bg-image("../../../../../../assets/icon/home/chat/more/contacts");
+        }
+
+        span {
+            margin-left: px2rem(20px);
+            font-family: PingFangSC-Regular;
+            color: rgba(76, 75, 94, 1);
+        }
+    }
+}
