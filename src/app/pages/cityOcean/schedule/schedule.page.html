@@ -1,9 +1,21 @@
 <ion-content>
-  <div class="schedule-title">
+  <!-- <div class="schedule-title">
     <div></div>
     2020年2月
+   
+  </div> -->
+  <div class="calendar">
     <ion-icon name="calendar-outline"></ion-icon>
   </div>
+
+  <ion-calendar
+    [(ngModel)]="date"
+    (onChange)="onChange($event)"
+    [options]="optionsMulti"
+    [type]="type"
+    [format]="'YYYY-MM-DD'"
+  >
+  </ion-calendar>
 
   <div class="content" (click)="onScheduleDetial()">
     <div class="content-msg" style="background-color: #CFECFF;">
