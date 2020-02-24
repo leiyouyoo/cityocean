@@ -2,14 +2,14 @@
 
 ion-content {
   section.logo-group {
-    margin: px2rem(72px) 0 0 px2rem(48px);
+    margin: 4em 0 0 4em;
     display: flex;
     flex-direction: column;
 
     .logo-wrap {
       display: inline-block;
-      width: px2rem(68px);
-      height: px2rem(68px);
+      width: 6em;
+      height: 6em;
       @include bg-image("../../../../assets/images/Logo");
     }
 
@@ -17,16 +17,15 @@ ion-content {
       font-family: $font-PingFangSC;
       color: #F2F2F9;
       @include font-dpr(36px);
-      margin-top: px2rem(20px);
+      margin-top: 0.5em;
       display: inline-block;
-      height: px2rem(40px);
-      line-height: px2rem(40px);
+      font-size: 3em;
     }
   }
 
   section.bottom-wrap {
-    padding: 0 px2rem(24px);
-    margin-top: px2rem(82px);
+    padding: 0 1.5em;
+    margin-top: 4em;
 
     form.input-group {
 
@@ -39,24 +38,23 @@ ion-content {
         .alert-error {
           @include font-dpr(9px);
           color: $aligned-color;
-          margin-top: px2rem(7px);
+          margin-top: 0.25em;
         }
 
         ion-label {
           color: $medium-color;
           font-family: $font-PingFangSC;
-          margin-bottom: px2rem(8px);
           display: inline-block;
-          height: px2rem(16px);
+          height: 2em;
           @include font-dpr(9px);
         }
 
         input {
           border: 0;
           padding: 0;
-          padding-bottom: px2rem(6px);
-          border-bottom: px2rem(2px) solid opacityLinghtColor(0.4);
-          height: px2rem(24px);
+          padding-bottom: 0.1em;
+          border-bottom: 0.1em solid opacityLinghtColor(0.4);
+          height:2em;
 
           &::-webkit-input-placeholder {
             color: $linght-color;
@@ -67,84 +65,82 @@ ion-content {
           &:focus {
             outline: none;
             border: 0;
-            border-bottom: px2rem(2px) solid opacityLinghtColor(0.4);
+            border-bottom: 0.1em solid opacityLinghtColor(0.4);
           }
         }
 
         input.input-invalid {
-          border-bottom: px2rem(2px) solid $aligned-color;
+          border-bottom: 0.1em solid $aligned-color;
         }
 
         input.input-success-border {
-          border-bottom: px2rem(2px) solid $sucess-color;
+          border-bottom: 0.1em solid $sucess-color;
         }
 
         input.input-writing {
-          border-bottom: px2rem(2px) solid $primary-color;
+          border-bottom: 0.1em solid $primary-color;
         }
 
         .input-success {
           position: absolute;
-          right: px2rem(17px);
-          bottom: px2rem(14px);
+          right: 0.75em;
+          bottom: 0.75em;
           display: inline-block;
-          width: px2rem(24px);
-          height: px2rem(24px);
+          width: 1em;
+          height: 1em;
           @include bg-image("../../../../assets/images/login/Icon-Checkmark");
         }
       }
 
       .password-wrap {
-        margin-top: px2rem(32px);
+        margin-top: 2em;
         position: relative;
 
         .pwicon {
           position: absolute;
-          right: px2rem(17px);
-          bottom: px2rem(14px);
+          right: 0.75em;
+          bottom: 0.5em;
         }
 
         .showpwicon {
           display: inline-block;
-          width: px2rem(24px);
-          height: px2rem(24px);
+          width: 1em;
+          height: 1em;
           @include bg-image("../../../../assets/images/login/Icon-Right");
         }
 
         .notpwicon {
           display: inline-block;
-          width: px2rem(24px);
-          height: px2rem(24px);
+          width: 1em;
+          height: 1em;
           @include bg-image("../../../../assets/images/login/Icon-Hide");
         }
       }
     }
 
     .button-group {
-      margin-top: px2rem(56px);
+      margin-top: 2em;
       position: relative;
 
       &>div {
-        height: px2rem(56px);
-        border-radius: px2rem(2px);
+        height: 4em;
+        border-radius: 5px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 px2rem(17px) 0 px2rem(24px);
+        padding: 0 0.75em ;
       }
 
       @at-root .login-other {
         display: inline-block;
         @include font-dpr(9px);
-        margin: px2rem(8px) 0 px2rem(10px) px2rem(24px);
-        height: px2rem(16px);
-        line-height: px2rem(16px);
+        margin: 1.5em 0 1.5em 0em;
         color: $linght-color;
       }
 
       .login-group {
         background: linear-gradient(135deg, rgba(75, 161, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
-        box-shadow: 0px px2rem(8px) px2rem(7px) 0px rgba(0, 0, 0, 0.09);
+        box-shadow: 0px 8px 7px 0px rgba(0, 0, 0, 0.09);
 
         span {
           font-family: PingFangSC-Regular;
@@ -152,8 +148,8 @@ ion-content {
         }
 
         i {
-          width: px2rem(20px);
-          height: px2rem(22px);
+          width: 1em;
+          height: 1em;
           @include bg-image("../../../../assets/images/login/Icon-Login");
         }
       }
@@ -167,22 +163,22 @@ ion-content {
         }
 
         i {
-          width: px2rem(24px);
-          height: px2rem(24px);
+          width: 1em;
+          height: 1em;
           @include bg-image("../../../../assets/images/login/icon-wechat");
         }
 
       }
 
       .facebook-group {
-        margin-bottom: px2rem(8px);
+        margin-bottom: 1em;
         background-color: $extralight-color;
         font-family: $font-PingFangSC;
         color: $dark-color;
 
         i {
-          width: px2rem(25px);
-          height: px2rem(24px);
+          width: 1em;
+          height: 1em;
           @include bg-image("../../../../assets/images/login/Logo-Facebook");
         }
       }
