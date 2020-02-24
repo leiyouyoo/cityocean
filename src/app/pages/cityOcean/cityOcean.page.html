@@ -13,8 +13,7 @@
     </ion-tab-button>
 
     <ion-tab-button tab="home">
-      <img *ngIf="currentTab != 'home'" src="assets/icon/home/icon_home@3x.png" class="homeIcon"/>
-      <img *ngIf="currentTab == 'home'" src="assets/icon/home/icon_home@3x.png" class="homeIcon"/>
+      <img src="assets/icon/home/icon_home@3x.png" style="opacity: 0;"/>
       <ion-label>{{ 'Home' | translate}}</ion-label>
     </ion-tab-button>
 
@@ -30,5 +29,9 @@
       <ion-label>{{ 'Me' | translate}}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
-  
+  <div class="home-tab">
+    <ion-tab-button tab="home">
+      <img src="assets/icon/home/icon_home@3x.png" class="homeIcon"/>
+    </ion-tab-button>
+  </div>
 </ion-tabs>
