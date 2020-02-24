@@ -28,7 +28,6 @@ export class ThemePage implements OnInit {
    * @desc 获取列表数据
    */
   initData() {
-    debugger;
     const theme = LocalStorage.localStorage.get('ThemeType');
     if (theme === '' || theme == null) {
       this.ThemeType = 'blue';
