@@ -203,4 +203,10 @@ button:focus {
     --height: 50%;
     --border-radius: 10px;
   }
+
+  app-workbench{
+    .header-md:after{
+        height: 0!important;
+    }
+  }
   
