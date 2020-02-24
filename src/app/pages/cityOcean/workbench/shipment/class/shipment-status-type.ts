@@ -4,7 +4,7 @@
  *2 = Shipment
  *3 = Order
  * */
-export enum StatusType {
+export enum ShipmentStatusType {
   /// <summary>
   /// 需要用拖车，货在工厂未开始运输
   /// </summary>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-billing-popover',
@@ -6,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./billing-popover.component.scss'],
 })
 export class BillingPopoverComponent implements OnInit {
-
-  constructor() { }
+  typeList = [{
+    name:'银行账户',
+    type:'bank'
+  },{
+    name:'在线支付',
+    type:'pay'
+  },{
+    name:'申请开票',
+    type:'chicket'
+  },]
+  constructor(private popoverController: PopoverController) {}
 
   ngOnInit() {}
-
+  dismissPopover(item) {
+    this.popoverController.dismiss( item );
+  }
 }

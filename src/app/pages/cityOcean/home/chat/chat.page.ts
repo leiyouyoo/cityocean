@@ -14,8 +14,12 @@ import { File } from '@ionic-native/file'; // 不需要导入
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { HomeService } from '../home.service';
-import { createTextMessage, onMessage, getMessageList, sendmessage } from '@cityocean/im-library';
+import { ShipmentStatusType } from '../../workbench/shipment/class/shipment-status-type';
+import { BookingStatusType } from '../../workbench/booking/class/booking-status-type';
+import { createTextMessage, onMessage, getMessageList, sendmessage, createImageMessage } from '@cityocean/im-library';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
+import { BookingServiceService } from '../../workbench/booking/booking-service.service';
+import { ShipmentService } from '../../workbench/shipment/shipment.service';
 
 @Component({
   selector: 'app-chat',
@@ -24,6 +28,7 @@ import { PressPopoverComponent } from './press-popover/press-popover.component';
 })
 export class ChatPage implements OnInit {
   @ViewChild(IonContent, { static: true }) ioncontent: IonContent;
+  statusType: any = { '-1': '暂无' }; //状态枚举
   ionRefresher: any;
   showTools = false; //隐藏底部功能区
   sendingMessage: string;
@@ -39,6 +44,9 @@ export class ChatPage implements OnInit {
     maxResultCount: 10,
     skipCount: 0,
   };
+  bussinessType; //业务类型
+  bussinessId; //业务ID
+  bussinessDetail = { bookingNo: '', status: -1 }; //业务详情
   constructor(
     private nav: NavController,
     public popoverController: PopoverController,
@@ -50,20 +58,44 @@ export class ChatPage implements OnInit {
     private homeService: HomeService,
     public toastController: ToastController,
     public alertController: AlertController,
+    private bookingServiceService: BookingServiceService,
+    private shipmentService: ShipmentService,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
       this.isC2C = data.C2C == 'true' ? true : false;
       this.groupID = data.id;
       this.groupName = data.groupName;
+      this.bussinessType = this.groupID.replace(/\d/gi, '').toLowerCase();
+      this.bussinessId = this.groupID.replace(/[^\d]/g, '');
     });
   }
   ngOnInit() {
+    switch (this.bussinessType) {
+      case 'booking':
+        this.statusType = BookingStatusType; //状态枚举
+        this.bookingServiceService.GetDetail(this.bussinessId).subscribe((res: any) => {
+          console.log(res);
+          this.bussinessDetail = res;
+        });
+        break;
+      case 'shipment':
+        this.statusType = ShipmentStatusType; //状态枚举
+        this.shipmentService.GetShipmentDetail(this.bussinessId).subscribe((res: any) => {
+          console.log(res);
+          this.bussinessDetail = res;
+        });
+        break;
+
+      default:
+        break;
+    }
+
     this.ionRefresher = document.getElementById('refresher');
-    getMessageList(this.conversationID).then((res) => {
-      // this.chatList = res.data.messageList;
-      console.log(this.chatList);
-    });
+    // getMessageList(this.conversationID).then((res) => {
+    // this.chatList = res.data.messageList;
+    // console.log(this.chatList);
+    // });
     this.getChatList();
     onMessage((imRes) => {
       this.chatList = this.chatList.concat(imRes.data);
@@ -135,12 +167,7 @@ export class ChatPage implements OnInit {
     if (this.sendingMessage == '' || this.groupID == null || this.sendingMessage == undefined) {
       return;
     }
-    if (!this.isC2C) {
-      textMessage = createTextMessage(this.groupID, 'group', this.sendingMessage);
-    }
-    if (this.isC2C) {
-      textMessage = createTextMessage(this.groupID, 'signle', this.sendingMessage);
-    }
+    textMessage = createTextMessage(this.groupID, this.isC2C ? 'signle' : 'group', this.sendingMessage);
     textMessage = await sendmessage(textMessage);
     this.chatList.push({
       flow: 'out',
@@ -150,6 +177,17 @@ export class ChatPage implements OnInit {
     });
     this.scrollToBottom(1);
     this.sendingMessage = '';
+  }
+  async sendImg(imageData) {
+    let fileMessage = createImageMessage(this.groupID, this.isC2C ? 'signle' : 'group', imageData);
+    await  sendmessage(fileMessage).then((res) => {
+      this.chatList.push({
+        flow: 'out',
+        payload: {
+          file: res,
+        },
+      });
+    });
   }
   /**
    *更多按钮，区分群聊还是单聊
@@ -166,14 +204,12 @@ export class ChatPage implements OnInit {
   }
   gotoDetail() {
     if (!this.isC2C) {
-      let type = this.groupID.replace(/\d/gi, '').toLowerCase();
-      let id = this.groupID.replace(/[^\d]/g, '');
-      if(type !=='booking'){
-        return
+      if (this.bussinessType !== 'booking') {
+        return;
       }
-      this.nav.navigateForward([`/cityOcean/workbench/${type}/${type}Detail`], {
+      this.nav.navigateForward([`/cityOcean/workbench/${this.bussinessType}/${this.bussinessType}Detail`], {
         queryParams: {
-          id: id,
+          id: this.bussinessId,
         },
       });
     }
@@ -232,8 +268,7 @@ export class ChatPage implements OnInit {
     this.camera.getPicture(options).then(
       (imageData) => {
         // imageData is either a base64 encoded string or a file URI
-        // If it's base64 (DATA_URL):
-        let base64Image = 'data:image/jpeg;base64,' + imageData;
+        this.sendImg(imageData);
       },
       (err) => {
         // Handle error
@@ -252,7 +287,6 @@ export class ChatPage implements OnInit {
   // 文件上传
   doUpload(src: any) {
     const fileTransfer: FileTransferObject = this.transfer.create();
-
     const options: FileUploadOptions = {
       fileKey: 'file',
       fileName: 'name.jpg',
@@ -275,7 +309,7 @@ export class ChatPage implements OnInit {
   }
   imageUpload() {
     const options: ImagePickerOptions = {
-      maximumImagesCount: 1, // 可选择的图片数量默认 15，1为单选
+      maximumImagesCount: 9, // 可选择的图片数量默认 15，1为单选
       width: 400, // 图片宽
       height: 500, //图片高
       quality: 80, //图片质量，质量越高图片越大,请根据实际情况选择
@@ -286,7 +320,8 @@ export class ChatPage implements OnInit {
     this.imagePicker.getPictures(options).then(
       (results) => {
         for (var i = 0; i < results.length; i++) {
-          console.log('Image URI: ' + results[i]);
+          // console.log('Image URI: ' + results[i]);
+          this.sendImg(results[i]);
         }
       },
       (err) => {},

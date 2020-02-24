@@ -4,7 +4,7 @@
  *2 = Shipment
  *3 = Order
  * */
-export enum StatusType {
+export enum BookingStatusType {
   /// <summary>
   /// 草稿
   /// </summary>

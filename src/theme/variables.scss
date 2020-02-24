@@ -11,6 +11,10 @@
   --ion-color-primary-shade: #3171e0;
   --ion-color-primary-tint: #4c8dff;
 
+  --ionc-color-biling-more:#409CFF;
+  --ionc-color-biling-more-rgb:64,156,255;
+  
+
   /** secondary **/
   --ion-color-secondary: #DA9C6D;
   --ion-color-secondary-rgb: 218, 156, 109;
@@ -331,7 +335,7 @@ $font-base-size : 12px;
   }
 }
 .billing-popover{
-  --background:var(--ion-color-primary)
+  --background:rgba(var(--ionc-color-biling-more-rgb),0.2); 
 }
 
 /*

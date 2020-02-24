@@ -74,7 +74,7 @@ export class BillingPage implements OnInit {
   async billingFilter() {
     const actionSheet = await this.actionSheetController.create({
       header:'选择支付状态',
-      cssClass: 'my-action-sheet',
+      cssClass: 'my-action-sheet-billing',
       buttons: [
         {
           text: 'Outstanding',

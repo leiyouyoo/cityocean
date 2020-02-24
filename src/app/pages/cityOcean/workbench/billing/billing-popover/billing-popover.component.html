@@ -1,3 +1,10 @@
-<p>
-  billing-popover works!
-</p>
+<section>
+  <ng-container *ngFor="let item of typeList">
+    <div (click)="dismissPopover(item)" [class]="item.type">
+      <i></i>
+      <span>{{item.name}}</span>
+    </div>
+  </ng-container>
+  
+  
+</section>

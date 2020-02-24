@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 import { ShipmentService } from './shipment.service';
 import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.component';
-import { StatusType } from './class/status-type';
+import { ShipmentStatusType } from './class/shipment-status-type';
 import * as moment from 'moment';
 
 @Component({
@@ -16,7 +16,7 @@ export class ShipmentPage implements OnInit {
     skipCount: 0,
   };
   shipmentsList = [];
-  statusType: typeof StatusType = StatusType;
+  statusType: typeof ShipmentStatusType = ShipmentStatusType;
   constructor(
     private nav: NavController,
     private shipmentService: ShipmentService,
@@ -68,8 +68,10 @@ export class ShipmentPage implements OnInit {
         maxResultCount : 5,
         skipCount:0,
       }
-      this.shipmentsList = [];
-      this.getShipmentList(res.data);
+      if(res.data){
+        this.shipmentsList = [];
+        this.getShipmentList(res.data);
+      }
     });
     return await modal.present();
   }

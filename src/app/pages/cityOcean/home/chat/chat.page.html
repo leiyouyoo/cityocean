@@ -22,7 +22,8 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div *ngIf="!isC2C" class="type-wrap">
-    <app-business-type (click)="gotoDetail()" [type] = "'chat'"></app-business-type>
+    <app-business-type (click)="gotoDetail()" [title]="{title1:bussinessDetail.bookingNo}"
+    [status]="statusType[bussinessDetail.status]"></app-business-type>
   </div>
   <section [ngClass]="{'chat-content-wrap-margin': !isC2C}" class="chat-content-wrap">
     <ion-card *ngFor="let item of chatList" [class]="'card-' + item.flow +'-group'">
