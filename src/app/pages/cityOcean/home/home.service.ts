@@ -33,11 +33,23 @@ export class HomeService {
         return this.httpService.get('/CSP/IM/GetMayInviteUserList', params)
     }
     
+    AddGroupMembers(obj = {}): Observable<any> {
+        let params = obj;
+        return this.httpService.postJson('/IM/GroupManage/AddGroupMember', params)
+    }
+    
+    //获取群聊的用户列表
+    geGroupMemberLists(obj = {}): Observable<any> {
+        let params = obj;
+        return this.httpService.get('/IM/GroupManage/GetGroupMemberInfo', params)
+    }
+    
     //获取订单列表
     getOrderList(obj = {}): Observable<any> {
         let params = obj;
         return this.httpService.postJson('/CSP/PurchaseOrder/GetAll', params)
     }
+    
     //创建采购订单
     getCreatePurchaseOrderInfo(obj): Observable<any> {
         let params = obj;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShipmentService } from '../shipment.service';
 import * as moment from 'moment';
-import { StatusType } from '../class/status-type';
+import { ShipmentStatusType } from '../class/shipment-status-type';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs';
 })
 export class ShipmentDetailPage implements OnInit {
   mapShow = true;
-  statusType: typeof StatusType = StatusType;
+  statusType: typeof ShipmentStatusType = ShipmentStatusType;
   baseShow = true; //控制基本更多信息展示
   originPortShow = false; //控制出发地更多信息展示
   consigneeShow = false; //控制目的地更多信息展示

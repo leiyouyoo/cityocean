@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { StatusType } from '../class/status-type';
+import { BookingStatusType } from '../class/booking-status-type';
 import { forkJoin } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { BookingServiceService } from '../booking-service.service';
@@ -11,7 +11,7 @@ import { BookingServiceService } from '../booking-service.service';
   styleUrls: ['./booking-detail.page.scss'],
 })
 export class BookingDetailPage implements OnInit {
-  statusType: typeof StatusType = StatusType;
+  statusType: typeof BookingStatusType = BookingStatusType;
   baseShow = true; //控制基本更多信息展示
   id: any;
   requestProcess = [
@@ -286,7 +286,6 @@ export class BookingDetailPage implements OnInit {
     isDeleted: true,
   };
 
-  businessTypeTitle: any;
   constructor(private activatedRoute: ActivatedRoute, private bookingServiceService: BookingServiceService) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
@@ -297,7 +296,6 @@ export class BookingDetailPage implements OnInit {
     this.bookingServiceService.GetDetail(this.id).subscribe((res: any) => {
       console.log(res);
       this.bookingDetail = res;
-      this.businessTypeTitle = { title1: this.bookingDetail.shipmentNo };
     });
   }
   getTime(time) {

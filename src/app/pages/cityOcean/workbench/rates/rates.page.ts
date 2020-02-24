@@ -3,6 +3,8 @@ import { NavController, ModalController } from '@ionic/angular';
 import { RatesFilterComponent } from './rates-filter/rates-filter.component';
 import { RatesService } from './rates.service';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-rates',
@@ -54,7 +56,7 @@ export class RatesPage implements OnInit {
     this.ratesService.geFreightRates(param).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
-      this.ratesList = this.ratesList.concat(res.items);
+      this.ratesList = this.ratesList.concat(res.result.items);
       this.pageInfo.skipCount++;
       if (this.ratesList.length >= res.totalCount && event) {
         // 已加载全部数据，禁用上拉刷新
@@ -69,6 +71,9 @@ export class RatesPage implements OnInit {
     this.nav.navigateForward(['/cityOcean/workbench/rates/ratesDetail'], {
       queryParams: {},
     });
+  }
+  getTime(time) {
+    return moment(time).format('MMM D YYYY');
   }
   getTT(item) {
     if (!item) {

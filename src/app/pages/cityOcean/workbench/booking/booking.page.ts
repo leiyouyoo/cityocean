@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatusType } from './class/status-type';
+import { BookingStatusType } from './class/booking-status-type';
 import { BookingServiceService } from './booking-service.service';
 import * as moment from 'moment';
 import { ActionSheetController, NavController } from '@ionic/angular';
@@ -15,7 +15,7 @@ export class BookingPage implements OnInit {
     maxResultCount: 5,
     skipCount: 0,
   };
-  statusType: typeof StatusType = StatusType; // 显示状态
+  statusType: typeof BookingStatusType = BookingStatusType; // 显示状态
   BookingStatus: any; // 筛选状态
   constructor(
     private bookingServiceService: BookingServiceService,
@@ -57,7 +57,7 @@ export class BookingPage implements OnInit {
 
   async bookingFilter() {
     const actionSheet = await this.actionSheetController.create({
-      cssClass: 'my-action-sheet',
+      cssClass: 'my-action-sheet-booking',
       buttons: [
         {
           text: 'All Status',

@@ -14,6 +14,7 @@ import {
   getUserProfile
 } from "@cityocean/im-library";
 import { AddMemberComponent } from './add-member/add-member.component';
+import { HomeService } from '../../home.service';
 
 @Component({
   selector: "app-group-message",
@@ -32,7 +33,8 @@ export class GroupMessagePage implements OnInit {
     public modalController: ModalController,
     public alertController: AlertController,
     public actionSheetController: ActionSheetController,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private homeService:HomeService
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.activatedRoute.queryParams.subscribe((data: any) => {
@@ -47,6 +49,7 @@ export class GroupMessagePage implements OnInit {
   ngOnInit() {
     if (!this.isC2C) {
       getGroupMemberlist(this.groupID).then(res => {
+        console.log(res)
         this.membersList = res.data.memberList;
       });
     } else {
@@ -172,7 +175,7 @@ export class GroupMessagePage implements OnInit {
   async presentModal(component,type) {
     const modal = await this.modalController.create({
       component: component,
-      componentProps:type == "search"? {}:{membersList:this.membersList, BusinessId : this.groupID.replace(/[^\d]/ig,""),BusinessType : this.groupID.replace(/\d/g,'').toLowerCase()}
+      componentProps:type == "search"? {}:{BusinessId : this.groupID.replace(/[^\d]/ig,""),BusinessType : this.groupID.replace(/\d/g,'').toLowerCase(),groupID:this.groupID}
     });
     modal.onWillDismiss().then(res => {
       if (type == "search") {

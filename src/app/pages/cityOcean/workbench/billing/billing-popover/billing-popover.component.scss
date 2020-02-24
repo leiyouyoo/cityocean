@@ -1,0 +1,47 @@
+@import "../../../../../../theme/variables";
+section {
+    display: flex;
+    align-items: center;
+    padding: px2rem(16px) px2rem(24px);
+    span {
+        height: px2rem(14px);
+        font-size: 10px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+        line-height: px2rem(14px);
+    }
+
+    div {
+        width: px2rem(86px);
+        height: px2rem(86px);
+        border-radius: px2rem(15px);
+        flex-shrink: 0;
+        margin-right: px2rem(12px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        &:last-child{
+            margin: 0;
+        }
+    }
+    i{
+        display: inline-block;
+        width: px2rem(26px);
+        height: px2rem(26px);
+        background-color: #ffffff;
+        margin-bottom: px2rem(11px);
+    }
+    .bank {
+        background: linear-gradient(135deg, #61ADFF 0%, #007AFF 100%);
+    }
+
+    .pay {
+        background: linear-gradient(135deg, #DAC3A0 0%, #DA9C6D 100%);
+    }
+
+    .chicket {
+        background: linear-gradient(135deg, #FF97AF 0%, #FF596E 100%);
+    }
+}
