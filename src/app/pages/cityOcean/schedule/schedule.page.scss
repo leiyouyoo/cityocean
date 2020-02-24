@@ -1,3 +1,36 @@
-h5{
-  margin-top:1em;
+h5 {
+  margin-top: 1em;
+}
+
+.schedule-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1em;
+  height: 3em;
+  line-height: 3em;
+  color: #4a4a4a;
+  font-size: 1.5em;
+  font-weight: 700;
+  ion-icon {
+    font-size: 1.5em;
+  }
+}
+
+.content{
+  padding-left: 10%;
+  margin-bottom: 2em;
+  .content-msg{
+    padding: 1em;
+    border-radius: 10px 0  0 10px;
+
+    .msg{
+      color: #4A4A4A;
+    }
+
+    .time{
+      margin-top: 1em;
+      color:#9B9B9B
+    }
+  }
 }

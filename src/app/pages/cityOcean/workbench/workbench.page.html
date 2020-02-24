@@ -49,7 +49,9 @@
         <i></i>
         <input type="text" (click)="searchLocaltion('destination')" [(ngModel)]="deliveryPort.name" placeholder="请输入目的港" />
       </div>
-      <button (click)="searchConfirm()" class="search-yunjia font-12">{{searchType | translate}}</button>
+      <div style="text-align: center;">
+        <button (click)="searchConfirm()" class="search-yunjia font-12">{{searchType | translate}}</button>
+      </div>
     </div>
     <div class="title">
       <span>All applications</span>

@@ -9,3 +9,16 @@ ion-tab-button{
         height: 3em!important;
     }
 }
+
+.center-tab {
+    position: absolute;
+    overflow: visible;
+    text-align: center;
+    height: px2rem(60px);
+    width: px2rem(60px);
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: px2rem(50px);
+    z-index: 99999;
+}

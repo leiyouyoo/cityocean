@@ -13,7 +13,7 @@ export class SchedulePage implements OnInit {
   ngOnInit() {}
 
   onScheduleDetial() {
-    this.router.navigate(['/cityOcean/schedule/shceduleAdd']);
+    this.router.navigate(['/cityOcean/schedule/shceduleDetial']);
   }
 
   onScheduleAdd() {
