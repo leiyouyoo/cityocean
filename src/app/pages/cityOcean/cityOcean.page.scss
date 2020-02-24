@@ -1,22 +1,133 @@
-ion-tab-button{
-    img{
-        width: 1.5em;
-        height: 1.5em;
-        margin-bottom: 0.25em;
+// .ion-tab-base {
+//     width: 2.2rem;
+//     background-size: cover;
+//     background-position: center;
+// }
+// $tabImageName: 'schedule' 'workbench' 'home' 'contacts' 'me';
+// @for $i from 1 to 5 {
+//     //for ios
+//     .ion-ios-tab-#{nth($tabImageName, $i)} {
+//         @extend .ion-tab-base;
+//         content: url("../../assets/icon/tab-#{nth($tabImageName, $i)}1.png");
+//     }
+
+//     .ion-ios-tab-#{nth($tabImageName, $i)}-outline {
+//         @extend .ion-tab-base;
+//         content: url("../../assets/icon/tab-#{nth($tabImageName, $i)}0.png");
+//     }
+
+//     // for android
+//     .tabs-md .tab-button[aria-selected=true] {
+//         .ion-md-tab-#{nth($tabImageName, $i)} {
+//             @extend .ion-tab-base;
+//             content: url("../../assets/icon/tab-#{nth($tabImageName, $i)}1.png");
+//         }
+//     }
+
+//     .tabs-md .tab-button[aria-selected=false] {
+//         .ion-md-tab-#{nth($tabImageName, $i)} {
+//             @extend .ion-tab-base;
+//             content: url("../../assets/icon/tab-#{nth($tabImageName, $i)}0.png");
+//         }
+//     }
+// }
+@import '../../../theme/variables';
+
+.icon-my-size {
+    display: inline-block;
+    width: px2rem(20px);
+    height: px2rem(20px);
+}
+
+ion-tabs {
+    ion-tab-bar {
+        height: px2rem(50px);
+        box-shadow: 0px px2rem(8px) px2rem(20px) 0px rgba(0, 0, 0, 0.24);
+        --color: #0A2463;
+
+        ion-tab-button {
+            --color:#0A2463;
+            --color-selected:#3E8EFF;
+            div{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: px2rem(7px);
+            }
+            i.schedule {
+                @extend .icon-my-size;
+                @include bg-image("../../../assets/icon//schedule//icon_rili");
+            }
+
+            i.scheduleSelected {
+                @extend .icon-my-size;
+                @include bg-image("../../../assets/icon/schedule/icon_rili_selected");
+            }
+
+            i.workbench {
+                @extend .icon-my-size;
+                @include bg-image("../../../assets//icon/workbench/icon_workbench");
+            }
+            i.homeSelected,i.home{
+                @extend .icon-my-size;
+            }
+            i.workbenchSelected {
+                @extend .icon-my-size;
+                @include bg-image("../../../assets//icon/workbench/icon_workbench_selected");
+            }
+
+            i.contacts {
+                @extend .icon-my-size;
+                @include bg-image("../../../assets//icon/contacts/icon_contacts");
+            }
+
+            i.contactsSelected {
+                @extend .icon-my-size;
+                @include bg-image("../../../assets//icon/contacts/icon_contacts_selected");
+            }
+
+            i.me {
+                @extend .icon-my-size;
+                @include bg-image("../../../assets//icon/me/icon_me");
+            }
+
+            i.meSelected {
+                @extend .icon-my-size;
+                @include bg-image("../../../assets//icon/me/icon_me_selected");
+            }
+        }
     }
 }
 
-.home-tab{
+.center-tab {
     position: absolute;
-    bottom: 2em;
-    z-index: 99999999;
+    overflow: visible;
+    text-align: center;
+    height: px2rem(60px);
+    width: px2rem(60px);
     left: 0;
     right: 0;
-    display: inline-block;
-    margin: 0 auto;
-    width: 7em;
-    img{
-        height: auto;
-       width: 6em;
+    margin: auto;
+    bottom: px2rem(50px);
+    z-index: 99999;
+    ion-tab-button{
+        position: relative;
+        top: px2rem(30px);
     }
+
+    i.home {
+        display: inline-block;
+        width: px2rem(60px);
+        height: px2rem(60px);
+        @include bg-image("../../../assets//icon/home/icon_home");
+    }
+}
+
+.tab-my-label {
+    line-height: px2rem(20px);
+    height: px2rem(20px);
+    font-family:PingFangSC-Regular,PingFang SC;
+    @include font-dpr(10px);
 }
