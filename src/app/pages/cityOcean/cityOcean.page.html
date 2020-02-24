@@ -1,48 +1,33 @@
 <ion-tabs>
   <ion-tab-bar class="myTabBar" slot="bottom" (ionTabBarChanged)="tabsChange($event)">
     <ion-tab-button tab="schedule">
-      <div>
-        <i *ngIf="currentTab != 'schedule'" class="tab-my-icon" class="schedule"></i>
-        <i *ngIf="currentTab == 'schedule'" class="tab-my-icon" class="scheduleSelected"></i>
-        <ion-label class="tab-my-label font-10">{{ 'Schedule' | translate}}</ion-label>
-      </div>
+      <img *ngIf="currentTab != 'schedule'" src="assets/icon/schedule/icon_rili@3x.png" />
+      <img *ngIf="currentTab == 'schedule'" src="assets/icon/schedule/icon_rili_selected@3x.png" />
+      <ion-label>{{ 'Schedule' | translate}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="workbench">
-      <div>
-        <i *ngIf="currentTab != 'workbench'" class="tab-my-icon" class="workbench"></i>
-        <i *ngIf="currentTab == 'workbench'" class="tab-my-icon" class="workbenchSelected"></i>
-        <ion-label class="tab-my-label font-10">{{ 'Workbench' | translate}}</ion-label>
-      </div>
+      <img *ngIf="currentTab != 'workbench'" src="assets/icon/workbench/icon_workbench@3x.png" />
+      <img *ngIf="currentTab == 'workbench'" src="assets/icon/workbench/icon_workbench_selected@3x.png" />
+      <ion-label>{{ 'Workbench' | translate}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="home">
-      <div>
-        <i *ngIf="currentTab != 'home'" class="tab-my-icon" class="home"></i>
-        <i *ngIf="currentTab == 'home'" class="tab-my-icon" class="homeSelected"></i>
-        <ion-label class="tab-my-label font-10">{{ 'Home' | translate}}</ion-label>
-      </div>
+      <img *ngIf="currentTab != 'home'" src="assets/icon/home/icon_home@3x.png" class="homeIcon"/>
+      <img *ngIf="currentTab == 'home'" src="assets/icon/home/icon_home@3x.png" class="homeIcon"/>
+      <ion-label>{{ 'Home' | translate}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="contacts">
-      <div>
-        <i *ngIf="currentTab != 'contacts'" class="tab-my-icon" class="contacts"></i>
-        <i *ngIf="currentTab == 'contacts'" class="tab-my-icon" class="contactsSelected"></i>
-        <ion-label class="tab-my-label font-10">{{ 'Contacts' | translate}}</ion-label>
-      </div>
+      <img *ngIf="currentTab != 'contacts'" src="assets/icon/contacts/icon_contacts@3x.png" />
+      <img *ngIf="currentTab == 'contacts'" src="assets/icon/contacts/icon_contacts_selected@3x.png" />
+      <ion-label>{{ 'Contacts' | translate}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="me">
-      <div>
-        <i *ngIf="currentTab != 'me'" class="tab-my-icon" class="me"></i>
-        <i *ngIf="currentTab == 'me'" class="tab-my-icon" class="meSelected"></i>
-        <ion-label class="tab-my-label font-10">{{ 'Me' | translate}}</ion-label>
-      </div>
+      <img *ngIf="currentTab != 'me'" src="assets//icon/me/icon_me@3x.png" />
+      <img *ngIf="currentTab == 'me'" src="assets/icon/me/icon_me_selected@3x.png" />
+      <ion-label>{{ 'Me' | translate}}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
-  <div class="myTabBar center-tab">
-    <ion-tab-button tab="home">
-      <i class="tab-my-icon home"></i>
-    </ion-tab-button>
-  </div>
 </ion-tabs>

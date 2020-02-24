@@ -8,7 +8,11 @@
   "Workbench": "工作台",
   "Home": "首页",
   "Contacts": "联系人",
-  "Search history":"搜索记录",
-  "seachRates":"查运价",
-  "seachSailingSchedules":"查船期"
+  "Search history": "搜索记录",
+  "seachRates": "查运价",
+  "seachSailingSchedules": "查船期",
+  "Cancel": "取消",
+  "Schedule Add": "日程添加",
+  "Schedule Detial": "日程详情",
+  "Save":"完成"
 }
