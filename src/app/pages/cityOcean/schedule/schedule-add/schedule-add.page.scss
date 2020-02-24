@@ -1,3 +1,41 @@
-h5{
-  margin-top:1em;
+
+
+h5 {
+  margin-top: 1em;
+}
+
+.title {
+  font-size: 1.1em;
+  margin:2em 0 1em 0;
+  padding: 0 1em;
+  display: flex;
+  align-items: center;
+  background-color: var(--ion-color-light);
+  .colorblue {
+    background-color: #017aff;
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 0.5em;
+  }
+}
+
+.time{
+  color: #333333;
+  padding-left: 1em;
+  display: flex;
+  height: 5em;
+  align-items: center;
+  background-color: var(--ion-color-light);
+  margin-bottom: 3px;
+  font-size: 1.1em;
+
+  ion-icon{
+    font-size: 1.2em;
+  }
+  div{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+  }
 }

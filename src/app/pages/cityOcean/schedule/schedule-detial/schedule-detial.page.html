@@ -1,29 +1,55 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="{{ 'Cancel' | translate}}"></ion-back-button>
+    </ion-buttons>
     <ion-title>
-      2020年2月
+      {{'Schedule Detial' | translate}}
     </ion-title>
-    <ion-buttons slot="end" class="title-right">
-      <ion-icon name="calendar-outline"></ion-icon>
-  </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list lines="full">
-    <ion-item detail tappable (click)="onDetial()">
-      <ion-label>
-        <h2><strong>今天 2月11日 周二</strong></h2>
-        <h5>主题设置</h5>
-      </ion-label>
-    </ion-item>
+  <div class="orderName">
+    关联订单：ODESZGS19092300
+  </div>
 
-    <ion-item detail tappable (click)="onDetial()">
-      <ion-label>主题设置</ion-label>
-    </ion-item>
+  <div class="scheduleMsg">
+    <div class="tips"></div>
+    <strong>
+      需要提供补料
+    </strong>
+  </div>
 
-    <ion-item detail tappable (click)="onDetial()">
-      <ion-label>主题设置</ion-label>
-    </ion-item>
-  </ion-list>
+  <div class="time">
+    <ion-icon name="time-outline"></ion-icon>
+    <div>
+      <strong>Start Time</strong>
+      <strong>2月11日 周二</strong>
+      <strong>7：30</strong>
+    </div>
+  </div>
+
+  <div class="time">
+    <ion-icon name="time-outline" style="opacity: 0;"></ion-icon>
+    <div>
+      <strong>End Time</strong>
+      <strong>2月11日 周二</strong>
+      <strong>7：30</strong>
+    </div>
+  </div>
+
+  <div class="time">
+    <ion-icon name="alarm-outline"></ion-icon>
+    <div style="justify-content:start;">
+      <strong>15分钟前</strong>
+    </div>
+  </div>
+
+  <div class="time">
+    <ion-icon name="person-outline"></ion-icon>
+    <div style="justify-content:start;">
+      <strong>提醒人员</strong>
+    </div>
+  </div>
 </ion-content>
