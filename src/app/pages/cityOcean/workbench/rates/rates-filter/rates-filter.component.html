@@ -9,47 +9,94 @@
 <ion-content fullscreen>
   <form formGroupName="profileForm">
     <div>
-      <ion-label>SHANGHAI</ion-label>
+      <ion-label>{{ orignPortName }}</ion-label>
     </div>
 
     <div>
       <ion-select
-        name="cy"
-        [interfaceOptions]="{ header: '选择码头/门点',cssClass :'ion-select-my-class' }"
+        name="orignPortCy"
+        [interfaceOptions]="{ header: '选择码头/门点', cssClass: 'ion-select-my-class' }"
         interface="action-sheet"
         placeholder="Select One"
-        (ionChange) = "cyChange($event)"
+        [value]="profileForm.orignPortCy"
+        (ionChange)="orignPortCyChange($event)"
       >
-        <ion-select-option selected value="CY">CY</ion-select-option>
+        <ion-select-option value="CY">CY</ion-select-option>
         <ion-select-option value="DOOR">DOOR</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
     </div>
+    <div *ngIf="profileForm.orignPortCy === 'DOOR'">
+      <ion-select
+        name="orignPortLocal"
+        [interfaceOptions]="{ header: '选择提货地址', cssClass: 'ion-select-my-class' }"
+        interface="action-sheet"
+        placeholder="Select One"
+        [value]="profileForm.orignPortLocal"
+        (ionChange)="orignPortLocalChange($event)"
+      >
+        <ion-select-option value="1">baoan disrict ,shenshenzhen ,China</ion-select-option>
+        <ion-select-option value="2">yantian disrict ,shenshenzhen ,China</ion-select-option>
+      </ion-select>
+      <div class="my-icon"></div>
+    </div>
     <div>
-      <ion-label>SHANGHAI</ion-label>
+      <ion-label>{{ deliveryPortName }}</ion-label>
+    </div>
+    <div>
+      <ion-select
+        name="deliveryPortCy"
+        [interfaceOptions]="{ header: '选择码头/门点', cssClass: 'ion-select-my-class' }"
+        interface="action-sheet"
+        placeholder="Select One"
+        [value]="profileForm.deliveryPortCy"
+        (ionChange)="deliveryPortCyChange($event)"
+      >
+        <ion-select-option value="CY">CY</ion-select-option>
+        <ion-select-option value="DOOR">DOOR</ion-select-option>
+      </ion-select>
+      <div class="my-icon"></div>
+    </div>
+    <div *ngIf="profileForm.deliveryPortCy === 'DOOR'">
+      <ion-select
+        name="deliveryPortLocal"
+        [interfaceOptions]="{ header: '选择送货货地址', cssClass: 'ion-select-my-class' }"
+        interface="action-sheet"
+        placeholder="Select One"
+        [value]="profileForm.deliveryPortLocal"
+        (ionChange)="deliveryPortLocalChange($event)"
+      >
+        <ion-select-option value="1">baoan disrict ,shenshenzhen ,China</ion-select-option>
+        <ion-select-option value="2">yantian disrict ,shenshenzhen ,China</ion-select-option>
+      </ion-select>
+      <div class="my-icon"></div>
     </div>
     <div>
       <ion-select
         name="carrierId"
-        [interfaceOptions]="{ header: '选择船公司',cssClass :'ion-select-my-class' }"
+        [interfaceOptions]="{ header: '选择船公司', cssClass: 'ion-select-my-class' }"
         interface="action-sheet"
         placeholder="Select One"
-        (ionChange) = "shipCompanyChange($event)"
+        [value]="profileForm.carrierId"
+        (ionChange)="shipCompanyChange($event)"
       >
-        <ion-select-option selected value="all">全部船东</ion-select-option>
-        <ion-select-option [value]="[item.shortName, item.id]" *ngFor="let item of carrierList">{{item.shortName}}</ion-select-option>
+        <ion-select-option value="all">全部船东</ion-select-option>
+        <ion-select-option [value]="item.id" *ngFor="let item of carrierList">{{
+          item.shortName
+        }}</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
     </div>
     <div>
       <ion-select
         name="date"
-        [interfaceOptions]="{ header: '选择天数',cssClass :'ion-select-my-class' }"
+        [interfaceOptions]="{ header: '选择天数', cssClass: 'ion-select-my-class' }"
         interface="action-sheet"
         placeholder="Select One"
-        (ionChange) ="dateChange($event)"
+        [value]="profileForm.date"
+        (ionChange)="dateChange($event)"
       >
-        <ion-select-option selected value="7">7days</ion-select-option>
+        <ion-select-option value="7">7days</ion-select-option>
         <ion-select-option value="15">15days</ion-select-option>
         <ion-select-option value="30">30days</ion-select-option>
       </ion-select>

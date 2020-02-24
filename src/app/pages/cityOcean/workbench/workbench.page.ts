@@ -179,7 +179,9 @@ export class WorkbenchPage {
       this.nav.navigateForward(['/cityOcean/workbench/rates'], {
         queryParams: {
           orignPortId: this.orignPort.id,
+          orignPortName: this.orignPort.name,
           deliveryPortId: this.deliveryPort.id,
+          deliveryPortName: this.deliveryPort.name,
         },
       });
     } else if (this.searchType === 'seachSailingSchedules') {
