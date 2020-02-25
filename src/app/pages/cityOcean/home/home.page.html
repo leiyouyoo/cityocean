@@ -35,7 +35,7 @@
 <ion-content fullscreen [ngClass]="{'content-background': !transportationCost}">
   <ion-list>
     <section class="content-group">
-      <app-message-rolling></app-message-rolling>
+      <app-message-rolling *ngIf="scrollList.length>0" [massgeList] = "scrollList"></app-message-rolling>
       
       <div class="massge-group-wrap" [ngClass]="{'massge-group-marigin-top': !transportationCost}">
         <ion-item-sliding *ngFor="let msg of groupMassageList; let i = index" #slide>

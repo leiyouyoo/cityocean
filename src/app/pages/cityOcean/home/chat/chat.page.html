@@ -28,9 +28,9 @@
   <section [ngClass]="{'chat-content-wrap-margin': !isC2C}" class="chat-content-wrap">
     <ion-card *ngFor="let item of chatList" [class]="'card-' + item.flow +'-group'">
       <img *ngIf="item.flow=='out'" (click)="gotoUserProfile(item.from)" [class]="'anchor-' + item.flow" class="head-anchor"
-        src="../../../../../assets/icon/home/chat/touxian5@3x.png" />
+      [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/home/chat/touxian2@3x.png'" />
       <img *ngIf="item.flow=='in'"  (click)="gotoUserProfile(item.from)"  [class]="'anchor-' + item.flow" class="head-anchor"
-        src="../../../../../assets/icon/home/chat/touxian2@3x.png" />
+        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/home/chat/touxian2@3x.png'" />
       <ion-card-content>
         <span class="font-14" [innerHtml]="item.payload?.text"></span>
       </ion-card-content>
