@@ -2,11 +2,7 @@
   <ion-toolbar [ngClass]="{'padding-edit': !isEditing}">
     <section *ngIf="isEditing" class="edit-wrap">
       <span class="font-18 title">工作台</span>
-      <span
-        (click)="isEditing = !isEditing;confirm()"
-        class="font-16 edit"
-        >完成</span
-      >
+      <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">完成</span>
     </section>
     <section *ngIf="!isEditing" class="default-wrap">
       <!-- <ion-select  interface="popover" value="shipment" placeholder="Select One">
@@ -44,10 +40,17 @@
         <i></i>
         <input (click)="searchLocaltion('start')" [(ngModel)]="orignPort.name" type="text" placeholder="请输入起运港" />
       </div>
-      <div class="search-line"></div>
+      <div style="text-align: center;height: 2em;display: inline-block;margin-left: 0.45em;">
+        <div style="border-left:0.1em solid #e4e4e4;height: 2em;"></div>
+      </div>
       <div class="mudigang">
         <i></i>
-        <input type="text" (click)="searchLocaltion('destination')" [(ngModel)]="deliveryPort.name" placeholder="请输入目的港" />
+        <input
+          type="text"
+          (click)="searchLocaltion('destination')"
+          [(ngModel)]="deliveryPort.name"
+          placeholder="请输入目的港"
+        />
       </div>
       <div style="text-align: center;">
         <button (click)="searchConfirm()" class="search-yunjia font-12">{{searchType | translate}}</button>
@@ -59,14 +62,14 @@
     </div>
     <div class="all-applications">
       <div *ngFor="let item of typeList">
-        <p  (click)="typeClick(item)">
+        <p (click)="typeClick(item)">
           <i [class]="'icon-'+item.type"></i>
           <span>{{item.name}}</span>
         </p>
       </div>
     </div>
   </section>
-  <section  *ngIf="isEditing">
+  <section *ngIf="isEditing">
     <label>首页快捷</label>
     <div class="quick-enter-applictions">
       <div *ngFor="let item of quickEnterList;let i = index">
@@ -83,7 +86,7 @@
       <div *ngFor="let item of moreTypeList;let i =index">
         <p>
           <i [class]="'icon-'+item.type">
-            <i  (click)="add($event,item,i)" class="icon-add"></i>
+            <i (click)="add($event,item,i)" class="icon-add"></i>
           </i>
           <span>{{item.name}}</span>
         </p>

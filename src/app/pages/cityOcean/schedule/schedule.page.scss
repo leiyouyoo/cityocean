@@ -17,20 +17,30 @@ h5 {
   }
 }
 
-.content{
+.content {
   padding-left: 10%;
   margin-bottom: 2em;
-  .content-msg{
+  .content-msg {
     padding: 1em;
-    border-radius: 10px 0  0 10px;
+    border-radius: 10px 0 0 10px;
 
-    .msg{
-      color: #4A4A4A;
+    .msg {
+      color: #4a4a4a;
     }
 
-    .time{
+    .time {
       margin-top: 1em;
-      color:#9B9B9B
+      color: #9b9b9b;
     }
+  }
+}
+
+.calendar {
+  position: absolute;
+  right: 1em;
+  top: 1.5em;
+
+  ion-icon {
+    font-size: 1.5em;
   }
 }

@@ -8,6 +8,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ScheduleDetialPage } from './schedule-detial/schedule-detial.page';
 import { ScheduleAddPage } from './schedule-add/schedule-add.page';
 import { SchedulePageRoutingModule } from './schedule-routing.module';
+import { CalendarModule } from 'ion2-calendar';
 
 const COMPONENTS = [ScheduleAddPage, ScheduleDetialPage];
 
@@ -17,6 +18,7 @@ const COMPONENTS = [ScheduleAddPage, ScheduleDetialPage];
     CommonModule,
     FormsModule,
     SharedModule,
+    CalendarModule,
     SchedulePageRoutingModule,
     RouterModule.forChild([{ path: '', component: SchedulePage }]),
   ],
