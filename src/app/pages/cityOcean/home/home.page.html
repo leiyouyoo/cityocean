@@ -20,12 +20,12 @@
   <div *ngIf="transportationCost" class="search-detail">
     <div class="qiyungang">
       <i></i>
-      <input (click)="searchLocaltion('start')" [(ngModel)]="orignPort.name" type="text" placeholder="请输入起运港" />
+      <input (click)="searchLocaltion('start')" [(ngModel)]="orignPort.name" type="text" placeholder="{{'Please enter port of shipment' | translate}}" />
     </div>
     <div class="search-line"></div>
     <div class="mudigang">
       <i></i>
-      <input type="text" (click)="searchLocaltion('destination')" [(ngModel)]="deliveryPort.name" placeholder="请输入目的港" />
+      <input type="text" (click)="searchLocaltion('destination')" [(ngModel)]="deliveryPort.name" placeholder="{{'Please enter the port of destination' | translate}}" />
     </div>
     <button (click)="go4search()" class="search-yunjia font-12">{{searchType | translate}}</button>
   </div>

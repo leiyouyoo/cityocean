@@ -1,93 +1,104 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, ActionSheetController, ModalController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-workbench',
   templateUrl: 'workbench.page.html',
   styleUrls: ['workbench.page.scss'],
 })
-export class WorkbenchPage {
-  typeList = [
-    // 所有业务类型
-    {
-      name: '运价',
-      type: 'rates',
-      checked: false,
-    },
-    {
-      name: '船期',
-      type: 'sailingSchedules',
-      checked: false,
-    },
-    {
-      name: '运单',
-      type: 'shipment',
-      checked: false,
-    },
-    {
-      name: '订单',
-      type: 'booking',
-      checked: false,
-    },
-    {
-      name: '报价',
-      type: 'quotes',
-      checked: false,
-    },
-    {
-      name: '账单',
-      type: 'billing',
-      checked: false,
-    },
-  ];
-  quickEnterList = [
-    // 已添加到快捷入口的数据
-    {
-      name: '运价',
-      type: 'rates',
-      checked: false,
-    },
-    {
-      name: '船期',
-      type: 'sailingSchedules',
-      checked: false,
-    },
-    {
-      name: '运单',
-      type: 'shipment',
-      checked: false,
-    },
-    {
-      name: '订单',
-      type: 'booking',
-      checked: false,
-    },
-  ];
-  moreTypeList = [
-    // 还未添加到快捷入口的数据
-    {
-      name: '账单',
-      type: 'billing',
-      checked: false,
-    },
-    {
-      name: '报价',
-      type: 'quotes',
-      checked: false,
-    },
-  ];
+export class WorkbenchPage implements OnInit {
+  typeList: any;
+  quickEnterList: any;
+  moreTypeList: any;
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
   orignPort: any = {}; //启运港
   deliveryPort: any = {}; //目的港
   searchType = 'seachRates'; //  当前查询类别
   constructor(
+    public translate: TranslateService,
     private nav: NavController,
     public actionSheetController: ActionSheetController,
     private modalController: ModalController,
   ) {}
-  ionViewWillEnter() {}
+
+  ngOnInit() {
+    // tslint:disable-next-line: no-unused-expression
+    this.quickEnterList = [
+      // 已添加到快捷入口的数据
+      {
+        name: this.translate.instant('Rates'),
+        type: 'rates',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Schedule'),
+        type: 'sailingSchedules',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Shipment'),
+        type: 'shipment',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Booking'),
+        type: 'booking',
+        checked: false,
+      },
+    ];
+
+    this.typeList = [
+      // 所有业务类型
+      {
+        name: this.translate.instant('Rates'),
+        type: 'rates',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Schedule'),
+        type: 'sailingSchedules',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Shipment'),
+        type: 'shipment',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Booking'),
+        type: 'booking',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Quote'),
+        type: 'quotes',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Billing'),
+        type: 'billing',
+        checked: false,
+      },
+    ];
+
+    this.moreTypeList = [
+      // 还未添加到快捷入口的数据
+      {
+        name: this.translate.instant('Billing'),
+        type: 'billing',
+        checked: false,
+      },
+      {
+        name: this.translate.instant('Quote'),
+        type: 'quotes',
+        checked: false,
+      },
+    ];
+  }
+
   confirm() {
     let selectedList = this.typeList.filter((e) => {
       return e.checked;
@@ -137,7 +148,7 @@ export class WorkbenchPage {
     await actionSheet.present();
   }
   /**
-   *点击图标
+   * 点击图标
    *
    * @param {*} item
    * @memberof WorkbenchPage

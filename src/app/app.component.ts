@@ -51,10 +51,6 @@ export class AppComponent {
         if (theme === 'dark') {
           color = '#000000';
         }
-
-        if (theme === 'red') {
-          color = '#e55354';
-        }
       }
       this.statusBar.backgroundColorByHexString(color);
       this.statusBar.show();
