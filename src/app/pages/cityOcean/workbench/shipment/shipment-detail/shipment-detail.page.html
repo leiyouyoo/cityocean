@@ -13,7 +13,8 @@
 
 <ion-content>
   <section *ngIf="mapShow" class="map-wrap">
-    <div>这是地图</div>
+    <!-- <div>这是地图</div> -->
+    <share-amap height = "520" [icons] ="icons" [lines] = "lines" [dashedLines] = "dashedLines"></share-amap>
   </section>
   <section [ngClass]="{'top-class': mapShow}" class="content-wrap base-wrap">
     <div

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ShipmentService {
+export class MyShipmentService {
   public _shipmentsList: Array<any> = [];
   constructor(
     public http: HttpService,

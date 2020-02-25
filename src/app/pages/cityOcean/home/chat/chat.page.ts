@@ -19,7 +19,7 @@ import { BookingStatusType } from '../../workbench/booking/class/booking-status-
 import { createTextMessage, onMessage, getMessageList, sendmessage, createImageMessage } from '@cityocean/im-library';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
-import { ShipmentService } from '../../workbench/shipment/shipment.service';
+import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 
 @Component({
   selector: 'app-chat',
@@ -59,7 +59,7 @@ export class ChatPage implements OnInit {
     public toastController: ToastController,
     public alertController: AlertController,
     private bookingServiceService: BookingServiceService,
-    private shipmentService: ShipmentService,
+    private myShipmentService: MyShipmentService,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -81,7 +81,7 @@ export class ChatPage implements OnInit {
         break;
       case 'shipment':
         this.statusType = ShipmentStatusType; //状态枚举
-        this.shipmentService.GetShipmentDetail(this.bussinessId).subscribe((res: any) => {
+        this.myShipmentService.GetShipmentDetail(this.bussinessId).subscribe((res: any) => {
           console.log(res);
           this.bussinessDetail = res;
         });

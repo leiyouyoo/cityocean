@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
 import { ShipmentPageRoutingModule } from './shipment-routing.module';
 
 import { ShipmentPage } from './shipment.page';
-import { ShipmentService } from './shipment.service';
+import { MyShipmentService } from './shipment.service';
 import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.component';
 
 @NgModule({
@@ -20,6 +19,6 @@ import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.compo
   ],
   declarations: [ShipmentPage,ShipmentFilterComponent],
   entryComponents:[ShipmentFilterComponent],
-  providers:[ShipmentService]
+  providers:[MyShipmentService]
 })
 export class ShipmentPageModule {}

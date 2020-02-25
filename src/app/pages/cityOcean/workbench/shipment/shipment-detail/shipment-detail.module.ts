@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { AmapLibraryModule } from "@cityocean/amap-library";
 
 import { ShipmentDetailPageRoutingModule } from './shipment-detail-routing.module';
 
@@ -15,7 +16,8 @@ import { SharedModule } from '@shared';
     FormsModule,
     IonicModule,
     ShipmentDetailPageRoutingModule,
-    SharedModule
+    SharedModule,
+    AmapLibraryModule
   ],
   declarations: [ShipmentDetailPage]
 })

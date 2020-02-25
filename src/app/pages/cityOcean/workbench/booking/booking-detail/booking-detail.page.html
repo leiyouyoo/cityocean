@@ -23,6 +23,47 @@
       <i class="checked-flag"></i>
       <span>{{process.name}}</span>
     </div>
+    <div class="content-submitting">
+      <h2 *ngIf="bookingDetail.status==1">Cancel request is submitted</h2>
+      <h2 *ngIf="bookingDetail.status==2">Booking request is submitting</h2>
+      <h2 *ngIf="bookingDetail.status==3">Shipping order is done</h2>
+      <h2 *ngIf="bookingDetail.status==4">Freight quotes  is needed by City Ocean</h2>
+      <h2 *ngIf="bookingDetail.status==5">Quote is waiting for comfirm by the customer</h2>
+      <h2 *ngIf="bookingDetail.status==6">Quote is waiting for comfirm by the customer</h2>
+      <h2 *ngIf="bookingDetail.status==7">shipping order is cancelled</h2>
+      <div class="content-submitting-bottom"></div>
+      <!-- <div class="content-submitting-step">
+          <nz-steps [nzCurrent]="statusStep" nzDirection="vertical" nzSize="default" [nzStartIndex]="0"
+              *ngIf="bookingDetail.status!=4&&bookingDetail.status!=5&&bookingDetail.status!=6">
+              <nz-step nzTitle="Booking is received by City Ocean Staff"></nz-step>
+              <nz-step nzTitle="Shipping order  is requested with the carrier."></nz-step>
+              <nz-step nzTitle="Notified SO successfully with the customer."></nz-step>
+              <nz-step nzTitle="Shipping order is done"></nz-step>
+          </nz-steps>
+
+          <nz-steps [nzCurrent]="statusStep" nzDirection="vertical" nzSize="default" [nzStartIndex]="0"
+              *ngIf="bookingDetail.status==4">
+              <nz-step nzTitle="Booking is received by City Ocean Staff"></nz-step>
+              <nz-step nzTitle="Freight quote  is sended to the customer."></nz-step>
+              <nz-step nzTitle="Shipping order  is requested with the carrier."></nz-step>
+              <nz-step nzTitle="Notified SO successfully with the customer."></nz-step>
+              <nz-step nzTitle="Shipping order is done"></nz-step>
+          </nz-steps>
+
+          <nz-steps [nzCurrent]="statusStep" nzDirection="vertical" nzSize="default" [nzStartIndex]="0"
+              *ngIf="bookingDetail.status==5||bookingDetail.status==6">
+              <nz-step nzTitle="Booking is received by City Ocean Staff"></nz-step>
+              <nz-step nzTitle="Freight quote  is sended to the customer."></nz-step>
+              <nz-step nzTitle="Quote  is comfirmed by the customer."></nz-step>
+              <nz-step nzTitle="Shipping order  is requested with the carrier."></nz-step>
+              <nz-step nzTitle="Notified SO successfully with the customer."></nz-step>
+              <nz-step nzTitle="Shipping order is done"></nz-step>
+          </nz-steps>
+      </div> -->
+  </div>
+
+
+
   </section>
   <section class="content-wrap base-wrap">
     <div class="detail-wrap">
@@ -81,11 +122,11 @@
         <span>{{bookingDetail?.shipperAddress?.name}}</span>
       </p>
       <p>
-        <span>{{bookingDetail?.shipperAddress.tenantName}}</span>
+        <span>{{bookingDetail?.shipperAddress?.tenantName}}</span>
       </p>
       <label class="title">起运地</label>
       <p [class]="bookingDetail?.status>=7?'arrival-location':'unarrival-location'">
-        <span>{{bookingDetail.shipperAddress.streetAddress}}</span>
+        <span>{{bookingDetail.shipperAddress?.streetAddress}}</span>
       </p>
 
       <label [class]="bookingDetail?.status>=3?'left-line title':'left-dashed-line title'">起运港</label>

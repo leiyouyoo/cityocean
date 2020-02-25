@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ShipmentService } from '../shipment.service';
+import { MyShipmentService } from '../shipment.service';
 import * as moment from 'moment';
 import { ShipmentStatusType } from '../class/shipment-status-type';
 import { forkJoin } from 'rxjs';
+import { ShipmentService } from '@cityocean/shipment-library';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -50,7 +51,12 @@ export class ShipmentDetailPage implements OnInit {
   };
   businessTypeTitle :any;
   agreement: any; //Freight Type
-  constructor(private activatedRoute: ActivatedRoute, private shipmentService: ShipmentService) {
+  icons: any[];
+  lines: any[];
+  dashedLines: any[];
+  constructor(private activatedRoute: ActivatedRoute, 
+    private myShipmentService: MyShipmentService,
+    private shipmentService:ShipmentService) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
       this.agreement = data.agreement;
@@ -58,14 +64,24 @@ export class ShipmentDetailPage implements OnInit {
   }
 
   ngOnInit() {
-    forkJoin(this.shipmentService.GetShipmentDetail(this.id), this.shipmentService.GetDetail(this.id)).subscribe(
+    forkJoin(this.myShipmentService.GetShipmentDetail(this.id), this.myShipmentService.GetDetail(this.id)).subscribe(
       (res: any) => {
         console.log(res);
         this.basicDetail = res[0];
         this.routeDetail = res[1];
+        this.getMapData(res[1])
         this.businessTypeTitle = {title1:this.routeDetail.shipmentNo,title2:this.basicDetail.soNo}
       },
     );
+  }
+  getMapData(data) {
+    this.shipmentService.getShipmentMapDataByDetails([data]).subscribe(mapData=>{
+      if(mapData.length){
+        this.icons=  mapData[0].icons;
+        this.lines=  mapData[0].lines;
+        this.dashedLines=  mapData[0].dashedLines;
+      }
+    })
   }
   getTime(time) {
     return moment(time).format('MMM D YYYY');

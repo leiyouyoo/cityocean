@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, ActionSheetController, ModalController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
+import { WorkbenchService } from './workbench.service';
 
 @Component({
   selector: 'app-workbench',
   templateUrl: 'workbench.page.html',
   styleUrls: ['workbench.page.scss'],
 })
-export class WorkbenchPage {
+export class WorkbenchPage implements OnInit {
   typeList = [
     // 所有业务类型
     {
@@ -77,20 +78,19 @@ export class WorkbenchPage {
       checked: false,
     },
   ];
-
-  titleStatisticsList = [{
-    type:'intransit',
-    name:'在途',
-    value:1
-  },{
-    type:'finished',
-    name:'已完成',
-    value:5
-  },{
-    type:'delay',
-    name:'逾期',
-    value:4
-  },]
+  title = 'shipment';
+  titleStatisticsList = [
+    {
+      type: 'intransit',
+      name: '在途',
+      value: 0,
+    },
+    {
+      type: 'finished',
+      name: '到港',
+      value: 0,
+    },
+  ];
 
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
@@ -101,7 +101,11 @@ export class WorkbenchPage {
     private nav: NavController,
     public actionSheetController: ActionSheetController,
     private modalController: ModalController,
+    private workbenchService: WorkbenchService,
   ) {}
+  ngOnInit(): void {
+    this.shipmentStatistics();
+  }
   ionViewWillEnter() {}
   confirm() {
     let selectedList = this.typeList.filter((e) => {
@@ -109,8 +113,33 @@ export class WorkbenchPage {
     });
     console.log(selectedList);
   }
+  shipmentStatistics() {
+    this.workbenchService.GetShipmentsStatistics().subscribe((res: any) => {
+      let inProgress = 0;
+      let arrival = 0;
+      res.items.forEach((element) => {
+        if (element.name === 'At Arrival Port') {
+          arrival = element.count;
+        } else if (element.name === 'All shipments in progress') {
+          inProgress = element.count;
+        }
+        this.titleStatisticsList = [
+          {
+            type: 'intransit',
+            name: '在途',
+            value: inProgress,
+          },
+          {
+            type: 'finished',
+            name: '到港',
+            value: arrival,
+          },
+        ];
+      });
+    });
+  }
   /**
-   *更换当前data数据
+   *更换当前统计数据类别
    *
    * @memberof WorkbenchPage
    */
@@ -123,28 +152,84 @@ export class WorkbenchPage {
           text: 'Shipment',
           icon: 'shipment',
           handler: () => {
-            console.log('Play clicked');
+            this.title = 'shipment';
+            this.shipmentStatistics();
           },
         },
         {
           text: 'Booking',
           icon: 'booking',
           handler: () => {
-            console.log('Favorite clicked');
+            this.title = 'booking';
+            this.workbenchService.GetBookingsStatistics().subscribe((res: any) => {
+              let booked = 0;
+              let booking = 0;
+              res.models.forEach((element) => {
+                if (element.status === 3) {
+                  booked = element.count;
+                } else {
+                  booking = element.count;
+                }
+              });
+              this.titleStatisticsList = [
+                {
+                  type: 'intransit',
+                  name: '已订舱',
+                  value: booked,
+                },
+                {
+                  type: 'finished',
+                  name: '待订舱',
+                  value: booking,
+                },
+              ];
+            });
           },
         },
         {
           text: 'Billing',
           icon: 'billing',
           handler: () => {
-            console.log('Favorite clicked');
+            this.title = 'billing';
+            this.workbenchService.GetBillingsStatistics().subscribe((res: any) => {
+              console.log(res);
+              let payed = 0;
+              let paying = 0;
+              let delay = 0;
+              res.models.forEach((element) => {
+                if (element.status === 1) {
+                  paying = element.count;
+                } else if (element.status === 2) {
+                  payed = element.count;
+                } else if (element.status === 3) {
+                  delay = element.count;
+                }
+              });
+              this.titleStatisticsList = [
+                {
+                  type: 'intransit',
+                  name: '已付',
+                  value: payed,
+                },
+                {
+                  type: 'finished',
+                  name: '未付',
+                  value: paying,
+                },
+                {
+                  type: 'delay',
+                  name: '逾期',
+                  value: delay,
+                },
+              ];
+            });
           },
         },
         // {
         //   text: 'Rates',
         //   icon: 'rates',
         //   handler: () => {
-        //     console.log('Favorite clicked');
+        //     this.title = 'shipment';
         //   },
         // },
       ],
@@ -194,7 +279,7 @@ export class WorkbenchPage {
       this.nav.navigateForward(['/cityOcean/workbench/rates'], {
         queryParams: {
           orignPortId: this.orignPort.id,
-          deliveryPortId: this.deliveryPort.id
+          deliveryPortId: this.deliveryPort.id,
         },
       });
     } else if (this.searchType === 'seachSailingSchedules') {
