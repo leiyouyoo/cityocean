@@ -18,8 +18,6 @@ export class RatesPage implements OnInit {
     maxResultCount: 5,
     skipCount: 0,
   };
-  deliveryPortName: any;
-  orignPortName: any;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -28,8 +26,6 @@ export class RatesPage implements OnInit {
   ) {
     this.activatedRoute.queryParams.subscribe((data) => {
       this.orignPortId = data.orignPortId;
-      this.orignPortName = data.orignPortName;
-      this.deliveryPortName = data.deliveryPortName;
       this.deliveryPortId = data.deliveryPortId;
     });
   }
@@ -91,7 +87,7 @@ export class RatesPage implements OnInit {
   async ratesFilter(type) {
     const modal = await this.modalController.create({
       component: RatesFilterComponent,
-      componentProps: {orignPortName:this.orignPortName,deliveryPortName:this.deliveryPortName},
+      componentProps: {},
     });
     modal.onWillDismiss().then((res) => {
       let params = {};

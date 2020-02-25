@@ -14,18 +14,11 @@
         <ion-icon name="caret-down-outline"></ion-icon>
       </div>
       <div class="message-group">
-        <div>
-          <i class="intransit"></i>
+        <div *ngFor="let item of titleStatisticsList">
+          <i [class]="item.type"></i>
           <p>
-            <span>在途</span>
-            <span>1</span>
-          </p>
-        </div>
-        <div>
-          <i class="finished"></i>
-          <p>
-            <span>已完成</span>
-            <span>2</span>
+            <span>{{item.name}}</span>
+            <span>{{item.value}}</span>
           </p>
         </div>
       </div>

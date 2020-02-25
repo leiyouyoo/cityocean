@@ -77,6 +77,21 @@ export class WorkbenchPage {
       checked: false,
     },
   ];
+
+  titleStatisticsList = [{
+    type:'intransit',
+    name:'在途',
+    value:1
+  },{
+    type:'finished',
+    name:'已完成',
+    value:5
+  },{
+    type:'delay',
+    name:'逾期',
+    value:4
+  },]
+
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
   orignPort: any = {}; //启运港
@@ -125,13 +140,13 @@ export class WorkbenchPage {
             console.log('Favorite clicked');
           },
         },
-        {
-          text: 'Rates',
-          icon: 'rates',
-          handler: () => {
-            console.log('Favorite clicked');
-          },
-        },
+        // {
+        //   text: 'Rates',
+        //   icon: 'rates',
+        //   handler: () => {
+        //     console.log('Favorite clicked');
+        //   },
+        // },
       ],
     });
     await actionSheet.present();
@@ -179,9 +194,7 @@ export class WorkbenchPage {
       this.nav.navigateForward(['/cityOcean/workbench/rates'], {
         queryParams: {
           orignPortId: this.orignPort.id,
-          orignPortName: this.orignPort.name,
-          deliveryPortId: this.deliveryPort.id,
-          deliveryPortName: this.deliveryPort.name,
+          deliveryPortId: this.deliveryPort.id
         },
       });
     } else if (this.searchType === 'seachSailingSchedules') {

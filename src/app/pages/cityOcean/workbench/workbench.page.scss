@@ -4,6 +4,7 @@ ion-header {
   ::after {
     height: 0px !important;
   }
+
   .padding-edit {
     padding-bottom: 1em;
   }
@@ -80,50 +81,50 @@ ion-header {
         margin-top: 1em;
         display: flex;
 
-        & > div {
+        &>div {
           display: flex;
           align-items: center;
+          flex: auto;
 
           i {
             display: inline-block;
-            width: 2em;
-            height: 2em;
+            width: px2rem(36px);
+            height: px2rem(36px);
           }
 
           .intransit {
-            width: 3.5em;
-            height: 3.5em;
             @include bg-image('../../.././../assets/icon/workbench/lan');
           }
 
           .finished {
-            width: 3.5em;
-            height: 3.5em;
-            margin-left: 2em;
+            @include bg-image('../../.././../assets/icon/workbench/lv');
+          }
+          .delay{
             @include bg-image('../../.././../assets/icon/workbench/hong');
+            
           }
 
-          & > p {
+          &>p {
             display: flex;
             flex-direction: column;
             margin-left: 1em;
 
             span:nth-child(1) {
-              height: 20px;
-              font-size: 14px;
+              height: px2rem(17px);
+              font-size: 12px;
               font-family: PingFangSC-Regular, PingFang SC;
               font-weight: 400;
               color: rgba(255, 255, 255, 0.75);
-              line-height: 20px;
+              line-height: px2rem(17px);
             }
 
             span:nth-child(2) {
-              height: 28px;
-              font-size: 20px;
+              height: px2rem(17px);
+              font-size: 12px;
               font-family: PingFangSC-Regular, PingFang SC;
               font-weight: 400;
               color: rgba(255, 255, 255, 1);
-              line-height: 28px;
+              line-height: px2rem(17px);
             }
           }
         }
@@ -264,7 +265,7 @@ ion-content {
       display: flex;
       flex-wrap: wrap;
 
-      & > div {
+      &>div {
         width: 25%;
         padding: 1em;
 
@@ -274,13 +275,14 @@ ion-content {
           align-items: center;
           justify-content: center;
 
-          & > i {
+          &>i {
             width: 2.5em;
             height: 2.5em;
             position: relative;
             margin-bottom: 0.25em;
           }
-          & > span {
+
+          &>span {
             height: 1em;
             font-size: 14px;
             font-family: PingFangSC-Regular, PingFang SC;

@@ -7,11 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
-  <form formGroupName="profileForm">
-    <div>
-      <ion-label>{{ orignPortName }}</ion-label>
-    </div>
-
+  <section>
     <div>
       <ion-select
         name="orignPortCy"
@@ -26,7 +22,13 @@
       </ion-select>
       <div class="my-icon"></div>
     </div>
+    <div>
+      <input placeholder="Enter Origin Port" [(ngModel)] = "profileForm.originPortSearchText" (click)="showPopover($event,'originPortSearchText')" (ngModelChange) = "ngModelChange('originPortSearchText')" type="text">
+    </div>
     <div *ngIf="profileForm.orignPortCy === 'DOOR'">
+      <input placeholder="Enter Origin Location" [(ngModel)] = "profileForm.originLocatonSearchText" (click)="showPopover($event,'originLocatonSearchText')" (ngModelChange) = "ngModelChange('originLocatonSearchText')" type="text">
+    </div>
+    <!-- <div *ngIf="profileForm.orignPortCy === 'DOOR'">
       <ion-select
         name="orignPortLocal"
         [interfaceOptions]="{ header: '选择提货地址', cssClass: 'ion-select-my-class' }"
@@ -39,10 +41,7 @@
         <ion-select-option value="2">yantian disrict ,shenshenzhen ,China</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
-    </div>
-    <div>
-      <ion-label>{{ deliveryPortName }}</ion-label>
-    </div>
+    </div> -->
     <div>
       <ion-select
         name="deliveryPortCy"
@@ -57,7 +56,13 @@
       </ion-select>
       <div class="my-icon"></div>
     </div>
+    <div>
+      <input placeholder="Enter Delivery Port" [(ngModel)] = "profileForm.deliveryPortSearchText" (click)="showPopover($event,'deliveryPortSearchText')" (ngModelChange) = "ngModelChange('deliveryPortSearchText')" type="text">
+    </div>
     <div *ngIf="profileForm.deliveryPortCy === 'DOOR'">
+      <input placeholder="Enter Destination Location" [(ngModel)] = "profileForm.destinationLocationSearchText" (click)="showPopover($event,'destinationLocationSearchText')" (ngModelChange) = "ngModelChange('destinationLocationSearchText')" type="text">
+    </div>
+    <!-- <div *ngIf="profileForm.deliveryPortCy === 'DOOR'">
       <ion-select
         name="deliveryPortLocal"
         [interfaceOptions]="{ header: '选择送货货地址', cssClass: 'ion-select-my-class' }"
@@ -70,7 +75,7 @@
         <ion-select-option value="2">yantian disrict ,shenshenzhen ,China</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
-    </div>
+    </div> -->
     <div>
       <ion-select
         name="carrierId"
@@ -102,6 +107,6 @@
       </ion-select>
       <div class="my-icon"></div>
     </div>
-  </form>
+  </section>
   <ion-button (click)="confirm()" expand="block">确认</ion-button>
 </ion-content>
