@@ -180,7 +180,7 @@ export class GroupMessagePage implements OnInit {
   async presentModal(component,type) {
     const modal = await this.modalController.create({
       component: component,
-      componentProps:type == "search"? {}:{BusinessId : this.groupID.replace(/[^\d]/ig,""),BusinessType : this.groupID.replace(/\d/g,'').toLowerCase(),groupID:this.groupID}
+      componentProps:type == "search"? {}:{BusinessId : this.groupID.replace(/[^\d]/ig,""),BusinessType : this.groupID.replace(/\d/g,'').toLowerCase(),groupID:this.groupID,isC2C:this.isC2C}
     });
     modal.onWillDismiss().then(res => {
       if (type == "search") {

@@ -20,12 +20,12 @@ export class BookingDetailPage implements OnInit {
     {
       name: 'Booking is received by City Ocean Staff.',
       status: 'received',
-      checked: true,
+      checked: false,
     },
     {
       name: 'Shipping order  is requested with the carrier..',
       status: 'requested',
-      checked: true,
+      checked: false,
     },
     {
       name: 'Notified SO successfully with the customer..',
