@@ -9,13 +9,15 @@ import { RatesPageRoutingModule } from './rates-routing.module';
 import { RatesPage } from './rates.page';
 import { RatesFilterComponent } from './rates-filter/rates-filter.component';
 import { RatesService } from './rates.service';
+import { SharedModule } from '@shared';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RatesPageRoutingModule
+    RatesPageRoutingModule,
+    SharedModule
   ],
   declarations: [RatesPage,RatesFilterComponent],
   entryComponents:[RatesFilterComponent],

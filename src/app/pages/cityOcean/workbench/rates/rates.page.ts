@@ -5,7 +5,6 @@ import { RatesService } from './rates.service';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
-
 @Component({
   selector: 'app-rates',
   templateUrl: './rates.page.html',
@@ -41,7 +40,7 @@ export class RatesPage implements OnInit {
       deliveryPortId: [this.deliveryPortId],
       // "deliveryLocationId": this.deliveryPortId,
       maxResultCount: this.pageInfo.maxResultCount,
-      skipCount: this.pageInfo.skipCount
+      skipCount: this.pageInfo.skipCount,
     };
     // let param = {
     //   // "carrierId": 32761,
@@ -88,13 +87,14 @@ export class RatesPage implements OnInit {
   async ratesFilter(type) {
     const modal = await this.modalController.create({
       component: RatesFilterComponent,
+      componentProps: {},
     });
     modal.onWillDismiss().then((res) => {
       let params = {};
       this.pageInfo = {
-        maxResultCount : 5,
-        skipCount:0,
-      }
+        maxResultCount: 5,
+        skipCount: 0,
+      };
       if (res.data.cy) {
       }
     });

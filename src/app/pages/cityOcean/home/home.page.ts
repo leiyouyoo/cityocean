@@ -24,10 +24,10 @@ export class HomePage implements OnInit {
   toolsList: any;
 
   groupMassageList = [];
-  orignPort: any = {}; //启运港
-  deliveryPort: any = {}; //目的港
+  orignPort: any = {}; // 启运港
+  deliveryPort: any = {}; // 目的港
   totalCount: any;
-  scrollList: any;
+  scrollList = []; // 系统消息列表
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -94,9 +94,6 @@ export class HomePage implements OnInit {
         //暂时不展示系统消息
         return e.type.indexOf('TIM') != -1 && e.type.indexOf('SYSTEM') != -1;
       });
-      for (let index = 0; index < 5; index++) {
-        this.scrollList.push(this.scrollList);
-      }
 
       list.forEach((ele) => {
         if (ele.type == 'C2C') {

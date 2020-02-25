@@ -4,6 +4,8 @@ import { BookingStatusType } from '../class/booking-status-type';
 import { forkJoin } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { BookingServiceService } from '../booking-service.service';
+import { bookingStatus } from '../class/bookingStatus'
+
 
 @Component({
   selector: 'app-booking-detail',
@@ -18,12 +20,12 @@ export class BookingDetailPage implements OnInit {
     {
       name: 'Booking is received by City Ocean Staff.',
       status: 'received',
-      checked: true,
+      checked: false,
     },
     {
       name: 'Shipping order  is requested with the carrier..',
       status: 'requested',
-      checked: true,
+      checked: false,
     },
     {
       name: 'Notified SO successfully with the customer..',
@@ -285,17 +287,138 @@ export class BookingDetailPage implements OnInit {
     deleterUserId: 0,
     isDeleted: true,
   };
+  statusStep: number;
 
   constructor(private activatedRoute: ActivatedRoute, private bookingServiceService: BookingServiceService) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
+      
     });
   }
-
+setRequestProcess(){
+  if(this.bookingDetail.status!=4&&this.bookingDetail.status!=5&&this.bookingDetail.status!=6){
+    this.requestProcess = [
+      {
+        name: 'Booking is received by City Ocean Staff.',
+        status: 'received',
+        checked: false,
+      },
+      {
+        name: 'Shipping order  is requested with the carrier..',
+        status: 'requested',
+        checked: false,
+      },
+      {
+        name: 'Notified SO successfully with the customer..',
+        status: 'Notified',
+        checked: false,
+      },
+      {
+        name: 'Shipping order is done..',
+        status: 'done',
+        checked: false,
+      },
+    ];
+  }else if(this.bookingDetail.status == 4){
+    this.requestProcess = [
+      {
+        name: 'Booking is received by City Ocean Staff.',
+        status: 'received',
+        checked: false,
+      },
+      {
+        name: 'Freight quote  is sended to the customer.',
+        status: 'requested',
+        checked: false,
+      },
+      {
+        name: 'Shipping order  is requested with the carrier..',
+        status: 'requested',
+        checked: false,
+      },
+      {
+        name: 'Notified SO successfully with the customer..',
+        status: 'Notified',
+        checked: false,
+      },
+      {
+        name: 'Shipping order is done..',
+        status: 'done',
+        checked: false,
+      },
+    ];
+  }else if(this.bookingDetail.status==5||this.bookingDetail.status==6){
+    this.requestProcess = [
+      {
+        name: 'Booking is received by City Ocean Staff.',
+        status: 'received',
+        checked: false,
+      },
+      {
+        name: 'Freight quote  is sended to the customer.',
+        status: 'requested',
+        checked: false,
+      },
+      {
+        name: 'Quote  is comfirmed by the customer.',
+        status: 'requested',
+        checked: false,
+      },
+      {
+        name: 'Shipping order  is requested with the carrier..',
+        status: 'requested',
+        checked: false,
+      },
+      {
+        name: 'Notified SO successfully with the customer..',
+        status: 'Notified',
+        checked: false,
+      },
+      {
+        name: 'Shipping order is done..',
+        status: 'done',
+        checked: false,
+      },
+    ];
+  }
+  for (let index = 0; index <= this.statusStep; index++) {
+    this.requestProcess[index].checked = true;
+  }
+}
   ngOnInit() {
     this.bookingServiceService.GetDetail(this.id).subscribe((res: any) => {
       console.log(res);
       this.bookingDetail = res;
+      switch (res.status) {
+        case bookingStatus.Cancelled:
+          this.statusStep = 0;
+          break;
+        case bookingStatus.Submitted:
+          this.statusStep = 1;
+          break;
+        case bookingStatus.Booked:
+          this.statusStep = 3;
+          break;
+        case bookingStatus.WaitingForPricing:
+          if (res.tradeType != 1) {
+            this.statusStep = -1;
+          } else {
+            this.statusStep = 0;
+          }
+          break;
+        case bookingStatus.WaitingForBuyer:
+          this.statusStep = 1;
+          break;
+        case bookingStatus.WaitingForSellerr:
+          this.statusStep = 1;
+          break;
+        case bookingStatus.ConfirmCancelled:
+          this.statusStep = -1;
+          break;
+        default:
+          break;
+      }
+      this.setRequestProcess();
     });
   }
   getTime(time) {

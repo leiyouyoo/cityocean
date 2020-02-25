@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkbenchPage } from './workbench.page';
 import { WorkbenchPageRoutingModule } from './workbench-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { WorkbenchService } from './workbench.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   declarations: [WorkbenchPage],
-  entryComponents:[]
+  entryComponents:[],
+  providers:[WorkbenchService]
 })
 export class WorkbenchPageModule {}

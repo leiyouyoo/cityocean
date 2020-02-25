@@ -11,8 +11,7 @@
   --ion-color-primary-shade: #3171e0;
   --ion-color-primary-tint: #4c8dff;
 
-  --ionc-color-biling-more:#409CFF;
-  --ionc-color-biling-more-rgb:64,156,255;
+  --ionc-color-biling-more:#d9ebff;
   
 
   /** secondary **/
@@ -335,9 +334,11 @@ $font-base-size : 12px;
   }
 }
 .billing-popover{
-  --background:rgba(var(--ionc-color-biling-more-rgb),0.2); 
+  --background:var(--ionc-color-biling-more); 
 }
-
+.my-popover-input-search{
+  --min-width: 80%;
+}
 /*
  * Dark Colors
  * -------------------------------------------

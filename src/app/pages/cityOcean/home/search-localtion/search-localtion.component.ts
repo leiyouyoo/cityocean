@@ -27,13 +27,10 @@ export class SearchlocaltionComponent implements OnInit {
     if (searchHistory) {
       this.searchHistoryList = searchHistory;
     }
-    this.searchTerms
-      .pipe(
-        // 请求防抖 300毫秒
-        debounceTime(200),
-        distinctUntilChanged(),
-      )
-      .subscribe((text) => {
+    this.searchTerms.pipe(
+        // 请求防抖 100毫秒
+        debounceTime(100),
+      ).subscribe((text) => {
         this.locationLibraryService.GetAllPort({ Name: text }).subscribe((res: any) => {
           this.localtionList = res.items;
         });

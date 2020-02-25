@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
   selector: "app-message-rolling",
@@ -6,21 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./message-rolling.component.scss"]
 })
 export class MessageRollingComponent implements OnInit {
-  massgeList = [{
-    text:"这是一条系统消息，这是一条系统消息，这是一条系统消息，"
-  },{
-    text:"这是一条系统消息，这是一条系统消息，这是一条系统消息，"
-  },{
-    text:"这是一条系统消息，这是一条系统消息，这是一条系统消息，"
-  },{
-    text:"这是一条系统消息，这是一条系统消息，这是一条系统消息，"
-  },{
-    text:"这是一条系统消息，这是一条系统消息，这是一条系统消息，"
-  },{
-    text:"这是一条系统消息，这是一条系统消息，这是一条系统消息，"
-  },{
-    text:"这是一条系统消息，这是一条系统消息，这是一条系统消息，"
-  },]
+  @Input() massgeList = []
   constructor() {}
 
   ngOnInit() {
@@ -36,12 +22,14 @@ export class MessageRollingComponent implements OnInit {
         massage.scrollTop++;
       }
     }
-    let MyMar = setInterval(Marquee, speed);
-    massage.onmouseover = function() {
-      clearInterval(MyMar);
-    };
-    massage.onmouseout = function() {
-      MyMar = setInterval(Marquee, speed);
-    };
+    if(this.massgeList.length>1){
+      let MyMar = setInterval(Marquee, speed);
+      massage.onmouseover = function() {
+        clearInterval(MyMar);
+      };
+      massage.onmouseout = function() {
+        MyMar = setInterval(Marquee, speed);
+      };
+    }
   }
 }

@@ -47,16 +47,21 @@ export class GroupMessagePage implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.isC2C) {
-      getGroupMemberlist(this.groupID).then(res => {
-        console.log(res)
-        this.membersList = res.data.memberList;
-      });
-    } else {
-      getUserProfile([this.groupID]).then(res => {
-        this.membersList = res.data;
-      });
+    try {
+      if (!this.isC2C) {
+        getGroupMemberlist(this.groupID).then(res => {
+          console.log(res)
+          this.membersList = res.data.memberList;
+        });
+      } else {
+        getUserProfile([this.groupID]).then(res => {
+          this.membersList = res.data;
+        });
+      }
+    } catch (error) {
+      console.log(error)
     }
+    
     let _groupid = this.groupID.toLowerCase();
     if (_groupid.indexOf('booking') || _groupid.indexOf('billing') || _groupid.indexOf('quote') || _groupid.indexOf('shipment') || _groupid.indexOf('order')) {
       this.canEditGroupName = false;
@@ -175,7 +180,7 @@ export class GroupMessagePage implements OnInit {
   async presentModal(component,type) {
     const modal = await this.modalController.create({
       component: component,
-      componentProps:type == "search"? {}:{BusinessId : this.groupID.replace(/[^\d]/ig,""),BusinessType : this.groupID.replace(/\d/g,'').toLowerCase(),groupID:this.groupID}
+      componentProps:type == "search"? {}:{BusinessId : this.groupID.replace(/[^\d]/ig,""),BusinessType : this.groupID.replace(/\d/g,'').toLowerCase(),groupID:this.groupID,isC2C:this.isC2C}
     });
     modal.onWillDismiss().then(res => {
       if (type == "search") {

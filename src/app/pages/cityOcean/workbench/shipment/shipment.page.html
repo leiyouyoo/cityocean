@@ -3,8 +3,8 @@
     <div>
       <div class="left-content">
         <i (click)="goback()" class="go-back"></i>
-        <i class="search-icon"></i>
-        <input type="text" placeholder="搜索PO/SKU" />
+        <i class="search-icon" (click)="getShipmentList()"></i>
+        <input [(ngModel)]="searchText" (keyup)="($event.which === 13) ? getShipmentList() : 0"  type="text" placeholder="搜索PO/SKU" />
       </div>
       <i (click)="shipmentFilter($event)" class="filter"></i>
     </div>
@@ -89,7 +89,7 @@
       </div> -->
     </div>
   </section>
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="getShipmentList({},$event)">
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="getShipmentList($event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

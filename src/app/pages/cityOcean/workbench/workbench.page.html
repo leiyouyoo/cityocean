@@ -10,22 +10,15 @@
         <ion-select-option value="booking">booking</ion-select-option>
       </ion-select> -->
       <div (click)="businessChange()" class="business-change-wrap">
-        <span>shipment</span>
+        <span>{{title}}</span>
         <ion-icon name="caret-down-outline"></ion-icon>
       </div>
       <div class="message-group">
-        <div>
-          <i class="intransit"></i>
+        <div *ngFor="let item of titleStatisticsList">
+          <i [class]="item.type"></i>
           <p>
-            <span>{{'In Transit' | translate}}</span>
-            <span>1</span>
-          </p>
-        </div>
-        <div>
-          <i class="finished"></i>
-          <p>
-            <span>{{'Completed' | translate}}</span>
-            <span>2</span>
+            <span>{{item.name}}</span>
+            <span>{{item.value}}</span>
           </p>
         </div>
       </div>

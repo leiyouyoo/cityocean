@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
-import { ShipmentService } from './shipment.service';
+import { MyShipmentService } from './shipment.service';
 import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.component';
 import { ShipmentStatusType } from './class/shipment-status-type';
 import * as moment from 'moment';
@@ -15,16 +15,18 @@ export class ShipmentPage implements OnInit {
     maxResultCount: 5,
     skipCount: 0,
   };
+  searchText = '';
   shipmentsList = [];
   statusType: typeof ShipmentStatusType = ShipmentStatusType;
+  currentParams: any = {};
   constructor(
     private nav: NavController,
-    private shipmentService: ShipmentService,
+    private myShipmentService: MyShipmentService,
     private modalController: ModalController,
   ) {}
 
   ngOnInit() {
-    this.getShipmentList({});
+    this.getShipmentList();
   }
   /**
    *
@@ -33,10 +35,11 @@ export class ShipmentPage implements OnInit {
    * @param {*} [event]  下拉参数
    * @memberof ShipmentPage
    */
-  getShipmentList(params, event?) {
-    params.MaxResultCount = this.pageInfo.maxResultCount;
-    params.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
-    this.shipmentService.GetAll(params).subscribe((res) => {
+  getShipmentList(event?) {
+    this.searchText ? this.currentParams.searchText = this.searchText:'';
+    this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
+    this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
+    this.myShipmentService.GetAll(this.currentParams).subscribe((res) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.shipmentsList = this.shipmentsList.concat(res.items);
@@ -65,12 +68,14 @@ export class ShipmentPage implements OnInit {
     modal.onWillDismiss().then((res) => {
       console.log(res);
       this.pageInfo = {
-        maxResultCount : 5,
-        skipCount:0,
-      }
-      if(res.data){
+        maxResultCount: 5,
+        skipCount: 0,
+      };
+      this.currentParams  = {};
+      if (res.data) {
         this.shipmentsList = [];
-        this.getShipmentList(res.data);
+        this.currentParams = res.data;
+        this.getShipmentList();
       }
     });
     return await modal.present();

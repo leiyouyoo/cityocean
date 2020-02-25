@@ -18,8 +18,17 @@
     ></app-business-type>
   </div>
   <section class="request-wrap">
-    <p>Booking request is submitted</p>
-    <div *ngFor="let process of requestProcess"  [ngClass]="{ 'not-check-bg': !process.checked,'check-bg':process.checked}">
+    <p *ngIf="bookingDetail.status==1">Cancel request is submitted</p>
+    <p *ngIf="bookingDetail.status==2">Booking request is submitting</p>
+    <p *ngIf="bookingDetail.status==3">Shipping order is done</p>
+    <p *ngIf="bookingDetail.status==4">Freight quotes is needed by City Ocean</p>
+    <p *ngIf="bookingDetail.status==5">Quote is waiting for comfirm by the customer</p>
+    <p *ngIf="bookingDetail.status==6">Quote is waiting for comfirm by the customer</p>
+    <p *ngIf="bookingDetail.status==7">shipping order is cancelled</p>
+    <div
+      *ngFor="let process of requestProcess"
+      [ngClass]="{ 'not-check-bg': !process.checked,'check-bg':process.checked}"
+    >
       <i class="checked-flag"></i>
       <span>{{process.name}}</span>
     </div>
@@ -81,25 +90,25 @@
         <span>{{bookingDetail?.shipperAddress?.name}}</span>
       </p>
       <p>
-        <span>{{bookingDetail?.shipperAddress.tenantName}}</span>
+        <span>{{bookingDetail?.shipperAddress?.tenantName}}</span>
       </p>
       <label class="title">起运地</label>
-      <p [class]="bookingDetail?.status>=7?'arrival-location':'unarrival-location'">
-        <span>{{bookingDetail.shipperAddress.streetAddress}}</span>
+      <p class="unarrival-location">
+        <span>{{bookingDetail.shipperAddress?.streetAddress}}</span>
       </p>
 
-      <label [class]="bookingDetail?.status>=3?'left-line title':'left-dashed-line title'">起运港</label>
-      <p [class]="bookingDetail?.status>=3?'arrival-location':'unarrival-location'">
+      <label class="left-dashed-line title">起运港</label>
+      <p class="unarrival-location">
         <span>{{bookingDetail?.originPort?.name}}</span>
       </p>
 
-      <label [class]="bookingDetail?.status>=5?'left-line title':'left-dashed-line title'">目的港</label>
-      <p [class]="bookingDetail?.status>=7?'arrival-location':'unarrival-location'">
+      <label class="left-dashed-line title">目的港</label>
+      <p class="unarrival-location">
         <span>{{bookingDetail?.destinationPort?.name}}</span>
       </p>
 
-      <label [class]="bookingDetail?.status>=7?'left-line':'left-dashed-line title'">目的地</label>
-      <p [class]="bookingDetail?.status>=7?'arrival-location':'unarrival-location'">
+      <label class="left-dashed-line title">目的地</label>
+      <p class="unarrival-location">
         <span>{{bookingDetail?.consigneeAddress?.streetAddress}}</span>
       </p>
     </div>

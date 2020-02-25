@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ActionSheetController, ModalController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
-import { TranslateService } from '@ngx-translate/core';
+import { WorkbenchService } from './workbench.service';
 
 @Component({
   selector: 'app-workbench',
@@ -9,9 +9,89 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['workbench.page.scss'],
 })
 export class WorkbenchPage implements OnInit {
-  typeList: any;
-  quickEnterList: any;
-  moreTypeList: any;
+  typeList = [
+    // 所有业务类型
+    {
+      name: '运价',
+      type: 'rates',
+      checked: false,
+    },
+    {
+      name: '船期',
+      type: 'sailingSchedules',
+      checked: false,
+    },
+    {
+      name: '运单',
+      type: 'shipment',
+      checked: false,
+    },
+    {
+      name: '订单',
+      type: 'booking',
+      checked: false,
+    },
+    {
+      name: '报价',
+      type: 'quotes',
+      checked: false,
+    },
+    {
+      name: '账单',
+      type: 'billing',
+      checked: false,
+    },
+  ];
+  quickEnterList = [
+    // 已添加到快捷入口的数据
+    {
+      name: '运价',
+      type: 'rates',
+      checked: false,
+    },
+    {
+      name: '船期',
+      type: 'sailingSchedules',
+      checked: false,
+    },
+    {
+      name: '运单',
+      type: 'shipment',
+      checked: false,
+    },
+    {
+      name: '订单',
+      type: 'booking',
+      checked: false,
+    },
+  ];
+  moreTypeList = [
+    // 还未添加到快捷入口的数据
+    {
+      name: '账单',
+      type: 'billing',
+      checked: false,
+    },
+    {
+      name: '报价',
+      type: 'quotes',
+      checked: false,
+    },
+  ];
+  title = 'shipment';
+  titleStatisticsList = [
+    {
+      type: 'intransit',
+      name: '在途',
+      value: 0,
+    },
+    {
+      type: 'finished',
+      name: '到港',
+      value: 0,
+    },
+  ];
+
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
   orignPort: any = {}; //启运港
@@ -22,91 +102,45 @@ export class WorkbenchPage implements OnInit {
     private nav: NavController,
     public actionSheetController: ActionSheetController,
     private modalController: ModalController,
+    private workbenchService: WorkbenchService,
   ) {}
-
-  ngOnInit() {
-    // tslint:disable-next-line: no-unused-expression
-    this.quickEnterList = [
-      // 已添加到快捷入口的数据
-      {
-        name: this.translate.instant('Rates'),
-        type: 'rates',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Schedule'),
-        type: 'sailingSchedules',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Shipment'),
-        type: 'shipment',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Booking'),
-        type: 'booking',
-        checked: false,
-      },
-    ];
-
-    this.typeList = [
-      // 所有业务类型
-      {
-        name: this.translate.instant('Rates'),
-        type: 'rates',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Schedule'),
-        type: 'sailingSchedules',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Shipment'),
-        type: 'shipment',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Booking'),
-        type: 'booking',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Quote'),
-        type: 'quotes',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Billing'),
-        type: 'billing',
-        checked: false,
-      },
-    ];
-
-    this.moreTypeList = [
-      // 还未添加到快捷入口的数据
-      {
-        name: this.translate.instant('Billing'),
-        type: 'billing',
-        checked: false,
-      },
-      {
-        name: this.translate.instant('Quote'),
-        type: 'quotes',
-        checked: false,
-      },
-    ];
+  ngOnInit(): void {
+    this.shipmentStatistics();
   }
-
+  ionViewWillEnter() {}
   confirm() {
     let selectedList = this.typeList.filter((e) => {
       return e.checked;
     });
     console.log(selectedList);
   }
+  shipmentStatistics() {
+    this.workbenchService.GetShipmentsStatistics().subscribe((res: any) => {
+      let inProgress = 0;
+      let arrival = 0;
+      res.items.forEach((element) => {
+        if (element.name === 'At Arrival Port') {
+          arrival = element.count;
+        } else if (element.name === 'All shipments in progress') {
+          inProgress = element.count;
+        }
+        this.titleStatisticsList = [
+          {
+            type: 'intransit',
+            name: '在途',
+            value: inProgress,
+          },
+          {
+            type: 'finished',
+            name: '到港',
+            value: arrival,
+          },
+        ];
+      });
+    });
+  }
   /**
-   *更换当前data数据
+   *更换当前统计数据类别
    *
    * @memberof WorkbenchPage
    */
@@ -119,30 +153,86 @@ export class WorkbenchPage implements OnInit {
           text: 'Shipment',
           icon: 'shipment',
           handler: () => {
-            console.log('Play clicked');
+            this.title = 'shipment';
+            this.shipmentStatistics();
           },
         },
         {
           text: 'Booking',
           icon: 'booking',
           handler: () => {
-            console.log('Favorite clicked');
+            this.title = 'booking';
+            this.workbenchService.GetBookingsStatistics().subscribe((res: any) => {
+              let booked = 0;
+              let booking = 0;
+              res.models.forEach((element) => {
+                if (element.status === 3) {
+                  booked = element.count;
+                } else {
+                  booking = element.count;
+                }
+              });
+              this.titleStatisticsList = [
+                {
+                  type: 'intransit',
+                  name: '已订舱',
+                  value: booked,
+                },
+                {
+                  type: 'finished',
+                  name: '待订舱',
+                  value: booking,
+                },
+              ];
+            });
           },
         },
         {
           text: 'Billing',
           icon: 'billing',
           handler: () => {
-            console.log('Favorite clicked');
+            this.title = 'billing';
+            this.workbenchService.GetBillingsStatistics().subscribe((res: any) => {
+              console.log(res);
+              let payed = 0;
+              let paying = 0;
+              let delay = 0;
+              res.models.forEach((element) => {
+                if (element.status === 1) {
+                  paying = element.count;
+                } else if (element.status === 2) {
+                  payed = element.count;
+                } else if (element.status === 3) {
+                  delay = element.count;
+                }
+              });
+              this.titleStatisticsList = [
+                {
+                  type: 'intransit',
+                  name: '已付',
+                  value: payed,
+                },
+                {
+                  type: 'finished',
+                  name: '未付',
+                  value: paying,
+                },
+                {
+                  type: 'delay',
+                  name: '逾期',
+                  value: delay,
+                },
+              ];
+            });
           },
         },
-        {
-          text: 'Rates',
-          icon: 'rates',
-          handler: () => {
-            console.log('Favorite clicked');
-          },
-        },
+        // {
+        //   text: 'Rates',
+        //   icon: 'rates',
+        //   handler: () => {
+        //     this.title = 'shipment';
+        //   },
+        // },
       ],
     });
     await actionSheet.present();
