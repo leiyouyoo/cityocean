@@ -1,30 +1,25 @@
-@import '../../../../theme/variables';
+@import "../../../../theme/variables";
 
 ion-header {
-  ::after {
-    height: 0px !important;
-  }
-
   .padding-edit {
-    padding-bottom: 1em;
+    padding-bottom: px2rem(18px);
   }
 
   ion-toolbar {
-    --min-height: 15em !important;
     --background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
-    padding-left: 1.5em;
+    padding-left: px2rem(16px);
     width: 100%;
 
     position: relative;
 
     .edit-wrap {
-      height: 2em;
-      line-height: 2em;
+      height: px2rem(64px);
+      line-height: px2rem(64px);
 
       .title {
         @include font-dpr(18px);
         font-family: PingFangSC-Semibold, PingFang SC;
-        font-size: 1.25em;
+        font-weight: 600;
         color: rgba(255, 255, 255, 1);
         text-align: center;
         position: absolute;
@@ -34,51 +29,48 @@ ion-header {
       }
 
       .edit {
-        @include font-dpr(1.25em);
+        @include font-dpr(16px);
         color: rgba(255, 255, 255, 1);
         font-family: PingFangSC-Regular, PingFang SC;
-        font-size: 1.25em;
+        font-weight: 400;
         position: absolute;
         top: 0;
-        right: 1em;
+        right: px2rem(16px);
       }
     }
 
     .default-wrap {
-      height: 11em;
-      padding: 1em 0 0.5em 0;
+      height: px2rem(130px);
+      padding: px2rem(16px) 0 px2rem(6px) 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      @include bg-image('../../../../assets/icon/workbench/quxian');
+      @include bg-image("../../../../assets/icon/workbench/quxian");
 
       .business-change-wrap {
-        width: 8em;
+        width: px2rem(130px);
+        height: px2rem(40px);
         background: rgba(242, 244, 247, 0.1);
-        font-size: 1.25em;
+        font-size: 15px;
         font-family: Helvetica;
-        color: white;
-        opacity: 0.9;
-        border-radius: 5px;
-        display: -webkit-box;
+        color: rgba(255, 255, 255, 1);
+        box-shadow: 0px px2rem(1px) px2rem(2px) 0px rgba(0, 0, 0, 0.1);
+        border-radius: px2rem(10px);
         display: flex;
-        -webkit-box-align: center;
         align-items: center;
-        -webkit-box-pack: justify;
-        justify-content: space-around;
-        padding: 10px 15px 10px 15px;
+        justify-content: space-between;
+        padding: 0 px2rem(10px) 0 px2rem(12px);
 
         div {
           width: 0;
-          border: 1px solid;
-          border-top: 1px solid;
+          border: px2rem(6px) solid;
+          border-top: px2rem(6px) solid;
           border-bottom: 0;
           border-color: #ffffff transparent transparent;
         }
       }
 
       .message-group {
-        margin-top: 1em;
         display: flex;
 
         &>div {
@@ -93,21 +85,22 @@ ion-header {
           }
 
           .intransit {
-            @include bg-image('../../.././../assets/icon/workbench/lan');
+            @include bg-image("../../.././../assets/icon/workbench/lan")
           }
 
           .finished {
             @include bg-image('../../.././../assets/icon/workbench/lv');
           }
-          .delay{
+
+          .delay {
             @include bg-image('../../.././../assets/icon/workbench/hong');
-            
+
           }
 
           &>p {
             display: flex;
             flex-direction: column;
-            margin-left: 1em;
+            margin-left: px2rem(15px);
 
             span:nth-child(1) {
               height: px2rem(17px);
@@ -128,6 +121,7 @@ ion-header {
             }
           }
         }
+
       }
     }
   }
@@ -137,39 +131,39 @@ ion-content {
   --background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
 
   .default-content {
-    border-radius: 20px 20px 0px 0px;
+    border-radius: px2rem(32px) px2rem(32px) 0px 0px;
 
     .search-detail {
-      padding: 2em 1em 0 1em;
+      padding: px2rem(32px) px2rem(40px) px2rem(27px) px2rem(41px);
       box-shadow: 0px -12px 12px 0px rgba(71, 135, 254, 1);
       border-radius: 0.5333333333rem 0.5333333333rem 0 0;
       background: #fff;
 
       input {
         border: 0;
-        width: 10em;
-        margin-left: 1em;
+        width: px2rem(250px);
+        margin-left: px2rem(26px);
       }
 
       input::-webkit-input-placeholder {
-        color: #cccccc;
+        color: #CCCCCC;
       }
 
       .qiyungang {
         i {
           display: inline-block;
-          width: 1em;
-          height: 1em;
+          width: px2rem(10px);
+          height: px2rem(10px);
           border-radius: 100%;
           background: rgba(5, 192, 153, 1);
         }
       }
 
       .search-line {
-        height: 2em;
-        width: 1px;
-        background: #e4e4e4;
-        margin: 0.25em 0 0.25em 0.25em;
+        height: px2rem(22px);
+        width: px2rem(1px);
+        background: #E4E4E4;
+        margin: px2rem(3px) 0 px2rem(3px) px2rem(4px);
       }
 
       .mudigang {
@@ -178,8 +172,8 @@ ion-content {
 
         i {
           display: inline-block;
-          width: 1em;
-          height: 1em;
+          width: px2rem(10px);
+          height: px2rem(10px);
           border-radius: 50%;
           background: rgba(222, 103, 23, 1);
         }
@@ -187,13 +181,13 @@ ion-content {
 
       button.search-yunjia {
         color: #ffffff;
-        width: 70%;
-        height: 2.5em;
-        margin-top: 2em;
+        width: 100%;
+        height: px2rem(44px);
+        margin-top: px2rem(17px);
         @include font-dpr(12px);
         background: rgba(83, 143, 255, 1);
         // box-shadow: 0px px2rem(-12px) px2rem(12px) 0px rgba(71, 135, 254, 1);
-        border-radius: 5px;
+        border-radius: px2rem(6px);
       }
     }
   }
@@ -204,38 +198,43 @@ ion-content {
     height: 100%;
 
     label {
-      margin: 0.5em 0 0.25em 0.25em;
+      margin: px2rem(20px) 0 px2rem(20px) px2rem(16px);
       display: inline-block;
-      font-size: 1.25em;
+      height: px2rem(22px);
+      font-size: 16px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: rgba(76, 75, 94, 1);
+      line-height: px2rem(22px);
     }
 
     .title {
-      margin: 2em 0 1em;
+      margin: px2rem(36px) 0 px2rem(27px);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 1em;
+      padding: 0 px2rem(16px);
 
       span {
-        height: 1em;
-        font-size: 1.25em;
+        height: px2rem(22px);
+        font-size: 16px;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
         color: rgba(76, 75, 94, 1);
+        line-height: px2rem(22px);
       }
 
       button {
-        height: 1em;
-        font-size: 1.25em;
+        height: px2rem(22px);
+        font-size: 16px;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
         color: rgba(0, 122, 255, 1);
-        background: #fff;
+        line-height: px2rem(22px);
+        background: #FFf;
       }
     }
+
 
     i {
       display: inline-block;
@@ -243,20 +242,20 @@ ion-content {
 
     i.icon-add {
       position: absolute;
-      right: -0.25em;
+      right: px2rem(-6px);
       transform: translateX(100%);
-      width: 1em;
-      height: 1em;
-      @include bg-image('../../../../assets/icon/workbench/my-icon-add');
+      width: px2rem(16px);
+      height: px2rem(16px);
+      @include bg-image("../../../../assets/icon/workbench/my-icon-add")
     }
 
     i.icon-delete {
       position: absolute;
-      right: -0.25em;
+      right: px2rem(-6px);
       transform: translateX(100%);
-      width: 1em;
-      height: 1eem;
-      @include bg-image('../../../../assets/icon/workbench/my-icon-delete');
+      width: px2rem(16px);
+      height: px2rem(16px);
+      @include bg-image("../../../../assets/icon/workbench/my-icon-delete")
     }
 
     .all-applications,
@@ -266,8 +265,8 @@ ion-content {
       flex-wrap: wrap;
 
       &>div {
-        width: 25%;
-        padding: 1em;
+        width: 25vw;
+        height: px2rem(80px);
 
         p {
           display: flex;
@@ -276,96 +275,46 @@ ion-content {
           justify-content: center;
 
           &>i {
-            width: 2.5em;
-            height: 2.5em;
+            width: px2rem(30px);
+            height: px2rem(30px);
             position: relative;
-            margin-bottom: 0.25em;
+            margin-bottom: px2rem(5px);
           }
 
           &>span {
-            height: 1em;
+            height: px2rem(13px);
             font-size: 14px;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
             color: rgba(76, 75, 94, 1);
-            line-height: 1em;
+            line-height: px2rem(13px);
           }
 
           i.icon-rates {
-            @include bg-image('../../../../assets/icon/workbench/chayunjia');
+            @include bg-image("../../../../assets/icon/workbench/chayunjia")
           }
 
           i.icon-sailingSchedules {
-            @include bg-image('../../../../assets/icon/workbench/chachuanqi');
+            @include bg-image("../../../../assets/icon/workbench/chachuanqi")
           }
 
           i.icon-shipment {
-            @include bg-image('../../../../assets/icon/workbench/yundan');
+            @include bg-image("../../../../assets/icon/workbench/yundan")
           }
 
           i.icon-booking {
-            @include bg-image('../../../../assets/icon/workbench/dingdan');
+            @include bg-image("../../../../assets/icon/workbench/dingdan")
           }
 
           i.icon-billing {
-            @include bg-image('../../../../assets/icon/workbench/zhangdan');
+            @include bg-image("../../../../assets/icon/workbench/zhangdan")
           }
 
           i.icon-quotes {
-            @include bg-image('../../../../assets/icon/workbench/baojia');
+            @include bg-image("../../../../assets/icon/workbench/baojia")
           }
         }
       }
     }
-
-    // .content-wrap {
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: space-between;
-    //     padding: 0 px2rem(20px);
-    //     margin-bottom: px2rem(23px);
-
-    //     .name-group {
-    //         display: flex;
-    //         align-items: center;
-
-    //         span {
-    //             margin-left: px2rem(13px);
-    //             font-size: 1.25em;
-    //             font-family: PingFangSC-Regular, PingFang SC;
-    //             font-weight: 400;
-    //             color: rgba(112, 111, 126, 1);
-    //         }
-    //     }
-
-    //     .logo-icon {
-    //         width: px2rem(42px);
-    //         height: px2rem(42px);
-    //         background-color: #027CFF;
-    //     }
-
-    //     i.right-arrow {
-    //         width: px2rem(18px);
-    //         height: px2rem(18px);
-    //         @include bg-image(".././../../../assets/icon/home/chat/jinru");
-    //     }
-
-    //     .toggle-group {
-    //         display: flex;
-    //         align-items: center;
-
-    //         ion-toggle {
-    //             --background-checked: #3E8EFF;
-    //             --background: #DDDDDD;
-    //         }
-
-    //         i {
-    //             margin-left: px2rem(17px);
-    //             width: px2rem(24px);
-    //             height: px2rem(24px);
-    //             @include bg-image(".././../../../assets/icon/workbench/yidong");
-    //         }
-    //     }
-    // }
   }
 }
