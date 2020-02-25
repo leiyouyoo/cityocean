@@ -215,3 +215,14 @@ app-schedule-add ion-content {
 app-schedule-detial ion-content {
   --background: #f0f2f5 !important;
 }
+
+.datetime-text {
+  display: none;
+}
+
+.danger {
+  ion-icon {
+    color: #e55354!important;
+  }
+  color: #e55354 !important;
+}

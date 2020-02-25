@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { CalendarComponentOptions, DayConfig, CalendarModalOptions } from 'ion2-calendar';
+import { CalendarComponentOptions, DayConfig, CalendarModalOptions, CalendarOptions } from 'ion2-calendar';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { debug } from 'util';
+import { EventService } from '@shared/helpers/event.service';
 
 @Component({
   selector: 'app-schedule',
@@ -13,56 +14,123 @@ import { debug } from 'util';
 export class SchedulePage implements OnInit {
   date: string;
   type = 'js-date';
-  options: CalendarModalOptions = this.onSetCalendar();
-
-  constructor(public router: Router, public nav: NavController, public schedule: ScheduleService) {}
+  options: any;
+  msgData: any;
+  constructor(
+    private eventService: EventService,
+    public router: Router,
+    public nav: NavController,
+    public schedule: ScheduleService,
+  ) {}
 
   ngOnInit() {
-    this.initData();
+    // 事件订阅
+    this.eventService.event.on('Refresh', () => {
+      this.initData(new Date());
+    });
+    this.initData(new Date());
   }
 
-  onSetCalendar() {
+  initData(date) {
+    // 默认获取当天详情
+    const monthdeital =
+      this.doHandleYear(new Date()) + '-' + this.doHandleMonth(new Date()) + '-' + this.doHandleDay(new Date());
+    this.onGetDayDetial(monthdeital);
+    // 获取本月列表
+    let that = this;
     // tslint:disable-next-line: prefer-const
     let config: DayConfig[] = [];
-    for (let i = 0; i < 31; i++) {
-      config.push({
-        date: new Date(2020, 1, i + 1),
-        subTitle: ``,
-      });
-    }
-    const options = {
-      format: 'YYYY-MM-DD',
-      daysConfig: config,
+    const options: CalendarComponentOptions = {
+      from: new Date(2000, 0, 1),
+      showToggleButtons: false,
+      showMonthPicker: false,
+      monthFormat: 'YYYY 年 MM 月',
+      weekdays: ['天', '一', '二', '三', '四', '五', '六'],
+      weekStart: 1,
     };
+    const datedeital = this.doHandleYear(date) + '-' + this.doHandleMonth(date);
+    this.schedule.getAllScheduleList(datedeital).subscribe((res: any) => {
+      // tslint:disable-next-line: prefer-const
+      let days = [];
+      res.items.forEach((e) => {
+        const startMonth = new Date(e.remindStartTime).getMonth();
+        const startDay = new Date(e.remindStartTime).getDate();
+        const endMonth = new Date(e.remindEndTime).getMonth();
+        const endDay = new Date(e.remindEndTime).getDate();
 
-    return options;
+        if (startMonth === endMonth) {
+          for (let i = 0; i < 31; i++) {
+            if (i > startDay && i < endDay) {
+              days.push(i + 1);
+            }
+          }
+        } else if (endMonth > new Date(date).getMonth()) {
+          for (let i = 0; i < 31; i++) {
+            if (i > startDay) {
+              days.push(i + 1);
+            }
+          }
+        } else {
+          for (let i = 0; i < 31; i++) {
+            if (i < endDay) {
+              days.push(i + 1);
+            }
+          }
+        }
+      });
+      // 去重
+
+      days = Array.from(new Set(days));
+      // tslint:disable-next-line: prefer-const
+      days.forEach((da, i) => {
+        config.push({
+          date: new Date(date.getFullYear(), date.getMonth(), days[i]),
+          subTitle: `·`,
+        });
+      });
+      options.daysConfig = config;
+      that.options = options;
+    });
   }
 
-  initData() {
-    const date = this.doHandleYear() + '-' + this.doHandleMonth();
-    this.schedule.getAllScheduleList(date).subscribe((res) => {});
+  onGetDayDetial(date) {
+    this.schedule.getAllScheduleList(date).subscribe((res: any) => {
+      this.msgData = res.items;
+    });
   }
 
-  doHandleYear() {
-    const myDate = new Date();
+  doHandleYear(myDate) {
     const tYear = myDate.getFullYear();
     return tYear;
   }
 
-  doHandleMonth() {
-    const myDate = new Date();
+  doHandleMonth(myDate) {
     const tMonth = myDate.getMonth();
-
     const mon = tMonth + 1;
     let m;
     if (mon.toString().length === 1) {
       m = '0' + mon;
+    } else {
+      m = mon;
     }
     return m;
   }
 
-  onScheduleDetial() {
-    this.router.navigate(['/cityOcean/schedule/shceduleDetial']);
+  doHandleDay(myDate) {
+    const tDay = myDate.getDate();
+    let d;
+    if (tDay.toString().length === 1) {
+      d = '0' + tDay;
+    } else {
+      d = tDay;
+    }
+    return d;
+  }
+
+  onScheduleDetial(id) {
+    this.router.navigate(['/cityOcean/schedule/shceduleAdd'], {
+      queryParams: { id: id },
+    });
   }
 
   onScheduleAdd() {
@@ -71,19 +139,6 @@ export class SchedulePage implements OnInit {
 
   onChange(data) {
     debugger;
-    // tslint:disable-next-line: prefer-const
-    let config: DayConfig[] = [];
-    for (let i = 0; i < 31; i++) {
-      config.push({
-        date: new Date(2020, 1, i + 1),
-        subTitle: `111`,
-      });
-    }
-    this.options = {
-      format: 'yyyy年MM月',
-      from: new Date(2020, 1, 1),
-      to: new Date(2021, 11.1),
-      daysConfig: config,
-    };
+    this.onGetDayDetial(data);
   }
 }

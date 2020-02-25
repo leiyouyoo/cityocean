@@ -31,6 +31,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // #region Startup Service
 import { StartupService } from '@core';
 import { BaseInfoModule } from '@cityocean/basicdata-library/basicdata.module';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
@@ -89,6 +90,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppVersion,
     AndroidPermissions,
     FileOpener,
+    DatePicker,
     Device,
     StatusBar,
     SplashScreen,
