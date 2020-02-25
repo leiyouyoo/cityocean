@@ -18,52 +18,20 @@
     ></app-business-type>
   </div>
   <section class="request-wrap">
-    <p>Booking request is submitted</p>
-    <div *ngFor="let process of requestProcess"  [ngClass]="{ 'not-check-bg': !process.checked,'check-bg':process.checked}">
+    <p *ngIf="bookingDetail.status==1">Cancel request is submitted</p>
+    <p *ngIf="bookingDetail.status==2">Booking request is submitting</p>
+    <p *ngIf="bookingDetail.status==3">Shipping order is done</p>
+    <p *ngIf="bookingDetail.status==4">Freight quotes is needed by City Ocean</p>
+    <p *ngIf="bookingDetail.status==5">Quote is waiting for comfirm by the customer</p>
+    <p *ngIf="bookingDetail.status==6">Quote is waiting for comfirm by the customer</p>
+    <p *ngIf="bookingDetail.status==7">shipping order is cancelled</p>
+    <div
+      *ngFor="let process of requestProcess"
+      [ngClass]="{ 'not-check-bg': !process.checked,'check-bg':process.checked}"
+    >
       <i class="checked-flag"></i>
       <span>{{process.name}}</span>
     </div>
-    <div class="content-submitting">
-      <h2 *ngIf="bookingDetail.status==1">Cancel request is submitted</h2>
-      <h2 *ngIf="bookingDetail.status==2">Booking request is submitting</h2>
-      <h2 *ngIf="bookingDetail.status==3">Shipping order is done</h2>
-      <h2 *ngIf="bookingDetail.status==4">Freight quotes  is needed by City Ocean</h2>
-      <h2 *ngIf="bookingDetail.status==5">Quote is waiting for comfirm by the customer</h2>
-      <h2 *ngIf="bookingDetail.status==6">Quote is waiting for comfirm by the customer</h2>
-      <h2 *ngIf="bookingDetail.status==7">shipping order is cancelled</h2>
-      <div class="content-submitting-bottom"></div>
-      <!-- <div class="content-submitting-step">
-          <nz-steps [nzCurrent]="statusStep" nzDirection="vertical" nzSize="default" [nzStartIndex]="0"
-              *ngIf="bookingDetail.status!=4&&bookingDetail.status!=5&&bookingDetail.status!=6">
-              <nz-step nzTitle="Booking is received by City Ocean Staff"></nz-step>
-              <nz-step nzTitle="Shipping order  is requested with the carrier."></nz-step>
-              <nz-step nzTitle="Notified SO successfully with the customer."></nz-step>
-              <nz-step nzTitle="Shipping order is done"></nz-step>
-          </nz-steps>
-
-          <nz-steps [nzCurrent]="statusStep" nzDirection="vertical" nzSize="default" [nzStartIndex]="0"
-              *ngIf="bookingDetail.status==4">
-              <nz-step nzTitle="Booking is received by City Ocean Staff"></nz-step>
-              <nz-step nzTitle="Freight quote  is sended to the customer."></nz-step>
-              <nz-step nzTitle="Shipping order  is requested with the carrier."></nz-step>
-              <nz-step nzTitle="Notified SO successfully with the customer."></nz-step>
-              <nz-step nzTitle="Shipping order is done"></nz-step>
-          </nz-steps>
-
-          <nz-steps [nzCurrent]="statusStep" nzDirection="vertical" nzSize="default" [nzStartIndex]="0"
-              *ngIf="bookingDetail.status==5||bookingDetail.status==6">
-              <nz-step nzTitle="Booking is received by City Ocean Staff"></nz-step>
-              <nz-step nzTitle="Freight quote  is sended to the customer."></nz-step>
-              <nz-step nzTitle="Quote  is comfirmed by the customer."></nz-step>
-              <nz-step nzTitle="Shipping order  is requested with the carrier."></nz-step>
-              <nz-step nzTitle="Notified SO successfully with the customer."></nz-step>
-              <nz-step nzTitle="Shipping order is done"></nz-step>
-          </nz-steps>
-      </div> -->
-  </div>
-
-
-
   </section>
   <section class="content-wrap base-wrap">
     <div class="detail-wrap">
