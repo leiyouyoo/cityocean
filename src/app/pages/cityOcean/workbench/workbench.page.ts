@@ -3,6 +3,7 @@ import { NavController, ActionSheetController, ModalController } from '@ionic/an
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
 import { WorkbenchService } from './workbench.service';
 import { TranslateService } from '@ngx-translate/core';
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-workbench',
@@ -15,32 +16,38 @@ export class WorkbenchPage implements OnInit {
     {
       name: '运价',
       type: 'rates',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '船期',
       type: 'sailingSchedules',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '运单',
       type: 'shipment',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '订单',
       type: 'booking',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '报价',
       type: 'quotes',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '账单',
       type: 'billing',
-      checked: false,
+      marker: false,
+      id: 0,
     },
   ];
   quickEnterList = [
@@ -48,22 +55,26 @@ export class WorkbenchPage implements OnInit {
     {
       name: '运价',
       type: 'rates',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '船期',
       type: 'sailingSchedules',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '运单',
       type: 'shipment',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '订单',
       type: 'booking',
-      checked: false,
+      marker: false,
+      id: 0,
     },
   ];
   moreTypeList = [
@@ -71,12 +82,14 @@ export class WorkbenchPage implements OnInit {
     {
       name: '账单',
       type: 'billing',
-      checked: false,
+      marker: false,
+      id: 0,
     },
     {
       name: '报价',
       type: 'quotes',
-      checked: false,
+      marker: false,
+      id: 0,
     },
   ];
   title = 'shipment';
@@ -104,16 +117,28 @@ export class WorkbenchPage implements OnInit {
     public actionSheetController: ActionSheetController,
     private modalController: ModalController,
     private workbenchService: WorkbenchService,
+    private homeService: HomeService,
   ) {}
   ngOnInit(): void {
     this.shipmentStatistics();
   }
-  ionViewWillEnter() {}
-  confirm() {
-    let selectedList = this.typeList.filter((e) => {
-      return e.checked;
+  ionViewWillEnter() {
+    this.homeService.getQuickEntrance().subscribe((res) => {
+      this.quickEnterList = res.items;
+      this.moreTypeList = this.typeList.filter((e) => {
+        if (this.quickEnterList.length == 0) {
+          return true;
+        }
+        return !this.quickEnterList.some((ele) => {
+          return e.type == ele.type;
+        });
+      });
     });
-    console.log(selectedList);
+  }
+  confirm() {
+    this.homeService.createQuickEntrance(this.quickEnterList).subscribe((res) => {
+      console.log(res);
+    });
   }
   shipmentStatistics() {
     this.workbenchService.GetShipmentsStatistics().subscribe((res: any) => {
@@ -271,11 +296,12 @@ export class WorkbenchPage implements OnInit {
       tmp.push(local);
       localStorage.setItem(this.searchType, JSON.stringify(tmp));
     } else {
-      const hasExit = searchLocalStorage.some(e=>{
-        return e.orignPortHistory.id ==local.orignPortHistory.id &&
-        e.deliveryPortHistory.id ==local.deliveryPortHistory.id
-      })
-      if(!hasExit){
+      const hasExit = searchLocalStorage.some((e) => {
+        return (
+          e.orignPortHistory.id == local.orignPortHistory.id && e.deliveryPortHistory.id == local.deliveryPortHistory.id
+        );
+      });
+      if (!hasExit) {
         if (searchLocalStorage.length >= 10) {
           searchLocalStorage.shift();
         }

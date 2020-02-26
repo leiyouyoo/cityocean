@@ -37,7 +37,15 @@ export class HomeService {
       return res;
     });
   }
- 
+  getQuickEntrance(): Observable<any> {
+    return this.httpService.get('/CSP/QuickEntrance/GetAllList', {});
+  }
+  //添加快捷入口
+  createQuickEntrance(obj = {}): Observable<any> {
+    let params = obj;
+    return this.httpService.postJson('/CSP/QuickEntrance/CreateAsync', params);
+  }
+  
   //获取可邀请加入群聊的用户列表
   getMayInviteUserList(obj = {}): Observable<any> {
     let params = obj;

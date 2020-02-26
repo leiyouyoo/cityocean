@@ -24,11 +24,11 @@
   "Add To Home": "添加到首页",
   "Home quick": "首页快捷",
   "More App": "更多应用",
-  "Billing": "账单",
-  "Quote": "报价",
-  "Rates": "运价",
-  "Shipment": "运单",
-  "Booking": "订单",
-  "Schedule": "船期",
+  "billing": "账单",
+  "quotes": "报价",
+  "rates": "运价",
+  "shipment": "运单",
+  "booking": "订单",
+  "sailingSchedules": "船期",
   "More": "更多"
 }
