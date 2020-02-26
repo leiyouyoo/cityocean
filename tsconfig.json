@@ -24,6 +24,12 @@
       "@cityocean/im-library": [
         "projects/cityocean/im-library/src/public-api"
       ],
+      "@cityocean/shipment-library": [
+        "projects/cityocean/shipment-library"
+      ],
+      "@cityocean/amap-library": [
+        "projects/cityocean/amap-library"
+      ],
       "@cityocean/im-library/*": [
         "projects/cityocean/im-library/*"
       ],

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ActionSheetController, ModalController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
 import { WorkbenchService } from './workbench.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-workbench',
@@ -98,6 +99,7 @@ export class WorkbenchPage implements OnInit {
   deliveryPort: any = {}; //目的港
   searchType = 'seachRates'; //  当前查询类别
   constructor(
+    public translate: TranslateService,
     private nav: NavController,
     public actionSheetController: ActionSheetController,
     private modalController: ModalController,
@@ -237,7 +239,7 @@ export class WorkbenchPage implements OnInit {
     await actionSheet.present();
   }
   /**
-   *点击图标
+   * 点击图标
    *
    * @param {*} item
    * @memberof WorkbenchPage

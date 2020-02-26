@@ -26,7 +26,7 @@ export class ShipmentDetailPage implements OnInit {
     totalVolumeString: '',
     specialInstructions: '',
     incotermsString: '',
-    soNo:'',
+    soNo: '',
   };
   routeDetail = {
     status: -1,
@@ -47,16 +47,18 @@ export class ShipmentDetailPage implements OnInit {
       actualPickUpTruckDestinationDate: '',
       truckCustomerName: '',
     },
-    shipmentNo:'',
+    shipmentNo: '',
   };
-  businessTypeTitle :any;
+  businessTypeTitle: any;
   agreement: any; //Freight Type
   icons: any[];
   lines: any[];
   dashedLines: any[];
-  constructor(private activatedRoute: ActivatedRoute, 
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private myShipmentService: MyShipmentService,
-    private shipmentService:ShipmentService) {
+    private shipmentService: ShipmentService,
+  ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
       this.agreement = data.agreement;
@@ -69,19 +71,19 @@ export class ShipmentDetailPage implements OnInit {
         console.log(res);
         this.basicDetail = res[0];
         this.routeDetail = res[1];
-        this.getMapData(res[1])
-        this.businessTypeTitle = {title1:this.routeDetail.shipmentNo,title2:this.basicDetail.soNo}
+        this.getMapData(res[1]);
+        this.businessTypeTitle = { title1: this.routeDetail.shipmentNo, title2: this.basicDetail.soNo };
       },
     );
   }
   getMapData(data) {
-    this.shipmentService.getShipmentMapDataByDetails([data]).subscribe(mapData=>{
-      if(mapData.length){
-        this.icons=  mapData[0].icons;
-        this.lines=  mapData[0].lines;
-        this.dashedLines=  mapData[0].dashedLines;
+    this.shipmentService.getShipmentMapDataByDetails([data]).subscribe((mapData) => {
+      if (mapData.length) {
+        this.icons = mapData[0].icons;
+        this.lines = mapData[0].lines;
+        this.dashedLines = mapData[0].dashedLines;
       }
-    })
+    });
   }
   getTime(time) {
     return moment(time).format('MMM D YYYY');

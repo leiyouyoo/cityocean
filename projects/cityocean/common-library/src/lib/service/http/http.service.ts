@@ -183,7 +183,7 @@ export class HttpService {
         if (!url.startsWith('/')) {
           url = '/' + url;
         }
-        return 'http://192.168.1.6:8000' + url;
+        return 'http://112.95.173.231:8000' + url;
       }
     }
     return this.http.post(processUrl(url), body, {

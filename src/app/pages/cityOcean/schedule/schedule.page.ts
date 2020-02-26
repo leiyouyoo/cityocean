@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { CalendarComponentOptions } from 'ion2-calendar';
+import { CalendarComponentOptions, DayConfig, CalendarModalOptions, CalendarOptions } from 'ion2-calendar';
+import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
+import { debug } from 'util';
+import { EventService } from '@shared/helpers/event.service';
 
 @Component({
   selector: 'app-schedule',
@@ -9,24 +12,133 @@ import { CalendarComponentOptions } from 'ion2-calendar';
   styleUrls: ['schedule.page.scss'],
 })
 export class SchedulePage implements OnInit {
-  date = '2020-02-24';
+  date: string;
   type = 'js-date';
-  optionsMulti: CalendarComponentOptions = {
-    monthFormat: 'YYYY 年 MM 月 ',
-    weekdays: ['天', '一', '二', '三', '四', '五', '六'],
-    weekStart: 1
-  };
-  constructor(public router: Router, public nav: NavController) {}
+  options: any;
+  msgData: any;
+  constructor(
+    private eventService: EventService,
+    public router: Router,
+    public nav: NavController,
+    public schedule: ScheduleService,
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // 事件订阅
+    this.eventService.event.on('Refresh', () => {
+      this.initData(new Date());
+    });
+    this.initData(new Date());
+  }
 
-  onScheduleDetial() {
-    this.router.navigate(['/cityOcean/schedule/shceduleDetial']);
+  initData(date) {
+    // 默认获取当天详情
+    const monthdeital =
+      this.doHandleYear(new Date()) + '-' + this.doHandleMonth(new Date()) + '-' + this.doHandleDay(new Date());
+    this.onGetDayDetial(monthdeital);
+    // 获取本月列表
+    let that = this;
+    // tslint:disable-next-line: prefer-const
+    let config: DayConfig[] = [];
+    const options: CalendarComponentOptions = {
+      from: new Date(2000, 0, 1),
+      showToggleButtons: false,
+      showMonthPicker: false,
+      monthFormat: 'YYYY 年 MM 月',
+      weekdays: ['天', '一', '二', '三', '四', '五', '六'],
+      weekStart: 1,
+    };
+    const datedeital = this.doHandleYear(date) + '-' + this.doHandleMonth(date);
+    this.schedule.getAllScheduleList(datedeital).subscribe((res: any) => {
+      // tslint:disable-next-line: prefer-const
+      let days = [];
+      res.items.forEach((e) => {
+        const startMonth = new Date(e.remindStartTime).getMonth();
+        const startDay = new Date(e.remindStartTime).getDate();
+        const endMonth = new Date(e.remindEndTime).getMonth();
+        const endDay = new Date(e.remindEndTime).getDate();
+
+        if (startMonth === endMonth) {
+          for (let i = 0; i < 31; i++) {
+            if (i > startDay && i < endDay) {
+              days.push(i + 1);
+            }
+          }
+        } else if (endMonth > new Date(date).getMonth()) {
+          for (let i = 0; i < 31; i++) {
+            if (i > startDay) {
+              days.push(i + 1);
+            }
+          }
+        } else {
+          for (let i = 0; i < 31; i++) {
+            if (i < endDay) {
+              days.push(i + 1);
+            }
+          }
+        }
+      });
+      // 去重
+
+      days = Array.from(new Set(days));
+      // tslint:disable-next-line: prefer-const
+      days.forEach((da, i) => {
+        config.push({
+          date: new Date(date.getFullYear(), date.getMonth(), days[i]),
+          subTitle: `·`,
+        });
+      });
+      options.daysConfig = config;
+      that.options = options;
+    });
+  }
+
+  onGetDayDetial(date) {
+    this.schedule.getAllScheduleList(date).subscribe((res: any) => {
+      this.msgData = res.items;
+    });
+  }
+
+  doHandleYear(myDate) {
+    const tYear = myDate.getFullYear();
+    return tYear;
+  }
+
+  doHandleMonth(myDate) {
+    const tMonth = myDate.getMonth();
+    const mon = tMonth + 1;
+    let m;
+    if (mon.toString().length === 1) {
+      m = '0' + mon;
+    } else {
+      m = mon;
+    }
+    return m;
+  }
+
+  doHandleDay(myDate) {
+    const tDay = myDate.getDate();
+    let d;
+    if (tDay.toString().length === 1) {
+      d = '0' + tDay;
+    } else {
+      d = tDay;
+    }
+    return d;
+  }
+
+  onScheduleDetial(id) {
+    this.router.navigate(['/cityOcean/schedule/shceduleAdd'], {
+      queryParams: { id: id },
+    });
   }
 
   onScheduleAdd() {
     this.router.navigate(['/cityOcean/schedule/shceduleAdd']);
   }
 
-  onChange() {}
+  onChange(data) {
+    debugger;
+    this.onGetDayDetial(data);
+  }
 }

@@ -5,42 +5,15 @@
    
   </div> -->
   <div class="calendar">
-    <ion-icon name="calendar-outline"></ion-icon>
+    <ion-icon name="add-outline" (click)="onScheduleAdd()"></ion-icon>
   </div>
 
-  <ion-calendar
-    [(ngModel)]="date"
-    (onChange)="onChange($event)"
-    [options]="optionsMulti"
-    [type]="type"
-    [format]="'YYYY-MM-DD'"
-  >
-  </ion-calendar>
+  <ion-calendar [(ngModel)]="date" [options]="options" format="YYYY-MM-DD" (change)="onChange($event)"> </ion-calendar>
 
-  <div class="content" (click)="onScheduleDetial()">
+  <div class="schedule-content" (click)="onScheduleDetial(detial.id)" *ngFor="let detial of msgData">
     <div class="content-msg" style="background-color: #CFECFF;">
-      <p class="msg">Project A team meeting</p>
-      <p class="time">11:30AM - 12:30 AM</p>
+      <p class="msg">{{detial.remindContent}}</p>
+      <p class="time">{{detial.remindStartTime | date:'yyyy-MM-dd HH:mm'}} - {{detial.remindEndTime | date:'yyyy-MM-dd HH:mm'}}</p>
     </div>
   </div>
-
-  <div class="content" (click)="onScheduleDetial()">
-    <div class="content-msg" style="background-color: #FDF1DB;">
-      <p class="msg">即将到港付款</p>
-      <p class="time">11:30AM - 12:30 AM</p>
-    </div>
-  </div>
-
-  <div class="content" (click)="onScheduleDetial()">
-    <div class="content-msg" style="background-color: #DAF6F4;">
-      <p class="msg">OESZGS1909230009需要补料</p>
-      <p class="time">11:30AM - 12:30 AM</p>
-    </div>
-  </div>
-
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add" (click)="onScheduleAdd()"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>

@@ -1,0 +1,48 @@
+{
+  "_from": "@cityocean/amap-library@^0.0.2",
+  "_id": "@cityocean/amap-library@0.0.2",
+  "_inBundle": false,
+  "_integrity": "sha512-hfxlvQ4HGdgohtIlkKB3RyfupitDQk3vNfJvOJSUJ7s05uPsQmZZ9d5AE0iWGjIB5AM9j/WeVCiDhsZAxeSSLQ==",
+  "_location": "/@cityocean/amap-library",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@cityocean/amap-library@^0.0.2",
+    "name": "@cityocean/amap-library",
+    "escapedName": "@cityocean%2famap-library",
+    "scope": "@cityocean",
+    "rawSpec": "^0.0.2",
+    "saveSpec": null,
+    "fetchSpec": "^0.0.2"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "http://npm.cityocean.com:8202/@cityocean%2famap-library/-/amap-library-0.0.2.tgz",
+  "_shasum": "7c0d7f526ef41f72a0ae5cd549b4ceae7df72453",
+  "_spec": "@cityocean/amap-library@^0.0.2",
+  "_where": "D:\\workspace\\ionic\\CSP-APP",
+  "bundleDependencies": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "deprecated": false,
+  "description": "This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.5.",
+  "es2015": "fesm2015/cityocean-amap-library.js",
+  "esm2015": "esm2015/cityocean-amap-library.js",
+  "esm5": "esm5/cityocean-amap-library.js",
+  "fesm2015": "fesm2015/cityocean-amap-library.js",
+  "fesm5": "fesm5/cityocean-amap-library.js",
+  "main": "bundles/cityocean-amap-library.umd.js",
+  "metadata": "cityocean-amap-library.metadata.json",
+  "module": "fesm5/cityocean-amap-library.js",
+  "name": "@cityocean/amap-library",
+  "peerDependencies": {
+    "@angular/common": "^8.2.5",
+    "@angular/core": "^8.2.5"
+  },
+  "sideEffects": false,
+  "typings": "cityocean-amap-library.d.ts",
+  "version": "0.0.2"
+}

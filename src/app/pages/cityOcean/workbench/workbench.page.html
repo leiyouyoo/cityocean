@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar [ngClass]="{'padding-edit': !isEditing}">
     <section *ngIf="isEditing" class="edit-wrap">
-      <span class="font-18 title">工作台</span>
-      <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">完成</span>
+      <span class="font-18 title">{{'WorkBench' | translate}}</span>
+      <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
     </section>
     <section *ngIf="!isEditing" class="default-wrap">
       <!-- <ion-select  interface="popover" value="shipment" placeholder="Select One">
@@ -31,7 +31,7 @@
     <div *ngIf="searchTransportationCost" class="search-detail">
       <div class="qiyungang">
         <i></i>
-        <input (click)="searchLocaltion('start')" [(ngModel)]="orignPort.name" type="text" placeholder="请输入起运港" />
+        <input (click)="searchLocaltion('start')" [(ngModel)]="orignPort.name" type="text" placeholder="{{'Please enter port of shipment' | translate}}" />
       </div>
       <div style="text-align: center;height: 2em;display: inline-block;margin-left: 0.45em;">
         <div style="border-left:0.1em solid #e4e4e4;height: 2em;"></div>
@@ -42,7 +42,7 @@
           type="text"
           (click)="searchLocaltion('destination')"
           [(ngModel)]="deliveryPort.name"
-          placeholder="请输入目的港"
+          placeholder="{{'Please enter the port of destination' | translate}}"
         />
       </div>
       <div style="text-align: center;">
@@ -50,8 +50,8 @@
       </div>
     </div>
     <div class="title">
-      <span>All applications</span>
-      <button (click)="isEditing = !isEditing">添加到首页</button>
+      <span>{{'All applications' | translate}}</span>
+      <button (click)="isEditing = !isEditing">{{'Add To Home' | translate}}</button>
     </div>
     <div class="all-applications">
       <div *ngFor="let item of typeList">
@@ -63,7 +63,7 @@
     </div>
   </section>
   <section *ngIf="isEditing">
-    <label>首页快捷</label>
+    <label>{{'Home quick' | translate}}</label>
     <div class="quick-enter-applictions">
       <div *ngFor="let item of quickEnterList;let i = index">
         <p>
@@ -74,7 +74,7 @@
         </p>
       </div>
     </div>
-    <label>更多应用</label>
+    <label>{{'More App' | translate}}</label>
     <div class="more-applictions">
       <div *ngFor="let item of moreTypeList;let i =index">
         <p>

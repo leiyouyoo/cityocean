@@ -7,7 +7,7 @@ export const environment = {
   //appBaseUrl: `http://wechat.cityocean.com:8994`, // APP 地址
   appBaseUrl: `http://wx2.cityocean.com:8970`, // APP 地址
   MOCK_URL: '',
-  StoreUrl: 'http://192.168.1.6:8000',
+  StoreUrl: 'http://112.95.173.231:8000',
   uploadUrl: `http://192.168.1.5:8000/Storage/File/Upload`,
 
   // activity cityoceanId

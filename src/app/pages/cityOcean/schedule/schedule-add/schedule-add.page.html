@@ -1,13 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="{{ 'Cancel' | translate}}"></ion-back-button>
+      <ion-back-button text=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      {{'Schedule Add' | translate}}
+      <span *ngIf="!id;else detial">{{'Schedule Add' | translate}}</span>
+      <ng-template #detial>{{'Schedule Detial' | translate}}</ng-template>
     </ion-title>
-    <ion-buttons slot="end" class="title-right">
+    <ion-buttons slot="end" class="title-right" (click)="onSave()" *ngIf="!id || edit">
       {{'Save' | translate}}
+    </ion-buttons>
+
+    <ion-buttons slot="end" class="title-right" (click)="setEdit()" *ngIf="id && !edit">
+      <ion-icon name="reorder-four-outline" style="font-size: 1.5em;"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -15,31 +20,47 @@
 <ion-content>
   <div class="title">
     <div class="colorblue"></div>
-    <ion-input placeholder="Enter Scheedule Title"></ion-input>
+    <ion-input placeholder="Enter Schedule Title" [(ngModel)]="data.remindContent" [disabled]="!edit"></ion-input>
   </div>
 
   <div class="time">
     <ion-icon name="time-outline"></ion-icon>
-    <div>
-      <strong>Start Time</strong>
-      <strong>2月11日 周二</strong>
-      <strong>7：30</strong>
-    </div>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label>
+          <strong>Start Time</strong>
+        </ion-label>
+        <ion-datetime
+          [disabled]="!edit"
+          [(ngModel)]="data.remindStartTime"
+          displayFormat="YYYY-MM-DD HH:mm"
+          cancelText="{{'Cancel' | translate}}"
+          doneText="{{'Save' | translate}}"
+        ></ion-datetime>
+      </ion-item>
+    </ion-list>
   </div>
 
   <div class="time">
     <ion-icon name="time-outline" style="opacity: 0;"></ion-icon>
-    <div>
-      <strong>End Time</strong>
-      <strong>2月11日 周二</strong>
-      <strong>7：30</strong>
-    </div>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label>
+          <strong>End Time</strong>
+        </ion-label>
+        <ion-datetime
+          [(ngModel)]="data.remindEndTime"
+          [disabled]="!edit"
+          displayFormat="YYYY-MM-DD HH:mm"
+        ></ion-datetime>
+      </ion-item>
+    </ion-list>
   </div>
 
-  <div class="time">
+  <div class="time" (click)="presentActionSheet()">
     <ion-icon name="alarm-outline"></ion-icon>
     <div style="justify-content:start;">
-      <strong>15分钟前</strong>
+      <strong>{{data.advanceTime}}分钟前</strong>
     </div>
   </div>
 
@@ -52,6 +73,6 @@
 
   <div class="title">
     <ion-icon name="reader-outline"></ion-icon>
-    <ion-input placeholder="Add Remark"></ion-input>
+    <ion-input placeholder="Add Remark" [disabled]="!edit"></ion-input>
   </div>
 </ion-content>

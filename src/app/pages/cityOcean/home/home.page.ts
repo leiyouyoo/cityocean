@@ -8,6 +8,7 @@ import { HomeService } from './home.service';
 import { onSDKReady } from '@cityocean/im-library';
 import { getConversationList } from 'projects/cityocean/im-library/src/public-api';
 import { login, genTestUserSig, deleteConversation } from '@cityocean/im-library';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -20,20 +21,7 @@ export class HomePage implements OnInit {
   @ViewChild(IonInfiniteScroll, { static: true })
   infiniteScroll: IonInfiniteScroll;
   searchType = 'seachRates'; //  当前查询类别
-  toolsList = [
-    {
-      name: 'yunjia',
-      title: '运价',
-    },
-    {
-      name: 'sailingSchedules',
-      title: '船期',
-    },
-    {
-      name: 'more',
-      title: '更多',
-    },
-  ];
+  toolsList: any;
 
   groupMassageList = [];
   orignPort: any = {}; // 启运港
@@ -45,9 +33,24 @@ export class HomePage implements OnInit {
     private modalController: ModalController,
     private startupService: StartupService,
     private homeService: HomeService,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
+    this.toolsList = [
+      {
+        name: 'yunjia',
+        title: this.translate.instant('Rates'),
+      },
+      {
+        name: 'sailingSchedules',
+        title: this.translate.instant('Schedule'),
+      },
+      {
+        name: 'more',
+        title: this.translate.instant('More'),
+      },
+    ];
     this.infiniteScroll.disabled = true;
     this.startupService.getUserConfig().then((res) => {
       let id = res.session.user.id;
