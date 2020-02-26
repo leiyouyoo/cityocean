@@ -40,7 +40,7 @@
           <span>{{item['Port of Loading']}}
             <div>
               <span>ETD</span>
-              <span>{{item.etd}}</span>
+              <span>{{getTime(item.etd)}}</span>
             </div>
           </span>
       </div>
@@ -59,7 +59,7 @@
           <span>{{item['Port of Discharge']}}
             <div>
               <span>ETA</span>
-              <span>{{item.eta}}</span>
+              <span>{{getTime(item.eta)}}</span>
             </div>
           </span>
       </div>
