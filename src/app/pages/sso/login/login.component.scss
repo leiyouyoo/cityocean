@@ -14,7 +14,7 @@ ion-content {
     }
 
     .logo-text {
-      font-family: PingFangSC-Semibold,PingFang SC;
+      font-family: PingFangSC-Semibold, PingFang SC;
       color: #F2F2F9;
       @include font-dpr(36px);
       margin-top: 0.5em;
@@ -43,7 +43,7 @@ ion-content {
 
         ion-label {
           color: var(--ion-color-medium);
-          font-family: PingFangSC-Semibold,PingFang SC;
+          font-family: PingFangSC-Semibold, PingFang SC;
           display: inline-block;
           height: 2em;
           @include font-dpr(9px);
@@ -133,9 +133,12 @@ ion-content {
 
       @at-root .login-other {
         display: inline-block;
-        @include font-dpr(9px);
         margin: 1.5em 0 1.5em 0em;
-        color: var(--ion-color-light-placeholder);
+        font-size: 12px;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        color: var(--ion-color-primary);
+        letter-spacing:1px;
       }
 
       .login-group {
@@ -158,7 +161,7 @@ ion-content {
         background-color: var(--ion-color-extralight);
 
         span {
-          font-family: PingFangSC-Semibold,PingFang SC;
+          font-family: PingFangSC-Semibold, PingFang SC;
           color: var(--ion-color-dark);
         }
 
@@ -173,7 +176,7 @@ ion-content {
       .facebook-group {
         margin-bottom: 1em;
         background-color: var(--ion-color-extralight);
-        font-family: PingFangSC-Semibold,PingFang SC;
+        font-family: PingFangSC-Semibold, PingFang SC;
         color: var(--ion-color-dark);
 
         i {
