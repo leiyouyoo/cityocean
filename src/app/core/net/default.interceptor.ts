@@ -10,11 +10,9 @@ import {
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
-import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { _HttpClient, ALAIN_I18N_TOKEN } from '@delon/theme';
 import { environment } from '@env/environment';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
-import { I18NService } from '../i18n/i18n.service';
 import { Helper } from '@shared/helper';
 
 const CODEMESSAGE = {
@@ -42,12 +40,12 @@ const CODEMESSAGE = {
 export class DefaultInterceptor implements HttpInterceptor {
   constructor(private injector: Injector, private helper: Helper) {}
 
-  get msg(): NzMessageService {
-    return this.injector.get(NzMessageService);
+  get msg() {
+    return;
   }
 
   private get lang(): string {
-    return (this.injector.get(ALAIN_I18N_TOKEN) as I18NService).currentLang;
+    return 'en';
   }
 
   private goTo(url: string) {
@@ -58,7 +56,6 @@ export class DefaultInterceptor implements HttpInterceptor {
     if (ev.status >= 200 && ev.status < 300) return;
 
     const errortext = CODEMESSAGE[ev.status] || ev.statusText;
-    this.injector.get(NzNotificationService).error(`请求错误 ${ev.status}: ${ev.url}`, errortext);
   }
 
   private handleData(ev: HttpResponseBase): Observable<any> {
