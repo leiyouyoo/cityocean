@@ -36,7 +36,7 @@ export class ShipmentPage implements OnInit {
    * @memberof ShipmentPage
    */
   getShipmentList(event?) {
-    this.searchText ? this.currentParams.searchText = this.searchText:'';
+    this.searchText ? this.currentParams.searchText = this.searchText:delete this.currentParams.searchText;
     this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
     this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
     this.myShipmentService.GetAll(this.currentParams).subscribe((res) => {
@@ -49,6 +49,10 @@ export class ShipmentPage implements OnInit {
         event.target.disabled = true;
       }
     });
+  }
+  resetFilter(){
+    this.shipmentsList = [];
+    this.getShipmentList()
   }
   getTime(time) {
     return moment(time).format('MMM D YYYY');
@@ -73,9 +77,8 @@ export class ShipmentPage implements OnInit {
       };
       this.currentParams  = {};
       if (res.data) {
-        this.shipmentsList = [];
         this.currentParams = res.data;
-        this.getShipmentList();
+        this.resetFilter()
       }
     });
     return await modal.present();

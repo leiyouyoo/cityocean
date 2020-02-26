@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HomeService } from '../../../home.service';
-import { addGroupNumber } from '@cityocean/im-library';
+import { addGroupNumber, createGroup } from '@cityocean/im-library';
 
 @Component({
   selector: 'app-add-member',
@@ -26,39 +26,51 @@ export class AddMemberComponent implements OnInit {
         product: 4,
       };
       /^\d*$/.test(this.BusinessId.toString()) &&
-        this.homeService.getMayInviteUserList({ BusinessId: Number(this.BusinessId), BusinessType: map[this.BusinessType] })
+        this.homeService
+          .getMayInviteUserList({ BusinessId: Number(this.BusinessId), BusinessType: map[this.BusinessType] })
           .subscribe((res) => {
             console.log(res);
             this.membersList = res.items;
           });
     } else {
-      abp.session.user.id && this.homeService.getMayInviteUserC2CList({customerId:abp.session.user.id}).subscribe(res=>{
-        console.log(res);
-        let ids = res.items.map(e=>{
-          return e.id
-        })
-        if(ids.length){
-          this.homeService.getPortrait(ids)
-          
-        }
-      })
+      abp.session.user.id &&
+        this.homeService.getMayInviteUserC2CList({ customerId: abp.session.user.id }).subscribe((res) => {
+          console.log(res);
+          let ids = res.items.map((e) => {
+            return e.id;
+          });
+          if (ids.length) {
+            this.homeService.getPortrait(ids);
+          }
+        });
     }
   }
   dismissModal(data?) {
     this.modalController.dismiss(data);
   }
   save() {
-    let list = this.membersList
-      .filter((e) => {
-        return e.checked;
+    if (this.isC2C) {
+      createGroup({
+        type: 'GRP_PRIVATE',
+        name: 'WebSDK',
+        memberList: [{userID: '52'}, {userID: 'user0'}] // 如果填写了 memberList，则必须填写 userID
+      }).then(res=>{
+          console.log(res)
       })
-      .map((e) => {
-        return { member_Account: e.userId };
+      
+    } else {
+      let list = this.membersList
+        .filter((e) => {
+          return e.checked;
+        })
+        .map((e) => {
+          return { member_Account: e.userId };
+        });
+      this.homeService.AddGroupMembers({ groupId: this.groupID, memberList: list }).subscribe((res) => {
+        console.log(res);
+        this.dismissModal(list);
       });
-    this.homeService.AddGroupMembers({ groupId: this.groupID, memberList: list }).subscribe((res) => {
-      console.log(res);
-      this.dismissModal(list);
-    });
+    }
     // addGroupNumber({ groupID: this.groupID.toLowerCase(), userIDList: list }).then((res) => {
     //   console.log(res);
     //   this.dismissModal(list);

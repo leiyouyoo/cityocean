@@ -3,8 +3,8 @@
     <div>
       <div class="left-content">
         <i (click)="goback()" class="go-back"></i>
-        <i class="search-icon" (click)="getShipmentList()"></i>
-        <input [(ngModel)]="searchText" (keyup)="($event.which === 13) ? getShipmentList() : 0"  type="text" placeholder="搜索PO/SKU" />
+        <i class="search-icon" (click)="resetFilter()"></i>
+        <input [(ngModel)]="searchText" (keyup)="($event.which === 13) ? resetFilter() : 0"  type="text" placeholder="搜索PO/SKU" />
       </div>
       <i (click)="shipmentFilter($event)" class="filter"></i>
     </div>

@@ -15,8 +15,10 @@ export class BookingPage implements OnInit {
     maxResultCount: 5,
     skipCount: 0,
   };
+  searchKey='';
   statusType: typeof BookingStatusType = BookingStatusType; // 显示状态
   BookingStatus: any; // 筛选状态
+  currentParams: any = {};//筛选条件
   constructor(
     private bookingServiceService: BookingServiceService,
     private actionSheetController: ActionSheetController,
@@ -24,15 +26,16 @@ export class BookingPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getBookingList({});
+    this.getBookingList();
   }
-  getBookingList(params, event?) {
-    params.MaxResultCount = this.pageInfo.maxResultCount;
-    params.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
+  getBookingList(event?) {
+    this.searchKey ? this.currentParams.SearchKey = this.searchKey:delete this.currentParams.SearchKey;
+    this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
+    this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
     if (this.BookingStatus != null) {
-      params.BookingStatus = this.BookingStatus;
+      this.currentParams.BookingStatus = this.BookingStatus;
     }
-    this.bookingServiceService.GetAllBookingList(params).subscribe((res) => {
+    this.bookingServiceService.GetAllBookingList(this.currentParams).subscribe((res) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.bookingList = this.bookingList.concat(res.items);
@@ -123,6 +126,6 @@ export class BookingPage implements OnInit {
     };
     this.BookingStatus = status;
     this.bookingList = [];
-    this.getBookingList({});
+    this.getBookingList();
   }
 }

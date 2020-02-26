@@ -16,14 +16,14 @@ tim.setLogLevel(1); // 普通级别，日志量较多，接入时建议使用
 interface GroupInfoCheck {
   name: string;
   type: string;
-  groupID: string;
-  introduction: string;
-  notification: string;
-  avatar: string;
-  maxMemberNum: number;
-  joinOption: string;
-  memberList: string[];
-  groupCustomField: any;
+  groupID?: string;
+  introduction?: string;
+  notification?: string;
+  avatar?: string;
+  maxMemberNum?: number;
+  joinOption?: string;
+  memberList: any[];
+  groupCustomField?: any;
 }
 
 // 注册 COS SDK 插件
@@ -307,7 +307,7 @@ export function parseGroupTipContent(payload) {
 }
 
 /*创建群组*/
-export function createGroup(groupInfo: GroupInfoCheck) {
+export async function createGroup(groupInfo: GroupInfoCheck) {
   tim.createGroup(groupInfo);
 }
 

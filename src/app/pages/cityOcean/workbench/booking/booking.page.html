@@ -3,8 +3,8 @@
     <div>
       <div class="left-content">
         <i (click)="goback()" class="go-back"></i>
-        <i class="search-icon"></i>
-        <input type="text" placeholder="搜索" />
+        <i (click)="filterConfirm(null)" class="search-icon"></i>
+        <input [(ngModel)]="searchKey" (keyup)="($event.which === 13) ? filterConfirm(null) : 0" type="text" placeholder="搜索" />
       </div>
       <i (click)="bookingFilter()" class="filter"></i>
     </div>
