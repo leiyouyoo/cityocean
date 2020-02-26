@@ -5,9 +5,9 @@
 ic CSS Variables **/
 :root {
   /** toolbar **/
-  --ion-toolbar-background: #428cff;
-  --ion-toolbar-color: #fff;
-  
+  // --ion-toolbar-background: #428cff;
+  // --ion-toolbar-color: #fff;
+
   /** primary **/
   --ion-color-primary: #007aff;
   --ion-color-primary-rgb: 0, 122, 255;
@@ -81,29 +81,21 @@ ic CSS Variables **/
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** palceholder **/
+  --ion-color-light-placeholder: #c7c7d4;
+
+
+  --ion-color-extralight: #f2f2f9;
+
+  --ion-color-aligned: #ff7998;
 }
 
-$line-color: #e4e4e4;
-/*分割线、边框颜色*/
-$bg-color: #fff;
-/*二级背景色*/
-
-$Secondary-bgcolor: #da9c6d;
-$brand-primary-color: #0a2463;
-$sucess-color: #00d5d5;
-$eooro-color: #00d5d5;
-$primary-color: #007aff;
-$dark-color: #4c4b5e;
-$medium-color: #9f9faf;
-$linght-color: #c7c7d4;
-$extralight-color: #f2f2f9;
-$aligned-color: #ff7998;
 
 @function opacityLinghtColor($opacity) {
   @return rgba(199, 199, 212, $opacity);
 }
 
-$font-PingFangSC: PingFangSC-Semibold, sans-serif;
 $font-base-size: 12px;
 
 @function px2rem($px) {
@@ -130,6 +122,7 @@ $font-base-size: 12px;
 }
 
 [data-dpr='1'] {
+
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -139,6 +132,7 @@ $font-base-size: 12px;
 }
 
 [data-dpr='2'] {
+
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -148,6 +142,7 @@ $font-base-size: 12px;
 }
 
 [data-dpr='3'] {
+
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -197,7 +192,8 @@ $font-base-size: 12px;
 }
 
 // 判断在不同dpr下的显示情况
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
+@media (-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5) {
   .border-1px {
     &::after {
       -webkit-transform: scaleY(0.7);
@@ -206,7 +202,8 @@ $font-base-size: 12px;
   }
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
   .border-1px {
     &::after {
       -webkit-transform: scaleY(0.5);
@@ -268,20 +265,22 @@ $font-base-size: 12px;
     }
 
     [aria-checked='true'].alert-checkbox-inner {
-      border-color: #007aff;
+      border-color: var(--ion-color-primary)
     }
 
     [aria-checked='true'] .alert-button-inner .alert-checkbox-label {
-      color: #007aff;
+      color: var(--ion-color-primary)
     }
 
     [aria-checked='true'] .alert-button-inner .alert-checkbox-icon .alert-checkbox-inner {
-      border-color: #007aff;
+      border-color: var(--ion-color-primary)
     }
   }
 }
+
 //ion-datetime自定义样式
 .ion-datetime-my-class {
+
   .picker-opts-right,
   .picker-opts-left {
     justify-content: center;
@@ -330,12 +329,15 @@ $font-base-size: 12px;
     }
   }
 }
+
 .billing-popover {
   --background: var(--ionc-color-biling-more);
 }
+
 .my-popover-input-search {
   --min-width: 80%;
 }
+
 /*
  * Dark Colors
  * -------------------------------------------
