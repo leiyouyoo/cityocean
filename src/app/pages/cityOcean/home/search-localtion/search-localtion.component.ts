@@ -15,7 +15,7 @@ export class SearchlocaltionComponent implements OnInit {
   searchText: any;
   @Input() type: string;
   private searchTerms = new Subject<string>();
-  searchHistoryList: Array<any>;
+  searchHistoryList: Array<any> = [];
   constructor(public modalController: ModalController, private locationLibraryService: locationLibraryService) {}
 
   ngOnInit() {
