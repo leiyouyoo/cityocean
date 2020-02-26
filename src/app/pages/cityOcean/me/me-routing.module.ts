@@ -6,20 +6,24 @@ import { MePage } from './me.page';
 const routes: Routes = [
   {
     path: '',
-    component: MePage
+    component: MePage,
   },
   {
     path: 'language',
-    loadChildren: () => import('./language/language.module').then( m => m.LanguagePageModule)
+    loadChildren: () => import('./language/language.module').then((m) => m.LanguagePageModule),
   },
   {
     path: 'about',
-    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+    loadChildren: () => import('./about/about.module').then((m) => m.AboutPageModule),
+  },
+  {
+    path: 'setting',
+    loadChildren: () => import('./setting/setting.module').then((m) => m.SettingPageModule),
   },
   {
     path: 'theme',
-    loadChildren: () => import('./theme/theme.module').then( m => m.ThemePageModule)
-  }
+    loadChildren: () => import('./theme/theme.module').then((m) => m.ThemePageModule),
+  },
 ];
 
 @NgModule({

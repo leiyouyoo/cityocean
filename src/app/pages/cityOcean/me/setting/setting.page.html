@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Setting' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item detail tappable (click)="onThemeSettingPage()">
+    <ion-button slot="start" fill="clear">
+      <ion-icon slot="icon-only" name="cog" color="dark"></ion-icon>
+    </ion-button>
+    <ion-label>{{'Setting' | translate }}</ion-label>
+  </ion-item>
+
+  <ion-item detail tappable (click)="onLanguagePage()">
+    <ion-button slot="start" fill="clear">
+      <ion-icon slot="icon-only" name="language" color="dark"></ion-icon>
+    </ion-button>
+    <ion-label>{{'Language Setting' | translate}}</ion-label>
+  </ion-item>
+
+  <ion-item detail tappable (click)="onAboutPage()">
+    <ion-button slot="start" fill="clear">
+      <ion-icon slot="icon-only" name="alert-circle-outline" color="dark"></ion-icon>
+    </ion-button>
+    <ion-label>{{'About Us' | translate}}</ion-label>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-button fill="solid" color="danger" expand="block" (click)="toLogin()">
+    <ion-icon slot="icon-only" name="alert-circle-outline" color="danger"></ion-icon>
+    <ion-label>{{'Login Out' | translate}}</ion-label>
+  </ion-button>
+</ion-footer>

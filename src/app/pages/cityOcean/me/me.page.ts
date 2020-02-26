@@ -13,9 +13,11 @@ import { Helper } from '@shared/helper';
 export class MePage implements OnInit {
   isAndroid = false;
   userLogin = true;
+  userMsg: any;
   constructor(private nav: NavController, public device: Device, private router: Router, private helper: Helper) {}
 
   ngOnInit() {
+    this.userMsg = abp.session.user;
     this.initData();
   }
 
@@ -28,6 +30,10 @@ export class MePage implements OnInit {
       this.isAndroid = true;
     }
   }
+
+  onWalletPage() {}
+
+  onInvoicePage() {}
 
   /**
    * @title 链接跳转
@@ -57,11 +63,10 @@ export class MePage implements OnInit {
     this.nav.navigateForward(['/cityOcean/me/language']);
   }
 
-  /**
-   * @title 用户主题
-   */
-  onThemePage() {
-    this.nav.navigateForward(['/cityOcean/me/theme']);
+
+
+  onSettingPage() {
+    this.nav.navigateForward(['/cityOcean/me/setting']);
   }
 
   /**
@@ -97,8 +102,6 @@ export class MePage implements OnInit {
   onSign() {
     this.router.navigateByUrl('/signin');
   }
-
-
 
   toLogin() {
     // this.nav.navigateForward('/login')

@@ -1,32 +1,49 @@
 ion-icon {
-    color: var(--ion-color-medium);
+  color: var(--ion-color-medium);
+}
+
+.list-md {
+  padding: 0 !important;
+}
+
+.mine-header {
+  text-align: center;
+  background: var(--ion-color-primary) !important;
+  height: 20em;
+  align-items: center;
+  display: flex;
+  align-items: center;
+
+  div {
+    margin: 0 auto;
   }
-  
-  .list-md {
-    padding: 0 !important;
+  .min-header-msg {
+    margin-top: 1em;
   }
-  
-  .mine-header {
-    background: var(--ion-color-primary) !important;
-    padding: 4em 0.2em !important;
-    ion-thumbnail {
-      img {
-        border-radius: 4px;
-      }
-    }
-    ion-label {
-      h2 {
-        font-weight: bold;
-        margin-bottom: 8px;
-      }
-    }
-    ion-icon {
-      font-size: 20px;
-    }
+
+  ion-text {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #fff;
   }
-  
-  .user {
-    background: var(--ion-color-dark);
-    border-radius: 100% !important;
+
+  img {
+    border: 0.25em solid #fff;
+    width: 6em;
+    height: 6em;
+    border-radius: 100%;
   }
-  
+}
+
+.user {
+  background: var(--ion-color-dark);
+  border-radius: 100% !important;
+}
+
+
+.me-list{
+  position: absolute;
+    top: 18em;
+    width: 100%;
+    border-radius: 20px;
+}

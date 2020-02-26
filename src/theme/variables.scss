@@ -1,21 +1,25 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
-/** Ionic CSS Variables **/
+/** Ion
+ic CSS Variables **/
 :root {
+  /** toolbar **/
+  --ion-toolbar-background: #428cff;
+  --ion-toolbar-color: #fff;
+  
   /** primary **/
-  --ion-color-primary: #007AFF;
+  --ion-color-primary: #007aff;
   --ion-color-primary-rgb: 0, 122, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #3171e0;
   --ion-color-primary-tint: #4c8dff;
 
-  --ionc-color-biling-more:#d9ebff;
-  
+  --ionc-color-biling-more: #d9ebff;
 
   /** secondary **/
-  --ion-color-secondary: #DA9C6D;
+  --ion-color-secondary: #da9c6d;
   --ion-color-secondary-rgb: 218, 156, 109;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
@@ -31,7 +35,7 @@
   --ion-color-tertiary-tint: #7e57ff;
 
   /** success **/
-  --ion-color-success: #00D5D5;
+  --ion-color-success: #00d5d5;
   --ion-color-success-rgb: 0, 213, 213;
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255, 255, 255;
@@ -47,7 +51,7 @@
   --ion-color-warning-tint: #ffd31a;
 
   /** danger **/
-  --ion-color-danger: #FF7998;
+  --ion-color-danger: #ff7998;
   --ion-color-danger-rgb: 255, 121, 152;
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255, 255, 255;
@@ -55,7 +59,7 @@
   --ion-color-danger-tint: #f25454;
 
   /** dark **/
-  --ion-color-dark: #4C4B5E;
+  --ion-color-dark: #4c4b5e;
   --ion-color-dark-rgb: 76, 75, 94;
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255, 255, 255;
@@ -63,7 +67,7 @@
   --ion-color-dark-tint: #383a3e;
 
   /** medium **/
-  --ion-color-medium: #9F9FAF;
+  --ion-color-medium: #9f9faf;
   --ion-color-medium-rgb: 159, 159, 175;
   --ion-color-medium-contrast: #ffffff;
   --ion-color-medium-contrast-rgb: 255, 255, 255;
@@ -79,29 +83,28 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
-$line-color: #E4E4E4;
+$line-color: #e4e4e4;
 /*分割线、边框颜色*/
 $bg-color: #fff;
 /*二级背景色*/
 
-$Secondary-bgcolor:#DA9C6D;
-$brand-primary-color:#0A2463;
-$sucess-color:#00D5D5;
-$eooro-color:#00D5D5;
-$primary-color: #007AFF;
-$dark-color:#4C4B5E;
-$medium-color:#9F9FAF;
-$linght-color:#C7C7D4;
-$extralight-color:#F2F2F9;
-$aligned-color:#FF7998;
+$Secondary-bgcolor: #da9c6d;
+$brand-primary-color: #0a2463;
+$sucess-color: #00d5d5;
+$eooro-color: #00d5d5;
+$primary-color: #007aff;
+$dark-color: #4c4b5e;
+$medium-color: #9f9faf;
+$linght-color: #c7c7d4;
+$extralight-color: #f2f2f9;
+$aligned-color: #ff7998;
 
 @function opacityLinghtColor($opacity) {
   @return rgba(199, 199, 212, $opacity);
 }
 
-$font-PingFangSC:PingFangSC-Semibold,
-sans-serif;
-$font-base-size : 12px;
+$font-PingFangSC: PingFangSC-Semibold, sans-serif;
+$font-base-size: 12px;
 
 @function px2rem($px) {
   //$px为需要转换的字号
@@ -113,21 +116,20 @@ $font-base-size : 12px;
 }
 
 @for $i from 1 through 50 {
-  [data-dpr="1"] .font-#{$i} {
+  [data-dpr='1'] .font-#{$i} {
     font-size: 1px * $i;
   }
 
-  [data-dpr="2"] .font-#{$i} {
+  [data-dpr='2'] .font-#{$i} {
     font-size: 1px * $i * 2;
   }
 
-  [data-dpr="3"] .font-#{$i} {
+  [data-dpr='3'] .font-#{$i} {
     font-size: 1px * $i * 3;
   }
 }
 
-[data-dpr="1"] {
-
+[data-dpr='1'] {
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -136,8 +138,7 @@ $font-base-size : 12px;
   }
 }
 
-[data-dpr="2"] {
-
+[data-dpr='2'] {
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -146,8 +147,7 @@ $font-base-size : 12px;
   }
 }
 
-[data-dpr="3"] {
-
+[data-dpr='3'] {
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -163,14 +163,13 @@ $font-base-size : 12px;
   //   font-size: $font-size * 2;
   // }
 
-  // [data-dpr="3"] & { 
+  // [data-dpr="3"] & {
   //   font-size: $font-size * 3;
   // }
-
 }
 
 @mixin bg-image($url) {
-  background-image: url($url + "@3x.png");
+  background-image: url($url+'@3x.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   // @media screen and  (-webkit-min-device-pixel-ratio: 2) {
@@ -198,8 +197,7 @@ $font-base-size : 12px;
 }
 
 // 判断在不同dpr下的显示情况
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min-device-pixel-ratio: 1.5) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
   .border-1px {
     &::after {
       -webkit-transform: scaleY(0.7);
@@ -208,8 +206,7 @@ $font-base-size : 12px;
   }
 }
 
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-device-pixel-ratio: 2) {
+@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
   .border-1px {
     &::after {
       -webkit-transform: scaleY(0.5);
@@ -270,16 +267,16 @@ $font-base-size : 12px;
       }
     }
 
-    [aria-checked=true].alert-checkbox-inner {
-      border-color: #007AFF
+    [aria-checked='true'].alert-checkbox-inner {
+      border-color: #007aff;
     }
 
-    [aria-checked=true] .alert-button-inner .alert-checkbox-label {
-      color: #007AFF
+    [aria-checked='true'] .alert-button-inner .alert-checkbox-label {
+      color: #007aff;
     }
 
-    [aria-checked=true] .alert-button-inner .alert-checkbox-icon .alert-checkbox-inner {
-      border-color: #007AFF
+    [aria-checked='true'] .alert-button-inner .alert-checkbox-icon .alert-checkbox-inner {
+      border-color: #007aff;
     }
   }
 }
@@ -294,49 +291,49 @@ $font-base-size : 12px;
 //ion-action-sheet自定义样式
 .my-action-sheet {
   .action-sheet-wrapper {
-      .action-sheet-container {
-          .action-sheet-group {
-              padding: 0 px2rem(16px);
+    .action-sheet-container {
+      .action-sheet-group {
+        padding: 0 px2rem(16px);
 
-              .action-sheet-title {
-                  height: px2rem(40px);
-                  font-size: 24px;
-                  font-family: PingFangSC-Regular, PingFang SC;
-                  font-weight: 400;
-                  color: rgba(63, 64, 71, 1);
-                  line-height: px2rem(40px);
-                  padding: 0;
-                  margin: px2rem(24px) 0 px2rem(16px) 0;
-                  text-align: left;
-              }
+        .action-sheet-title {
+          height: px2rem(40px);
+          font-size: 24px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: rgba(63, 64, 71, 1);
+          line-height: px2rem(40px);
+          padding: 0;
+          margin: px2rem(24px) 0 px2rem(16px) 0;
+          text-align: left;
+        }
 
-              .action-sheet-button {
-                  background: linear-gradient(135deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
-                  border-radius: px2rem(8px);
-                  height: px2rem(44px);
-                  line-height: px2rem(44px);
-                  margin-bottom: px2rem(18px);
-                  padding: 0;
+        .action-sheet-button {
+          background: linear-gradient(135deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
+          border-radius: px2rem(8px);
+          height: px2rem(44px);
+          line-height: px2rem(44px);
+          margin-bottom: px2rem(18px);
+          padding: 0;
 
-                  .action-sheet-button-inner {
-                      justify-content: flex-start;
-                      font-size: 15px;
-                      font-family: Helvetica;
-                      color: rgba(255, 255, 255, 1);
+          .action-sheet-button-inner {
+            justify-content: flex-start;
+            font-size: 15px;
+            font-family: Helvetica;
+            color: rgba(255, 255, 255, 1);
 
-                      ion-icon {
-                          margin: 0 px2rem(17px) 0 px2rem(19px);
-                      }
-                  }
-              }
+            ion-icon {
+              margin: 0 px2rem(17px) 0 px2rem(19px);
+            }
           }
+        }
       }
+    }
   }
 }
-.billing-popover{
-  --background:var(--ionc-color-biling-more); 
+.billing-popover {
+  --background: var(--ionc-color-biling-more);
 }
-.my-popover-input-search{
+.my-popover-input-search {
   --min-width: 80%;
 }
 /*
@@ -344,7 +341,7 @@ $font-base-size : 12px;
  * -------------------------------------------
  */
 
- body.dark {
+body.dark {
   --ion-color-primary: #428cff;
   --ion-color-primary-rgb: 66, 140, 255;
   --ion-color-primary-contrast: #ffffff;
@@ -424,8 +421,8 @@ $font-base-size : 12px;
   --ion-color-light-tint: #383a3e;
 
   /** toolbar **/
-  --ion-toolbar-background: #383a3e;
-  --ion-toolbar-color: #f4f5f8;
+  --ion-toolbar-background: #428cff;
+  --ion-toolbar-color: #fff;
 }
 
 /*
