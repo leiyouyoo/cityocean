@@ -85,7 +85,7 @@ export class SchedulePage implements OnInit {
       days.forEach((da, i) => {
         config.push({
           date: new Date(date.getFullYear(), date.getMonth(), days[i]),
-          subTitle: `·`,
+          subTitle: `⚪`,
         });
       });
       options.daysConfig = config;

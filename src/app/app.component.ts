@@ -39,7 +39,7 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       // this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
-      let color = '#3880ff';
+      let color = '#428cff';
       const theme = LocalStorage.localStorage.get('ThemeType');
       document.body.classList.remove('blue');
       document.body.classList.remove('dark');
@@ -48,9 +48,9 @@ export class AppComponent {
       } else {
         document.body.classList.toggle(theme, true);
 
-        if (theme === 'dark') {
-          color = '#000000';
-        }
+        // if (theme === 'dark') {
+        //   color = '#000000';
+        // }
       }
       this.statusBar.backgroundColorByHexString(color);
       this.statusBar.show();
