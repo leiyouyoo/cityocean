@@ -35,14 +35,14 @@
         (click)="gotoUserProfile(item.from)"
         [class]="'anchor-' + item.flow"
         class="head-anchor"
-        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/home/chat/touxian2@3x.png'"
+        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
       />
       <img
         *ngIf="item.flow=='in'"
         (click)="gotoUserProfile(item.from)"
         [class]="'anchor-' + item.flow"
         class="head-anchor"
-        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/home/chat/touxian2@3x.png'"
+        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
       />
       <ion-card-content>
         <span *ngIf="item?.type === 'TIMCustomElem'" [innerHTML]="item.msgBody[0].msgContent.Ext"></span>

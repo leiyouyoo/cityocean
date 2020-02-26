@@ -15,7 +15,7 @@ export class AddMemberComponent implements OnInit {
   @Input() groupID: string;
   @Input() isC2C = false;
   @Input() conversationType: string;
-  membersList: Array<any>;
+  membersList: Array<any> = [];
 
   ngOnInit() {
     if (!this.isC2C && this.conversationType != 'Private') {
@@ -56,9 +56,10 @@ export class AddMemberComponent implements OnInit {
       createGroup({
         type: 'private',
         name: 'WebSDK',
-        memberList: [{ userID: '52' }, { userID: 'user0' }], // 如果填写了 memberList，则必须填写 userID
+        memberList: [{ userID: 'test0' }, { userID: 'user0' }], // 如果填写了 memberList，则必须填写 userID
       }).then((res) => {
         console.log(res);
+        this.dismissModal(res);
       });
     } else {
       let list = this.membersList

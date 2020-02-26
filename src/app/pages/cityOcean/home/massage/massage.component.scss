@@ -1,6 +1,6 @@
 @import "../../../../../theme/variables";
 
-.icom-size {
+.icon-size {
     display: inline-block;
     width: px2rem(48px) !important;
     height: px2rem(48px) !important;
@@ -14,32 +14,36 @@
     height: px2rem(82px);
     position: relative;
     box-sizing: border-box;
-
-    i.C2C {
-        @extend .icom-size;
+    .default-avatar{
+        @extend .icon-size;
+        background-size: 100% 100%;
+        background-image: url("../../../../../assets/icon/avatar-2.png");
+    }
+    #C2C {
+        @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/chat/touxian5");
     }
 
-    i.booking {
-        @extend .icom-size;
+    #booking {
+        @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/icon_booking");
     }
-    i.order {
-        @extend .icom-size;
+    #order {
+        @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/Order");
     }
-    i.quote {
-        @extend .icom-size;
+    #quote {
+        @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/icon_quote");
     }
 
-    i.billing {
-        @extend .icom-size;
+    #billing {
+        @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/icon_billing");
     }
 
-    i.shipment {
-        @extend .icom-size;
+    #shipment {
+        @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/icon_shipment");
     }
 
@@ -114,13 +118,15 @@
             font-weight: bold;
             letter-spacing: px2rem(1px);
             font-family: PingFang-SC-Medium;
-            max-width: px2rem(270px);
+            width: 72.3vw;
             overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         span.description {
             line-height: px2rem(17px);
-            width: px2rem(270px);
+            width: 72.3vw;
             font-family: PingFang-SC-Regular, PingFang-SC;
             font-weight: 400;
             @include font-dpr(10px);
