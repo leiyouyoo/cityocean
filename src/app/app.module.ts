@@ -24,7 +24,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { AmapLibraryModule } from "@cityocean/amap-library";
+import { AmapLibraryModule } from '@cityocean/amap-library';
 
 // #region Http Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';

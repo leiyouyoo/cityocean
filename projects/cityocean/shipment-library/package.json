@@ -1,0 +1,48 @@
+{
+  "_from": "@cityocean/shipment-library@^0.0.3",
+  "_id": "@cityocean/shipment-library@0.0.3",
+  "_inBundle": false,
+  "_integrity": "sha512-r3r9yJqoN3VghkwLBScIrb4jR6fEYsCcyk5hgqbQQeYZ9eGWbBeR51ecbM2J1zheZt7otLe1qNBzpOPBnZWctQ==",
+  "_location": "/@cityocean/shipment-library",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@cityocean/shipment-library@^0.0.3",
+    "name": "@cityocean/shipment-library",
+    "escapedName": "@cityocean%2fshipment-library",
+    "scope": "@cityocean",
+    "rawSpec": "^0.0.3",
+    "saveSpec": null,
+    "fetchSpec": "^0.0.3"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "http://npm.cityocean.com:8202/@cityocean%2fshipment-library/-/shipment-library-0.0.3.tgz",
+  "_shasum": "d3445831493e0a935c7b6ee3b67b6be4e28e7cf9",
+  "_spec": "@cityocean/shipment-library@^0.0.3",
+  "_where": "D:\\workspace\\ionic\\CSP-APP",
+  "bundleDependencies": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "deprecated": false,
+  "description": "This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.5.",
+  "es2015": "fesm2015/cityocean-shipment-library.js",
+  "esm2015": "esm2015/cityocean-shipment-library.js",
+  "esm5": "esm5/cityocean-shipment-library.js",
+  "fesm2015": "fesm2015/cityocean-shipment-library.js",
+  "fesm5": "fesm5/cityocean-shipment-library.js",
+  "main": "bundles/cityocean-shipment-library.umd.js",
+  "metadata": "cityocean-shipment-library.metadata.json",
+  "module": "fesm5/cityocean-shipment-library.js",
+  "name": "@cityocean/shipment-library",
+  "peerDependencies": {
+    "@angular/common": "^8.2.5",
+    "@angular/core": "^8.2.5"
+  },
+  "sideEffects": false,
+  "typings": "cityocean-shipment-library.d.ts",
+  "version": "0.0.3"
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ActionSheetController, ModalController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
 import { WorkbenchService } from './workbench.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-workbench',
