@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { getUserProfile } from '@cityocean/im-library';
+import { getUserProfile, updateMyProfile } from '@cityocean/im-library';
 import { ModalController, AlertController } from '@ionic/angular';
 import { RemarksComponent } from './remarks/remarks.component';
 
@@ -11,7 +11,8 @@ import { RemarksComponent } from './remarks/remarks.component';
 })
 export class UserProfilePage implements OnInit {
   userId: any;
-  userProfile: any;
+  myUserId = localStorage.getItem('current_tim_id');
+  userProfile: any = [{}];
 
   constructor(private activatedRoute: ActivatedRoute,private alertController:AlertController) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
@@ -22,10 +23,13 @@ export class UserProfilePage implements OnInit {
    }
 
   ngOnInit() {
-    getUserProfile([this.userId]).then(res => {
-      this.userProfile = res.data;
-      console.log(this.userProfile)
-    });
+    try {
+      getUserProfile([this.userId]).then(res => {
+        this.userProfile = res.data;
+      });
+    } catch (error) {
+      console.log(error)
+    }
   }
   goback() {
     window.history.back();
@@ -35,16 +39,17 @@ export class UserProfilePage implements OnInit {
       header: '设置备注和描述',
       inputs: [
         {
-          name: 'name2',
+          name: 'nick',
           type: 'text',
-          id: 'name2-id',
-          value: 'hello',
-          placeholder: 'Placeholder 2'
+          value: this.userProfile[0].nick,
+          placeholder: '添加备注信息'
         },
         {
-          name: 'name3',
+          name: 'selfSignature',
           type: 'text',
-          placeholder: '添加备注信息'
+          id: 'name2-id',
+          value: this.userProfile[0].selfSignature,
+          placeholder: '添加描述'
         },
       ],
       buttons: [
@@ -53,12 +58,13 @@ export class UserProfilePage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: 'Ok',
-          handler: () => {
-            console.log('Confirm Ok');
+          handler: (data) => {
+            updateMyProfile({nick:data.nick,selfSignature:data.selfSignature}).then(res=>{
+              console.log(res)
+            })
           }
         }
       ]

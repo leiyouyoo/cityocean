@@ -1,4 +1,4 @@
-@import "../../../../theme/variables";
+@import "../../../../../theme/variables";
 
 .icom-size {
     display: inline-block;
@@ -17,30 +17,30 @@
 
     i.C2C {
         @extend .icom-size;
-        @include bg-image("../../../../assets/icon/home/chat/touxian5");
+        @include bg-image("../../../../../assets/icon/home/chat/touxian5");
     }
 
     i.booking {
         @extend .icom-size;
-        @include bg-image("../../../../assets/icon/home/icon_booking");
+        @include bg-image("../../../../../assets/icon/home/icon_booking");
     }
     i.order {
         @extend .icom-size;
-        @include bg-image("../../../../assets/icon/home/Order");
+        @include bg-image("../../../../../assets/icon/home/Order");
     }
     i.quote {
         @extend .icom-size;
-        @include bg-image("../../../../assets/icon/home/icon_quote");
+        @include bg-image("../../../../../assets/icon/home/icon_quote");
     }
 
     i.billing {
         @extend .icom-size;
-        @include bg-image("../../../../assets/icon/home/icon_billing");
+        @include bg-image("../../../../../assets/icon/home/icon_billing");
     }
 
     i.shipment {
         @extend .icom-size;
-        @include bg-image("../../../../assets/icon/home/icon_shipment");
+        @include bg-image("../../../../../assets/icon/home/icon_shipment");
     }
 
     span.time {

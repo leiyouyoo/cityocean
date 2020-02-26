@@ -27,11 +27,10 @@ import { TableCellTitleDirective } from './directives/table-cell-title.directive
 import { DebounceInputDirective } from './directives/DebounceInput.Directive';
 import { ImModule } from '../pages/im/im.module';
 import { ErrorBorderDirective } from './directives/error-border.directive';
-import { MassageComponent } from '../components/massage/massage/massage.component';
 import { BusinessTypeComponent } from '../components/business-type/business-type.component';
 import { InputSearchComponent } from '../components/input-search/input-search.component';
 
-const COMPONENTS_ENTRY = [MassageComponent, BusinessTypeComponent,InputSearchComponent];
+const COMPONENTS_ENTRY = [BusinessTypeComponent,InputSearchComponent];
 const COMPONENTS = [...COMPONENTS_ENTRY];
 const DIRECTIVES = [
   DebounceInputDirective,

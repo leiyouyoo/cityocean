@@ -1,5 +1,6 @@
 <div *ngIf="detail" class="massage-group">
-  <i class="massage-avatar" [class]="detail.type"></i>
+  <i *ngIf="!detail?.groupProfile?.avatar" class="massage-avatar" [class]="detail.type"></i>
+  <img *ngIf="detail?.groupProfile?.avatar" [src]="detail?.groupProfile?.avatar" class="image-element" />
   <div class="text-group">
     <div *ngIf="detail" class="number-wrap">
       <div>

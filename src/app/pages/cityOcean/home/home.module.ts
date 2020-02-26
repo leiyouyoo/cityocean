@@ -12,10 +12,11 @@ import { HomeService } from './home.service';
 import { PressPopoverComponent } from './chat/press-popover/press-popover.component';
 import { MessageRollingComponent } from 'src/app/components/message-rolling/message-rolling.component';
 import { SharedModule } from '@shared';
+import { MassageComponent } from './massage/massage.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule, SharedModule],
-  declarations: [HomePage, PopoverComponent, MessageRollingComponent, PressPopoverComponent],
+  declarations: [HomePage, PopoverComponent, MessageRollingComponent, PressPopoverComponent,MassageComponent],
   entryComponents: [PopoverComponent, PressPopoverComponent],
   providers: [HomeService],
 })
