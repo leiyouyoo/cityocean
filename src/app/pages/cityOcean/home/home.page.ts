@@ -171,11 +171,17 @@ export class HomePage implements OnInit {
       tmp.push(local);
       localStorage.setItem(this.searchType, JSON.stringify(tmp));
     } else {
-      if (searchLocalStorage.length >= 10) {
-        searchLocalStorage.shift();
+      const hasExit = searchLocalStorage.some(e=>{
+        return e.orignPortHistory.id ==local.orignPortHistory.id &&
+        e.deliveryPortHistory.id ==local.deliveryPortHistory.id
+      })
+      if(!hasExit){
+        if (searchLocalStorage.length >= 10) {
+          searchLocalStorage.shift();
+        }
+        searchLocalStorage.push(local);
+        localStorage.setItem(this.searchType, JSON.stringify(searchLocalStorage));
       }
-      searchLocalStorage.push(local);
-      localStorage.setItem(this.searchType, JSON.stringify(searchLocalStorage));
     }
     if (this.searchType === 'seachRates') {
       this.nav.navigateForward(['/cityOcean/home/rates'], {

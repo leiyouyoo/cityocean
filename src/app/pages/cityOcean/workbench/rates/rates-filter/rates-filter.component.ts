@@ -27,11 +27,10 @@ export class RatesFilterComponent implements OnInit {
     deliveryPortSearchText: '',
     destinationLocationSearchText: '',
     carrierId: 'all',
-    date: '7',
+    ratesValidDays: '7',
   };
   carrierList = [];
   private searchTerms = new Subject<string>();
-
 
   constructor(
     private modalController: ModalController,
@@ -40,7 +39,7 @@ export class RatesFilterComponent implements OnInit {
     private popoverController: PopoverController,
     private locationLibraryService: locationLibraryService,
     private myMessageServiceService: MyMessageServiceService,
-    private regionService:RegionService
+    private regionService: RegionService,
   ) {}
 
   ngOnInit() {
@@ -48,27 +47,27 @@ export class RatesFilterComponent implements OnInit {
       console.log(res);
       this.carrierList = res;
     });
-    this.searchTerms.pipe(
-      // 请求防抖 100毫秒
-      debounceTime(200),
-    ).subscribe((type) => {
-      switch (type) {
-        case 'originPortSearchText' || 'deliveryPortSearchText':
+    this.searchTerms
+      .pipe(
+        // 请求防抖 100毫秒
+        debounceTime(200),
+      )
+      .subscribe((type) => {
+        if (type == 'originPortSearchText' || type == 'deliveryPortSearchText') {
           this.locationLibraryService.GetAllPort({ Name: this.profileForm[type] }).subscribe((res: any) => {
             console.log(res.items);
             this.myMessageServiceService.messageAction(res.items);
           });
-          break;
-        case 'originLocatonSearchText' || 'destinationLocationSearchText':
-          this.regionService.getRegionInfo({ Name: this.profileForm[type]}).subscribe(res=>{
-            console.log(res)
-            this.myMessageServiceService.messageAction(res.items);
-          })
-          break;
-        default:
-          break;
-      }
-    });
+        }
+        if (type == 'originLocatonSearchText' || type == 'destinationLocationSearchText') {
+          this.locationLibraryService
+            .GetAllPort({ Name: this.profileForm[type], IsOcean: true })
+            .subscribe((res: any) => {
+              console.log(res);
+              this.myMessageServiceService.messageAction(res.items);
+            });
+        }
+      });
   }
   dismissModal(data?) {
     this.modalController.dismiss(data);
@@ -119,16 +118,24 @@ export class RatesFilterComponent implements OnInit {
     this.profileForm.deliveryPortCy = event.detail.value;
   }
   dateChange(event) {
-    this.profileForm.date = event.detail.value;
+    this.profileForm.ratesValidDays = event.detail.value;
   }
   confirm() {
-    this.dismissModal(this.profileForm);
+    let data :any = {};
+    if(this.profileForm.carrierId !='all'){
+      data.carrierId = this.profileForm.carrierId;
+    }
+    data.ratesValidDays =  this.profileForm.ratesValidDays;
+    data.orignLocationId =  this.profileForm.orignLocationId;
+    data.orignPortId =  this.profileForm.orignPortId;
+    data.deliveryPortId =  this.profileForm.deliveryPortId;
+
+    this.dismissModal(data);
   }
   ngModelChange(type) {
     this.searchTerms.next(type);
-    
   }
-  
+
   async showPopover(event, type) {
     if (this.profileForm[type]) {
       this.ngModelChange(type);
@@ -143,8 +150,8 @@ export class RatesFilterComponent implements OnInit {
       componentProps: { dataList: [] },
     });
     popover.onDidDismiss().then((event) => {
-      if(!event.data || !event.data.name){
-        return
+      if (!event.data || !event.data.name) {
+        return;
       }
       this.profileForm[type] = event.data.name;
       switch (type) {

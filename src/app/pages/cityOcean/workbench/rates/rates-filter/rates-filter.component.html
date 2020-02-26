@@ -94,11 +94,11 @@
     </div>
     <div>
       <ion-select
-        name="date"
+        name="ratesValidDays"
         [interfaceOptions]="{ header: '选择天数', cssClass: 'ion-select-my-class' }"
         interface="action-sheet"
         placeholder="Select One"
-        [value]="profileForm.date"
+        [value]="profileForm.ratesValidDays"
         (ionChange)="dateChange($event)"
       >
         <ion-select-option value="7">7days</ion-select-option>

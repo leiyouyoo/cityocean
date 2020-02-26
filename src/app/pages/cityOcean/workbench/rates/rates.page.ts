@@ -18,6 +18,8 @@ export class RatesPage implements OnInit {
     maxResultCount: 5,
     skipCount: 0,
   };
+  orignLocationId: any;
+  deliveryLocationId: any;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -35,10 +37,10 @@ export class RatesPage implements OnInit {
   }
   getRatesList(event?) {
     let param = {
-      // "orignLocationId": this.orignPortId,
+      orignLocationId: this.orignLocationId,
       orignPortId: [this.orignPortId],
       deliveryPortId: [this.deliveryPortId],
-      // "deliveryLocationId": this.deliveryPortId,
+      deliveryLocationId: this.deliveryLocationId,
       maxResultCount: this.pageInfo.maxResultCount,
       skipCount: this.pageInfo.skipCount,
     };
@@ -55,7 +57,7 @@ export class RatesPage implements OnInit {
     this.ratesService.geFreightRates(param).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
-      this.ratesList = this.ratesList.concat(res.result.items);
+      this.ratesList = this.ratesList.concat(res.items);
       this.pageInfo.skipCount++;
       if (this.ratesList.length >= res.totalCount && event) {
         // 已加载全部数据，禁用上拉刷新
@@ -95,8 +97,7 @@ export class RatesPage implements OnInit {
         maxResultCount: 5,
         skipCount: 0,
       };
-      if (res.data.cy) {
-      }
+      console.log(res)
     });
     return await modal.present();
   }
