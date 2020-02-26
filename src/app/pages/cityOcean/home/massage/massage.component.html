@@ -1,11 +1,12 @@
 <div *ngIf="detail" class="massage-group">
-  <i class="massage-avatar" [class]="detail.type"></i>
+  <i *ngIf="!detail?.groupProfile?.avatar" [class]="!detail?.groupProfile?.avatar?'default-avatar':''" [id]="detail.type"></i>
+  <img *ngIf="detail?.groupProfile?.avatar" [src]="detail?.groupProfile?.avatar" class="image-element" />
   <div class="text-group">
     <div *ngIf="detail" class="number-wrap">
       <div>
         <span class="number-text font-10">{{ detail.name }}</span>
         <span
-          *ngIf="detail?.type && detail?.type != 'im'"
+          *ngIf="showLabel()"
           [ngClass]="{ 'lables': true,'font-10':true}"
           [class]="'lable-' + detail?.type"
           >{{ detail?.type }}</span>

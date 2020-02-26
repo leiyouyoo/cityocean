@@ -87,12 +87,10 @@ export class HomePage implements OnInit {
       // }
       let list = imRes.data.conversationList;
       list = list.filter((e) => {
-        //暂时不展示系统消息
         return e.type.indexOf('TIM') == -1 && e.type.indexOf('SYSTEM') == -1;
       });
       this.scrollList = imRes.data.conversationList.filter((e) => {
-        //暂时不展示系统消息
-        return e.type.indexOf('TIM') != -1 && e.type.indexOf('SYSTEM') != -1;
+        return e.type.indexOf('SYSTEM') != -1;
       });
 
       list.forEach((ele) => {
@@ -157,6 +155,7 @@ export class HomePage implements OnInit {
           C2C: item.type == 'C2C' ? true : false,
           id: item.type == 'C2C' ? item.userProfile.userID : item.groupProfile.groupID,
           groupName: item.name,
+          conversationType: item.type == 'C2C' ? 'c2c' : item.groupProfile.type,
         },
       });
   }
@@ -184,7 +183,7 @@ export class HomePage implements OnInit {
       }
     }
     if (this.searchType === 'seachRates') {
-      this.nav.navigateForward(['/cityOcean/home/rates'], {
+      this.nav.navigateForward(['/cityOcean/workbench/rates'], {
         queryParams: {
           orignPortId: this.orignPort.id,
           deliveryPortId: this.deliveryPort.id,

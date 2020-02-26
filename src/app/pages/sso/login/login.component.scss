@@ -14,7 +14,7 @@ ion-content {
     }
 
     .logo-text {
-      font-family: $font-PingFangSC;
+      font-family: PingFangSC-Semibold,PingFang SC;
       color: #F2F2F9;
       @include font-dpr(36px);
       margin-top: 0.5em;
@@ -37,13 +37,13 @@ ion-content {
 
         .alert-error {
           @include font-dpr(9px);
-          color: $aligned-color;
+          color: var(--ion-color-aligned);
           margin-top: 0.25em;
         }
 
         ion-label {
-          color: $medium-color;
-          font-family: $font-PingFangSC;
+          color: var(--ion-color-medium);
+          font-family: PingFangSC-Semibold,PingFang SC;
           display: inline-block;
           height: 2em;
           @include font-dpr(9px);
@@ -54,10 +54,10 @@ ion-content {
           padding: 0;
           padding-bottom: 0.1em;
           border-bottom: 0.1em solid opacityLinghtColor(0.4);
-          height:2em;
+          height: 2em;
 
           &::-webkit-input-placeholder {
-            color: $linght-color;
+            color: var(--ion-color-light-placeholder);
             font-family: PingFangSC-Regular;
             @include font-dpr(16px);
           }
@@ -70,15 +70,15 @@ ion-content {
         }
 
         input.input-invalid {
-          border-bottom: 0.1em solid $aligned-color;
+          border-bottom: 0.1em solid var(--ion-color-aligned);
         }
 
         input.input-success-border {
-          border-bottom: 0.1em solid $sucess-color;
+          border-bottom: 0.1em solid var(--ion-color-success);
         }
 
         input.input-writing {
-          border-bottom: 0.1em solid $primary-color;
+          border-bottom: 0.1em solid var(--ion-color-primary);
         }
 
         .input-success {
@@ -128,14 +128,14 @@ ion-content {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 0.75em ;
+        padding: 0 0.75em;
       }
 
       @at-root .login-other {
         display: inline-block;
         @include font-dpr(9px);
         margin: 1.5em 0 1.5em 0em;
-        color: $linght-color;
+        color: var(--ion-color-light-placeholder);
       }
 
       .login-group {
@@ -144,7 +144,7 @@ ion-content {
 
         span {
           font-family: PingFangSC-Regular;
-          color: $extralight-color;
+          color: var(--ion-color-extralight);
         }
 
         i {
@@ -155,11 +155,11 @@ ion-content {
       }
 
       .wechat-group {
-        background-color: $extralight-color;
+        background-color: var(--ion-color-extralight);
 
         span {
-          font-family: $font-PingFangSC;
-          color: $dark-color;
+          font-family: PingFangSC-Semibold,PingFang SC;
+          color: var(--ion-color-dark);
         }
 
         i {
@@ -172,9 +172,9 @@ ion-content {
 
       .facebook-group {
         margin-bottom: 1em;
-        background-color: $extralight-color;
-        font-family: $font-PingFangSC;
-        color: $dark-color;
+        background-color: var(--ion-color-extralight);
+        font-family: PingFangSC-Semibold,PingFang SC;
+        color: var(--ion-color-dark);
 
         i {
           width: 1em;

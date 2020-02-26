@@ -21,32 +21,33 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" id="refresher">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div *ngIf="!isC2C" class="type-wrap">
+  <div *ngIf="!isC2C && conversationType!='Private'" class="type-wrap">
     <app-business-type
       (click)="gotoDetail()"
       [title]="{title1:bussinessDetail.bookingNo}"
       [status]="statusType[bussinessDetail.status]"
     ></app-business-type>
   </div>
-  <section [ngClass]="{'chat-content-wrap-margin': !isC2C}" class="chat-content-wrap">
+  <section [ngClass]="{'chat-content-wrap-margin': !isC2C&& conversationType!='Private'}" class="chat-content-wrap">
     <ion-card *ngFor="let item of chatList" [class]="'card-' + item.flow +'-group'">
       <img
         *ngIf="item.flow=='out'"
         (click)="gotoUserProfile(item.from)"
         [class]="'anchor-' + item.flow"
         class="head-anchor"
-        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/home/chat/touxian2@3x.png'"
+        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
       />
       <img
         *ngIf="item.flow=='in'"
         (click)="gotoUserProfile(item.from)"
         [class]="'anchor-' + item.flow"
         class="head-anchor"
-        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/home/chat/touxian2@3x.png'"
+        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
       />
       <ion-card-content>
-        <span *ngIf="item.msgBody[0].msgType === 'TIMTextElem'" [innerHTML]="item.msgBody[0].msgContent.Text"></span>
-        <span *ngIf="item.msgBody[0].msgType === 'TIMImageElem'">
+        <span *ngIf="item?.type === 'TIMCustomElem'" [innerHTML]="item.msgBody[0].msgContent.Ext"></span>
+        <span *ngIf="item?.type === 'TIMTextElem'" [innerHTML]="item.payload.text"></span>
+        <span *ngIf="item?.type === 'TIMImageElem'">
           <img [src]="item.msgBody[0].msgContent.ImageInfoArray[0].URL" class="image-element" />
         </span>
       </ion-card-content>

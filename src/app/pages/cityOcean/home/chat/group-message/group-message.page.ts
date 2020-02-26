@@ -28,6 +28,7 @@ export class GroupMessagePage implements OnInit {
   conversationID: any;
   isC2C: any;
   groupName: any;
+  conversationType: any;
   constructor(
     private nav: NavController,
     public modalController: ModalController,
@@ -42,6 +43,7 @@ export class GroupMessagePage implements OnInit {
         this.isC2C = data.C2C === 'true' ? true : false;
         this.groupID = data.id;
         this.groupName = data.groupName;
+        this.conversationType = data.conversationType
       });
     });
   }
@@ -180,7 +182,7 @@ export class GroupMessagePage implements OnInit {
   async presentModal(component,type) {
     const modal = await this.modalController.create({
       component: component,
-      componentProps:type == "search"? {}:{BusinessId : this.groupID.replace(/[^\d]/ig,""),BusinessType : this.groupID.replace(/\d/g,'').toLowerCase(),groupID:this.groupID,isC2C:this.isC2C}
+      componentProps:type == "search"? {}:{BusinessId : this.groupID.replace(/[^\d]/ig,""),BusinessType : this.groupID.replace(/\d/g,'').toLowerCase(),groupID:this.groupID,isC2C:this.isC2C,conversationType:this.conversationType}
     });
     modal.onWillDismiss().then(res => {
       if (type == "search") {

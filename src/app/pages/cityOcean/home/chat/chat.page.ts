@@ -47,6 +47,7 @@ export class ChatPage implements OnInit {
   bussinessType; //业务类型
   bussinessId; //业务ID
   bussinessDetail = { bookingNo: '', status: -1 }; //业务详情
+  conversationType: any;
   constructor(
     private nav: NavController,
     public popoverController: PopoverController,
@@ -65,6 +66,7 @@ export class ChatPage implements OnInit {
       this.conversationID = data.conversationID;
       this.isC2C = data.C2C == 'true' ? true : false;
       this.groupID = data.id;
+      this.conversationType = data.conversationType,
       this.groupName = data.groupName;
       this.bussinessType = this.groupID.replace(/\d/gi, '').toLowerCase();
       this.bussinessId = this.groupID.replace(/[^\d]/g, '');
@@ -90,12 +92,7 @@ export class ChatPage implements OnInit {
       default:
         break;
     }
-
     this.ionRefresher = document.getElementById('refresher');
-    // getMessageList(this.conversationID).then((res) => {
-    // this.chatList = res.data.messageList;
-    // console.log(this.chatList);
-    // });
     this.getChatList();
     onMessage((imRes) => {
       this.chatList = this.chatList.concat(imRes.data);
@@ -115,15 +112,9 @@ export class ChatPage implements OnInit {
    * @memberof ChatPage
    */
   getChatList(event?) {
-    console.log(this.ionRefresher);
     if (!this.isC2C) {
       this.homeService.getGroupMsg(this.groupID).subscribe((res: any) => {
-        res.items.forEach((e) => {
-          e.flow = e.from == this.userId ? 'out' : 'in';
-          e['payload'] = { text: e.msgBody[0].msgContent.Text };
-        });
-        this.chatList = res.items;
-        console.log(res);
+        this.ionRefresherCheck(res);
       });
     } else {
       let params = {
@@ -134,23 +125,25 @@ export class ChatPage implements OnInit {
         Sorting: 'MsgTime',
       };
       this.homeService.getC2CMsg(params).subscribe((res: any) => {
-        this.chatList = res.items.concat(this.chatList);
-        this.pageInfo.skipCount++;
-        if (this.chatList.length >= res.totalCount) {
-          // 已加载全部数据，禁用上拉刷新
-          this.ionRefresher.disabled = true;
-        }
-        this.ionRefresher.complete();
-        res.items.forEach((e) => {
-          e.flow = e.from == this.userId ? 'out' : 'in';
-          e['payload'] = { text: e.msgBody[0].msgContent.Text };
-        });
-
+        this.ionRefresherCheck(res);
         console.log(res);
       });
     }
   }
-
+  ionRefresherCheck(res){
+    res.items.forEach((e) => {
+      e.flow = e.from == this.userId ? 'out' : 'in';
+      e.type = e.msgBody[0].msgType;
+      e['payload'] = { text: e.msgBody[0].msgContent.Text };
+    });
+    this.chatList = res.items.concat(this.chatList);
+    this.pageInfo.skipCount++;
+    if (this.chatList.length >= res.totalCount) {
+      // 已加载全部数据，禁用上拉刷新
+      this.ionRefresher.disabled = true;
+    }
+    this.ionRefresher.complete();
+  }
   // 上拉刷新
   doRefresh(event) {
     this.getChatList(event);
@@ -171,6 +164,9 @@ export class ChatPage implements OnInit {
     textMessage = await sendmessage(textMessage);
     this.chatList.push({
       flow: 'out',
+      from:this.userId,
+      type:'TIMTextElem',
+      msgBody:[{msgType: "TIMTextElem",msgContent:{Text:this.sendingMessage}}],
       payload: {
         text: this.sendingMessage,
       },
@@ -240,6 +236,7 @@ export class ChatPage implements OnInit {
         C2C: this.isC2C,
         id: this.groupID,
         groupName: this.groupName,
+        conversationType:this.conversationType
       },
     });
   }

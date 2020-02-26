@@ -15,7 +15,7 @@ tim.setLogLevel(1); // 普通级别，日志量较多，接入时建议使用
 /*群组创建接口 */
 interface GroupInfoCheck {
   name: string;
-  type: string;
+  type?: string;
   groupID?: string;
   introduction?: string;
   notification?: string;
@@ -307,7 +307,10 @@ export function parseGroupTipContent(payload) {
 }
 
 /*创建群组*/
-export async function createGroup(groupInfo: GroupInfoCheck) {
+export async function createGroup(groupInfo) {
+  if(groupInfo.type == "private"){
+    groupInfo.type = TIM.TYPES.GRP_PRIVATE
+  }
   tim.createGroup(groupInfo);
 }
 
@@ -388,7 +391,15 @@ export function getUserProfile(userIDList: Array<any>) {
     userIDList: userIDList // 请注意：即使只拉取一个用户的资料，也需要用数组类型，例如：userIDList: ['user1']
   });
 }
-
+export function updateMyProfile(param:{
+  nick?: string,
+  avatar?: string,
+  gender?: TIM.TYPES.GENDER_MALE,
+  selfSignature?: string,
+  allowType?: TIM.TYPES.ALLOW_TYPE_ALLOW_ANY
+}) {
+  return tim.updateMyProfile(param);
+}
 /**
  *  删除会话
 

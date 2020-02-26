@@ -4,6 +4,7 @@ import { RatesFilterComponent } from './rates-filter/rates-filter.component';
 import { RatesService } from './rates.service';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { isArray } from 'lodash';
 
 @Component({
   selector: 'app-rates',
@@ -12,14 +13,18 @@ import * as moment from 'moment';
 })
 export class RatesPage implements OnInit {
   ratesList = [];
-  deliveryPortId: any; //目的港id
-  orignPortId: any; //启运港id
+  currentParam: any = {
+    orignPortId: [], //启运港id
+    orignLocationId: '',
+    deliveryPortId: [], //目的港id
+    deliveryLocationId: '',
+    carrierId: '',
+    ratesValidDays: '7',
+  };
   pageInfo = {
     maxResultCount: 5,
     skipCount: 0,
   };
-  orignLocationId: any;
-  deliveryLocationId: any;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -27,8 +32,8 @@ export class RatesPage implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) {
     this.activatedRoute.queryParams.subscribe((data) => {
-      this.orignPortId = data.orignPortId;
-      this.deliveryPortId = data.deliveryPortId;
+      this.currentParam.orignPortId = [data.orignPortId];
+      this.currentParam.deliveryPortId = [data.deliveryPortId];
     });
   }
 
@@ -37,27 +42,23 @@ export class RatesPage implements OnInit {
   }
   getRatesList(event?) {
     let param = {
-      orignLocationId: this.orignLocationId,
-      orignPortId: [this.orignPortId],
-      deliveryPortId: [this.deliveryPortId],
-      deliveryLocationId: this.deliveryLocationId,
       maxResultCount: this.pageInfo.maxResultCount,
       skipCount: this.pageInfo.skipCount,
     };
-    // let param = {
-    //   // "carrierId": 32761,
-    //   "ratesValidDays": 7,
-    //   "orignPortId": [
-    //     16768
-    //   ],
-    //   "deliveryPortId": [
-    //     13574
-    //   ],
-    // }
+    for (const key in this.currentParam) {
+      if (this.currentParam.hasOwnProperty(key)) {
+        if (isArray(this.currentParam[key])) {
+          !this.currentParam[key][0] && delete this.currentParam[key];
+        } else {
+          !this.currentParam[key] && delete this.currentParam[key];
+        }
+      }
+    }
+    Object.assign(param, this.currentParam);
     this.ratesService.geFreightRates(param).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
-      this.ratesList = this.ratesList.concat(res.items);
+      this.ratesList = this.ratesList.concat(res.result.items);
       this.pageInfo.skipCount++;
       if (this.ratesList.length >= res.totalCount && event) {
         // 已加载全部数据，禁用上拉刷新
@@ -92,12 +93,21 @@ export class RatesPage implements OnInit {
       componentProps: {},
     });
     modal.onWillDismiss().then((res) => {
-      let params = {};
+      if (!res.data) {
+        return;
+      }
       this.pageInfo = {
         maxResultCount: 5,
         skipCount: 0,
       };
-      console.log(res)
+      this.ratesList = [];
+      this.currentParam.ratesValidDays = res.data.ratesValidDays;
+      this.currentParam.orignLocationId = res.data.orignLocationId;
+      this.currentParam.orignPortId = [res.data.orignPortId];
+      this.currentParam.deliveryPortId = [res.data.deliveryPortId];
+      this.currentParam.deliveryLocationId = res.data.deliveryLocationId;
+      this.currentParam.carrierId = res.data.carrierId;
+      this.getRatesList();
     });
     return await modal.present();
   }

@@ -8,6 +8,8 @@ import { MyMessageServiceService } from '../message-service.service';
 import { RegionService } from '@cityocean/basicdata-library/region/service/region.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Helper } from '@shared/helper';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-rates-filter',
@@ -17,12 +19,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class RatesFilterComponent implements OnInit {
   profileForm = {
     orignPortCy: 'CY',
-    orignPortId: [],
+    orignPortId: '',
     orignLocationId: '',
     originPortSearchText: '',
     originLocatonSearchText: '',
     deliveryPortCy: 'CY',
-    deliveryPortId: [],
+    deliveryPortId: '',
     deliveryLocationId: '',
     deliveryPortSearchText: '',
     destinationLocationSearchText: '',
@@ -39,7 +41,8 @@ export class RatesFilterComponent implements OnInit {
     private popoverController: PopoverController,
     private locationLibraryService: locationLibraryService,
     private myMessageServiceService: MyMessageServiceService,
-    private regionService: RegionService,
+    public helper: Helper,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -121,14 +124,23 @@ export class RatesFilterComponent implements OnInit {
     this.profileForm.ratesValidDays = event.detail.value;
   }
   confirm() {
-    let data :any = {};
-    if(this.profileForm.carrierId !='all'){
+    let data: any = {};
+    if (this.profileForm.carrierId != 'all') {
       data.carrierId = this.profileForm.carrierId;
     }
-    data.ratesValidDays =  this.profileForm.ratesValidDays;
-    data.orignLocationId =  this.profileForm.orignLocationId;
-    data.orignPortId =  this.profileForm.orignPortId;
-    data.deliveryPortId =  this.profileForm.deliveryPortId;
+    if (!this.profileForm.orignLocationId) {
+      this.helper.toast(this.translate.instant('Please Enter Origin Port') + '!');
+      return;
+    }
+    if (this.profileForm.deliveryPortId) {
+      this.helper.toast(this.translate.instant('Please Enter Delivery Port') + '!');
+      return;
+    }
+    data.ratesValidDays = this.profileForm.ratesValidDays;
+    data.orignLocationId = this.profileForm.orignLocationId;
+    data.orignPortId = this.profileForm.orignPortId;
+    data.deliveryPortId = this.profileForm.deliveryPortId;
+    data.deliveryLocationId = this.profileForm.deliveryLocationId;
 
     this.dismissModal(data);
   }
@@ -156,13 +168,13 @@ export class RatesFilterComponent implements OnInit {
       this.profileForm[type] = event.data.name;
       switch (type) {
         case 'originPortSearchText':
-          this.profileForm.orignPortId = [event.data.id];
+          this.profileForm.orignPortId = event.data.id;
           break;
         case 'originLocatonSearchText':
           this.profileForm.orignLocationId = event.data.id;
           break;
         case 'deliveryPortSearchText':
-          this.profileForm.deliveryPortId = [event.data.id];
+          this.profileForm.deliveryPortId = event.data.id;
           break;
         case 'destinationLocationSearchText':
           this.profileForm.deliveryLocationId = event.data.id;
