@@ -30,5 +30,8 @@
   "shipment": "运单",
   "booking": "订单",
   "sailingSchedules": "船期",
-  "More": "更多"
+  "More": "更多",
+  "LoginIn":{
+    "TouristMode":"游客模式"
+  }
 }

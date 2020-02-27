@@ -83,9 +83,7 @@ export class LoginComponent implements OnInit {
       .then((res: any) => {
         if (res.access_token) {
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
-          let redirectUrl = undefined;
-          redirectUrl = '/cityOcean';
-          this.nav.navigateRoot(redirectUrl);
+          this.nav.navigateRoot('/cityOcean');
         } else {
           this.errorTip = '登录失败!';
         }
@@ -95,25 +93,11 @@ export class LoginComponent implements OnInit {
         //this.errorTip = e.error.error_description;
       });
   }
-
-  /**
-   * 重定向到其它页面
-   *
-   * @private
-   * @param [redirectUrl]
-   */
-  private redirectTo(redirectUrl: string) {
-    if (redirectUrl) {
-      location.href = redirectUrl;
-    } else {
-      let initialUrl = UrlHelper.initialUrl;
-      if (initialUrl.indexOf('/login') > 0) {
-        initialUrl = AppConsts.appBaseUrl;
-      }
-      location.href = initialUrl;
-    }
+  loginWithTourist() {
+    localStorage.setItem('isLoginWithTourist',"true");
+    this.nav.navigateRoot('/cityOcean');
   }
-
+ 
   onUsernameKeyup(e) {
     if (!(e instanceof KeyboardEvent)) {
       if (this.savedUser.username === this.validateForm.value.username && !this.validateForm.value.password) {

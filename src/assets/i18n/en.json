@@ -1,4 +1,7 @@
 {
+    "LoginIn":{
+        "TouristMode":"Tourist Mode"
+      },
     "Search history":"Search history",
     "seachRates":"Rates",
     "seachSailingSchedules":"Sailing Schedules"
