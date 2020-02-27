@@ -8,7 +8,7 @@
         <ion-button (click)="login()" *ngIf="!userLogin" color="danger" style="margin-left: 1em"
           >{{'Login in' | translate}}</ion-button
         >
-        <ion-text *ngIf="userLogin">{{userMsg.name}} </ion-text>
+        <ion-text *ngIf="userLogin">{{userMsg?.name}} </ion-text>
         <p style="color: #fff;margin-top: 1em;opacity: 0.6;">{{'International Logistics Of CITYOCEAN' | translate}}</p>
       </div>
     </div>
@@ -31,18 +31,18 @@
       <ion-label>{{'Wallet' | translate }}</ion-label>
     </ion-item>
 
-    <ion-item detail tappable (click)="onLogout()" *ngIf="isAndroid">
-      <ion-button slot="start" fill="clear">
-        <ion-icon slot="icon-only" name="log-out" color="danger"></ion-icon>
-      </ion-button>
-      <ion-label color="danger">{{'Exit App' | translate}}</ion-label>
-    </ion-item>
-
     <ion-item detail tappable (click)="onSettingPage()">
       <ion-button slot="start" fill="clear">
         <ion-icon slot="icon-only" name="cog" color="dark"></ion-icon>
       </ion-button>
       <ion-label>{{'Setting' | translate }}</ion-label>
+    </ion-item>
+
+    <ion-item detail tappable (click)="onLogout()" *ngIf="isAndroid">
+      <ion-button slot="start" fill="clear">
+        <ion-icon slot="icon-only" name="log-out" color="danger"></ion-icon>
+      </ion-button>
+      <ion-label color="danger">{{'Exit App' | translate}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
