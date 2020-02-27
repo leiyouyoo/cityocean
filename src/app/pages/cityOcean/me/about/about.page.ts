@@ -5,7 +5,6 @@ import { Helper } from '@shared/helper';
 import { AlertController } from '@ionic/angular';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -19,7 +18,6 @@ export class AboutPage implements OnInit {
   version = '';
   isIos = false;
   constructor(
-    private file: File,
     // tslint:disable-next-line: deprecation
     private transfer: FileTransfer,
     private appVersion: AppVersion,

@@ -30,5 +30,21 @@
   "Shipment": "运单",
   "Booking": "订单",
   "Schedule": "日程",
-  "More": "更多"
+  "More": "更多",
+  "Login Out": "注销",
+  "Setting": "设置",
+  "Exit App": "退出app",
+  "Wallet": "钱包",
+  "Invoice": "发票",
+  "Account": "类目",
+  "International Logistics Of CITYOCEAN": "鹏城海国际物流",
+  "Login": "登录",
+  "Email Adress": "邮箱地址",
+  "Check your mail address again": "请再次检查您的邮箱地址",
+  "Password": "密码",
+  "Enter Schedule Title": "输入日程标题",
+  "Start Time": "开始时间",
+  "Remind people": "提醒人员",
+  "Add Remark": "添加备注",
+  "minutes ago": "分钟前"
 }

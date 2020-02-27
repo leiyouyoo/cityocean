@@ -30,4 +30,8 @@ export class ScheduleService {
   delete(id: number) {
     return this.http.delete('/CSP/Schedule/Delete', { id: id });
   }
+
+  jpush(json: any) {
+    return this.http.postJson('/Platform/JPush/CreateAsync', json);
+  }
 }
