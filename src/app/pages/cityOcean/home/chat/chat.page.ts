@@ -122,7 +122,7 @@ export class ChatPage implements OnInit {
         ToAccount: [this.groupID, this.userId],
         MaxResultCount: this.pageInfo.maxResultCount,
         SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
-        msgTime: 'asc',
+        Sorting: 'msgTime desc',
       };
       this.homeService.getC2CMsg(params).subscribe((res: any) => {
         this.ionRefresherCheck(res);
@@ -131,6 +131,7 @@ export class ChatPage implements OnInit {
     }
   }
   ionRefresherCheck(res){
+    res.items.reverse();
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
       e.type = e.msgBody[0].msgType;
