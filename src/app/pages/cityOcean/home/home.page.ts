@@ -40,6 +40,9 @@ export class HomePage implements OnInit {
     this.infiniteScroll.disabled = true;
     this.startupService.getUserConfig().then((res) => {
       let id = res.session.user.id;
+      this.homeService.GetCoUserByCustomer({customerId:id}).subscribe(customer=>{
+        console.log(customer);
+      })
       localStorage.setItem('current_tim_id', id);
       if (id) {
         this.imLogin(id);

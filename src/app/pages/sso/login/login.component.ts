@@ -12,6 +12,7 @@ import { Helper } from '@shared/helper';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { debug } from 'util';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'user-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   pwshow = false;
   focusPassword = false;
   passwordElement: HTMLElement;
+  pleaseEnter = this.translate.instant("LoginIn.pleaseEnter")
   constructor(
     private jpush: JPush,
     public helper: Helper,
@@ -35,11 +37,12 @@ export class LoginComponent implements OnInit {
     public scheduleService: ScheduleService,
     public httpService: HttpService,
     private storage: Storage,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required,Validators.email]],
       password: [null, [Validators.required]],
     });
     this.savedUser = JSON.parse(localStorage.getItem('autocompletePassword'));
@@ -90,6 +93,7 @@ export class LoginComponent implements OnInit {
         debugger;
         this.onSetJpush();
         if (res.access_token) {
+          localStorage.setItem('isLoginWithTourist',"false");
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
           this.nav.navigateRoot('/cityOcean');
         } else {

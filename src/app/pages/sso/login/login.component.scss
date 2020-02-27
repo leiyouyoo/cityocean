@@ -70,7 +70,7 @@ ion-content {
         }
 
         input.input-invalid {
-          border-bottom: 0.1em solid var(--ion-color-aligned);
+          border-bottom: 0.1em solid var(--ion-color-aligned)!important;
         }
 
         input.input-success-border {

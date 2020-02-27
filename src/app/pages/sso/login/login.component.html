@@ -15,13 +15,13 @@
           }"
           formControlName="username"
           type="text"
-          placeholder="johndoe@doe.com"
+          placeholder="pleaseEnter"
           autocomplete="username"
         />
         <i *ngIf="!username.invalid && (username.dirty || username.touched)" class="input-success"></i>
         <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-error font-9">
           <div *ngIf="username.errors.required">
-            .{{ 'Email Adress' | translate }}
+            {{ 'Email Adress' | translate }}
           </div>
           <div *ngIf="username.errors.email">
             {{ 'Check your mail address again' | translate }}
@@ -41,7 +41,7 @@
             'input-success-border': !password.invalid && (password.dirty || password.touched),
             'input-writing': focusPassword
           }"
-          placeholder="johndoe@doe.com"
+          [placeholder]="pleaseEnter"
         />
         <i
           *ngIf="focusPassword"
@@ -53,6 +53,11 @@
           *ngIf="!password.invalid && (password.dirty || password.touched) && !focusPassword"
           class="input-success"
         ></i>
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-error font-9">
+          <div *ngIf="password.errors.required">
+            {{ 'Password' | translate }}
+          </div>
+        </div>
       </div>
     </form>
     <section class="button-group">

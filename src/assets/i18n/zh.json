@@ -54,6 +54,7 @@
   "sailingSchedules": "船期",
   "More": "更多",
   "LoginIn":{
-    "TouristMode":"游客模式"
+    "TouristMode":"游客模式",
+    "pleaseEnter":"请输入..."
   }
 }
