@@ -53,7 +53,6 @@ export class SchedulePage implements OnInit {
       // tslint:disable-next-line: prefer-const
       let days = [];
       res.items.forEach((e) => {
-        debugger;
         const startMonth = new Date(e.remindStartTime).getMonth();
         const startDay = new Date(e.remindStartTime).getDate();
         const endMonth = new Date(e.remindEndTime).getMonth();
@@ -61,20 +60,20 @@ export class SchedulePage implements OnInit {
 
         if (startMonth === endMonth) {
           for (let i = 0; i < 31; i++) {
-            if (i > startDay && i < endDay) {
-              days.push(i + 1);
+            if (i >= startDay && i <= endDay) {
+              days.push(i);
             }
           }
         } else if (endMonth > new Date(date).getMonth()) {
           for (let i = 0; i < 31; i++) {
-            if (i > startDay) {
-              days.push(i + 1);
+            if (i >= startDay) {
+              days.push(i);
             }
           }
         } else {
           for (let i = 0; i < 31; i++) {
-            if (i < endDay) {
-              days.push(i + 1);
+            if (i <= endDay) {
+              days.push(i);
             }
           }
         }
@@ -139,7 +138,6 @@ export class SchedulePage implements OnInit {
   }
 
   onChange(data) {
-    debugger;
     this.onGetDayDetial(data);
   }
 }

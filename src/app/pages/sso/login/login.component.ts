@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
       .login(obj.username, obj.password, tenantId, true)
       .then((res: any) => {
         // 极光推送绑定
-        debugger;
+
         this.onSetJpush();
         if (res.access_token) {
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
@@ -127,11 +127,8 @@ export class LoginComponent implements OnInit {
       this.scheduleService
         .jpush({
           registrationId: res,
-          id: abp.session.user.id,
         })
-        .subscribe((data) => {
-          debugger;
-        });
+        .subscribe((data) => {});
     });
   }
 

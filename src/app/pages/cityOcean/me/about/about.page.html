@@ -9,20 +9,19 @@
 
 <ion-content padding>
   <div class="login_img">
-      <img src="assets/images/Logo.png" />
+    <img src="assets/images/Logo.png" />
   </div>
 
   <div id="progressnum"></div>
 
   <div class="login-bottom">
-      <div (click)="initData()" class="update" *ngIf="!isIos">
-          {{'Check Update'}}
-      </div>
-      <p>
-          {{version}}
-      </p>
+    <div (click)="initData()" class="update" *ngIf="!isIos">
+      {{'Check Update' | translate}}
+    </div>
+    <p>
+      {{version}}
+    </p>
 
-      <p *ngIf="!isIos">版权所有 ©2003-2020 | 深圳市鹏城海物流有限公司</p>
-
+    <p *ngIf="!isIos">版权所有 ©2003-2020 | 深圳市鹏城海物流有限公司</p>
   </div>
 </ion-content>

@@ -20,7 +20,11 @@
 <ion-content>
   <div class="title">
     <div class="colorblue"></div>
-    <ion-input placeholder="Enter Schedule Title" [(ngModel)]="data.remindContent" [disabled]="!edit"></ion-input>
+    <ion-input
+      placeholder="{{'Enter Schedule Title' | translate}}"
+      [(ngModel)]="data.remindContent"
+      [disabled]="!edit"
+    ></ion-input>
   </div>
 
   <div class="time">
@@ -49,8 +53,9 @@
           <strong>{{'End Time' | translate}}</strong>
         </ion-label>
         <ion-datetime
+          [min]="data.remindStartTime"
           [(ngModel)]="data.remindEndTime"
-          [disabled]="!edit"
+          [disabled]="!edit || !data.remindStartTime"
           displayFormat="YYYY-MM-DD HH:mm"
         ></ion-datetime>
       </ion-item>
@@ -64,15 +69,22 @@
     </div>
   </div>
 
-  <div class="time">
+  <div class="time" (click)="onSetRemind()">
     <ion-icon name="person-outline"></ion-icon>
     <div style="justify-content:start;">
       <strong>{{'Remind people' | translate}}</strong>
     </div>
   </div>
 
+  <div class="choosed">
+    <div *ngFor="let contact of choosedContacts" class="choosed-contact">
+      <img src="/assets/images/Logo.png" />
+      <p>{{contact.name}}</p>
+    </div>
+  </div>
+
   <div class="title">
     <ion-icon name="reader-outline"></ion-icon>
-    <ion-input placeholder="{{'Add Remark' | translate}}" [disabled]="!edit"></ion-input>
+    <ion-input placeholder="{{'Add Remark' | translate}}" [disabled]="!edit" [(ngModel)]="data.place"></ion-input>
   </div>
 </ion-content>

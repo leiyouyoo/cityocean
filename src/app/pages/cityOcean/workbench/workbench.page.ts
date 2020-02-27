@@ -14,37 +14,37 @@ export class WorkbenchPage implements OnInit {
   typeList = [
     // 所有业务类型
     {
-      name: '运价',
+      name: this.translate.instant('rates'),
       type: 'rates',
       marker: false,
       id: 0,
     },
     {
-      name: '船期',
+      name: this.translate.instant('sailingSchedules'),
       type: 'sailingSchedules',
       marker: false,
       id: 0,
     },
     {
-      name: '运单',
+      name: this.translate.instant('shipment'),
       type: 'shipment',
       marker: false,
       id: 0,
     },
     {
-      name: '订单',
+      name: this.translate.instant('Booking'),
       type: 'booking',
       marker: false,
       id: 0,
     },
     {
-      name: '报价',
+      name: this.translate.instant('Quote'),
       type: 'quotes',
       marker: false,
       id: 0,
     },
     {
-      name: '账单',
+      name: this.translate.instant('billing'),
       type: 'billing',
       marker: false,
       id: 0,
@@ -53,25 +53,25 @@ export class WorkbenchPage implements OnInit {
   quickEnterList = [
     // 已添加到快捷入口的数据
     {
-      name: '运价',
+      name: this.translate.instant('rates'),
       type: 'rates',
       marker: false,
       id: 0,
     },
     {
-      name: '船期',
+      name: this.translate.instant('sailingSchedules'),
       type: 'sailingSchedules',
       marker: false,
       id: 0,
     },
     {
-      name: '运单',
+      name: this.translate.instant('shipment'),
       type: 'shipment',
       marker: false,
       id: 0,
     },
     {
-      name: '订单',
+      name: this.translate.instant('booking'),
       type: 'booking',
       marker: false,
       id: 0,
@@ -80,28 +80,28 @@ export class WorkbenchPage implements OnInit {
   moreTypeList = [
     // 还未添加到快捷入口的数据
     {
-      name: '账单',
+      name: this.translate.instant('billing'),
       type: 'billing',
       marker: false,
       id: 0,
     },
     {
-      name: '报价',
+      name: this.translate.instant('quotes'),
       type: 'quotes',
       marker: false,
       id: 0,
     },
   ];
-  title = 'shipment';
+  title = this.translate.instant('shipment');
   titleStatisticsList = [
     {
       type: 'intransit',
-      name: '在途',
+      name: this.translate.instant('In Transit'),
       value: 0,
     },
     {
       type: 'finished',
-      name: '到港',
+      name: this.translate.instant('Arrival'),
       value: 0,
     },
   ];
@@ -153,12 +153,12 @@ export class WorkbenchPage implements OnInit {
         this.titleStatisticsList = [
           {
             type: 'intransit',
-            name: '在途',
+            name: this.translate.instant('In Transit'),
             value: inProgress,
           },
           {
             type: 'finished',
-            name: '到港',
+            name: this.translate.instant('Arrival'),
             value: arrival,
           },
         ];
@@ -172,11 +172,11 @@ export class WorkbenchPage implements OnInit {
    */
   async businessChange() {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Business Data',
+      header: this.translate.instant('Business Data'),
       cssClass: 'my-action-sheet',
       buttons: [
         {
-          text: 'Shipment',
+          text: this.translate.instant('Shipment'),
           icon: 'shipment',
           handler: () => {
             this.title = 'shipment';
@@ -184,10 +184,10 @@ export class WorkbenchPage implements OnInit {
           },
         },
         {
-          text: 'Booking',
+          text: this.translate.instant('Booking'),
           icon: 'booking',
           handler: () => {
-            this.title = 'booking';
+            this.title = this.translate.instant('booking');
             this.workbenchService.GetBookingsStatistics().subscribe((res: any) => {
               let booked = 0;
               let booking = 0;
@@ -201,12 +201,12 @@ export class WorkbenchPage implements OnInit {
               this.titleStatisticsList = [
                 {
                   type: 'intransit',
-                  name: '已订舱',
+                  name: this.translate.instant('Booked'),
                   value: booked,
                 },
                 {
                   type: 'finished',
-                  name: '待订舱',
+                  name: this.translate.instant('To be booked'),
                   value: booking,
                 },
               ];
@@ -214,10 +214,10 @@ export class WorkbenchPage implements OnInit {
           },
         },
         {
-          text: 'Billing',
+          text: this.translate.instant('Billing'),
           icon: 'billing',
           handler: () => {
-            this.title = 'billing';
+            this.title = this.translate.instant('billing');
             this.workbenchService.GetBillingsStatistics().subscribe((res: any) => {
               console.log(res);
               let payed = 0;
@@ -235,17 +235,17 @@ export class WorkbenchPage implements OnInit {
               this.titleStatisticsList = [
                 {
                   type: 'intransit',
-                  name: '已付',
+                  name: this.translate.instant('已付'),
                   value: payed,
                 },
                 {
                   type: 'finished',
-                  name: '未付',
+                  name: this.translate.instant('未付'),
                   value: paying,
                 },
                 {
                   type: 'delay',
-                  name: '逾期',
+                  name: this.translate.instant('逾期'),
                   value: delay,
                 },
               ];

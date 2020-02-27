@@ -41,10 +41,17 @@ ion-icon {
   border-radius: 100% !important;
 }
 
-
-.me-list{
+.me-list {
   position: absolute;
-    top: 18em;
-    width: 100%;
-    border-radius: 20px;
+  top: 18em;
+  width: 100%;
+  border-radius: 20px;
+}
+
+ion-item {
+  img {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 16pt;
+  }
 }

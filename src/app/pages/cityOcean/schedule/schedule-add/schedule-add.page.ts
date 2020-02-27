@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
-import { ActionSheetController, PopoverController } from '@ionic/angular';
+import { ActionSheetController, PopoverController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { Helper } from '@shared/helper';
@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
 import { EventService } from '@shared/helpers/event.service';
 import { ScheduleEditComponent } from './schedule-edit-component/schedule-edit.component';
+import { ContactsComponent } from 'src/app/components/contacts/contacts.component';
 
 @Component({
   selector: 'app-schedule-add',
@@ -18,9 +19,11 @@ export class ScheduleAddPage implements OnInit {
   warnTime: any;
   id: any;
   edit = false;
+  minEndTime: any;
+  choosedContacts: any;
   data = {
-    remindStartTime: new Date().toISOString(),
-    remindEndTime: new Date().toISOString(),
+    remindStartTime: null,
+    remindEndTime: null,
     remindContent: null,
     place: '',
     remindPeople: '',
@@ -29,6 +32,7 @@ export class ScheduleAddPage implements OnInit {
   };
 
   constructor(
+    public modalController: ModalController,
     public popoverController: PopoverController,
     public eventService: EventService,
     public activeRoute: ActivatedRoute,
@@ -160,6 +164,26 @@ export class ScheduleAddPage implements OnInit {
     this.scheduleService.delete(this.id).subscribe((res) => {
       this.helper.toast(this.translate.instant('Delete Success') + '!');
       this.refresh();
+    });
+  }
+
+  onSetEndTime(time) {
+    if (this.data.remindStartTime) {
+      const time = new Date(this.data.remindStartTime).setDate(new Date(this.data.remindStartTime).getDate() + 1);
+      this.minEndTime = new Date(time).toISOString();
+    }
+  }
+
+  async onSetRemind() {
+    const modal = await this.modalController.create({
+      component: ContactsComponent,
+      cssClass: 'contacts',
+    });
+
+    await modal.present();
+
+    await modal.onWillDismiss().then((res) => {
+      this.choosedContacts = res.data.list;
     });
   }
 }

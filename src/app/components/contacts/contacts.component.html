@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="title-left">
+      <ion-buttons slot="end" (click)="onSave()">
+        {{ 'Cancel' | translate }}
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title>
+      {{ 'Choose Contacts' | translate }}
+    </ion-title>
+    <ion-buttons slot="end" class="title-right" (click)="onSave()">
+      {{ 'Save' | translate }}
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-list lines="none" style="padding:0;margin:0">
+    <ion-item style="width: 100%">
+      <ion-label style="padding:0;margin:0">
+        <ion-searchbar
+          placeholder="{{ 'Please Enter Name' | translate }}"
+          mode="ios"
+          (ionInput)="onInput($event)"
+        ></ion-searchbar>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-list lines="none">
+    <ion-list-header style="border-top: 1px solid #f2f2f2;">
+      {{ 'Contacts List' | translate }}
+    </ion-list-header>
+
+    <ion-item *ngFor="let detial of showlist" lines="none">
+      <ion-checkbox slot="start" [(ngModel)]="detial.isChecked"></ion-checkbox>
+      <ion-avatar slot="start">
+        <img src="/assets/images/Logo.png" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ detial.name }}({{ detial.surname }})</h2>
+        <p>{{ detial.companyName }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

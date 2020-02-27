@@ -5,7 +5,6 @@
  * 定义全局的 abp 命名空间
  */
 declare namespace abp {
-
   /**
    * 当前应用的地址
    */
@@ -28,7 +27,6 @@ declare namespace abp {
    * 多租户
    */
   namespace multiTenancy {
-
     /**
      * 用于表示租户的归属方
      *
@@ -47,8 +45,8 @@ declare namespace abp {
     }
 
     /**
-      * 表示租户方
-      */
+     * 表示租户方
+     */
     let isEnabled: boolean;
 
     /**
@@ -78,14 +76,12 @@ declare namespace abp {
    * 当前会话信息
    */
   namespace session {
-
     /**
      * 用于承载租户相关信息
      *
      * @interface ITenant
      */
     interface ITenant {
-
       /**
        * 当前租户Id，为空时表示主机方
        */
@@ -128,11 +124,16 @@ declare namespace abp {
      * @interface IUser
      */
     interface IUser {
-
       /**
        * 用户Id
        */
       readonly id: number;
+
+      /**
+       *  customerId
+       *
+       */
+      readonly customerId?: string;
 
       /**
        * First Name
@@ -267,7 +268,6 @@ declare namespace abp {
    * 授权相关
    */
   namespace auth {
-
     /**
      * 应用定义的全部权限
      */
@@ -349,7 +349,6 @@ declare namespace abp {
    * 设置相关
    */
   namespace setting {
-
     /**
      * 当前用户所具有的相关设置项
      */
@@ -385,7 +384,6 @@ declare namespace abp {
      * @enum {number}
      */
     enum settingScopes {
-
       /**
        * 表示应用的默认设置
        */
@@ -497,7 +495,6 @@ declare namespace abp {
    * 通知相关
    */
   namespace notifications {
-
     /**
      * 表示通知紧急度
      *
@@ -527,7 +524,6 @@ declare namespace abp {
      * @interface INotificationData
      */
     interface INotificationData {
-
       /**
        * 数据类型，根据此类型可以构建不同的通知表达形式
        */

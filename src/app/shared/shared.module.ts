@@ -11,12 +11,7 @@ import { AbpModule } from '@abp/abp.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 // tslint:disable-next-line: no-use-before-declare
-const THIRDMODULES = [
-  CountdownModule,
-  DragDropModule,
-  AbpModule,
-  TranslateModule
-];
+const THIRDMODULES = [CountdownModule, DragDropModule, AbpModule, TranslateModule];
 // #endregion
 
 // #region your componets & directives
@@ -30,7 +25,9 @@ import { ErrorBorderDirective } from './directives/error-border.directive';
 import { BusinessTypeComponent } from '../components/business-type/business-type.component';
 import { InputSearchComponent } from '../components/input-search/input-search.component';
 
-const COMPONENTS_ENTRY = [BusinessTypeComponent,InputSearchComponent];
+import { ContactsComponent } from '../components/contacts/contacts.component';
+import { IonicModule } from '@ionic/angular';
+const COMPONENTS_ENTRY = [BusinessTypeComponent, InputSearchComponent, ContactsComponent];
 const COMPONENTS = [...COMPONENTS_ENTRY];
 const DIRECTIVES = [
   DebounceInputDirective,
@@ -48,6 +45,7 @@ const Pipes = [];
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    IonicModule,
     // third libs
     ...THIRDMODULES,
   ],

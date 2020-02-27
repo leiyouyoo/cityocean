@@ -34,4 +34,8 @@ export class ScheduleService {
   jpush(json: any) {
     return this.http.postJson('/Platform/JPush/CreateAsync', json);
   }
+
+  getCRMContacts(customerId: any) {
+    return this.http.get('/CRM/ContactExternal/GetContactAndSaleByCustomerId', { customerId: customerId });
+  }
 }

@@ -216,8 +216,9 @@ app-schedule-detial ion-content {
   --background: #f0f2f5 !important;
 }
 
-app-contacts,app-me-setting{
-  --ion-toolbar-background:#428cff;
+app-contacts,
+app-me-setting {
+  --ion-toolbar-background: linear-gradient(to right, #61adff, #007aff);
   --ion-toolbar-color: #fff;
 }
 
@@ -227,7 +228,17 @@ app-contacts,app-me-setting{
 
 .danger {
   ion-icon {
-    color: #e55354!important;
+    color: #e55354 !important;
   }
   color: #e55354 !important;
 }
+
+button.days-btn small {
+  color: #ff7998 !important;
+}
+// .contacts .modal-wrapper {
+//   max-height: 31.5em;
+//   width: 80%;
+//   bottom: 0;
+//   top: auto;
+// }

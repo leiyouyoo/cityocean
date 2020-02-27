@@ -22,7 +22,7 @@ export class ScheduleDetialPage implements OnInit {
   initData() {
     this.scheduleService.get(this.id).subscribe((res) => {
       this.data = res;
-      debugger;
+
     });
   }
 
