@@ -20,6 +20,8 @@ import { createTextMessage, onMessage, getMessageList, sendmessage, createImageM
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
+import { CityOceanService } from '../../city-ocean.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -39,7 +41,7 @@ export class ChatPage implements OnInit {
   groupID: any;
   groupName: any;
   pressStatus: boolean;
-  userId = localStorage.getItem('current_tim_id');
+  userId =  this.cityOceanService.customerId;
   pageInfo = {
     maxResultCount: 10,
     skipCount: 0,
@@ -61,6 +63,8 @@ export class ChatPage implements OnInit {
     public alertController: AlertController,
     private bookingServiceService: BookingServiceService,
     private myShipmentService: MyShipmentService,
+    private cityOceanService:CityOceanService,
+    private location:Location
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -167,7 +171,9 @@ export class ChatPage implements OnInit {
       return;
     }
     textMessage = createTextMessage(this.groupID, this.isC2C ? 'signle' : 'group', this.sendingMessage);
-    textMessage = await sendmessage(textMessage);
+    await sendmessage(textMessage).then(imRes=>{
+      console.log(imRes)
+    });
     this.chatList.push({
       flow: 'out',
       from: this.userId,
@@ -232,7 +238,7 @@ export class ChatPage implements OnInit {
     await popover.present();
   }
   goback() {
-    this.nav.navigateBack('/cityOcean/home');
+    this.location.back();
   }
   // 群聊信息
   gotoGroup() {

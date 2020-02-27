@@ -3,12 +3,9 @@ import { NavController, ModalController } from '@ionic/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
 import 'hammerjs';
 import { SearchlocaltionComponent } from './search-localtion/search-localtion.component';
-import { StartupService } from '@core/startup/startup.service';
 import { HomeService } from './home.service';
-import { onSDKReady, getMessageList } from '@cityocean/im-library';
-import { getConversationList } from 'projects/cityocean/im-library/src/public-api';
-import { login, genTestUserSig, deleteConversation } from '@cityocean/im-library';
-import { TranslateService } from '@ngx-translate/core';
+import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady } from '@cityocean/im-library';
+import { CityOceanService } from '../city-ocean.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +20,7 @@ export class HomePage implements OnInit {
   searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
 
-  groupMassageList = [];
+  conversationsList = [];
   orignPort: any = {}; // 启运港
   deliveryPort: any = {}; // 目的港
   totalCount: any;
@@ -31,47 +28,47 @@ export class HomePage implements OnInit {
   constructor(
     private nav: NavController,
     private modalController: ModalController,
-    private startupService: StartupService,
     private homeService: HomeService,
-    private translate: TranslateService,
+    private cityOceanService: CityOceanService,
   ) {}
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
-    this.startupService.getUserConfig().then((res) => {
-      let id = res.session.user.id;
-      this.homeService.GetCoUserByCustomer({customerId:id}).subscribe(customer=>{
-        console.log(customer);
-      })
-      localStorage.setItem('current_tim_id', id);
-      if (id) {
-        this.imLogin(id);
 
-        // this.homeService.getGroupMsgMobileList({ FromAccount: id }).subscribe((res: any) => {
-        //   this.totalCount = res.totalCount;
-        //   if (this.totalCount == res.items.length) {
-        //     this.infiniteScroll.disabled = true;
-        //   }
-        //   if (isArray(res.items)) {
-        //     res.items.forEach(ele => {
-        //       ele.type = ele.groupId.replace(/\d/g, "").toLowerCase();
-        //       ele.groupMsgs[0].creationTime = new Date(ele.groupMsgs[0].creationTime).getHours() + ":" + new Date(ele.groupMsgs[0].creationTime).getMinutes();
-        //     });
-        //     // this.groupMassageList = res.items;
-        //     console.log(res.items);
-        //   }
-        // });
+    this.cityOceanService.getCustomerId().then((res) => {
+      this.cityOceanService.customerId = res;
+      if (res) {
+        this.imLogin(res);
       }
     });
   }
   ionViewWillEnter() {
-    this.homeService.getQuickEntrance().subscribe((res) => {
-      this.toolsList = res.items;
-      this.toolsList.push({
-        name: 'more',
-        type: 'more',
+    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+      this.toolsList = [
+        // 游客模式业务类型
+        {
+          name: '船期',
+          type: 'sailingSchedules',
+          marker: false,
+          id: 0,
+        },
+        {
+          name: '运单',
+          type: 'shipment',
+          marker: false,
+          id: 0,
+        },
+      ];
+    } else {
+      this.homeService.getQuickEntrance().subscribe((res) => {
+        this.toolsList = res.items;
+        this.toolsList.push({
+          name: 'more',
+          type: 'more',
+        });
       });
-    });
+    }
+
     this.getConversationsList();
   }
   getConversationsList() {
@@ -101,11 +98,14 @@ export class HomePage implements OnInit {
 
         ele.lastMessage.lastTime = new Date(time).getHours() + ':' + new Date(time).getMinutes();
       });
-      this.groupMassageList = list;
-      console.log(this.groupMassageList);
+      this.conversationsList = list;
+      let c2cList = this.conversationsList.filter((e) => {
+        return e.type === 'C2C';
+      });
+      this.cityOceanService.filterHistoryCustomerId(c2cList);
+      console.log(this.conversationsList);
     });
   }
-
   /**
    * 初始化并登陆 IM
    */
@@ -114,6 +114,10 @@ export class HomePage implements OnInit {
     let sigReturn = genTestUserSig(Id);
     let userSig = sigReturn.userSig;
     login(Id, userSig);
+  }
+  // 客服
+  chatWithCustomer() {
+    this.cityOceanService.chatWithCustomerService();
   }
   swipeup() {
     this.transportationCost = false;
@@ -124,7 +128,7 @@ export class HomePage implements OnInit {
   loadData(event) {
     setTimeout(() => {
       for (let i = 0; i < 5; i++) {
-        this.groupMassageList.push({
+        this.conversationsList.push({
           num: 4,
           type: 'shipment',
           state: 'Eemurrage',
@@ -137,7 +141,7 @@ export class HomePage implements OnInit {
       event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
 
       //禁用ion-infinite-scroll
-      if (this.groupMassageList.length >= this.totalCount) {
+      if (this.conversationsList.length >= this.totalCount) {
         event.target.disabled = true;
       }
     }, 1000);
@@ -229,12 +233,15 @@ export class HomePage implements OnInit {
     //   console.log(imRes);
     // });
 
-      deleteConversation(data.conversationID).then((imRes) => {
+    deleteConversation(data.conversationID).then(
+      (imRes) => {
         console.log(imRes);
-        this.groupMassageList.splice(i, 1);
-      },(Error)=>{
+        this.conversationsList.splice(i, 1);
+      },
+      (Error) => {
         console.log(Error);
-      });
+      },
+    );
   }
   async searchLocaltion(type) {
     const modal = await this.modalController.create({

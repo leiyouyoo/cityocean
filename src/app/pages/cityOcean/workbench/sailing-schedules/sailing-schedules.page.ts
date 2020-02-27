@@ -4,6 +4,7 @@ import { SailingFilterComponent } from "./sailing-filter/sailing-filter.componen
 import { SailService } from "@cityocean/basicdata-library/region/service/sail.service";
 import { ActivatedRoute } from "@angular/router";
 import * as moment from 'moment';
+import { CityOceanService } from '../../city-ocean.service';
 
 @Component({
   selector: "app-sailing-schedules",
@@ -24,7 +25,8 @@ export class SailingSchedulesPage implements OnInit {
     private nav: NavController,
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
-    private sailService: SailService
+    private sailService: SailService,
+    private cityOceanService:CityOceanService
   ) {
     this.activatedRoute.queryParams.subscribe(data => {
       this.orignPortId = data.orignPortId;
@@ -36,7 +38,7 @@ export class SailingSchedulesPage implements OnInit {
     this.getSailingList();
   }
   goback() {
-    window.history.back();
+    this.nav.navigateForward(['/cityOcean/workbench']);
   }
   getSailingList(obj?,event?) {
     let params = {
@@ -97,5 +99,9 @@ export class SailingSchedulesPage implements OnInit {
       this.getSailingList(params);
     });
     return await modal.present();
+  }
+   // 客服
+   chatWithCustomer() {
+    this.cityOceanService.chatWithCustomerService();
   }
 }

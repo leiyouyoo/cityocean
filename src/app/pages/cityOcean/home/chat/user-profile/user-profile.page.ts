@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { getUserProfile, updateMyProfile } from '@cityocean/im-library';
 import { ModalController, AlertController } from '@ionic/angular';
 import { RemarksComponent } from './remarks/remarks.component';
+import { CityOceanService } from '../../../city-ocean.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,10 +12,12 @@ import { RemarksComponent } from './remarks/remarks.component';
 })
 export class UserProfilePage implements OnInit {
   userId: any;
-  myUserId = localStorage.getItem('current_tim_id');
+  myUserId = this.cityOceanService.customerId;
   userProfile: any = [{}];
 
-  constructor(private activatedRoute: ActivatedRoute,private alertController:AlertController) {
+  constructor(private activatedRoute: ActivatedRoute,
+    private alertController:AlertController,
+    private cityOceanService:CityOceanService) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.activatedRoute.queryParams.subscribe((data: any) => {
         this.userId = data.userId;

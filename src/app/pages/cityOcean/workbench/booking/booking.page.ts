@@ -52,7 +52,7 @@ export class BookingPage implements OnInit {
     });
   }
   goback() {
-    window.history.back();
+    this.nav.navigateForward(['/cityOcean/workbench']);
   }
   getTime(time) {
     return moment(time).format('MMM D YYYY');

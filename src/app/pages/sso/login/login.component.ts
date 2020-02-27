@@ -1,17 +1,11 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { HttpService } from '@cityocean/common-library';
-import { UrlHelper } from '@shared/helpers/UrlHelper';
-import { AppConsts } from 'src/app/common/AppConsts';
-import { environment } from '@env/environment';
 import { AuthService } from '@core/auth/auth.service';
 import { NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import { Helper } from '@shared/helper';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
-import { debug } from 'util';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -32,11 +26,9 @@ export class LoginComponent implements OnInit {
     public helper: Helper,
     private fb: FormBuilder,
     public loginService: AuthService,
-    private router: Router,
     private nav: NavController,
     public scheduleService: ScheduleService,
     public httpService: HttpService,
-    private storage: Storage,
     private translate: TranslateService,
   ) {}
 

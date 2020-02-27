@@ -40,11 +40,7 @@ export class HomeService {
     let params = obj;
     return this.httpService.postJson('/CSP/QuickEntrance/CreateAsync', params);
   }
-  // 根据当前登录客户获取客户所属业务员
-  GetCoUserByCustomer(obj = {}): Observable<any> {
-    let params = obj;
-    return this.httpService.get('/CRM/CustomerExternal/GetCoUserByCustomer', params);
-  }
+ 
   //获取可邀请加入群聊的用户列表
   getMayInviteUserList(obj = {}): Observable<any> {
     let params = obj;

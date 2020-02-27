@@ -56,5 +56,8 @@
   "LoginIn":{
     "TouristMode":"游客模式",
     "pleaseEnter":"请输入..."
-  }
+  },
+  "Jump to login":"是否跳转到登录页面",
+  "Show more detail":"查看更多详情",
+  "Show more":"查看更多"
 }

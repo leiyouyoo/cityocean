@@ -58,7 +58,7 @@ export class ShipmentPage implements OnInit {
     return moment(time).format('MMM D YYYY');
   }
   goback() {
-    window.history.back();
+    this.nav.navigateForward(['/cityOcean/workbench']);
   }
   gotoShipmentDetail(item) {
     this.nav.navigateForward(['/cityOcean/workbench/shipment/shipmentDetail'], {

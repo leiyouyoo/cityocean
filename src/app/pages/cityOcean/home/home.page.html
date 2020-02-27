@@ -5,7 +5,7 @@
         <input type="text" />
         <i class="search-icon"></i>
       </div>
-      <i class="customer-service"></i>
+      <i (click)="chatWithCustomer()" class="customer-service"></i>
     </div>
     <div (swipeup)="swipeup()" (swipedown)="swipedown()" class="tools-group">
       <div *ngFor="let item of toolsList">
@@ -37,7 +37,7 @@
     <section class="content-group">
       <app-message-rolling *ngIf="scrollList.length>0" [massgeList] = "scrollList"></app-message-rolling>
       <div class="massge-group-wrap">
-        <ion-item-sliding *ngFor="let msg of groupMassageList; let i = index" #slide>
+        <ion-item-sliding *ngFor="let msg of conversationsList; let i = index" #slide>
           <ion-item lines="none" class="app-massage-wrap" (click)="gotoChat(msg)">
             <app-massage [detail]="msg"></app-massage>
           </ion-item>

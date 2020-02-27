@@ -4,8 +4,9 @@ import { BookingStatusType } from '../class/booking-status-type';
 import { forkJoin } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { BookingServiceService } from '../booking-service.service';
-import { bookingStatus } from '../class/bookingStatus'
-
+import { bookingStatus } from '../class/bookingStatus';
+import { CityOceanService } from '../../../city-ocean.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-booking-detail',
@@ -289,102 +290,104 @@ export class BookingDetailPage implements OnInit {
   };
   statusStep: number;
 
-  constructor(private activatedRoute: ActivatedRoute, private bookingServiceService: BookingServiceService) {
+  constructor(private activatedRoute: ActivatedRoute, 
+    private bookingServiceService: BookingServiceService,
+    private cityOceanService:CityOceanService,
+    private nav:NavController) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
-      
     });
   }
-setRequestProcess(){
-  if(this.bookingDetail.status!=4&&this.bookingDetail.status!=5&&this.bookingDetail.status!=6){
-    this.requestProcess = [
-      {
-        name: 'Booking is received by City Ocean Staff.',
-        status: 'received',
-        checked: false,
-      },
-      {
-        name: 'Shipping order  is requested with the carrier..',
-        status: 'requested',
-        checked: false,
-      },
-      {
-        name: 'Notified SO successfully with the customer..',
-        status: 'Notified',
-        checked: false,
-      },
-      {
-        name: 'Shipping order is done..',
-        status: 'done',
-        checked: false,
-      },
-    ];
-  }else if(this.bookingDetail.status == 4){
-    this.requestProcess = [
-      {
-        name: 'Booking is received by City Ocean Staff.',
-        status: 'received',
-        checked: false,
-      },
-      {
-        name: 'Freight quote  is sended to the customer.',
-        status: 'requested',
-        checked: false,
-      },
-      {
-        name: 'Shipping order  is requested with the carrier..',
-        status: 'requested',
-        checked: false,
-      },
-      {
-        name: 'Notified SO successfully with the customer..',
-        status: 'Notified',
-        checked: false,
-      },
-      {
-        name: 'Shipping order is done..',
-        status: 'done',
-        checked: false,
-      },
-    ];
-  }else if(this.bookingDetail.status==5||this.bookingDetail.status==6){
-    this.requestProcess = [
-      {
-        name: 'Booking is received by City Ocean Staff.',
-        status: 'received',
-        checked: false,
-      },
-      {
-        name: 'Freight quote  is sended to the customer.',
-        status: 'requested',
-        checked: false,
-      },
-      {
-        name: 'Quote  is comfirmed by the customer.',
-        status: 'requested',
-        checked: false,
-      },
-      {
-        name: 'Shipping order  is requested with the carrier..',
-        status: 'requested',
-        checked: false,
-      },
-      {
-        name: 'Notified SO successfully with the customer..',
-        status: 'Notified',
-        checked: false,
-      },
-      {
-        name: 'Shipping order is done..',
-        status: 'done',
-        checked: false,
-      },
-    ];
+  setRequestProcess() {
+    if (this.bookingDetail.status != 4 && this.bookingDetail.status != 5 && this.bookingDetail.status != 6) {
+      this.requestProcess = [
+        {
+          name: 'Booking is received by City Ocean Staff.',
+          status: 'received',
+          checked: false,
+        },
+        {
+          name: 'Shipping order  is requested with the carrier..',
+          status: 'requested',
+          checked: false,
+        },
+        {
+          name: 'Notified SO successfully with the customer..',
+          status: 'Notified',
+          checked: false,
+        },
+        {
+          name: 'Shipping order is done..',
+          status: 'done',
+          checked: false,
+        },
+      ];
+    } else if (this.bookingDetail.status == 4) {
+      this.requestProcess = [
+        {
+          name: 'Booking is received by City Ocean Staff.',
+          status: 'received',
+          checked: false,
+        },
+        {
+          name: 'Freight quote  is sended to the customer.',
+          status: 'requested',
+          checked: false,
+        },
+        {
+          name: 'Shipping order  is requested with the carrier..',
+          status: 'requested',
+          checked: false,
+        },
+        {
+          name: 'Notified SO successfully with the customer..',
+          status: 'Notified',
+          checked: false,
+        },
+        {
+          name: 'Shipping order is done..',
+          status: 'done',
+          checked: false,
+        },
+      ];
+    } else if (this.bookingDetail.status == 5 || this.bookingDetail.status == 6) {
+      this.requestProcess = [
+        {
+          name: 'Booking is received by City Ocean Staff.',
+          status: 'received',
+          checked: false,
+        },
+        {
+          name: 'Freight quote  is sended to the customer.',
+          status: 'requested',
+          checked: false,
+        },
+        {
+          name: 'Quote  is comfirmed by the customer.',
+          status: 'requested',
+          checked: false,
+        },
+        {
+          name: 'Shipping order  is requested with the carrier..',
+          status: 'requested',
+          checked: false,
+        },
+        {
+          name: 'Notified SO successfully with the customer..',
+          status: 'Notified',
+          checked: false,
+        },
+        {
+          name: 'Shipping order is done..',
+          status: 'done',
+          checked: false,
+        },
+      ];
+    }
+    for (let index = 0; index <= this.statusStep; index++) {
+      this.requestProcess[index].checked = true;
+    }
   }
-  for (let index = 0; index <= this.statusStep; index++) {
-    this.requestProcess[index].checked = true;
-  }
-}
   ngOnInit() {
     this.bookingServiceService.GetDetail(this.id).subscribe((res: any) => {
       console.log(res);
@@ -425,7 +428,11 @@ setRequestProcess(){
     return moment(time).format('MMM D YYYY');
   }
   goback() {
-    window.history.back();
+    this.nav.navigateForward(['/cityOcean/workbench/booking']);
+  }
+  // 客服
+  chatWithCustomer() {
+    this.cityOceanService.chatWithCustomerService();
   }
 
   getContainerType(data) {

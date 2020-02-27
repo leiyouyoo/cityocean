@@ -50,48 +50,8 @@ export class WorkbenchPage implements OnInit {
       id: 0,
     },
   ];
-  quickEnterList = [
-    // 已添加到快捷入口的数据
-    {
-      name: '运价',
-      type: 'rates',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: '船期',
-      type: 'sailingSchedules',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: '运单',
-      type: 'shipment',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: '订单',
-      type: 'booking',
-      marker: false,
-      id: 0,
-    },
-  ];
-  moreTypeList = [
-    // 还未添加到快捷入口的数据
-    {
-      name: '账单',
-      type: 'billing',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: '报价',
-      type: 'quotes',
-      marker: false,
-      id: 0,
-    },
-  ];
+  quickEnterList = [];// 已添加到快捷入口的数据
+  moreTypeList = []// 还未添加到快捷入口的数据;
   title = 'shipment';
   titleStatisticsList = [
     {
@@ -121,6 +81,22 @@ export class WorkbenchPage implements OnInit {
   ) {}
   ngOnInit(): void {
     this.shipmentStatistics();
+    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+      this.typeList = [// 游客模式所有业务类型
+        {
+          name: '船期',
+          type: 'sailingSchedules',
+          marker: false,
+          id: 0,
+        },
+        {
+          name: '运单',
+          type: 'shipment',
+          marker: false,
+          id: 0,
+        },
+      ];
+    }
   }
   ionViewWillEnter() {
     this.homeService.getQuickEntrance().subscribe((res) => {

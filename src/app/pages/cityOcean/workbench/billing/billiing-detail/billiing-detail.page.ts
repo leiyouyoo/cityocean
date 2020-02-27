@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BillStatus } from '../class/BillStatus';
 import { BillingServiceService } from '../billing-service.service';
 import * as moment from 'moment';
+import { CityOceanService } from '../../../city-ocean.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-billiing-detail',
@@ -105,12 +107,14 @@ export class BilliingDetailPage implements OnInit {
           Rate: '$49.50',
           Quantity: '×1  Total',
           Amount: '$49.50',
-        },{
+        },
+        {
           name: 'SEALING CHARGE',
           Rate: '$49.50',
           Quantity: '×1  Total',
           Amount: '$49.50',
-        },{
+        },
+        {
           name: 'DOCUMENTATION FEE',
           Rate: '$49.50',
           Quantity: '×1  Total',
@@ -161,7 +165,12 @@ export class BilliingDetailPage implements OnInit {
   ];
 
   businessTypeTitle: any;
-  constructor(private activatedRoute: ActivatedRoute, private billingServiceService: BillingServiceService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private billingServiceService: BillingServiceService,
+    private cityOceanService: CityOceanService,
+    private nav:NavController
+  ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
     });
@@ -177,12 +186,14 @@ export class BilliingDetailPage implements OnInit {
   getTime(time) {
     return moment(time).format('MMM D YYYY');
   }
+  // 客服
+  chatWithCustomer() {
+    this.cityOceanService.chatWithCustomerService();
+  }
   goback() {
-    window.history.back();
+    this.nav.navigateForward(['/cityOcean/workbench/billing']);
   }
-  moreClick(){
-    
-  }
+  moreClick() {}
   getContainerType(data) {
     let str = '';
     try {

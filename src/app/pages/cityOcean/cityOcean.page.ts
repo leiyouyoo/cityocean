@@ -34,7 +34,11 @@ export class CityOceanPage {
       className: 'me',
     },
   ];
-  constructor() {}
+  constructor( ) {
+    
+  }
+  
+  
   tabsChange(event) {
     this.currentTab = event.detail.tab;
   }

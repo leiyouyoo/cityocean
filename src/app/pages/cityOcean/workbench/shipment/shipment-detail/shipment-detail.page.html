@@ -5,7 +5,7 @@
       <h5 class="font-18">{{routeDetail?.shipmentNo}}</h5>
       <div class="bg-group">
         <i class="location"></i>
-        <i class="kefu"></i>
+        <i (click)="chatWithCustomer()" class="kefu"></i>
       </div>
     </div>
   </ion-toolbar>
@@ -13,19 +13,14 @@
 
 <ion-content>
   <section *ngIf="mapShow" class="map-wrap">
-    <share-amap height = "520" [icons] ="icons" [lines] = "lines" [dashedLines] = "dashedLines"></share-amap>
+    <share-amap height="520" [icons]="icons" [lines]="lines" [dashedLines]="dashedLines"></share-amap>
   </section>
   <section [ngClass]="{'top-class': mapShow}" class="content-wrap base-wrap">
-    <div
-      (swipeup)="swipeup()"
-      (click)="toggle()"
-      (swipedown)="swipedown()"
-      class="control-map-show-wrap"
-    >
+    <div (swipeup)="swipeup()" (click)="toggle()" (swipedown)="swipedown()" class="control-map-show-wrap">
       <div></div>
     </div>
     <div class="type-wrap">
-      <app-business-type [title] = "businessTypeTitle"  [status] = "statusType[routeDetail.status]" ></app-business-type>
+      <app-business-type [title]="businessTypeTitle" [status]="statusType[routeDetail.status]"></app-business-type>
     </div>
     <div class="detail-wrap">
       <label class="title">Basic</label>
@@ -78,30 +73,18 @@
       <div></div>
     </div>
     <div (click)="baseShow = !baseShow" class="control-group">
-      <i
-        class="arrow-bg"
-        [ngClass]="{'baseShow': baseShow,'baseNotShow': !baseShow}"
-      ></i>
+      <i class="arrow-bg" [ngClass]="{'baseShow': baseShow,'baseNotShow': !baseShow}"></i>
     </div>
   </section>
-  <section
-    class="content-wrap message-wrap"
-    [ngClass]="{'margin-top-class': !mapShow}"
-  >
+  <section class="content-wrap message-wrap" [ngClass]="{'margin-top-class': !mapShow}">
     <div class="detail-wrap">
-      <label *ngIf="routeDetail?.routeDetails?.shipperInfos.length" class="title"
-        >起运地</label
-      >
-      <ng-container
-        *ngFor="let shipperInfo of routeDetail?.routeDetails?.shipperInfos; let i=index"
-      >
+      <label *ngIf="routeDetail?.routeDetails?.shipperInfos.length" class="title">起运地</label>
+      <ng-container *ngFor="let shipperInfo of routeDetail?.routeDetails?.shipperInfos; let i=index">
         <ng-container *ngIf="originPortShow || i ===0">
-          <p [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
-            <span>出发地公司名称</span>
+          <p *ngIf="!isLoginWithTourist" [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
+            <span>{{shipperInfo.shipperNetWorkInfo.name}}</span>
           </p>
-          <p
-            [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'"
-          >
+          <p [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'">
             <span>{{shipperInfo.shipperNetWorkInfo.streetAddress}}</span>
           </p>
           <p [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
@@ -120,19 +103,11 @@
         id="arrow-bg-wrap"
         *ngIf="routeDetail?.routeDetails?.shipperInfos.length>1"
       >
-        <i
-          class="arrow-bg"
-          [ngClass]="{'originPortShow': originPortShow,'originPortNotShow': !originPortShow}"
-        ></i>
+        <i class="arrow-bg" [ngClass]="{'originPortShow': originPortShow,'originPortNotShow': !originPortShow}"></i>
       </p>
 
-      <label
-        [class]="routeDetail?.status>=3?'left-line title':'left-dashed-line title'"
-        >起运港</label
-      >
-      <p
-        [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'"
-      >
+      <label [class]="routeDetail?.status>=3?'left-line title':'left-dashed-line title'">起运港</label>
+      <p [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'">
         <span>{{routeDetail?.routeDetails?.originPort.name}}</span>
       </p>
       <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
@@ -141,21 +116,14 @@
       </p>
       <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
         <span>Arrived/抵达</span>
-        <span
-          >{{getTime(routeDetail?.routeDetails?.actualDepatureOrginPortDate)}}</span
-        >
+        <span>{{getTime(routeDetail?.routeDetails?.actualDepatureOrginPortDate)}}</span>
       </p>
-      <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
+      <p *ngIf="!isLoginWithTourist" [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
         <span>Carrier/承运人</span>
         <span>{{routeDetail?.routeDetails?.carrierCustomerName}}</span>
       </p>
-      <label
-        [class]="routeDetail?.status>=5?'left-line title':'left-dashed-line title'"
-        >目的港</label
-      >
-      <p
-        [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'"
-      >
+      <label [class]="routeDetail?.status>=5?'left-line title':'left-dashed-line title'">目的港</label>
+      <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
         <span>{{routeDetail?.routeDetails?.destinationPort.name}}</span>
       </p>
       <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
@@ -164,17 +132,13 @@
       </p>
       <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
         <span>Estimated Arrival/预计到达时间</span>
-        <span
-          >{{getTime(routeDetail?.routeDetails?.actualArrivalDestinationPortDate)}}</span
-        >
+        <span>{{getTime(routeDetail?.routeDetails?.actualArrivalDestinationPortDate)}}</span>
       </p>
       <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
         <span>Estimated Pick-Up/预计上车时间</span>
-        <span
-          >{{getTime(routeDetail?.routeDetails?.actualPickUpTruckDestinationDate)}}</span
-        >
+        <span>{{getTime(routeDetail?.routeDetails?.actualPickUpTruckDestinationDate)}}</span>
       </p>
-      <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+      <p *ngIf="!isLoginWithTourist" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
         <span>Carrier/承运人</span>
         <span>{{routeDetail?.routeDetails?.truckCustomerName}}</span>
       </p>
@@ -183,16 +147,12 @@
         [class]="routeDetail?.status>=7?'left-line':'left-dashed-line title'"
         >目的地</label
       >
-      <ng-container
-        *ngFor="let consigneeInfo of routeDetail?.routeDetails?.consigneeInfos; let i=index"
-      >
+      <ng-container *ngFor="let consigneeInfo of routeDetail?.routeDetails?.consigneeInfos; let i=index">
         <ng-container *ngIf="consigneeShow || i ===0">
-          <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
-            <span>目的地公司名称</span>
+          <p *ngIf="!isLoginWithTourist" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+            <span>{{consigneeInfo.consigneeNetWorkInfo.name}}</span>
           </p>
-          <p
-            [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'"
-          >
+          <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
             <span>{{consigneeInfo.consigneeNetWorkInfo?.streetAddress}}</span>
           </p>
           <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
@@ -211,11 +171,12 @@
         id="arrow-bg-wrap"
         *ngIf="routeDetail?.routeDetails?.consigneeInfos.length>1"
       >
-        <i
-          class="arrow-bg"
-          [ngClass]="{'originPortShow': consigneeShow,'originPortNotShow': !consigneeShow}"
-        ></i>
+        <i class="arrow-bg" [ngClass]="{'originPortShow': consigneeShow,'originPortNotShow': !consigneeShow}"></i>
       </p>
     </div>
   </section>
 </ion-content>
+
+<ion-footer *ngIf="isLoginWithTourist">
+  <ion-button (click)="showMore()" expand="block">{{"Show more" | translate}}</ion-button>
+</ion-footer>
