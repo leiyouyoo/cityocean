@@ -57,6 +57,7 @@ ion-header {
 ion-content {
     section {
         margin-top: px2rem(20px);
+
         .search-history {
             display: flex;
             align-items: center;
@@ -85,6 +86,7 @@ ion-content {
             flex-wrap: wrap;
             padding: 0 px2rem(5px) 0 px2rem(20px);
             margin-top: px2rem(20px);
+
             span {
                 height: px2rem(30px);
                 background: rgba(0, 122, 255, 0.15);
@@ -92,8 +94,13 @@ ion-content {
                 white-space: pre;
                 padding: px2rem(6px) px2rem(16px);
                 margin-bottom: px2rem(10px);
+                font-size: 12px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: var(--ion-color-primary);
             }
-            span:nth-of-type(odd){
+
+            span:nth-of-type(odd) {
                 margin-right: px2rem(16px);
             }
         }

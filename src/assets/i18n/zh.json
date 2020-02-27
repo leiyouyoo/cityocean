@@ -30,7 +30,6 @@
   "Shipment": "运单",
   "Booking": "订单",
   "Schedule": "日程",
-  "More": "更多",
   "Login Out": "注销",
   "Setting": "设置",
   "Exit App": "退出app",
@@ -46,5 +45,12 @@
   "Start Time": "开始时间",
   "Remind people": "提醒人员",
   "Add Remark": "添加备注",
-  "minutes ago": "分钟前"
+  "minutes ago": "分钟前",
+  "billing": "账单",
+  "quotes": "报价",
+  "rates": "运价",
+  "shipment": "运单",
+  "booking": "订单",
+  "sailingSchedules": "船期",
+  "More": "更多"
 }

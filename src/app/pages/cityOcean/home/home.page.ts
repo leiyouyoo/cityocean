@@ -37,20 +37,6 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.toolsList = [
-      {
-        name: 'yunjia',
-        title: this.translate.instant('Rates'),
-      },
-      {
-        name: 'sailingSchedules',
-        title: this.translate.instant('Schedule'),
-      },
-      {
-        name: 'more',
-        title: this.translate.instant('More'),
-      },
-    ];
     this.infiniteScroll.disabled = true;
     this.startupService.getUserConfig().then((res) => {
       let id = res.session.user.id;
@@ -76,6 +62,13 @@ export class HomePage implements OnInit {
     });
   }
   ionViewWillEnter() {
+    this.homeService.getQuickEntrance().subscribe((res) => {
+      this.toolsList = res.items;
+      this.toolsList.push({
+        name: 'more',
+        type: 'more',
+      });
+    });
     this.getConversationsList();
   }
   getConversationsList() {
@@ -170,11 +163,12 @@ export class HomePage implements OnInit {
       tmp.push(local);
       localStorage.setItem(this.searchType, JSON.stringify(tmp));
     } else {
-      const hasExit = searchLocalStorage.some(e=>{
-        return e.orignPortHistory.id ==local.orignPortHistory.id &&
-        e.deliveryPortHistory.id ==local.deliveryPortHistory.id
-      })
-      if(!hasExit){
+      const hasExit = searchLocalStorage.some((e) => {
+        return (
+          e.orignPortHistory.id == local.orignPortHistory.id && e.deliveryPortHistory.id == local.deliveryPortHistory.id
+        );
+      });
+      if (!hasExit) {
         if (searchLocalStorage.length >= 10) {
           searchLocalStorage.shift();
         }
@@ -198,15 +192,30 @@ export class HomePage implements OnInit {
       });
     }
   }
-  toolType(item) {
-    switch (item.name) {
-      case 'yunjia':
+  toolTypeClick(item) {
+    switch (item.type) {
+      case 'rates':
         this.transportationCost = !this.transportationCost;
         this.searchType = 'seachRates';
         break;
       case 'sailingSchedules':
         this.transportationCost = !this.transportationCost;
         this.searchType = 'seachSailingSchedules';
+        break;
+      case 'billing':
+        this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
+        break;
+      case 'booking':
+        this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
+        break;
+      case 'sailingSchedules':
+        this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
+        break;
+      case 'shipment':
+        this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
+        break;
+      case 'more':
+        this.nav.navigateForward(['/cityOcean/workbench']);
         break;
     }
   }

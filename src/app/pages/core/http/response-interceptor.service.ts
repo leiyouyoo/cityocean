@@ -3,7 +3,6 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse, Htt
 
 import * as _ from 'lodash';
 import { Observable, Subject } from 'rxjs';
-import { NzModalService } from 'ng-zorro-antd';
 
 import { LogService } from '@abp/log/log.service';
 import { UtilsService } from '@abp/utils/utils.service';
@@ -41,7 +40,7 @@ export interface IAjaxResponse {
 
 @Injectable()
 export class AbpHttpConfiguration {
-  constructor(private _messageService: NzModalService, private _logService: LogService) {}
+  constructor(private _logService: LogService) {}
 
   defaultError = {
     message: 'An error has occurred!',

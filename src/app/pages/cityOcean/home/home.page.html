@@ -8,9 +8,9 @@
       <i class="customer-service"></i>
     </div>
     <div (swipeup)="swipeup()" (swipedown)="swipedown()" class="tools-group">
-      <div (click)="toolType(item)" *ngFor="let item of toolsList">
-        <i [class]="item.name"></i>
-        <span class="font-14">{{item.title}}</span>
+      <div *ngFor="let item of toolsList">
+        <i (click)="toolTypeClick(item)" [class]="item.type"></i>
+        <span (click)="toolTypeClick(item)" class="font-14">{{item.type | translate}}</span>
       </div>
     </div>
   </section>

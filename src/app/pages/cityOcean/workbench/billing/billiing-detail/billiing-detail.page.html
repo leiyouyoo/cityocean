@@ -33,11 +33,11 @@
         </p>
         <p>
           <span>AMOUT</span>
-          <span>{{billingDetail.amount[0].value}}</span>
+          <span>{{billingDetail.amount[0].name=='USD'?'$':'￥'}}{{billingDetail.amount[0].value}}</span>
         </p>
         <p>
           <span>BALANCE</span>
-          <span>{{billingDetail.balance[0].value}}</span>
+          <span>{{billingDetail.balance[0].name=='USD'?'$':'￥'}}{{billingDetail.balance[0].value}}</span>
         </p>
       </ng-container>
     </div>
