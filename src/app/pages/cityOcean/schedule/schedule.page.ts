@@ -53,6 +53,7 @@ export class SchedulePage implements OnInit {
       // tslint:disable-next-line: prefer-const
       let days = [];
       res.items.forEach((e) => {
+        debugger;
         const startMonth = new Date(e.remindStartTime).getMonth();
         const startDay = new Date(e.remindStartTime).getDate();
         const endMonth = new Date(e.remindEndTime).getMonth();
