@@ -43,7 +43,8 @@ export class ScheduleAddPage implements OnInit {
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params.id) {
-        this.scheduleService.get(Number(this.id)).subscribe((res: any) => {
+        this.id = Number(params.id);
+        this.scheduleService.get(this.id).subscribe((res: any) => {
           this.data = res;
         });
       } else {
