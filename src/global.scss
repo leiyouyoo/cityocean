@@ -216,6 +216,11 @@ app-schedule-detial ion-content {
   --background: #f0f2f5 !important;
 }
 
+app-contacts,app-me-setting{
+  --ion-toolbar-background:#428cff;
+  --ion-toolbar-color: #fff;
+}
+
 .datetime-text {
   display: none;
 }

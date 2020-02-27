@@ -28,7 +28,7 @@
     <ion-list lines="none">
       <ion-item>
         <ion-label>
-          <strong>Start Time</strong>
+          <strong>{{'Start Time' | translate}}</strong>
         </ion-label>
         <ion-datetime
           [disabled]="!edit"
@@ -46,7 +46,7 @@
     <ion-list lines="none">
       <ion-item>
         <ion-label>
-          <strong>End Time</strong>
+          <strong>{{'End Time' | translate}}</strong>
         </ion-label>
         <ion-datetime
           [(ngModel)]="data.remindEndTime"
@@ -60,19 +60,19 @@
   <div class="time" (click)="presentActionSheet()">
     <ion-icon name="alarm-outline"></ion-icon>
     <div style="justify-content:start;">
-      <strong>{{data.advanceTime}}分钟前</strong>
+      <strong>{{data.advanceTime}}{{'minutes ago' | translate}}</strong>
     </div>
   </div>
 
   <div class="time">
     <ion-icon name="person-outline"></ion-icon>
     <div style="justify-content:start;">
-      <strong>提醒人员</strong>
+      <strong>{{'Remind people' | translate}}</strong>
     </div>
   </div>
 
   <div class="title">
     <ion-icon name="reader-outline"></ion-icon>
-    <ion-input placeholder="Add Remark" [disabled]="!edit"></ion-input>
+    <ion-input placeholder="{{'Add Remark' | translate}}" [disabled]="!edit"></ion-input>
   </div>
 </ion-content>

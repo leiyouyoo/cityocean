@@ -9,6 +9,9 @@ import { AuthService } from '@core/auth/auth.service';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Helper } from '@shared/helper';
+import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
+import { JPush } from '@jiguang-ionic/jpush/ngx';
+import { debug } from 'util';
 
 @Component({
   selector: 'user-login',
@@ -23,11 +26,13 @@ export class LoginComponent implements OnInit {
   focusPassword = false;
   passwordElement: HTMLElement;
   constructor(
+    private jpush: JPush,
     public helper: Helper,
     private fb: FormBuilder,
     public loginService: AuthService,
     private router: Router,
     private nav: NavController,
+    public scheduleService: ScheduleService,
     public httpService: HttpService,
     private storage: Storage,
   ) {}
@@ -81,6 +86,9 @@ export class LoginComponent implements OnInit {
     this.loginService
       .login(obj.username, obj.password, tenantId, true)
       .then((res: any) => {
+        // 极光推送绑定
+        debugger;
+        this.onSetJpush();
         if (res.access_token) {
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
           this.nav.navigateRoot('/cityOcean');
@@ -98,6 +106,20 @@ export class LoginComponent implements OnInit {
     this.nav.navigateRoot('/cityOcean');
   }
  
+
+  onSetJpush() {
+    this.jpush.getRegistrationID().then((res) => {
+      this.scheduleService
+        .jpush({
+          registrationId: res,
+          id: abp.session.user.id,
+        })
+        .subscribe((data) => {
+          debugger;
+        });
+    });
+  }
+
   onUsernameKeyup(e) {
     if (!(e instanceof KeyboardEvent)) {
       if (this.savedUser.username === this.validateForm.value.username && !this.validateForm.value.password) {
