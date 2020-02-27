@@ -14,12 +14,7 @@ export class HomeService {
     return this.httpService.get('/IM/Message/GetGroupMsgMobileList', params);
   }
   // 获取群聊信息列表
-  getGroupMsg(GroupId: string) {
-    let params = {
-      GroupId: GroupId,
-      MaxResultCount: 1000,
-      Sorting: 'creationtime',
-    };
+  getGroupMsg(params:any={}) {
     return this.httpService.get('/IM/Message/GetGroupMsg', params);
   }
   // 获取单聊信息列表
@@ -45,7 +40,7 @@ export class HomeService {
     let params = obj;
     return this.httpService.postJson('/CSP/QuickEntrance/CreateAsync', params);
   }
-  
+ 
   //获取可邀请加入群聊的用户列表
   getMayInviteUserList(obj = {}): Observable<any> {
     let params = obj;

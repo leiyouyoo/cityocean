@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-rates-detail',
@@ -7,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RatesDetailPage implements OnInit {
 
-  constructor() { }
+  constructor(private nav:NavController) { }
 
   ngOnInit() {
   }
   goback(){
-    window.history.back()
+    this.nav.navigateForward(['/cityOcean/workbench/rates']);
   }
   segmentButtonClicked($event){
     console.log($event)

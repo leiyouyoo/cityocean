@@ -247,3 +247,9 @@ ion-content {
         }
     }
 }
+ion-footer{
+    ion-button {
+        --background: linear-gradient(135deg, #61ADFF 0%, #007AFF 100%);
+        --border-radius: 0;
+    }
+}

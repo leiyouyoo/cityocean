@@ -1,17 +1,12 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { HttpService } from '@cityocean/common-library';
-import { UrlHelper } from '@shared/helpers/UrlHelper';
-import { AppConsts } from 'src/app/common/AppConsts';
-import { environment } from '@env/environment';
 import { AuthService } from '@core/auth/auth.service';
 import { NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import { Helper } from '@shared/helper';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
-import { debug } from 'util';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'user-login',
@@ -25,21 +20,21 @@ export class LoginComponent implements OnInit {
   pwshow = false;
   focusPassword = false;
   passwordElement: HTMLElement;
+  pleaseEnter = this.translate.instant("LoginIn.pleaseEnter")
   constructor(
     private jpush: JPush,
     public helper: Helper,
     private fb: FormBuilder,
     public loginService: AuthService,
-    private router: Router,
     private nav: NavController,
     public scheduleService: ScheduleService,
     public httpService: HttpService,
-    private storage: Storage,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required,Validators.email]],
       password: [null, [Validators.required]],
     });
     this.savedUser = JSON.parse(localStorage.getItem('autocompletePassword'));
@@ -90,10 +85,9 @@ export class LoginComponent implements OnInit {
 
         this.onSetJpush();
         if (res.access_token) {
+          localStorage.setItem('isLoginWithTourist',"false");
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
-          let redirectUrl = undefined;
-          redirectUrl = '/cityOcean';
-          this.nav.navigateRoot(redirectUrl);
+          this.nav.navigateRoot('/cityOcean');
         } else {
           this.errorTip = '登录失败!';
         }
@@ -103,24 +97,11 @@ export class LoginComponent implements OnInit {
         //this.errorTip = e.error.error_description;
       });
   }
-
-  /**
-   * 重定向到其它页面
-   *
-   * @private
-   * @param [redirectUrl]
-   */
-  private redirectTo(redirectUrl: string) {
-    if (redirectUrl) {
-      location.href = redirectUrl;
-    } else {
-      let initialUrl = UrlHelper.initialUrl;
-      if (initialUrl.indexOf('/login') > 0) {
-        initialUrl = AppConsts.appBaseUrl;
-      }
-      location.href = initialUrl;
-    }
+  loginWithTourist() {
+    localStorage.setItem('isLoginWithTourist',"true");
+    this.nav.navigateRoot('/cityOcean');
   }
+ 
 
   onSetJpush() {
     this.jpush.getRegistrationID().then((res) => {

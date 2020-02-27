@@ -20,6 +20,8 @@ import { createTextMessage, onMessage, getMessageList, sendmessage, createImageM
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
+import { CityOceanService } from '../../city-ocean.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -39,7 +41,7 @@ export class ChatPage implements OnInit {
   groupID: any;
   groupName: any;
   pressStatus: boolean;
-  userId = localStorage.getItem('current_tim_id');
+  userId =  this.cityOceanService.customerId;
   pageInfo = {
     maxResultCount: 10,
     skipCount: 0,
@@ -61,13 +63,14 @@ export class ChatPage implements OnInit {
     public alertController: AlertController,
     private bookingServiceService: BookingServiceService,
     private myShipmentService: MyShipmentService,
+    private cityOceanService:CityOceanService,
+    private location:Location
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
       this.isC2C = data.C2C == 'true' ? true : false;
       this.groupID = data.id;
-      this.conversationType = data.conversationType,
-      this.groupName = data.groupName;
+      (this.conversationType = data.conversationType), (this.groupName = data.groupName);
       this.bussinessType = this.groupID.replace(/\d/gi, '').toLowerCase();
       this.bussinessId = this.groupID.replace(/[^\d]/g, '');
     });
@@ -113,7 +116,13 @@ export class ChatPage implements OnInit {
    */
   getChatList(event?) {
     if (!this.isC2C) {
-      this.homeService.getGroupMsg(this.groupID).subscribe((res: any) => {
+      let params = {
+        GroupId: this.groupID,
+        MaxResultCount: this.pageInfo.maxResultCount,
+        SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
+        Sorting: 'msgTime desc',
+      };
+      this.homeService.getGroupMsg(params).subscribe((res: any) => {
         this.ionRefresherCheck(res);
       });
     } else {
@@ -122,7 +131,7 @@ export class ChatPage implements OnInit {
         ToAccount: [this.groupID, this.userId],
         MaxResultCount: this.pageInfo.maxResultCount,
         SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
-        Sorting: 'MsgTime',
+        Sorting: 'msgTime desc',
       };
       this.homeService.getC2CMsg(params).subscribe((res: any) => {
         this.ionRefresherCheck(res);
@@ -130,7 +139,8 @@ export class ChatPage implements OnInit {
       });
     }
   }
-  ionRefresherCheck(res){
+  ionRefresherCheck(res) {
+    res.items.reverse();  //消息按时间排序
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
       e.type = e.msgBody[0].msgType;
@@ -161,12 +171,14 @@ export class ChatPage implements OnInit {
       return;
     }
     textMessage = createTextMessage(this.groupID, this.isC2C ? 'signle' : 'group', this.sendingMessage);
-    textMessage = await sendmessage(textMessage);
+    await sendmessage(textMessage).then(imRes=>{
+      console.log(imRes)
+    });
     this.chatList.push({
       flow: 'out',
-      from:this.userId,
-      type:'TIMTextElem',
-      msgBody:[{msgType: "TIMTextElem",msgContent:{Text:this.sendingMessage}}],
+      from: this.userId,
+      type: 'TIMTextElem',
+      msgBody: [{ msgType: 'TIMTextElem', msgContent: { Text: this.sendingMessage } }],
       payload: {
         text: this.sendingMessage,
       },
@@ -176,7 +188,7 @@ export class ChatPage implements OnInit {
   }
   async sendImg(imageData) {
     let fileMessage = createImageMessage(this.groupID, this.isC2C ? 'signle' : 'group', imageData);
-    await  sendmessage(fileMessage).then((res) => {
+    await sendmessage(fileMessage).then((res) => {
       this.chatList.push({
         flow: 'out',
         payload: {
@@ -226,7 +238,7 @@ export class ChatPage implements OnInit {
     await popover.present();
   }
   goback() {
-    this.nav.navigateBack('/cityOcean/home');
+    this.location.back();
   }
   // 群聊信息
   gotoGroup() {
@@ -236,7 +248,7 @@ export class ChatPage implements OnInit {
         C2C: this.isC2C,
         id: this.groupID,
         groupName: this.groupName,
-        conversationType:this.conversationType
+        conversationType: this.conversationType,
       },
     });
   }

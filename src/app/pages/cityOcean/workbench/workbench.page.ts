@@ -121,6 +121,22 @@ export class WorkbenchPage implements OnInit {
   ) {}
   ngOnInit(): void {
     this.shipmentStatistics();
+    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+      this.typeList = [// 游客模式所有业务类型
+        {
+          name: '船期',
+          type: 'sailingSchedules',
+          marker: false,
+          id: 0,
+        },
+        {
+          name: '运单',
+          type: 'shipment',
+          marker: false,
+          id: 0,
+        },
+      ];
+    }
   }
   ionViewWillEnter() {
     this.homeService.getQuickEntrance().subscribe((res) => {

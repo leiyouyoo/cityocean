@@ -42,6 +42,9 @@ export class AddMemberComponent implements OnInit {
           let ids = res.items.map((e) => {
             return e.id;
           });
+          this.membersList = res.items.filter((e) => {
+            return !e.isInGroup;
+          });
           if (ids.length) {
             this.homeService.getPortrait(ids);
           }
@@ -53,10 +56,17 @@ export class AddMemberComponent implements OnInit {
   }
   save() {
     if (this.isC2C) {
+      let list = this.membersList
+        .filter((e) => {
+          return e.checked;
+        })
+        .map((e) => {
+          return { userID: e.userId };
+        });
       createGroup({
         type: 'private',
         name: 'WebSDK',
-        memberList: [{ userID: 'test0' }, { userID: 'user0' }], // 如果填写了 memberList，则必须填写 userID
+        memberList: list, // 如果填写了 memberList，则必须填写 userID
       }).then((res) => {
         console.log(res);
         this.dismissModal(res);

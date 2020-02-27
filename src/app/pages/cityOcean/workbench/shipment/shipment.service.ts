@@ -488,23 +488,23 @@ export class MyShipmentService {
     return this.http.postJson('/CSP/Shipment/GetAllList', json)
       .pipe(map((data: any) => {
         const temp = data.items;
-        temp.forEach(s => {
-          s.agreement = s.routeDetails.consigneeInfos == null && s.routeDetails.shipperInfos == null ? 'cy-cy' : s.routeDetails.shipperInfos == null ? "cy-door" : s.routeDetails.consigneeInfos == null ? "door-cy" : "door-door";
-          s.transportType = s.transportationMode === 0 ? 'ship' : 'air';
-          try {
-            s.shiperShow = s.routeDetails.shipperInfos[0].shipperNetWorkInfo.name;
-            s.consigneeShow = s.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.name;
-          } catch (e) {
-            console.log(e);
-          }
-          s.state = Number(s.status) + 1;
-          if (s.containerList) {
-            s.containerListShow = '';
-            s.containerList.forEach(sc => {
-              s.containerListShow += `${sc.count}*${sc.code}` + ' ';
-            })
-          }
-        });
+        // temp.forEach(s => {
+        //   s.agreement = s.routeDetails.consigneeInfos == null && s.routeDetails.shipperInfos == null ? 'cy-cy' : s.routeDetails.shipperInfos == null ? "cy-door" : s.routeDetails.consigneeInfos == null ? "door-cy" : "door-door";
+        //   s.transportType = s.transportationMode === 0 ? 'ship' : 'air';
+        //   try {
+        //     s.shiperShow = s.routeDetails.shipperInfos[0].shipperNetWorkInfo.name;
+        //     s.consigneeShow = s.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.name;
+        //   } catch (e) {
+        //     console.log(e);
+        //   }
+        //   s.state = Number(s.status) + 1;
+        //   if (s.containerList) {
+        //     s.containerListShow = '';
+        //     s.containerList.forEach(sc => {
+        //       s.containerListShow += `${sc.count}*${sc.code}` + ' ';
+        //     })
+        //   }
+        // });
         return data;
       }));
   }
