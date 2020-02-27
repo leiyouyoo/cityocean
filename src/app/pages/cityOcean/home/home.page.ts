@@ -5,7 +5,7 @@ import 'hammerjs';
 import { SearchlocaltionComponent } from './search-localtion/search-localtion.component';
 import { StartupService } from '@core/startup/startup.service';
 import { HomeService } from './home.service';
-import { onSDKReady } from '@cityocean/im-library';
+import { onSDKReady, getMessageList } from '@cityocean/im-library';
 import { getConversationList } from 'projects/cityocean/im-library/src/public-api';
 import { login, genTestUserSig, deleteConversation } from '@cityocean/im-library';
 import { TranslateService } from '@ngx-translate/core';
@@ -222,10 +222,16 @@ export class HomePage implements OnInit {
   deleteItem(i: any, data, node) {
     this.showDeleteButton = false;
     node.close();
-    deleteConversation(data.conversationID).then((imRes) => {
-      console.log(imRes);
-      this.groupMassageList.splice(i, 1);
-    });
+    // getMessageList(data.conversationID).then((imRes) => {
+    //   console.log(imRes);
+    // });
+
+      deleteConversation(data.conversationID).then((imRes) => {
+        console.log(imRes);
+        this.groupMassageList.splice(i, 1);
+      },(Error)=>{
+        console.log(Error);
+      });
   }
   async searchLocaltion(type) {
     const modal = await this.modalController.create({

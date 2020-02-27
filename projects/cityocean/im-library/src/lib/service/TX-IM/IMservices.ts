@@ -403,7 +403,7 @@ export function updateMyProfile(param:{
 /**
  *  删除会话
 
- * @param conversationID  用户的帐号列表，类型为数组
+ * @param conversationID  用户的帐号列表，类型为string
  * return  imResponse.data;// 被删除的会话 ID。
  */
 export function deleteConversation(conversationID : string) {

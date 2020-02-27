@@ -66,8 +66,7 @@ export class ChatPage implements OnInit {
       this.conversationID = data.conversationID;
       this.isC2C = data.C2C == 'true' ? true : false;
       this.groupID = data.id;
-      this.conversationType = data.conversationType,
-      this.groupName = data.groupName;
+      (this.conversationType = data.conversationType), (this.groupName = data.groupName);
       this.bussinessType = this.groupID.replace(/\d/gi, '').toLowerCase();
       this.bussinessId = this.groupID.replace(/[^\d]/g, '');
     });
@@ -113,7 +112,13 @@ export class ChatPage implements OnInit {
    */
   getChatList(event?) {
     if (!this.isC2C) {
-      this.homeService.getGroupMsg(this.groupID).subscribe((res: any) => {
+      let params = {
+        GroupId: this.groupID,
+        MaxResultCount: this.pageInfo.maxResultCount,
+        SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
+        Sorting: 'msgTime desc',
+      };
+      this.homeService.getGroupMsg(params).subscribe((res: any) => {
         this.ionRefresherCheck(res);
       });
     } else {
@@ -130,8 +135,8 @@ export class ChatPage implements OnInit {
       });
     }
   }
-  ionRefresherCheck(res){
-    res.items.reverse();
+  ionRefresherCheck(res) {
+    res.items.reverse();  //消息按时间排序
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
       e.type = e.msgBody[0].msgType;
@@ -165,9 +170,9 @@ export class ChatPage implements OnInit {
     textMessage = await sendmessage(textMessage);
     this.chatList.push({
       flow: 'out',
-      from:this.userId,
-      type:'TIMTextElem',
-      msgBody:[{msgType: "TIMTextElem",msgContent:{Text:this.sendingMessage}}],
+      from: this.userId,
+      type: 'TIMTextElem',
+      msgBody: [{ msgType: 'TIMTextElem', msgContent: { Text: this.sendingMessage } }],
       payload: {
         text: this.sendingMessage,
       },
@@ -177,7 +182,7 @@ export class ChatPage implements OnInit {
   }
   async sendImg(imageData) {
     let fileMessage = createImageMessage(this.groupID, this.isC2C ? 'signle' : 'group', imageData);
-    await  sendmessage(fileMessage).then((res) => {
+    await sendmessage(fileMessage).then((res) => {
       this.chatList.push({
         flow: 'out',
         payload: {
@@ -237,7 +242,7 @@ export class ChatPage implements OnInit {
         C2C: this.isC2C,
         id: this.groupID,
         groupName: this.groupName,
-        conversationType:this.conversationType
+        conversationType: this.conversationType,
       },
     });
   }
