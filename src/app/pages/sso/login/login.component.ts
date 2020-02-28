@@ -7,6 +7,7 @@ import { Helper } from '@shared/helper';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { TranslateService } from '@ngx-translate/core';
+import { StartupService } from '@core';
 
 @Component({
   selector: 'user-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   pwshow = false;
   focusPassword = false;
   passwordElement: HTMLElement;
-  pleaseEnter = this.translate.instant("LoginIn.pleaseEnter")
+  pleaseEnter = this.translate.instant('LoginIn.pleaseEnter');
   constructor(
     private jpush: JPush,
     public helper: Helper,
@@ -30,11 +31,12 @@ export class LoginComponent implements OnInit {
     public scheduleService: ScheduleService,
     public httpService: HttpService,
     private translate: TranslateService,
+    private startupService: StartupService,
   ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      username: ['', [Validators.required,Validators.email]],
+      username: ['', [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
     });
     this.savedUser = JSON.parse(localStorage.getItem('autocompletePassword'));
@@ -57,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.pwshow = !this.pwshow;
   }
 
-  login() {
+  onLogin() {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
@@ -82,10 +84,9 @@ export class LoginComponent implements OnInit {
       .login(obj.username, obj.password, tenantId, true)
       .then((res: any) => {
         // 极光推送绑定
-
         this.onSetJpush();
         if (res.access_token) {
-          localStorage.setItem('isLoginWithTourist',"false");
+          localStorage.setItem('isLoginWithTourist', 'false');
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
           this.nav.navigateRoot('/cityOcean');
         } else {
@@ -93,15 +94,28 @@ export class LoginComponent implements OnInit {
         }
       })
       .catch((e: any) => {
-        this.helper.toast(e.message);
-        //this.errorTip = e.error.error_description;
+        if (e.error && e.error.error_description == 'invalid_username_or_password') {
+          this.helper.toast('Password or name error');
+        }
       });
   }
   loginWithTourist() {
-    localStorage.setItem('isLoginWithTourist',"true");
-    this.nav.navigateRoot('/cityOcean');
+    this.loginService
+      .login('admin', '123qwe', 4, true)
+      .then((res: any) => {
+        if (res.access_token) {
+          localStorage.setItem('isLoginWithTourist', 'true');
+          this.nav.navigateRoot('/cityOcean');
+        } else {
+          this.errorTip = '登录失败!';
+        }
+      })
+      .catch((e: any) => {
+        if (e.error && e.error.error_description == 'invalid_username_or_password') {
+          this.helper.toast('Password or name error');
+        }
+      });
   }
- 
 
   onSetJpush() {
     this.jpush.getRegistrationID().then((res) => {

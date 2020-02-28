@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpService } from '@cityocean/common-library';
 import { DA_SERVICE_TOKEN, DelonAuthConfig, ITokenService } from '@delon/auth';
+import { Helper } from '@shared/helper';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AuthService {
   headers: HttpHeaders;
 
   constructor(public httpService: HttpService,
-              public http: HttpClient,
+              public http: HttpClient, 
+              public helper: Helper,
               @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
               @Inject(DelonAuthConfig) private logUrl: string,
   ) {
@@ -53,6 +55,7 @@ export class AuthService {
         },
         error => {
           reject(error);
+          
           console.log(error);
         },
       );

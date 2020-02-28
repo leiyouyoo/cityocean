@@ -3,7 +3,6 @@ import {
   NavController,
   PopoverController,
   IonContent,
-  ToastController,
   AlertController,
   IonRefresher,
 } from '@ionic/angular';
@@ -59,7 +58,6 @@ export class ChatPage implements OnInit {
     private imagePicker: ImagePicker,
     private activatedRoute: ActivatedRoute,
     private homeService: HomeService,
-    public toastController: ToastController,
     public alertController: AlertController,
     private bookingServiceService: BookingServiceService,
     private myShipmentService: MyShipmentService,

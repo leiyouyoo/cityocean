@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ActionSheetController, ModalController } from '@ionic/angular';
+import { NavController, ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
 import { WorkbenchService } from './workbench.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -50,48 +50,9 @@ export class WorkbenchPage implements OnInit {
       id: 0,
     },
   ];
-  quickEnterList = [
-    // 已添加到快捷入口的数据
-    {
-      name: this.translate.instant('rates'),
-      type: 'rates',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('sailingSchedules'),
-      type: 'sailingSchedules',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('shipment'),
-      type: 'shipment',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('booking'),
-      type: 'booking',
-      marker: false,
-      id: 0,
-    },
-  ];
-  moreTypeList = [
-    // 还未添加到快捷入口的数据
-    {
-      name: this.translate.instant('billing'),
-      type: 'billing',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('quotes'),
-      type: 'quotes',
-      marker: false,
-      id: 0,
-    },
-  ];
+  quickEnterList = []; // 已添加到快捷入口的数据
+    
+  moreTypeList = [];// 还未添加到快捷入口的数据
   title = this.translate.instant('shipment');
   titleStatisticsList = [
     {
@@ -118,25 +79,10 @@ export class WorkbenchPage implements OnInit {
     private modalController: ModalController,
     private workbenchService: WorkbenchService,
     private homeService: HomeService,
+    private alertController:AlertController
   ) {}
   ngOnInit(): void {
     this.shipmentStatistics();
-    if (localStorage.getItem('isLoginWithTourist') == 'true') {
-      this.typeList = [// 游客模式所有业务类型
-        {
-          name: '船期',
-          type: 'sailingSchedules',
-          marker: false,
-          id: 0,
-        },
-        {
-          name: '运单',
-          type: 'shipment',
-          marker: false,
-          id: 0,
-        },
-      ];
-    }
   }
   ionViewWillEnter() {
     this.homeService.getQuickEntrance().subscribe((res) => {
@@ -286,6 +232,7 @@ export class WorkbenchPage implements OnInit {
    * @memberof WorkbenchPage
    */
   typeClick(item) {
+    this.clickLoginWithTourist(item.type)
     if (item.type === 'rates') {
       this.searchTransportationCost = !this.searchTransportationCost;
       this.searchType = 'seachRates';
@@ -295,6 +242,34 @@ export class WorkbenchPage implements OnInit {
     } else {
       this.goRouter(item);
     }
+  }
+  clickLoginWithTourist(type){
+    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+      if (type != 'sailingSchedules' || type != 'shipment'){
+
+      }
+    }
+  }
+  async showMore() {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('Jump to login')+"?",
+      message: this.translate.instant('Show more detail'),
+      buttons: [
+        {
+          text: "Cancel",
+          handler: blah => {
+          }
+        },
+        {
+          text: "Yes",
+          handler: blah => {
+            this.nav.navigateRoot("/login");
+          }
+        },
+      ]
+    });
+
+    await alert.present();
   }
   /**
    * 导航到运单列表

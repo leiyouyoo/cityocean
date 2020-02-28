@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { StartupService } from '@core';
 import { createTextMessage, sendmessage } from '@cityocean/im-library';
 import { NavController } from '@ionic/angular';
+import { Helper } from '@shared/helper';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +15,13 @@ export class CityOceanService {
   globelCustomerName = '';
   customerId: ''; // 当前登录人的id
   hasHistoryChat: any = [];
-  constructor(private httpService: HttpService, private startupService: StartupService, private nav: NavController) {
+  constructor(
+    private httpService: HttpService,
+    private startupService: StartupService,
+    private nav: NavController,
+    public helper: Helper,
+    private translate: TranslateService,
+  ) {
     this.getCustomerId().then((res) => {
       if (localStorage.getItem('isLoginWithTourist') == 'true') {
         this.GetIdByEmail();
@@ -30,8 +38,8 @@ export class CityOceanService {
     });
   }
   GetIdByEmail() {
-    return this.httpService.get('/SSO/User/GetByEmail', { email: 'itservice@cityocean.com' }).subscribe((res: any) => {
-      if (res.id) {
+    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' }).subscribe((res: any) => {
+      if (res && res.id) {
         this.globelCustomerId = res.id;
         this.globelCustomerName = res.name;
         return res.id;
@@ -44,7 +52,7 @@ export class CityOceanService {
     return this.httpService.get('/CRM/CustomerExternal/GetCoUserByCustomer', params);
   }
   getCustomerId() {
-    if (this.customerId) {
+    if (abp.session && abp.session.user && abp.session.user.id) {
       return Promise.resolve(this.customerId);
     } else {
       return this.startupService.getUserConfig().then((res) => {
@@ -53,10 +61,14 @@ export class CityOceanService {
       });
     }
   }
-  async chatWithCustomerService(c2cList?) {
-    if( this.hasHistoryChat.length){
+  async chatWithCustomerService() {
+    if (!this.globelCustomerId) {
+      this.helper.toast(this.translate.instant('No customer'));
+      return;
+    }
+    if (this.hasHistoryChat.length) {
       this.gotoChat();
-      return 
+      return;
     }
     let textMessage;
     textMessage = createTextMessage(this.customerId, 'signle', 'hello');
@@ -73,12 +85,12 @@ export class CityOceanService {
       });
     });
   }
-  filterHistoryCustomerId(c2cList){
+  filterHistoryCustomerId(c2cList) {
     this.hasHistoryChat = c2cList.filter((e) => {
       return e.userProfile.userID == this.globelCustomerId;
     });
   }
-  gotoChat(){
+  gotoChat() {
     this.nav.navigateForward(['/cityOcean/home/chat'], {
       queryParams: {
         conversationID: this.hasHistoryChat[0].conversationID,

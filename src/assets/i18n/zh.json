@@ -73,5 +73,7 @@
   },
   "Jump to login": "是否跳转到登录页面",
   "Show more detail": "查看更多详情",
-  "Show more": "查看更多"
+  "Show more": "查看更多",
+  "No customer":"暂无客服",
+  "Password or name error":"账号或者密码错误"
 }

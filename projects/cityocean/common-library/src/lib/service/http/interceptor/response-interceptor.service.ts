@@ -73,13 +73,7 @@ export class AbpHttpConfiguration {
     }
   }
   showError(error: IErrorInfo): any {
-    // return;
-    // alert(error.message);
-    // const message = {
-    //   nzTitle: error.message,
-    //   nzContent: error.details,
-    // };
-     this.presentToast(error.error_description || error.error)
+    //  this.presentToast(error.error_description || error.error)
     // return this.messageService.error(error.details || error.message, duration);
     console.log(error.details , error.message)
   }
@@ -98,7 +92,6 @@ export class AbpHttpConfiguration {
   handleNonAbpErrorResponse(response: HttpResponse<any>) {
     const self = this;
     const body = response.body;
-    this.presentToast(response.status)
     switch (response.status) {
       case 400:
         self.showError(body);
