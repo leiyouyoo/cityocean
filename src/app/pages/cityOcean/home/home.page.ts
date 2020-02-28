@@ -125,6 +125,8 @@ export class HomePage implements OnInit {
   swipedown() {
     this.transportationCost = true;
   }
+
+  // 下拉加载(暂无用)
   loadData(event) {
     setTimeout(() => {
       for (let i = 0; i < 5; i++) {

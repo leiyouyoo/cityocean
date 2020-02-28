@@ -65,32 +65,36 @@ export class CityOceanService {
     }
   }
   async chatWithCustomerService() {
+    if (!this.globelCustomerId) {
+      this.helper.toast(this.translate.instant('No customer'));
+      return;
+    }
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
       this.chatWithTourist();
       return;
     }
-    // if (!this.globelCustomerId) {
-    //   this.helper.toast(this.translate.instant('No customer'));
-    //   return;
-    // }
     if (this.hasHistoryChat.length) {
       this.gotoChat();
       return;
     }
-    let textMessage;
-    textMessage = createTextMessage(this.customerId, 'signle', 'hello');
-    await sendmessage(textMessage).then((imRes) => {
-      const imData = imRes.data.message;
-      this.nav.navigateForward(['/cityOcean/home/chat'], {
-        queryParams: {
-          conversationID: imData.conversationID,
-          C2C: true,
-          id: this.customerId,
-          groupName: this.globelCustomerName,
-          conversationType: 'c2c',
-        },
+    try {
+      let textMessage;
+      textMessage = createTextMessage(this.customerId, 'signle', 'hello');
+      await sendmessage(textMessage).then((imRes) => {
+        const imData = imRes.data.message;
+        this.nav.navigateForward(['/cityOcean/home/chat'], {
+          queryParams: {
+            conversationID: imData.conversationID,
+            C2C: true,
+            id: this.customerId,
+            groupName: this.globelCustomerName,
+            conversationType: 'c2c',
+          },
+        });
       });
-    });
+    } catch (error) {
+      this.helper.toast(this.translate.instant('Failed to contact customer'));
+    }
   }
   async chatWithTourist() {
     const actionSheet = await this.actionSheetController.create({

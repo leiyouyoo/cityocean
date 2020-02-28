@@ -5,7 +5,7 @@
       <h5 class="font-18">Billing详情</h5>
       <div class="bg-group">
         <i (click)="chatWithCustomer()" class="kefu"></i>
-        <i  (click)="moreClick()" class="more"></i>
+        <i (click)="moreClick()" class="more"></i>
       </div>
     </div>
   </ion-toolbar>
@@ -33,11 +33,11 @@
         </p>
         <p>
           <span>AMOUT</span>
-          <span>{{billingDetail.amount[0].name=='USD'?'$':'￥'}}{{billingDetail.amount[0].value}}</span>
+          <span>{{billingDetail.amount[0].value | currency: billingDetail.amount[0].name}}</span>
         </p>
         <p>
           <span>BALANCE</span>
-          <span>{{billingDetail.balance[0].name=='USD'?'$':'￥'}}{{billingDetail.balance[0].value}}</span>
+          <span>{{billingDetail.balance[0].value | currency: billingDetail.balance[0].name}}</span>
         </p>
       </ng-container>
     </div>
@@ -52,11 +52,29 @@
         <span>{{billingDetail?.recipient?.value}}</span>
       </p>
       <label class="title">Rate information</label>
-
-      <div class="rate-information" *ngFor="let rateInformation of rateInformations">
+      <div class="rate-information" *ngFor="let chargeItem of billingDetail?.chargeItems">
+        <label class="title">{{ chargeItem.chargingCodeString }}</label>
+        <p>
+          <span>Rate</span>
+          <span>{{ chargeItem.unitPrice | currency: chargeItem.currencyString }}</span>
+        </p>
+        <p>
+          <span>Quantity</span>
+          <span>X {{ chargeItem.quantity }} {{ chargeItem.unitString }}</span>
+        </p>
+        <p>
+          <span>Amount</span>
+          <span>{{ chargeItem.payAmount | currency: chargeItem.currencyString }}</span>
+        </p>
+      </div>
+      <!-- <div class="rate-information" *ngFor="let rateInformation of rateInformations">
         <h5 class="title second-title">
           {{rateInformation.title}}
-          <i (click)="rateInformation['Notshow'] = !rateInformation['Notshow']" [ngClass]="{'arrowRotate': !rateInformation['Notshow']}" class="arrow-bg right-control"></i>
+          <i
+            (click)="rateInformation['Notshow'] = !rateInformation['Notshow']"
+            [ngClass]="{'arrowRotate': !rateInformation['Notshow']}"
+            class="arrow-bg right-control"
+          ></i>
         </h5>
         <ng-container *ngIf="!rateInformation.Notshow">
           <ng-container *ngFor="let item of rateInformation.type">
@@ -75,19 +93,16 @@
             </p>
           </ng-container>
         </ng-container>
-      </div>
+      </div> -->
       <div class="rate-information SUBTOTAL">
         <label for="">SUBTOTAL</label>
-        <span>$2,600</span>
+        <span>{{ getChargeItemsSubtotal(billingDetail?.chargeItems) | currency: billingDetail?.chargeItems[0].currencyString }}</span>
       </div>
-      <ng-container *ngIf="billingDetail.paymentRecords">
 
-      </ng-container>
-      
-      <label class="title">Payment History</label>
+      <!-- <label class="title">Payment History</label>
       <p>
         <span>{{billingDetail?.recipient?.value}}</span>
-      </p>
+      </p> -->
     </div>
   </section>
 </ion-content>

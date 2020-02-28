@@ -103,7 +103,7 @@ ion-content {
             }
 
             &.not-check-bg::before {
-                border-left: px2rem(2px) dashed #9F9FAF;
+                border-left: px2rem(2px) dashed var(--ion-color-medium);
             }
 
             display: flex;
@@ -280,7 +280,7 @@ ion-content {
             position: absolute;
             height: 100%;
             left: px2rem(28px);
-            border-left: px2rem(1px) dashed #9F9FAF;
+            border-left: px2rem(1px) dashed var(--ion-color-medium);
         }
     }
 }

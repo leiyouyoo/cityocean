@@ -146,7 +146,7 @@ ion-header {
                 flex-direction: column;
                 align-items: center;
                 width: 25%;
-                padding-bottom:  px2rem(20px);
+                padding-bottom: px2rem(20px);
 
                 i {
                     @extend .icon-search-size;
@@ -160,28 +160,33 @@ ion-header {
                 i.sailingSchedules {
                     @include bg-image("../../../../assets/icon//home/icon_chuanqi");
                 }
+
                 i.shipment {
                     @include bg-image("../../../../assets/icon/home/icon-yundan");
                 }
+
                 i.booking {
                     @include bg-image("../../../../assets/icon/home/icon_dingdan");
                 }
+
                 i.quotes {
                     @include bg-image("../../../../assets/icon/home/icon_baojia");
                 }
+
                 i.billing {
                     @include bg-image("../../../../assets/icon/home/icon_zhangdan");
                 }
+
                 i.more {
                     @include bg-image("../../../../assets/icon/home/icon_gengduo");
                 }
 
                 span {
-                    color:rgba(255,255,255,1);
+                    color: rgba(255, 255, 255, 1);
                     @include font-dpr(14px);
                     height: px2rem(13px);
                     line-height: px2rem(13px);
-                    font-family:PingFangSC-Regular,PingFang SC;
+                    font-family: PingFangSC-Regular, PingFang SC;
                 }
             }
         }
@@ -209,8 +214,45 @@ ion-content {
 
             padding: 0 px2rem(24px);
 
+            .wolcome-wrap {
+                display: flex;
+                padding: px2rem(12px) 0;
+
+                ion-icon {
+                    width: px2rem(48px);
+                    height: px2rem(48px);
+                }
+
+                &>p {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    margin-left: px2rem(8px);
+                }
+
+                .hello-class {
+                    height: px2rem(20px);
+                    font-size: 14px;
+                    font-family: PingFangSC-Semibold, PingFang SC;
+                    font-weight: 600;
+                    color: var(--ion-color-dark);
+                    line-height: px2rem(20px);
+                    letter-spacing: 1px;
+                }
+
+                .welcome-family {
+                    height: 14px;
+                    font-size: 10px;
+                    font-family: PingFang-SC-Regular, PingFang-SC;
+                    font-weight: 400;
+                    color: var(--ion-color-medium);
+                    line-height: 14px;
+                }
+            }
+
             ion-item-sliding {
                 --inner-border-width: 0;
+
                 .app-massage-wrap {
                     --padding-start: 0;
                     --inner-padding-end: 0;
@@ -220,7 +262,8 @@ ion-content {
 
                 ion-item-options {
                     border: 0;
-                    --border-style:none;
+                    --border-style: none;
+
                     i.delete-icon {
                         display: inline-block;
                         width: px2rem(72px);

@@ -64,7 +64,7 @@ ion-content {
                 border: 5.5px solid;
                 border-top: 7px solid;
                 border-bottom: 0;
-                border-color: #9F9FAF transparent transparent;
+                border-color: var(--ion-color-medium) transparent transparent;
             }
 
             ion-select {
