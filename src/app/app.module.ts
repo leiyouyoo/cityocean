@@ -3,7 +3,7 @@ import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Device } from '@ionic-native/device/ngx';
-import { IonicModule, IonicRouteStrategy, Platform, NavParams } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -89,7 +89,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   exports: [TranslateModule],
   providers: [
-    NavParams,
     AppVersion,
     AndroidPermissions,
     FileOpener,
