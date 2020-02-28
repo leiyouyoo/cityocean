@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpService } from '@cityocean/common-library';
 import { AuthService } from '@core/auth/auth.service';
-import { NavController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { TranslateService } from '@ngx-translate/core';
-import { StartupService } from '@core';
+import { CustomerPhoneComponent } from './customer-phone/customer-phone.component';
 
 @Component({
   selector: 'user-login',
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     public scheduleService: ScheduleService,
     public httpService: HttpService,
     private translate: TranslateService,
-    private startupService: StartupService,
+    private popoverController: PopoverController,
   ) {}
 
   ngOnInit(): void {
@@ -126,7 +126,19 @@ export class LoginComponent implements OnInit {
         .subscribe((data) => {});
     });
   }
-
+  async handleButtonClick(event) {
+    const popover = await this.popoverController.create({
+      component: CustomerPhoneComponent,
+      showBackdrop: false,
+      event: event,
+      backdropDismiss: true,
+      cssClass: 'billing-popover',
+    });
+    popover.onDidDismiss().then((event) => {
+      console.log(event.data) ;
+     });
+     await popover.present();
+  }
   onUsernameKeyup(e) {
     if (!(e instanceof KeyboardEvent)) {
       if (this.savedUser.username === this.validateForm.value.username && !this.validateForm.value.password) {

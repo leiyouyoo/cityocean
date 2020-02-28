@@ -302,16 +302,18 @@ $font-base-size: 12px;
           color: rgba(63, 64, 71, 1);
           line-height: px2rem(40px);
           padding: 0;
-          margin: px2rem(24px) 0 px2rem(16px) 0;
+          margin-top: px2rem(24px);
           text-align: left;
         }
-
+        .action-sheet-button:last-child{
+          margin-bottom: px2rem(18px);
+        }
         .action-sheet-button {
           background: linear-gradient(135deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
           border-radius: px2rem(8px);
           height: px2rem(44px);
           line-height: px2rem(44px);
-          margin-bottom: px2rem(18px);
+          margin-top: px2rem(18px);
           padding: 0;
 
           .action-sheet-button-inner {

@@ -1,6 +1,29 @@
 @import '../../../../theme//variables.scss';
 
 ion-content {
+  .sign-up {
+    position: absolute;
+    right: px2rem(24px);
+    top: px2rem(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    ion-icon {
+      width: px2rem(16px);
+      height: px2rem(16px);
+      margin-right: px2rem(5px);
+    }
+
+    span {
+      height: px2rem(24px);
+      font-size: 1.33em;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: var(--ion-color-extralight);
+      line-height: px2rem(24px);
+    }
+  }
+
   section.logo-group {
     margin: 4em 0 0 4em;
     display: flex;
@@ -70,7 +93,7 @@ ion-content {
         }
 
         input.input-invalid {
-          border-bottom: 0.1em solid var(--ion-color-aligned)!important;
+          border-bottom: 0.1em solid var(--ion-color-aligned) !important;
         }
 
         input.input-success-border {
@@ -138,7 +161,7 @@ ion-content {
         font-family: PingFangSC-Semibold, PingFang SC;
         font-weight: 600;
         color: var(--ion-color-primary);
-        letter-spacing:1px;
+        letter-spacing: 1px;
       }
 
       .login-group {

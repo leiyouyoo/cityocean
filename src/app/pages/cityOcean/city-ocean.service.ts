@@ -3,9 +3,10 @@ import { HttpService } from '@cityocean/common-library';
 import { Observable } from 'rxjs';
 import { StartupService } from '@core';
 import { createTextMessage, sendmessage } from '@cityocean/im-library';
-import { NavController } from '@ionic/angular';
+import { NavController, ActionSheetController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { TranslateService } from '@ngx-translate/core';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,8 @@ export class CityOceanService {
     private nav: NavController,
     public helper: Helper,
     private translate: TranslateService,
+    private actionSheetController: ActionSheetController,
+    private callNumber: CallNumber,
   ) {
     this.getCustomerId().then((res) => {
       if (localStorage.getItem('isLoginWithTourist') == 'true') {
@@ -62,10 +65,14 @@ export class CityOceanService {
     }
   }
   async chatWithCustomerService() {
-    if (!this.globelCustomerId) {
-      this.helper.toast(this.translate.instant('No customer'));
+    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+      this.chatWithTourist();
       return;
     }
+    // if (!this.globelCustomerId) {
+    //   this.helper.toast(this.translate.instant('No customer'));
+    //   return;
+    // }
     if (this.hasHistoryChat.length) {
       this.gotoChat();
       return;
@@ -84,6 +91,31 @@ export class CityOceanService {
         },
       });
     });
+  }
+  async chatWithTourist() {
+    const actionSheet = await this.actionSheetController.create({
+      cssClass: 'my-action-sheet',
+      buttons: [
+        {
+          text: this.translate.instant('Customer Phone') + ' 0755 -1234567',
+          icon: 'phone',
+          handler: () => {
+            this.callNumber
+              .callNumber('10086', true)
+              .then((res) => console.log('Launched dialer!', res))
+              .catch((err) => console.log('Error launching dialer', err));
+          },
+        },
+        {
+          text: this.translate.instant('Register and Login'),
+          icon: 'register',
+          handler: () => {
+            window.location.href = '/login';
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
   }
   filterHistoryCustomerId(c2cList) {
     this.hasHistoryChat = c2cList.filter((e) => {

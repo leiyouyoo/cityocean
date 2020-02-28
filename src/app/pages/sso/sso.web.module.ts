@@ -4,14 +4,17 @@ import { SsoRouteModule } from './sso.route.module';
 import { LoginComponent } from './login/login.component';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { CustomerPhoneComponent } from './login/customer-phone/customer-phone.component';
 const component = [
   LoginComponent,
+  CustomerPhoneComponent
 ]
 @NgModule({
   declarations: [
     ...component,
   ],
-  imports: [
+  entryComponents:[CustomerPhoneComponent]
+,  imports: [
     SharedModule,
     SsoRouteModule,
     IonicModule,

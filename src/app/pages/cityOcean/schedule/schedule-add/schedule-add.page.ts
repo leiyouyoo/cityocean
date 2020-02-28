@@ -50,6 +50,19 @@ export class ScheduleAddPage implements OnInit {
         this.id = Number(params.id);
         this.scheduleService.get(this.id).subscribe((res: any) => {
           this.data = res;
+          if (this.data.remindPeople) {
+            this.choosedContacts = [];
+            this.scheduleService.getCRMContacts(abp.session.user.customerId).subscribe((res: any) => {
+              let arr = this.data.remindPeople.split(',');
+              arr.forEach((e) => {
+                res.items.forEach((element) => {
+                  if (Number(e) === element.id) {
+                    this.choosedContacts.push(element);
+                  }
+                });
+              });
+            });
+          }
         });
       } else {
         this.edit = true;
@@ -58,36 +71,37 @@ export class ScheduleAddPage implements OnInit {
   }
 
   async presentActionSheet() {
+    if (!this.edit && this.id) {
+      return;
+    }
     const actionSheet = await this.actionSheetController.create({
       header: this.translate.instant('Choose Time'),
       buttons: [
         {
-          text: '15分钟前',
+          text: '15' + this.translate.instant('minutes ago'),
           role: 'destructive',
-          icon: 'time',
+
           handler: () => {
             this.data.advanceTime = 15;
           },
         },
         {
-          text: '30分钟前',
+          text: '30' + this.translate.instant('minutes ago'),
           role: 'destructive',
-          icon: 'time',
+
           handler: () => {
             this.data.advanceTime = 30;
           },
         },
         {
-          text: '60分钟前',
+          text: '60' + this.translate.instant('minutes ago'),
           role: 'destructive',
-          icon: 'time',
           handler: () => {
             this.data.advanceTime = 60;
           },
         },
         {
-          text: 'Cancel',
-          icon: 'close',
+          text: this.translate.instant('Cancel'),
           role: 'cancel',
           handler: () => {},
         },
@@ -105,6 +119,13 @@ export class ScheduleAddPage implements OnInit {
       this.helper.toast(this.translate.instant('Please Enter Title'));
       return;
     }
+    if (this.choosedContacts) {
+      this.data.remindPeople = this.choosedContacts
+        .map((res) => {
+          return res.id;
+        })
+        .toString();
+    }
     this.scheduleService.createAsync(this.data).subscribe((res: any) => {
       this.helper.toast(this.translate.instant('Add Success') + '!');
       this.refresh();
@@ -116,6 +137,9 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onUpdateData() {
+    this.data.remindPeople = this.choosedContacts.map((da) => {
+      return da.id;
+    }).toString();
     this.scheduleService.updateAsync(this.data).subscribe((res: any) => {
       this.helper.toast(this.translate.instant('Save Success') + '!');
       this.refresh();
@@ -175,15 +199,29 @@ export class ScheduleAddPage implements OnInit {
   }
 
   async onSetRemind() {
+    if (!this.edit && this.id) {
+      return;
+    }
     const modal = await this.modalController.create({
       component: ContactsComponent,
+      componentProps: {
+        ids: this.id
+          ? this.choosedContacts
+              .map((res) => {
+                return res.id;
+              })
+              .toString()
+          : null,
+      },
       cssClass: 'contacts',
     });
 
     await modal.present();
 
     await modal.onWillDismiss().then((res) => {
-      this.choosedContacts = res.data.list;
+      if (res.data) {
+        this.choosedContacts = res.data.list;
+      }
     });
   }
 }

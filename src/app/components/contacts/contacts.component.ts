@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
-import { ActionSheetController, PopoverController, ModalController } from '@ionic/angular';
+import { ActionSheetController, PopoverController, ModalController, NavParams } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { Helper } from '@shared/helper';
@@ -18,11 +18,21 @@ export class ContactsComponent implements OnInit {
   list: any;
   showlist: any;
   checkedList: any;
-  constructor(public scheduleService: ScheduleService, public modal: ModalController) {}
+  @Input() ids: string;
+  constructor(public scheduleService: ScheduleService, public modal: ModalController, navParams: NavParams) {}
 
   ngOnInit() {
     this.scheduleService.getCRMContacts(abp.session.user.customerId).subscribe((res: any) => {
       this.list = res.items;
+      if (this.ids) {
+        this.ids.split(',').forEach((e) => {
+          this.list.forEach((element) => {
+            if (Number(e) === element.id) {
+              element.isChecked = true;
+            }
+          });
+        });
+      }
       this.showlist = this.list;
     });
   }
@@ -37,7 +47,7 @@ export class ContactsComponent implements OnInit {
 
   onSave() {
     this.modal.dismiss({
-      list: this.showlist.filter((res) => res.isChecked),
+      list: this.showlist ? this.showlist.filter((res) => res.isChecked) : null,
     });
   }
 }

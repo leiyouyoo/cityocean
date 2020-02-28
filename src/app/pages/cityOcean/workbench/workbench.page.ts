@@ -81,6 +81,22 @@ export class WorkbenchPage implements OnInit {
     private homeService: HomeService,
     private alertController:AlertController
   ) {}
+  ionViewDidEnter() {
+    this.title = this.translate.instant('shipment');
+    this.titleStatisticsList = [
+      {
+        type: 'intransit',
+        name: this.translate.instant('In Transit'),
+        value: 0,
+      },
+      {
+        type: 'finished',
+        name: this.translate.instant('Arrival'),
+        value: 0,
+      },
+    ];
+  }
+
   ngOnInit(): void {
     this.shipmentStatistics();
   }
@@ -232,7 +248,9 @@ export class WorkbenchPage implements OnInit {
    * @memberof WorkbenchPage
    */
   typeClick(item) {
-    this.clickLoginWithTourist(item.type)
+    if(this.clickLoginWithTourist(item.type)){
+      return
+    }
     if (item.type === 'rates') {
       this.searchTransportationCost = !this.searchTransportationCost;
       this.searchType = 'seachRates';
@@ -243,10 +261,18 @@ export class WorkbenchPage implements OnInit {
       this.goRouter(item);
     }
   }
-  clickLoginWithTourist(type){
+  /**
+   * 游客模式询问是否去登录页
+   *
+   * @param {*} type
+   * @returns {boolean}
+   * @memberof WorkbenchPage
+   */
+  clickLoginWithTourist(type):boolean{
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
-      if (type != 'sailingSchedules' || type != 'shipment'){
-
+      if (type != 'sailingSchedules' && type != 'shipment'){
+        this.showMore();
+        return true;
       }
     }
   }
@@ -263,12 +289,11 @@ export class WorkbenchPage implements OnInit {
         {
           text: "Yes",
           handler: blah => {
-            this.nav.navigateRoot("/login");
+            window.location.href = '/login';
           }
         },
       ]
     });
-
     await alert.present();
   }
   /**
