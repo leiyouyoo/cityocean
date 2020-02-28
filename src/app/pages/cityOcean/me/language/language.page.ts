@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-me-language',
@@ -8,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguagePage implements OnInit {
   selectedLanguage: any;
-  constructor(public translate: TranslateService) {}
+  constructor(public translate: TranslateService, private router: Router) {}
 
   ngOnInit() {
     if (window.localStorage.getItem('Language')) {

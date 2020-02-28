@@ -11,101 +11,11 @@ import { HomeService } from '../home/home.service';
   styleUrls: ['workbench.page.scss'],
 })
 export class WorkbenchPage implements OnInit {
-  typeList = [
-    // 所有业务类型
-    {
-      name: this.translate.instant('rates'),
-      type: 'rates',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('sailingSchedules'),
-      type: 'sailingSchedules',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('shipment'),
-      type: 'shipment',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('Booking'),
-      type: 'booking',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('Quote'),
-      type: 'quotes',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('billing'),
-      type: 'billing',
-      marker: false,
-      id: 0,
-    },
-  ];
-  quickEnterList = [
-    // 已添加到快捷入口的数据
-    {
-      name: this.translate.instant('rates'),
-      type: 'rates',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('sailingSchedules'),
-      type: 'sailingSchedules',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('shipment'),
-      type: 'shipment',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('booking'),
-      type: 'booking',
-      marker: false,
-      id: 0,
-    },
-  ];
-  moreTypeList = [
-    // 还未添加到快捷入口的数据
-    {
-      name: this.translate.instant('billing'),
-      type: 'billing',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('quotes'),
-      type: 'quotes',
-      marker: false,
-      id: 0,
-    },
-  ];
-  title = this.translate.instant('shipment');
-  titleStatisticsList = [
-    {
-      type: 'intransit',
-      name: this.translate.instant('In Transit'),
-      value: 0,
-    },
-    {
-      type: 'finished',
-      name: this.translate.instant('Arrival'),
-      value: 0,
-    },
-  ];
-
+  typeList: any;
+  quickEnterList: any;
+  moreTypeList: any;
+  title: any;
+  titleStatisticsList: any;
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
   orignPort: any = {}; //启运港
@@ -119,10 +29,108 @@ export class WorkbenchPage implements OnInit {
     private workbenchService: WorkbenchService,
     private homeService: HomeService,
   ) {}
+  ionViewDidEnter() {
+    this.typeList = [
+      // 所有业务类型
+      {
+        name: this.translate.instant('rates'),
+        type: 'rates',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('sailingSchedules'),
+        type: 'sailingSchedules',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('shipment'),
+        type: 'shipment',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('Booking'),
+        type: 'booking',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('Quote'),
+        type: 'quotes',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('billing'),
+        type: 'billing',
+        marker: false,
+        id: 0,
+      },
+    ];
+    this.quickEnterList = [
+      // 已添加到快捷入口的数据
+      {
+        name: this.translate.instant('rates'),
+        type: 'rates',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('sailingSchedules'),
+        type: 'sailingSchedules',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('shipment'),
+        type: 'shipment',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('booking'),
+        type: 'booking',
+        marker: false,
+        id: 0,
+      },
+    ];
+    this.moreTypeList = [
+      // 还未添加到快捷入口的数据
+      {
+        name: this.translate.instant('billing'),
+        type: 'billing',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('quotes'),
+        type: 'quotes',
+        marker: false,
+        id: 0,
+      },
+    ];
+    this.title = this.translate.instant('shipment');
+    this.titleStatisticsList = [
+      {
+        type: 'intransit',
+        name: this.translate.instant('In Transit'),
+        value: 0,
+      },
+      {
+        type: 'finished',
+        name: this.translate.instant('Arrival'),
+        value: 0,
+      },
+    ];
+  }
+
   ngOnInit(): void {
     this.shipmentStatistics();
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
-      this.typeList = [// 游客模式所有业务类型
+      this.typeList = [
+        // 游客模式所有业务类型
         {
           name: '船期',
           type: 'sailingSchedules',
