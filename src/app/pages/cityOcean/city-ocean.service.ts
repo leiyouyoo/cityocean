@@ -65,10 +65,10 @@ export class CityOceanService {
     }
   }
   async chatWithCustomerService() {
-    if (!this.globelCustomerId) {
-      this.helper.toast(this.translate.instant('No customer'));
-      return;
-    }
+    // if (!this.globelCustomerId) {
+    //   this.helper.toast(this.translate.instant('No customer'));
+    //   return;
+    // }
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
       this.chatWithTourist();
       return;
@@ -98,7 +98,8 @@ export class CityOceanService {
   }
   async chatWithTourist() {
     const actionSheet = await this.actionSheetController.create({
-      cssClass: 'my-action-sheet',
+      header:this.translate.instant('onlyForVip'),
+      cssClass: 'my-action-sheet my-action-sheet-customer',
       buttons: [
         {
           text: this.translate.instant('Customer Phone') + ' 0755 -1234567',
