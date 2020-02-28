@@ -113,8 +113,9 @@ ion-content {
 
         .detail-wrap {
             padding-bottom: px2rem(12px);
-            label:first-child::before{
-                height: 0!important;
+
+            label:first-child::before {
+                height: 0 !important;
             }
 
             .title {
@@ -151,7 +152,7 @@ ion-content {
                     font-family: PingFangSC-Regular, PingFang SC;
                     font-weight: 400;
                     color: rgba(76, 75, 94, 1);
-                    text-align: right;  
+                    text-align: right;
                 }
             }
 
@@ -244,11 +245,18 @@ ion-content {
             position: absolute;
             height: 100%;
             left: px2rem(28px);
-            border-left: px2rem(1px) dashed #9F9FAF;
+            border-left: px2rem(1px) dashed var(--ion-color-medium);
         }
     }
+
+    #isLoginWithTourist {
+        background: rgba(64,156,255,0.2);
+        box-shadow: 0px px2rem(4px) px2rem(10px) 0px rgba(0, 0, 0, 0.1);
+        filter: blur(2px);
+    }
 }
-ion-footer{
+
+ion-footer {
     ion-button {
         --background: linear-gradient(135deg, #61ADFF 0%, #007AFF 100%);
         --border-radius: 0;

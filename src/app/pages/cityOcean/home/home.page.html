@@ -37,6 +37,13 @@
     <section class="content-group">
       <app-message-rolling *ngIf="scrollList.length>0" [massgeList] = "scrollList"></app-message-rolling>
       <div class="massge-group-wrap">
+        <div lines="none" class="wolcome-wrap">
+          <ion-icon name="welcome"></ion-icon>
+          <p>
+            <span class="hello-class">{{"Welcome" | translate}}！</span>
+            <span class="welcome-family">{{"Welcome to cityocean" | translate}}！</span>
+          </p>
+        </div>
         <ion-item-sliding *ngFor="let msg of conversationsList; let i = index" #slide>
           <ion-item lines="none" class="app-massage-wrap" (click)="gotoChat(msg)">
             <app-massage [detail]="msg"></app-massage>

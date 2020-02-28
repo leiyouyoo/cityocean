@@ -193,6 +193,11 @@ export class BilliingDetailPage implements OnInit {
   goback() {
     this.nav.navigateForward(['/cityOcean/workbench/billing']);
   }
+  getChargeItemsSubtotal(items: any[]) {
+    return items.reduce((acc, cur) => {
+      return acc + cur.payAmount;
+    }, 0);
+  }
   moreClick() {}
   getContainerType(data) {
     let str = '';

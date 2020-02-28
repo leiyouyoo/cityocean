@@ -15,7 +15,7 @@
       <span class="font-16">Add member</span>
     </div>
     <div class="member-wrap" *ngFor="let item of membersList">
-      <img [src]="item.avatar?item.avatar:'../../../../../../assets/icon/home/chat/touxian2@3x.png'" alt="头像" />
+      <img [src]="item.avatar?item.avatar:'../../../../../../assets/icon/avatar-2.png'" alt="头像" />
       <div>
         <span class="member-name font-16">{{item.userFullName?item.userFullName:item.userID}}</span>
         <span class="member-type font-14">{{item.role?item.role:"角色未设置"}}</span>

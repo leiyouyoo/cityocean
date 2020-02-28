@@ -34,7 +34,6 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
-
     this.cityOceanService.getCustomerId().then((res) => {
       this.cityOceanService.customerId = res;
       if (res) {
@@ -68,12 +67,13 @@ export class HomePage implements OnInit {
         });
       });
     }
-
     this.getConversationsList();
   }
+
   getConversationsList() {
     onSDKReady(async () => {
       let imRes = await getConversationList();
+      if(!imRes) {return}
       // this.totalCount = imRes.totalCount;
       // if (this.totalCount == imRes.items.length) {
       //   this.infiniteScroll.disabled = true;
@@ -125,6 +125,8 @@ export class HomePage implements OnInit {
   swipedown() {
     this.transportationCost = true;
   }
+
+  // 下拉加载(暂无用)
   loadData(event) {
     setTimeout(() => {
       for (let i = 0; i < 5; i++) {

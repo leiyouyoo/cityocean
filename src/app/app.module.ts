@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 import { DelonModule } from './delon.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -93,6 +94,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AndroidPermissions,
     FileOpener,
     DatePicker,
+    CallNumber,
     Device,
     StatusBar,
     SplashScreen,
