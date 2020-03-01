@@ -5,6 +5,7 @@ import { CalendarComponentOptions, DayConfig, CalendarModalOptions, CalendarOpti
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { debug } from 'util';
 import { EventService } from '@shared/helpers/event.service';
+import { CityOceanService } from '../city-ocean.service';
 
 @Component({
   selector: 'app-schedule',
@@ -12,6 +13,7 @@ import { EventService } from '@shared/helpers/event.service';
   styleUrls: ['schedule.page.scss'],
 })
 export class SchedulePage implements OnInit {
+  isMore = false;
   date: string;
   type = 'js-date';
   options: any;
@@ -19,6 +21,7 @@ export class SchedulePage implements OnInit {
   constructor(
     private eventService: EventService,
     public router: Router,
+    public citycoeanService: CityOceanService,
     public nav: NavController,
     public schedule: ScheduleService,
   ) {}
@@ -134,10 +137,19 @@ export class SchedulePage implements OnInit {
   }
 
   onScheduleAdd() {
+    if (localStorage.getItem('isLoginWithTourist') === 'true') {
+      this.citycoeanService.chatWithTourist();
+      return;
+    }
+
     this.router.navigate(['/cityOcean/schedule/shceduleAdd']);
   }
 
   onChange(data) {
     this.onGetDayDetial(data);
+  }
+
+  onShowMore() {
+    this.isMore = !this.isMore;
   }
 }

@@ -4,6 +4,7 @@ import { Device } from '@ionic-native/device/ngx';
 import { LocalStorage } from '@shared/localstorage';
 import { Router } from '@angular/router';
 import { Helper } from '@shared/helper';
+import { CityOceanService } from '../city-ocean.service';
 
 @Component({
   selector: 'app-me',
@@ -14,7 +15,13 @@ export class MePage implements OnInit {
   isAndroid = false;
   userLogin = true;
   userMsg: any;
-  constructor(private nav: NavController, public device: Device, private router: Router, private helper: Helper) {}
+  constructor(
+    private nav: NavController,
+    public device: Device,
+    private router: Router,
+    private helper: Helper,
+    public citycoeanService: CityOceanService,
+  ) {}
 
   ngOnInit() {
     this.userMsg = abp.session.user;
@@ -31,9 +38,19 @@ export class MePage implements OnInit {
     }
   }
 
-  onWalletPage() {}
+  onWalletPage() {
+    if (localStorage.getItem('isLoginWithTourist') === 'true') {
+      this.citycoeanService.chatWithTourist();
+      return;
+    }
+  }
 
-  onInvoicePage() {}
+  onInvoicePage() {
+    if (localStorage.getItem('isLoginWithTourist') === 'true') {
+      this.citycoeanService.chatWithTourist();
+      return;
+    }
+  }
 
   /**
    * @title 链接跳转
@@ -50,20 +67,6 @@ export class MePage implements OnInit {
   register() {
     this.router.navigate(['/register']);
   }
-
-  /**
-   * @title 链接跳转
-   * @desc 关于页面跳转
-   */
-  onAboutPage() {
-    this.nav.navigateForward(['/cityOcean/me/about']);
-  }
-
-  onLanguagePage() {
-    this.nav.navigateForward(['/cityOcean/me/language']);
-  }
-
-
 
   onSettingPage() {
     this.nav.navigateForward(['/cityOcean/me/setting']);

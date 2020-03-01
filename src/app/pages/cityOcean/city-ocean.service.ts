@@ -98,7 +98,7 @@ export class CityOceanService {
   }
   async chatWithTourist() {
     const actionSheet = await this.actionSheetController.create({
-      header:this.translate.instant('onlyForVip'),
+      header: this.translate.instant('onlyForVip'),
       cssClass: 'my-action-sheet my-action-sheet-customer',
       buttons: [
         {
@@ -121,6 +121,10 @@ export class CityOceanService {
       ],
     });
     await actionSheet.present();
+
+    // await actionSheet.onWillDismiss().then((res) => {
+
+    // });
   }
   filterHistoryCustomerId(c2cList) {
     this.hasHistoryChat = c2cList.filter((e) => {

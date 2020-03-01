@@ -8,12 +8,27 @@
     <ion-icon name="add-outline" (click)="onScheduleAdd()"></ion-icon>
   </div>
 
-  <ion-calendar [(ngModel)]="date" [options]="options" format="YYYY-MM-DD" (change)="onChange($event)"> </ion-calendar>
+  <div class="calendar-detial">
+    <ion-calendar
+      [(ngModel)]="date"
+      [options]="options"
+      format="YYYY-MM-DD"
+      (change)="onChange($event)"
+      [ngClass]="{'more': isMore==false}"
+    >
+    </ion-calendar>
+
+    <div class="more-icon" (click)="onShowMore()">
+      <div></div>
+    </div>
+  </div>
 
   <div class="schedule-content" (click)="onScheduleDetial(detial.id)" *ngFor="let detial of msgData">
     <div class="content-msg" style="background-color: #CFECFF;">
       <p class="msg">{{detial.remindContent}}</p>
-      <p class="time">{{detial.remindStartTime | date:'yyyy-MM-dd HH:mm'}} - {{detial.remindEndTime | date:'yyyy-MM-dd HH:mm'}}</p>
+      <p class="time">
+        {{detial.remindStartTime | date:'yyyy-MM-dd HH:mm'}} - {{detial.remindEndTime | date:'yyyy-MM-dd HH:mm'}}
+      </p>
     </div>
   </div>
 </ion-content>
