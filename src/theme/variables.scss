@@ -346,7 +346,12 @@ $font-base-size: 12px;
 .billing-popover {
   --background: var(--ionc-color-biling-more);
 }
-
+// billing下银行账户弹窗自定义样式
+.my-billing-bank-account{
+  --width: 90%;
+  --height: 12rem;
+  --border-radius: 0.4rem;
+}
 .my-popover-input-search {
   --min-width: 80%;
 }

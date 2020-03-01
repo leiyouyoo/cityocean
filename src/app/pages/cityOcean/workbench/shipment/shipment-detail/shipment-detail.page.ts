@@ -129,7 +129,8 @@ export class ShipmentDetailPage implements OnInit {
     await alert.present();
   }
   goback() {
-    this.nav.navigateForward(['/cityOcean/workbench/shipment']);
+    // this.nav.navigateForward(['/cityOcean/workbench/shipment']);
+    window.history.back();
   }
   swipeup() {
     this.mapShow = false;

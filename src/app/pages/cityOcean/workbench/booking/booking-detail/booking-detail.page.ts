@@ -428,7 +428,8 @@ export class BookingDetailPage implements OnInit {
     return moment(time).format('MMM D YYYY');
   }
   goback() {
-    this.nav.navigateForward(['/cityOcean/workbench/booking']);
+    // this.nav.navigateForward(['/cityOcean/workbench/booking']);
+    window.history.back();
   }
   // 客服
   chatWithCustomer() {

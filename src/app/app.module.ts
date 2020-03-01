@@ -2,12 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Device } from '@ionic-native/device/ngx';
 import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AppVersion } from '@ionic-native/app-version/ngx';
-import { CallNumber } from '@ionic-native/call-number/ngx';
 import { DelonModule } from './delon.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,24 +15,37 @@ import { CommonLibraryModule, ResponseInterceptor } from '@cityocean/common-libr
 import { environment } from '@env/environment';
 import { MyHammerConfig } from './myHammer.config';
 import { File } from '@ionic-native/file/ngx';
+import { Device } from '@ionic-native/device/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 import { Camera } from '@ionic-native/camera/ngx'; // 相机插件
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { AmapLibraryModule } from '@cityocean/amap-library';
+import { Clipboard } from '@ionic-native/clipboard';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 
+import { AmapLibraryModule } from '@cityocean/amap-library';
 // #region Http Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
 // #region Startup Service
 import { StartupService } from '@core';
 import { BaseInfoModule } from '@cityocean/basicdata-library/basicdata.module';
-import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
 }
+const IONIC_NATIVE_PROVIDERS=[Camera,FileTransfer,
+  Device,
+  SplashScreen,
+  StatusBar,
+  AppVersion,
+  CallNumber,
+  DatePicker,
+  FileOpener,AndroidPermissions,ImagePicker,Clipboard]
 const APPINIT_PROVIDES = [
   StartupService,
   {
@@ -90,24 +98,13 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   exports: [TranslateModule],
   providers: [
-    AppVersion,
-    AndroidPermissions,
-    FileOpener,
-    DatePicker,
-    CallNumber,
-    Device,
-    StatusBar,
-    SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     TranslateService,
     { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }, // 重载手势方向
-    Camera, // 相机
-    // tslint:disable-next-line: deprecation
-    FileTransfer, // 文件上传
-    ImagePicker, // 图片选择
     JPush,
     ...INTERCEPTOR_PROVIDES,
     ...APPINIT_PROVIDES,
+    ...IONIC_NATIVE_PROVIDERS,
   ],
   bootstrap: [AppComponent],
 })

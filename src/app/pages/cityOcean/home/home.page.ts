@@ -98,7 +98,7 @@ export class HomePage implements OnInit {
 
         ele.lastMessage.lastTime = new Date(time).getHours() + ':' + new Date(time).getMinutes();
       });
-      this.conversationsList = list;
+      this.conversationsList = [...list];
       let c2cList = this.conversationsList.filter((e) => {
         return e.type === 'C2C';
       });

@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   pwshow = false;
   focusPassword = false;
   passwordElement: HTMLElement;
-  pleaseEnter = this.translate.instant('LoginIn.pleaseEnter');
   constructor(
     private jpush: JPush,
     public helper: Helper,

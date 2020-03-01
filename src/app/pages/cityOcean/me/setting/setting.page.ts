@@ -52,7 +52,7 @@ export class SettingPage {
     } catch (error) {
       
     }
-    window.location.href = '/login';
-    // this.nav.navigateRoot(['/login']);
+    // window.location.href = '/login';
+    this.nav.navigateRoot(['/login']);
   }
 }

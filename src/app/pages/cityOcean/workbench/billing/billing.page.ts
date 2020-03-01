@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ActionSheetController, PopoverController } from '@ionic/angular';
+import { NavController, ActionSheetController, PopoverController, ModalController } from '@ionic/angular';
 import * as moment from 'moment';
 import { BillingServiceService } from './billing-service.service';
-import { BillStatus } from "./class/BillStatus";
+import { BillStatus } from './class/BillStatus';
 import { BillingPopoverComponent } from './billing-popover/billing-popover.component';
+import { BankAccountComponent } from './bank-account/bank-account.component';
 
 @Component({
   selector: 'app-billing',
@@ -11,18 +12,19 @@ import { BillingPopoverComponent } from './billing-popover/billing-popover.compo
   styleUrls: ['./billing.page.scss'],
 })
 export class BillingPage implements OnInit {
-  billingList =  [];
+  billingList = [];
   pageInfo = {
     maxResultCount: 5,
     skipCount: 0,
   };
-  statusType: typeof BillStatus = BillStatus;// 显示状态
-  billingStatus: any;  // 筛选状态
+  statusType: typeof BillStatus = BillStatus; // 显示状态
+  billingStatus: any; // 筛选状态
   constructor(
     private billingServiceService: BillingServiceService,
     private actionSheetController: ActionSheetController,
     private nav: NavController,
-    private popoverController:PopoverController
+    private popoverController: PopoverController,
+    private modalController:ModalController
   ) {}
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class BillingPage implements OnInit {
     if (this.billingStatus != null) {
       params.status = this.billingStatus;
     }
-    this.billingServiceService.getAllBilling(params).subscribe((res:any) => {
+    this.billingServiceService.getAllBilling(params).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.billingList = this.billingList.concat(res.items);
@@ -56,7 +58,7 @@ export class BillingPage implements OnInit {
   getTime(time) {
     return moment(time).format('MMM D YYYY');
   }
-  async moreClick($event,item){
+  async moreClick($event, item) {
     $event.stopPropagation();
     const popover = await this.popoverController.create({
       component: BillingPopoverComponent,
@@ -66,14 +68,31 @@ export class BillingPage implements OnInit {
       cssClass: 'billing-popover',
       componentProps: { name: 'world' },
     });
-    popover.onDidDismiss().then((event) => {
-     console.log(event.data) ;
+    popover.onDidDismiss().then(async (event) => {
+      console.log(event.data);
+      this.presentBankModal(event.data);
     });
     await popover.present();
   }
+  async presentBankModal(data) {
+    const modal = await this.modalController.create({
+      cssClass:'my-billing-bank-account',
+      component: BankAccountComponent,
+      componentProps:{BillId:data.id}
+    });
+    modal.onWillDismiss().then((res) => {
+      
+    });
+    return await modal.present();
+  }
+  /**
+   * 筛选
+   *
+   * @memberof BillingPage
+   */
   async billingFilter() {
     const actionSheet = await this.actionSheetController.create({
-      header:'选择支付状态',
+      header: '选择支付状态',
       cssClass: 'my-action-sheet-billing',
       buttons: [
         {

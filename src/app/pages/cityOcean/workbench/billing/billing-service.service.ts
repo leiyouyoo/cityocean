@@ -10,6 +10,7 @@ export class BillingServiceService {
   }
 
   /**
+   * 获取billing列表
    * @param input
    * @return Success
    */
@@ -17,7 +18,24 @@ export class BillingServiceService {
     const url = '/CSP/Billing/GetBillList';
     return this.http.get(url, input);
   }
+  /**
+   *获取billing详情
+   *
+   * @param {number} id
+   * @returns
+   * @memberof BillingServiceService
+   */
   getBillingDetail(id: number) {
     return this.http.get('/CSP/Billing/GetBill', { id });
+  }
+  /**
+   * 获取银行账户
+   *
+   * @param {number} id
+   * @returns
+   * @memberof BillingServiceService
+   */
+  GetBankAccount(BillId: number) {
+    return this.http.get('/CSP/Billing/GetBankAccount', { BillId });
   }
 }

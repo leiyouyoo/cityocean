@@ -19,7 +19,7 @@
           }"
           formControlName="username"
           type="text"
-          placeholder="pleaseEnter"
+          [placeholder]="'pleaseEnter' | translate"
           autocomplete="username"
         />
         <i *ngIf="!username.invalid && (username.dirty || username.touched)" class="input-success"></i>
@@ -45,7 +45,7 @@
             'input-success-border': !password.invalid && (password.dirty || password.touched),
             'input-writing': focusPassword
           }"
-          [placeholder]="pleaseEnter"
+          [placeholder]="'pleaseEnter' | translate"
         />
         <i
           *ngIf="focusPassword"
@@ -69,7 +69,7 @@
         <span class="font-16">{{ 'Login' | translate }}</span>
         <i></i>
       </div>
-      <span (click)="loginWithTourist()" class="login-other font-9">{{'LoginIn.TouristMode' | translate}}</span>
+      <span (click)="loginWithTourist()" class="login-other font-9">{{'LoginInTouristMode' | translate}}</span>
       <div class="facebook-group">
         <span class="font-16">{{ 'Facebook' | translate }}</span>
         <i></i>

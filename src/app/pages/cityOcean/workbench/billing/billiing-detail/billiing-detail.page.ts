@@ -191,7 +191,8 @@ export class BilliingDetailPage implements OnInit {
     this.cityOceanService.chatWithCustomerService();
   }
   goback() {
-    this.nav.navigateForward(['/cityOcean/workbench/billing']);
+    // this.nav.navigateForward(['/cityOcean/workbench/billing']);
+    window.history.back();
   }
   getChargeItemsSubtotal(items: any[]) {
     return items.reduce((acc, cur) => {
