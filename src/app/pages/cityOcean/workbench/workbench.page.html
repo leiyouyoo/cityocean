@@ -1,37 +1,37 @@
-<ion-header>
-  <ion-toolbar [ngClass]="{'padding-edit': !isEditing}">
-    <section *ngIf="isEditing" class="edit-wrap">
-      <span class="font-18 title">{{'WorkBench' | translate}}</span>
-      <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
-    </section>
-    <section *ngIf="!isEditing" class="default-wrap">
-      <!-- <ion-select  interface="popover" value="shipment" placeholder="Select One">
-        <ion-select-option value="shipment">shipment</ion-select-option>
-        <ion-select-option value="booking">booking</ion-select-option>
-      </ion-select> -->
-      <div (click)="businessChange()" class="business-change-wrap">
-        <span>{{title}}</span>
-        <ion-icon name="caret-down-outline"></ion-icon>
-      </div>
-      <div class="message-group">
-        <div *ngFor="let item of titleStatisticsList">
-          <i [class]="item.type"></i>
-          <p>
-            <span>{{item.name}}</span>
-            <span>{{item.value}}</span>
-          </p>
-        </div>
-      </div>
-    </section>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <header *ngIf="isEditing" [ngClass]="{'padding-edit': !isEditing}" class="edit-wrap">
+    <span class="font-18 title">{{'WorkBench' | translate}}</span>
+    <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
+  </header>
+  <header *ngIf="!isEditing" class="default-wrap">
+    <!-- <ion-select  interface="popover" value="shipment" placeholder="Select One">
+          <ion-select-option value="shipment">shipment</ion-select-option>
+          <ion-select-option value="booking">booking</ion-select-option>
+        </ion-select> -->
+    <div (click)="businessChange()" class="business-change-wrap">
+      <span>{{title}}</span>
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </div>
+    <div class="message-group">
+      <div *ngFor="let item of titleStatisticsList">
+        <i [class]="item.type"></i>
+        <p>
+          <span>{{item.name}}</span>
+          <span>{{item.value}}</span>
+        </p>
+      </div>
+    </div>
+  </header>
   <section [ngClass]="{'default-content': !isEditing}" *ngIf="!isEditing">
     <div *ngIf="searchTransportationCost" class="search-detail">
       <div class="qiyungang">
         <i></i>
-        <input (click)="searchLocaltion('start')" [(ngModel)]="orignPort.name" type="text" placeholder="{{'Please enter port of shipment' | translate}}" />
+        <input
+          (click)="searchLocaltion('start')"
+          [(ngModel)]="orignPort.name"
+          type="text"
+          placeholder="{{'Please enter port of shipment' | translate}}"
+        />
       </div>
       <div style="text-align: center;height: 2em;display: inline-block;margin-left: 0.45em;">
         <div style="border-left:0.1em solid #e4e4e4;height: 2em;"></div>
