@@ -27,7 +27,19 @@ import { InputSearchComponent } from '../components/input-search/input-search.co
 
 import { ContactsComponent } from '../components/contacts/contacts.component';
 import { IonicModule } from '@ionic/angular';
-const COMPONENTS_ENTRY = [BusinessTypeComponent, InputSearchComponent, ContactsComponent];
+import { BillingListPanelComponent } from '../pages/cityOcean/workbench/billing/billing-list-panel/billing-list-panel.component';
+import { ShipmentListPanelComponent } from '../pages/cityOcean/workbench/shipment/shipment-list-panel/shipment-list-panel.component';
+import { SailingSchedulesListPanelComponent } from '../pages/cityOcean/workbench/sailing-schedules/sailing-schedules-list-panel/sailing-schedules-list-panel.component';
+import { RatesListPanelComponent } from '../pages/cityOcean/workbench/rates/rates-list-panel/rates-list-panel.component';
+import { BookingListPanelComponent } from '../pages/cityOcean/workbench/booking/booking-list-panel/booking-list-panel.component';
+const COMPONENTS_ENTRY = [BusinessTypeComponent,
+   InputSearchComponent,
+    ContactsComponent,
+    BillingListPanelComponent,
+    ShipmentListPanelComponent,
+    SailingSchedulesListPanelComponent,
+    RatesListPanelComponent,
+    BookingListPanelComponent,];
 const COMPONENTS = [...COMPONENTS_ENTRY];
 const DIRECTIVES = [
   DebounceInputDirective,

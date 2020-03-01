@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { RegionService } from '@cityocean/basicdata-library/region/service/region.service';
 import { locationLibraryService } from '@cityocean/basicdata-library/region/service/location.service';
@@ -13,6 +13,7 @@ import { Subject } from 'rxjs';
 export class SearchlocaltionComponent implements OnInit {
   localtionList = [];
   searchText: any;
+  @ViewChild('search', { static: true }) inputEl: ElementRef;
   @Input() type: string;
   private searchTerms = new Subject<string>();
   searchHistoryList: Array<any> = [];

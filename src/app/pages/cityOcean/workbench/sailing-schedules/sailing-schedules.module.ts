@@ -8,16 +8,17 @@ import { SailingSchedulesPageRoutingModule } from './sailing-schedules-routing.m
 
 import { SailingSchedulesPage } from './sailing-schedules.page';
 import { SailingFilterComponent } from './sailing-filter/sailing-filter.component';
-import { SailingSchedulesListPanelComponent } from './sailing-schedules-list-panel/sailing-schedules-list-panel.component';
+import { SharedModule } from '@shared';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SailingSchedulesPageRoutingModule
+    SailingSchedulesPageRoutingModule,
+    SharedModule,
   ],
-  declarations: [SailingSchedulesPage,SailingFilterComponent,SailingSchedulesListPanelComponent ],
+  declarations: [SailingSchedulesPage,SailingFilterComponent, ],
   entryComponents:[SailingFilterComponent]
 })
 export class SailingSchedulesPageModule {}

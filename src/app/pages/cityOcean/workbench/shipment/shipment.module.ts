@@ -8,7 +8,7 @@ import { ShipmentPageRoutingModule } from './shipment-routing.module';
 import { ShipmentPage } from './shipment.page';
 import { MyShipmentService } from './shipment.service';
 import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.component';
-import { ShipmentListPanelComponent } from './shipment-list-panel/shipment-list-panel.component';
+import { SharedModule } from '@shared';
 
 @NgModule({
   imports: [
@@ -16,8 +16,9 @@ import { ShipmentListPanelComponent } from './shipment-list-panel/shipment-list-
     FormsModule,
     IonicModule,
     ShipmentPageRoutingModule,
+    SharedModule,
   ],
-  declarations: [ShipmentPage,ShipmentFilterComponent,ShipmentListPanelComponent],
+  declarations: [ShipmentPage,ShipmentFilterComponent,],
   entryComponents:[ShipmentFilterComponent],
   providers:[MyShipmentService]
 })

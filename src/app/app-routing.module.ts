@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: 'cityOcean',
     loadChildren: () => import('./pages/cityOcean/cityOcean.module').then(m => m.CityOceanPageModule)
-  }
+  },
 ];
 @NgModule({
   imports: [
