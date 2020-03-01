@@ -13,32 +13,7 @@
 
 <ion-content>
   <section>
-    <div class="content-wrap" (click)="gotoBillingDetail(item)" *ngFor="let item of billingList; let i=index">
-      <div class="content-group">
-        <span [class] = "[item.status]" id="status">{{statusType[item.status]}}</span>
-        <i (click)="moreClick($event,item)" class="more"></i>
-      </div>
-      <div class="content-group">
-        <span>AMOUNT</span>
-        <span id="money">{{item.amount[0].value}}</span>
-      </div>
-      <div class="content-group BALANCE">
-        <span>BALANCE</span>
-        <span id="money">{{item.balance[0].value}}</span>
-      </div>
-      <div class="content-group">
-        <span>INVOICE</span>
-        <span>{{item.billNo}}</span>
-      </div>
-      <div class="content-group">
-        <span>ISSUE DATE</span>
-        <span>{{getTime(item.issuedDate)}}</span>
-      </div>
-      <div class="content-group">
-        <span>DUE DATE</span>
-        <span>{{getTime(item.dueDate)}}</span>
-      </div>
-    </div>
+    <app-billing-list-panel [billingListItem] = "item" (click)="gotoBillingDetail(item)" *ngFor="let item of billingList; let i=index"></app-billing-list-panel>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getBillingList({},$event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">

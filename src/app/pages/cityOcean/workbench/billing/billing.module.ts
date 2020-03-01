@@ -9,6 +9,7 @@ import { BillingPageRoutingModule } from './billing-routing.module';
 import { BillingPage } from './billing.page';
 import { BillingPopoverComponent } from './billing-popover/billing-popover.component';
 import { BankAccountComponent } from './bank-account/bank-account.component';
+import { BillingListPanelComponent } from './billing-list-panel/billing-list-panel.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { BankAccountComponent } from './bank-account/bank-account.component';
     IonicModule,
     BillingPageRoutingModule
   ],
-  declarations: [BillingPage,BillingPopoverComponent,BankAccountComponent ],
+  declarations: [BillingPage,BillingPopoverComponent,BankAccountComponent,BillingListPanelComponent ],
   entryComponents:[BillingPopoverComponent,BankAccountComponent]
 })
 export class BillingPageModule {}

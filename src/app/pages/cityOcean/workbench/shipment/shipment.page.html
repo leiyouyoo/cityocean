@@ -4,7 +4,12 @@
       <div class="left-content">
         <i (click)="goback()" class="go-back"></i>
         <i class="search-icon" (click)="resetFilter()"></i>
-        <input [(ngModel)]="searchText" (keyup)="($event.which === 13) ? resetFilter() : 0"  type="text" placeholder="搜索PO/SKU" />
+        <input
+          [(ngModel)]="searchText"
+          (keyup)="($event.which === 13) ? resetFilter() : 0"
+          type="text"
+          placeholder="搜索PO/SKU"
+        />
       </div>
       <i (click)="shipmentFilter($event)" class="filter"></i>
     </div>
@@ -13,81 +18,11 @@
 
 <ion-content>
   <section>
-    <div
-      class="content-wrap"
+    <app-shipment-list-panel
+      [shipmentListItem]="item"
       (click)="gotoShipmentDetail(item)"
       *ngFor="let item of shipmentsList; let i=index"
-    >
-      <div class="content-group no-group-wrap">
-        <div class="no-group">
-          <i
-            [ngClass]="{'ship-icon': item.transportType !=='air','air-icon': item.transportType ==='air'}"
-            class="ship-icon"
-          ></i>
-          <div>
-            <span>{{item.shipmentName}}</span>
-            <span>{{item.shipmentNo}}</span>
-          </div>
-        </div>
-        <div class="status">{{statusType[item.status]}}</div>
-      </div>
-      <div
-        *ngIf="item.routeDetails.shipperInfos.length"
-        class="first content-group line-class"
-      >
-        <div>
-          <div class="flag"></div>
-          <span>提货地址</span>
-        </div>
-        <span
-          >{{item.routeDetails.shipperInfos[0].shipperNetWorkInfo?.name}}</span
-        >
-      </div>
-      <div class="start content-group line-class">
-        <div>
-          <div class="flag"></div>
-          <span>装运港</span>
-        </div>
-        <span
-          >{{item.routeDetails.originPort.name}}
-          <div class="eta-etd">
-            <span>ETD</span>
-            <span>{{getTime(item.routeDetails.estDepatureOrginPortDate)}}</span>
-          </div>
-        </span>
-      </div>
-      <div class="end content-group line-class">
-        <div>
-          <div class="flag"></div>
-          <span>目的港</span>
-        </div>
-        <span
-          >{{item.routeDetails.destinationPort.name}}
-          <div class="eta-etd">
-            <span>ETA</span>
-            <span
-              >{{getTime(item.routeDetails.estArrivalDestinationPortDate)}}</span
-            >
-          </div>
-        </span>
-      </div>
-      <div
-        *ngIf="item.routeDetails.consigneeInfos.length"
-        class="finally content-group line-class"
-      >
-        <div>
-          <div class="flag"></div>
-          <span>最终目的地</span>
-        </div>
-        <span
-          >{{item.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.name}}</span
-        >
-      </div>
-      <!-- <div class="time-group content-group">
-       
-        
-      </div> -->
-    </div>
+    ></app-shipment-list-panel>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getShipmentList($event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">

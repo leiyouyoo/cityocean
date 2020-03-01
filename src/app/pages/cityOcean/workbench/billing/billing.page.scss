@@ -75,71 +75,9 @@ ion-content {
     section {
         padding: px2rem(16px) px2rem(8px);
 
-        i.more {
-            display: inline-block;
-            transform: rotate(90deg);
-            width: px2rem(24px);
-            height: px2rem(24px);
-            @include bg-image("../../../../../assets/icon/home/chat/icon_more");
-        }
+       
 
-        .content-wrap {
-            background: rgba(255, 255, 255, 1);
-            border-radius: px2rem(8px);
-            padding: px2rem(16px);
-            margin-bottom: px2rem(16px);
-            @include bg-image("../../../../../assets/icon/workbench/billiing/diwen");
-
-            .content-group {
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-                margin-top: px2rem(12px);
-                position: relative;
-
-                span:nth-child(1) {
-                    height: px2rem(17px);
-                    font-size: 12px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
-                    color: rgba(159, 159, 175, 1);
-                    line-height: px2rem(17px);
-                }
-
-                span:nth-child(2) {
-                    height: px2rem(17px);
-                    font-size: 12px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
-                    color: rgba(116, 120, 141, 1);
-                    line-height: px2rem(17px);
-                }
-
-                #money {
-                    height: px2rem(22px);
-                    font-size: 16px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
-                    color: rgba(63, 64, 71, 1);
-                    line-height: px2rem(22px);
-                }
-
-                #status {
-                    height: px2rem(30px);
-                    font-size: 26px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
-                    color: #FF7998;
-                    line-height: px2rem(30px);
-                }
-            }
-
-            .BALANCE {
-                margin: px2rem(14px) 0 px2rem(25px) 0;
-            }
-        }
+        
     }
-    .Paid{
-        color: var(--ion-color-primary)!important;
-    }
+    
 }

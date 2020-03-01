@@ -1,0 +1,26 @@
+<div class="content-wrap">
+  <div class="content-group">
+    <span [class]="[billingListItem?.status]" id="status">{{ statusType[billingListItem?.status] }}</span>
+    <i (click)="moreClick($event, billingListItem)" class="more"></i>
+  </div>
+  <div class="content-group">
+    <span>AMOUNT</span>
+    <span id="money">{{ billingListItem?.amount[0].value }}</span>
+  </div>
+  <div class="content-group BALANCE">
+    <span>BALANCE</span>
+    <span id="money">{{ billingListItem?.balance[0].value }}</span>
+  </div>
+  <div class="content-group">
+    <span>INVOICE</span>
+    <span>{{ billingListItem?.billNo }}</span>
+  </div>
+  <div class="content-group">
+    <span>ISSUE DATE</span>
+    <span>{{ getTime(billingListItem?.issuedDate) }}</span>
+  </div>
+  <div class="content-group">
+    <span>DUE DATE</span>
+    <span>{{ getTime(billingListItem?.dueDate) }}</span>
+  </div>
+</div>

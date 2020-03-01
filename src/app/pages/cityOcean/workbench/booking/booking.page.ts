@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookingStatusType } from './class/booking-status-type';
 import { BookingServiceService } from './booking-service.service';
-import * as moment from 'moment';
 import { ActionSheetController, NavController } from '@ionic/angular';
 
 @Component({
@@ -16,7 +14,6 @@ export class BookingPage implements OnInit {
     skipCount: 0,
   };
   searchKey='';
-  statusType: typeof BookingStatusType = BookingStatusType; // 显示状态
   BookingStatus: any; // 筛选状态
   currentParams: any = {};//筛选条件
   constructor(
@@ -54,9 +51,7 @@ export class BookingPage implements OnInit {
   goback() {
     this.nav.navigateForward(['/cityOcean/workbench']);
   }
-  getTime(time) {
-    return moment(time).format('MMM D YYYY');
-  }
+  
 
   async bookingFilter() {
     const actionSheet = await this.actionSheetController.create({

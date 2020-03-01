@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ActionSheetController, PopoverController, ModalController } from '@ionic/angular';
-import * as moment from 'moment';
+import { NavController, ActionSheetController } from '@ionic/angular';
 import { BillingServiceService } from './billing-service.service';
-import { BillStatus } from './class/BillStatus';
-import { BillingPopoverComponent } from './billing-popover/billing-popover.component';
-import { BankAccountComponent } from './bank-account/bank-account.component';
 
 @Component({
   selector: 'app-billing',
@@ -17,14 +13,12 @@ export class BillingPage implements OnInit {
     maxResultCount: 5,
     skipCount: 0,
   };
-  statusType: typeof BillStatus = BillStatus; // 显示状态
+
   billingStatus: any; // 筛选状态
   constructor(
     private billingServiceService: BillingServiceService,
     private actionSheetController: ActionSheetController,
     private nav: NavController,
-    private popoverController: PopoverController,
-    private modalController:ModalController
   ) {}
 
   ngOnInit() {
@@ -55,38 +49,9 @@ export class BillingPage implements OnInit {
   goback() {
     this.nav.navigateForward(['/cityOcean/workbench']);
   }
-  getTime(time) {
-    return moment(time).format('MMM D YYYY');
-  }
-  async moreClick($event, item) {
-    $event.stopPropagation();
-    const popover = await this.popoverController.create({
-      component: BillingPopoverComponent,
-      showBackdrop: false,
-      event: event,
-      backdropDismiss: true,
-      cssClass: 'billing-popover',
-      componentProps: { BillId: item.id },
-    });
-    popover.onDidDismiss().then(async (event) => {
-      console.log(event.data);
-      if(event.data && event.data.type === 'bank'){
-        this.presentBankModal(event.data.BillId);
-      }
-    });
-    await popover.present();
-  }
-  async presentBankModal(id) {
-    const modal = await this.modalController.create({
-      cssClass:'my-billing-bank-account',
-      component: BankAccountComponent,
-      componentProps:{BillId:id}
-    });
-    modal.onWillDismiss().then((res) => {
-      
-    });
-    return await modal.present();
-  }
+  
+ 
+ 
   /**
    * 筛选
    *

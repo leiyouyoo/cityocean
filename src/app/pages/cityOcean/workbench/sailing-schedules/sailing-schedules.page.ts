@@ -3,7 +3,6 @@ import { NavController, ModalController, IonInfiniteScroll } from "@ionic/angula
 import { SailingFilterComponent } from "./sailing-filter/sailing-filter.component";
 import { SailService } from "@cityocean/basicdata-library/region/service/sail.service";
 import { ActivatedRoute } from "@angular/router";
-import * as moment from 'moment';
 import { CityOceanService } from '../../city-ocean.service';
 
 @Component({
@@ -64,9 +63,7 @@ export class SailingSchedulesPage implements OnInit {
         }
     });
   }
-  getTime(time) {
-    return moment(time).format('MMM D YYYY');
-  }
+ 
   gotoSailingDetail(item) {
     return
     this.nav.navigateForward(
