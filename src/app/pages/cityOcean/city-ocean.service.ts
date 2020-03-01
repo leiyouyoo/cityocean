@@ -98,10 +98,6 @@ export class CityOceanService {
   }
   async chatWithTourist() {
     const actionSheet = await this.actionSheetController.create({
-<<<<<<< HEAD
-      header: this.translate.instant('onlyForVip'),
-=======
->>>>>>> 31290ac4c7eb1ccd9aeecedb6ef506285a185771
       cssClass: 'my-action-sheet my-action-sheet-customer',
       buttons: [
         {
