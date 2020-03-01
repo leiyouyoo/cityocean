@@ -2,7 +2,7 @@
   <section class="search-group clearfix">
     <div class="search-box">
       <div>
-        <input type="text" />
+        <input type="text" [placeholder]="'key_word' | translate" />
         <i class="search-icon"></i>
       </div>
       <i (click)="chatWithCustomer()" class="customer-service"></i>

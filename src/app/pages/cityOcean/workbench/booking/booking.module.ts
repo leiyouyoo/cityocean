@@ -7,15 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { BookingPageRoutingModule } from './booking-routing.module';
 
 import { BookingPage } from './booking.page';
+import { BookingListPanelComponent } from './booking-list-panel/booking-list-panel.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    BookingPageRoutingModule,
-  ],
-  declarations: [BookingPage],
-  entryComponents:[]
+  imports: [CommonModule, FormsModule, IonicModule, BookingPageRoutingModule],
+  declarations: [BookingPage, BookingListPanelComponent],
+  entryComponents: [],
 })
 export class BookingPageModule {}

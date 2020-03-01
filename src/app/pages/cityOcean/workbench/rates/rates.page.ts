@@ -3,7 +3,6 @@ import { NavController, ModalController } from '@ionic/angular';
 import { RatesFilterComponent } from './rates-filter/rates-filter.component';
 import { RatesService } from './rates.service';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
 import { isArray } from 'lodash';
 
 @Component({
@@ -74,19 +73,8 @@ export class RatesPage implements OnInit {
       queryParams: {},
     });
   }
-  getTime(time) {
-    return moment(time).format('MMM D YYYY');
-  }
-  getTT(item) {
-    if (!item) {
-      return 0;
-    }
-    let dateSpan, iDays;
-    dateSpan = Date.parse(item.fromDate) - Date.parse(item.toDate);
-    dateSpan = Math.abs(dateSpan);
-    iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
-    return iDays;
-  }
+ 
+ 
   async ratesFilter(type) {
     const modal = await this.modalController.create({
       component: RatesFilterComponent,

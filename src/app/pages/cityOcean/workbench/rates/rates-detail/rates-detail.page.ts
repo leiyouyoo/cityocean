@@ -13,7 +13,8 @@ export class RatesDetailPage implements OnInit {
   ngOnInit() {
   }
   goback(){
-    this.nav.navigateForward(['/cityOcean/workbench/rates']);
+    // this.nav.navigateForward(['/cityOcean/workbench/rates']);
+    window.history.back();
   }
   segmentButtonClicked($event){
     console.log($event)

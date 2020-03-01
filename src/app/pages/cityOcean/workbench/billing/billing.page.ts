@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ActionSheetController, PopoverController } from '@ionic/angular';
-import * as moment from 'moment';
+import { NavController, ActionSheetController } from '@ionic/angular';
 import { BillingServiceService } from './billing-service.service';
-import { BillStatus } from "./class/BillStatus";
-import { BillingPopoverComponent } from './billing-popover/billing-popover.component';
 
 @Component({
   selector: 'app-billing',
@@ -11,18 +8,17 @@ import { BillingPopoverComponent } from './billing-popover/billing-popover.compo
   styleUrls: ['./billing.page.scss'],
 })
 export class BillingPage implements OnInit {
-  billingList =  [];
+  billingList = [];
   pageInfo = {
     maxResultCount: 5,
     skipCount: 0,
   };
-  statusType: typeof BillStatus = BillStatus;// 显示状态
-  billingStatus: any;  // 筛选状态
+
+  billingStatus: any; // 筛选状态
   constructor(
     private billingServiceService: BillingServiceService,
     private actionSheetController: ActionSheetController,
     private nav: NavController,
-    private popoverController:PopoverController
   ) {}
 
   ngOnInit() {
@@ -34,7 +30,7 @@ export class BillingPage implements OnInit {
     if (this.billingStatus != null) {
       params.status = this.billingStatus;
     }
-    this.billingServiceService.getAllBilling(params).subscribe((res:any) => {
+    this.billingServiceService.getAllBilling(params).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.billingList = this.billingList.concat(res.items);
@@ -53,27 +49,17 @@ export class BillingPage implements OnInit {
   goback() {
     this.nav.navigateForward(['/cityOcean/workbench']);
   }
-  getTime(time) {
-    return moment(time).format('MMM D YYYY');
-  }
-  async moreClick($event,item){
-    $event.stopPropagation();
-    const popover = await this.popoverController.create({
-      component: BillingPopoverComponent,
-      showBackdrop: false,
-      event: event,
-      backdropDismiss: true,
-      cssClass: 'billing-popover',
-      componentProps: { name: 'world' },
-    });
-    popover.onDidDismiss().then((event) => {
-     console.log(event.data) ;
-    });
-    await popover.present();
-  }
+  
+ 
+ 
+  /**
+   * 筛选
+   *
+   * @memberof BillingPage
+   */
   async billingFilter() {
     const actionSheet = await this.actionSheetController.create({
-      header:'选择支付状态',
+      header: '选择支付状态',
       cssClass: 'my-action-sheet-billing',
       buttons: [
         {

@@ -110,12 +110,12 @@ ion-tabs {
     left: 0;
     right: 0;
     margin: auto;
-    bottom: px2rem(50px);
+    bottom: px2rem(20px);
     z-index: 99999;
-    ion-tab-button{
-        position: relative;
-        top: px2rem(30px);
-    }
+    // ion-tab-button{
+    //     position: relative;
+    //     top: px2rem(30px);
+    // }
 
     i.home {
         display: inline-block;

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 import { MyShipmentService } from './shipment.service';
 import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.component';
-import { ShipmentStatusType } from './class/shipment-status-type';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-shipment',
@@ -17,7 +15,6 @@ export class ShipmentPage implements OnInit {
   };
   searchText = '';
   shipmentsList = [];
-  statusType: typeof ShipmentStatusType = ShipmentStatusType;
   currentParams: any = {};
   constructor(
     private nav: NavController,
@@ -54,9 +51,7 @@ export class ShipmentPage implements OnInit {
     this.shipmentsList = [];
     this.getShipmentList()
   }
-  getTime(time) {
-    return moment(time).format('MMM D YYYY');
-  }
+  
   goback() {
     this.nav.navigateForward(['/cityOcean/workbench']);
   }

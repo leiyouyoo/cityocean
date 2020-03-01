@@ -1,11 +1,10 @@
 {
-    "LoginIn":{
-        "TouristMode":"Tourist Mode",
-        "pleaseEnter":"Please Enter..."
-      },
-    "Search history":"Search history",
-    "seachRates":"Rates",
-    "seachSailingSchedules":"Sailing Schedules",
-    "Welcome to cityocean": "Welcome to cityocean,Have a good mood",
-    "onlyForVip":"This is a VIP function. You can contact customer service to open an account, or register / login."
+  "Login": "Login in",
+  "pleaseEnter": "Please Enter...",
+  "LoginInTouristMode": "Tourist Mode",
+  "Search history": "Search history",
+  "seachRates": "Rates",
+  "seachSailingSchedules": "Sailing Schedules",
+  "Welcome to cityocean": "Welcome to cityocean,Have a good mood",
+  "key_word":"Enter keyword search"
 }

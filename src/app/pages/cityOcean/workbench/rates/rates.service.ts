@@ -12,10 +12,10 @@ export class RatesService {
 
   geFreightRates(params) {
     
-    return this.httpService.postTest(
-      "/Rates/OceanBaseItemService/QueryFreightRates",
-      params
-    );
+    // return this.httpService.postTest(
+    //   "/Rates/OceanBaseItemService/QueryFreightRates",
+    //   params
+    // );
     return this.httpService.postJson(
       "/Rates/OceanBaseItemService/QueryFreightRates",
       params

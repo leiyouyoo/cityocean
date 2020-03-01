@@ -1,0 +1,59 @@
+<div class="content-wrap">
+  <div class="content-group no-group-wrap">
+    <div class="no-group">
+      <i
+        [ngClass]="{ 'ship-icon': shipmentListItem?.transportType !== 'air', 'air-icon': shipmentListItem?.transportType === 'air' }"
+        class="ship-icon"
+      ></i>
+      <div>
+        <span>{{ shipmentListItem?.shipmentName }}</span>
+        <span>{{ shipmentListItem?.shipmentNo }}</span>
+      </div>
+    </div>
+    <div class="status">{{ statusType[shipmentListItem?.status] }}</div>
+  </div>
+  <div *ngIf="shipmentListItem?.routeDetails.shipperInfos.length" class="first content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>提货地址</span>
+    </div>
+    <span>{{ shipmentListItem?.routeDetails.shipperInfos[0].shipperNetWorkInfo?.name }}</span>
+  </div>
+  <div class="start content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>装运港</span>
+    </div>
+    <span
+      >{{ shipmentListItem?.routeDetails.originPort.name }}
+      <div class="eta-etd">
+        <span>ETD</span>
+        <span>{{ getTime(shipmentListItem?.routeDetails.estDepatureOrginPortDate) }}</span>
+      </div>
+    </span>
+  </div>
+  <div class="end content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>目的港</span>
+    </div>
+    <span
+      >{{ shipmentListItem?.routeDetails.destinationPort.name }}
+      <div class="eta-etd">
+        <span>ETA</span>
+        <span>{{ getTime(shipmentListItem?.routeDetails.estArrivalDestinationPortDate) }}</span>
+      </div>
+    </span>
+  </div>
+  <div *ngIf="shipmentListItem?.routeDetails.consigneeInfos.length" class="finally content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>最终目的地</span>
+    </div>
+    <span>{{ shipmentListItem?.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.name }}</span>
+  </div>
+  <!-- <div class="time-group content-group">
+   
+    
+  </div> -->
+</div>

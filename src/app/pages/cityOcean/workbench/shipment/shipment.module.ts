@@ -8,6 +8,7 @@ import { ShipmentPageRoutingModule } from './shipment-routing.module';
 import { ShipmentPage } from './shipment.page';
 import { MyShipmentService } from './shipment.service';
 import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.component';
+import { ShipmentListPanelComponent } from './shipment-list-panel/shipment-list-panel.component';
 
 @NgModule({
   imports: [
@@ -15,9 +16,8 @@ import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.compo
     FormsModule,
     IonicModule,
     ShipmentPageRoutingModule,
-    
   ],
-  declarations: [ShipmentPage,ShipmentFilterComponent],
+  declarations: [ShipmentPage,ShipmentFilterComponent,ShipmentListPanelComponent],
   entryComponents:[ShipmentFilterComponent],
   providers:[MyShipmentService]
 })

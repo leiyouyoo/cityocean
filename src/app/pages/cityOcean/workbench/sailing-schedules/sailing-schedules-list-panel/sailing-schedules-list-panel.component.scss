@@ -1,0 +1,187 @@
+@import "../../../../../../theme/variables";
+.content-wrap {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px px2rem(4px) 0px rgba(0, 0, 0, 0.08), 0px px2rem(2px) px2rem(10px) 0px rgba(0, 0, 0, 0.1);
+    border-radius: px2rem(8px);
+    padding:px2rem(19px) px2rem(16px) px2rem(16px);
+    margin-bottom: px2rem(16px);
+    i {
+        display: inline-block;
+    }
+    .no-group-wrap {
+        margin-bottom: px2rem(12px);
+        margin-top: 0 !important;
+    }
+
+    .sailing-message {
+        height: auto!important;
+        img {
+            width: px2rem(36px);
+        }
+
+        &>div {
+            display: flex;
+            flex-direction: column;
+            margin-left: px2rem(6px);
+
+            span {
+                height: px2rem(14px);
+                font-size: 10px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: rgba(159, 159, 175, 1);
+                line-height: px2rem(14px);
+            }
+        }
+    }
+
+
+    .day-group {
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(76, 75, 94, 1);
+        display: flex;
+        align-items: center;
+
+        .day-bg {
+            font-size: 18px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: rgba(0, 122, 255, 1);
+            margin: 0 px2rem(4px) 0 px2rem(10px);
+            display: inline-block;
+        }
+
+        .through {
+            display: inline-block;
+            width: px2rem(24px);
+            height: px2rem(24px);
+            @include bg-image("../../../../../../assets/icon/workbench/zhida")
+        }
+
+        .Transit {
+            display: inline-block;
+            width: px2rem(24px);
+            height: px2rem(24px);
+            @include bg-image("../../../../../../assets/icon/workbench/zhuanyun")
+        }
+    }
+
+    .content-group {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: px2rem(20px);
+        position: relative;
+
+        &>div {
+            height: px2rem(17px);
+            display: flex;
+            align-items: center;
+
+            &>span:nth-child(2) {
+                height: px2rem(17px);
+                font-size: 12px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                line-height: px2rem(17px);
+                color: rgba(159, 159, 175, 1);
+                margin: 0 px2rem(11px);
+            }
+        }
+
+        &>span {
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(76, 75, 94, 1);
+            text-align: right;
+
+            &>div {
+                height: px2rem(14px);
+                font-size: 10px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: rgba(159, 159, 175, 1);
+                line-height: px2rem(14px);
+                margin-top: px2rem(5px);
+
+                span:nth-child(1) {
+                    margin-right: px2rem(12px);
+                }
+            }
+        }
+
+        .flag {
+            border-radius: 100%;
+            width: px2rem(10px);
+            height: px2rem(10px);
+        }
+
+
+    }
+
+    .content-group:nth-last-child(1) {
+        margin-bottom: 0;
+    }
+
+    .line-class::before {
+        content: "";
+        position: absolute;
+        height: px2rem(20px);
+        border-left: px2rem(1px) solid #E4E4E4;
+        top: 100%;
+        left: px2rem(4.5px);
+    }
+
+    .line-class:nth-last-child(1):before {
+        border: 0 !important;
+    }
+
+    .start {
+        &::before {
+            top: px2rem(20.5px);
+            height: px2rem(22px);
+        }
+
+        height: px2rem(36px);
+        margin-bottom: px2rem(10px);
+
+        .flag {
+            background: rgba(5, 192, 153, 1);
+        }
+    }
+
+    .transit {
+        .flag {
+            background: var(--ion-color-medium);
+        }
+    }
+
+    .end {
+        &::before {
+            top: px2rem(20.5px);
+            height: px2rem(22px);
+        }
+
+        margin-bottom: px2rem(10px);
+        height: px2rem(36px);
+
+        .flag {
+            background: rgba(222, 103, 23, 1);
+        }
+    }
+
+    .first {
+        .flag {
+            background: rgba(0, 122, 255, 1);
+        }
+    }
+
+    .finally {
+        .flag {
+            background: rgba(255, 121, 152, 1);
+        }
+    }
+}

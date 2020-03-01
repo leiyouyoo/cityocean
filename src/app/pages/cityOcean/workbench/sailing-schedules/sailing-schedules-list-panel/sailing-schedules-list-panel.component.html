@@ -1,0 +1,61 @@
+<div class="content-wrap" >
+  <div class="content-group no-group-wrap">
+    <div class="sailing-message">
+      <!-- <i class="ship-icon"></i> -->
+      <img [src]="sailingSchedulesListItem.imageUrl" />
+      <div >
+        <span>{{sailingSchedulesListItem['Vessel/Voyage']}}</span>
+        <span>{{sailingSchedulesListItem.carrierCode}}</span>
+      </div>
+    </div>
+    <p class="day-group">
+      <i [class] = "sailingSchedulesListItem.type"></i>
+      <span class="day-bg">{{sailingSchedulesListItem['T/T']}}</span>Day
+    </p>
+  </div>
+  <!-- <div class="first content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>{{sailingSchedulesListItem['Port of Loading']}}</span>
+    </div>
+      <span>{{sailingSchedulesListItem.first}}</span>
+  </div> -->
+  <div class="start content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>Port of Loading</span>
+    </div>
+      <span>{{sailingSchedulesListItem['Port of Loading']}}
+        <div>
+          <span>ETD</span>
+          <span>{{getTime(sailingSchedulesListItem.etd)}}</span>
+        </div>
+      </span>
+  </div>
+  <!-- <div class="transit content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>Transit Port</span>
+    </div>
+      <span>Transit</span>
+  </div> -->
+  <div class="end content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>目的港</span>
+    </div>
+      <span>{{sailingSchedulesListItem['Port of Discharge']}}
+        <div>
+          <span>ETA</span>
+          <span>{{getTime(sailingSchedulesListItem.eta)}}</span>
+        </div>
+      </span>
+  </div>
+  <div *ngIf="sailingSchedulesListItem.finally" class="finally content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>最终目的地</span>
+    </div>
+      <span>{{sailingSchedulesListItem.finally}}</span>
+  </div>
+</div>

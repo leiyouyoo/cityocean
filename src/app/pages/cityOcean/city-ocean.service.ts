@@ -98,11 +98,14 @@ export class CityOceanService {
   }
   async chatWithTourist() {
     const actionSheet = await this.actionSheetController.create({
+<<<<<<< HEAD
       header: this.translate.instant('onlyForVip'),
+=======
+>>>>>>> 31290ac4c7eb1ccd9aeecedb6ef506285a185771
       cssClass: 'my-action-sheet my-action-sheet-customer',
       buttons: [
         {
-          text: this.translate.instant('Customer Phone') + ' 0755 -1234567',
+          text: this.translate.instant('Call') + ' 0755 -1234567',
           icon: 'phone',
           handler: () => {
             this.callNumber
@@ -112,7 +115,7 @@ export class CityOceanService {
           },
         },
         {
-          text: this.translate.instant('Register and Login'),
+          text: this.translate.instant('Login'),
           icon: 'register',
           handler: () => {
             window.location.href = '/login';

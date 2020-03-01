@@ -1,0 +1,40 @@
+<div class="content-wrap">
+  <div class="content-group no-group-wrap">
+    <div class="no-group">
+      <i
+        [ngClass]="{'ship-icon': bookingListItem.freightMethodType ==1,'air-icon': bookingListItem.transportType ==2}"
+        class="ship-icon"
+      ></i>
+      <div>
+        <span>{{bookingListItem.name}}</span>
+      </div>
+    </div>
+    <div class="status">{{statusType[bookingListItem.status]}}</div>
+  </div>
+  <div class="Shipper content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>Shipper</span>
+    </div>
+    <span class="address-name">{{bookingListItem.shipperAddress?.name}}</span>
+  </div>
+  <div class="Consignee content-group line-class">
+    <div>
+      <div class="flag"></div>
+      <span>Consignee</span>
+    </div>
+    <span>{{bookingListItem.consigneeAddress?.name}}</span>
+  </div>
+  <div  class="Cargo content-group">
+    <div>
+      <span>Cargo ready date</span>
+    </div>
+    <span>{{getTime(bookingListItem.cargoReadyDate)}}</span>
+  </div>
+  <div  class="Cargo content-group">
+    <div>
+      <span>Cargo details</span>
+    </div>
+    <span>{{bookingListItem.weight}}kg <span>{{bookingListItem.volume}}cbm</span></span>
+  </div>
+</div>

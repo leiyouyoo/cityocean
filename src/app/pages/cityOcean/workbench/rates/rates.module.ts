@@ -10,6 +10,7 @@ import { RatesPage } from './rates.page';
 import { RatesFilterComponent } from './rates-filter/rates-filter.component';
 import { RatesService } from './rates.service';
 import { SharedModule } from '@shared';
+import { RatesListPanelComponent } from './rates-list-panel/rates-list-panel.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { SharedModule } from '@shared';
     RatesPageRoutingModule,
     SharedModule
   ],
-  declarations: [RatesPage,RatesFilterComponent],
+  declarations: [RatesPage,RatesFilterComponent,RatesListPanelComponent],
   entryComponents:[RatesFilterComponent],
   providers:[RatesService]
 })

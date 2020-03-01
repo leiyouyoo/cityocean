@@ -1,0 +1,17 @@
+<section>
+  <ion-icon class="close" (click)="dismissModal()" name="shanchu"></ion-icon>
+  <h5>Bank Account</h5>
+  <ng-container *ngFor="let backAccount of backAccount">
+    <p class="name">{{ backAccount?.accountName }}</p>
+    <div *ngFor="let item of backAccount.accounts;let i = index" [ngClass]="{'ou': i%2===0}">
+      <span>{{item.currencyName}}</span>
+      <span>{{ item.bankAccountNo }}</span>
+    </div>
+    <div class="code">
+      <span>SWIFT CODE:</span>
+      <span>{{ backAccount?.bankCode }}</span>
+    </div>
+    <p class="detail"><ion-icon name="biaoqian"></ion-icon>{{ backAccount?.bankAddress }}</p>
+  </ng-container>
+  <button (click)="copy()">Copy</button>
+</section>
