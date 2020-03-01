@@ -66,19 +66,21 @@ export class BillingPage implements OnInit {
       event: event,
       backdropDismiss: true,
       cssClass: 'billing-popover',
-      componentProps: { name: 'world' },
+      componentProps: { BillId: item.id },
     });
     popover.onDidDismiss().then(async (event) => {
       console.log(event.data);
-      this.presentBankModal(event.data);
+      if(event.data && event.data.type === 'bank'){
+        this.presentBankModal(event.data.BillId);
+      }
     });
     await popover.present();
   }
-  async presentBankModal(data) {
+  async presentBankModal(id) {
     const modal = await this.modalController.create({
       cssClass:'my-billing-bank-account',
       component: BankAccountComponent,
-      componentProps:{BillId:data.id}
+      componentProps:{BillId:id}
     });
     modal.onWillDismiss().then((res) => {
       

@@ -1,20 +1,17 @@
 <section>
-  <ion-icon (click)="dismissModal()" name="shanchu"></ion-icon>
+  <ion-icon class="close" (click)="dismissModal()" name="shanchu"></ion-icon>
   <h5>Bank Account</h5>
-  <p class="name">CITY OCEAN LOGISTICS CO., LIMITED</p>
-  <div>
-    <span>HKD:</span>
-    <span>004-557-531845-001</span>
-  </div>
-  <div class="usd">
-    <span>USD:</span>
-    <span>004-557-531845-001</span>
-  </div>
-  <div class="code">
-    <span>SWIFT CODE:</span>
-    <span>HSBC HKHH HKH</span>
-  </div>
-  <p class="detail"> <ion-icon name="biaoqian"></ion-icon>THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED SHATIN CENTRE OFFICE</p>
-  <p class="detail"><ion-icon name="biaoqian"></ion-icon>>SHOPS 38-46, CITYLINK PLAZA SHA TIN STATION CIRCUIT, SHA TIN, NEW TERRITORY, HONG KONG</p>
-  <button>Copy</button>
+  <ng-container *ngFor="let backAccount of backAccount">
+    <p class="name">{{ backAccount?.accountName }}</p>
+    <div *ngFor="let item of backAccount.accounts;let i = index" [ngClass]="{'ou': i%2===0}">
+      <span>{{item.currencyName}}</span>
+      <span>{{ item.bankAccountNo }}</span>
+    </div>
+    <div class="code">
+      <span>SWIFT CODE:</span>
+      <span>{{ backAccount?.bankCode }}</span>
+    </div>
+    <p class="detail"><ion-icon name="biaoqian"></ion-icon>{{ backAccount?.bankAddress }}</p>
+  </ng-container>
+  <button (click)="copy()">Copy</button>
 </section>

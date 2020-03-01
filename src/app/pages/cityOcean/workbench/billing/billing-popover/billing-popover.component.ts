@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
@@ -7,6 +7,7 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./billing-popover.component.scss'],
 })
 export class BillingPopoverComponent implements OnInit {
+  @Input() BillId:number;
   typeList = [{
     name:'银行账户',
     type:'bank'
@@ -21,6 +22,6 @@ export class BillingPopoverComponent implements OnInit {
 
   ngOnInit() {}
   dismissPopover(item) {
-    this.popoverController.dismiss( item );
+    this.popoverController.dismiss( {...item ,BillId:this.BillId});
   }
 }

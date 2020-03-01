@@ -1,8 +1,10 @@
 @import "../../../../../../theme/variables";
 
 section {
-    padding:px2rem(30px);
-    ion-icon{
+    margin:px2rem(30px);
+    overflow: auto;
+    height: calc(100% - 2.73rem);
+    .close{
         display: inline-block;
         width: px2rem(20px);
         height: px2rem(20px);
@@ -52,7 +54,7 @@ section {
         }
     }
 
-    .usd {
+    .ou {
         margin-top: px2rem(3px);
     }
 
@@ -65,6 +67,8 @@ section {
             display: inline-block;
             width: px2rem(14px);
             height: px2rem(14px);
+            position: relative;
+            top: px2rem(3px);
         }
         font-size: 10px;
         font-family: PingFangSC-Medium, PingFang SC;
