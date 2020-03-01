@@ -15,7 +15,7 @@
   <section>
     <div class="content-wrap" (click)="gotoBillingDetail(item)" *ngFor="let item of billingList; let i=index">
       <div class="content-group">
-        <span id="status">{{statusType[item.status]}}</span>
+        <span [class] = "[item.status]" id="status">{{statusType[item.status]}}</span>
         <i (click)="moreClick($event,item)" class="more"></i>
       </div>
       <div class="content-group">
