@@ -29,37 +29,33 @@
 
   <div class="time">
     <ion-icon name="time-outline"></ion-icon>
-    <ion-list lines="none">
-      <ion-item>
-        <ion-label>
-          <strong>{{'Start Time' | translate}}</strong>
-        </ion-label>
-        <ion-datetime
-          [disabled]="!edit"
-          [(ngModel)]="data.remindStartTime"
-          displayFormat="YYYY-MM-DD HH:mm"
-          cancelText="{{'Cancel' | translate}}"
-          doneText="{{'Save' | translate}}"
-        ></ion-datetime>
-      </ion-item>
-    </ion-list>
+    <div style="align-items: center;text-align: right;">
+      <strong>{{'Start Time' | translate}}</strong>
+      <ion-datetime
+        style="flex:1"
+        [disabled]="!edit"
+        [(ngModel)]="data.remindStartTime"
+        displayFormat="YYYY-MM-DD HH:mm"
+        cancelText="{{'Cancel' | translate}}"
+        doneText="{{'Save' | translate}}"
+        placeholder="{{'Please Enter Time' | translate}}"
+      ></ion-datetime>
+    </div>
   </div>
 
   <div class="time">
     <ion-icon name="time-outline" style="opacity: 0;"></ion-icon>
-    <ion-list lines="none">
-      <ion-item>
-        <ion-label>
-          <strong>{{'End Time' | translate}}</strong>
-        </ion-label>
-        <ion-datetime
-          [min]="data.remindStartTime"
-          [(ngModel)]="data.remindEndTime"
-          [disabled]="!edit || !data.remindStartTime"
-          displayFormat="YYYY-MM-DD HH:mm"
-        ></ion-datetime>
-      </ion-item>
-    </ion-list>
+    <div style="align-items: center;text-align: right;">
+      <strong>{{'End Time' | translate}}</strong>
+      <ion-datetime
+        style="flex:1"
+        [min]="data.remindStartTime"
+        [(ngModel)]="data.remindEndTime"
+        [disabled]="!edit || !data.remindStartTime"
+        displayFormat="YYYY-MM-DD HH:mm"
+        placeholder="{{'Please Enter Time' | translate}}"
+      ></ion-datetime>
+    </div>
   </div>
 
   <div class="time" (click)="presentActionSheet()">

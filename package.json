@@ -20,7 +20,7 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "@cityocean/amap-library": "^0.0.2",
+    "@cityocean/amap-library": "0.0.2",
     "@cityocean/basicdata-library": "0.0.10",
     "@cityocean/shipment-library": "^0.0.3",
     "@delon/abc": "^8.4.0",

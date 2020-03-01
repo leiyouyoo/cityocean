@@ -49,9 +49,14 @@ ion-icon {
 }
 
 ion-item {
+  ion-label {
+    align-items: center;
+    display: flex;
+  }
   img {
-    width: 1.5em;
-    height: 1.5em;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
     margin-right: 16pt;
   }
 }

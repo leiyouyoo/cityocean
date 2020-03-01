@@ -10,7 +10,7 @@ import { EventService } from '@shared/helpers/event.service';
 import { debug } from 'util';
 
 @Component({
-  selector: 'app-contacts',
+  selector: 'app-contacts-component',
   templateUrl: 'contacts.component.html',
   styleUrls: ['contacts.component.scss'],
 })

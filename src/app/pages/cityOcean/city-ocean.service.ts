@@ -120,6 +120,10 @@ export class CityOceanService {
       ],
     });
     await actionSheet.present();
+
+    // await actionSheet.onWillDismiss().then((res) => {
+
+    // });
   }
   filterHistoryCustomerId(c2cList) {
     this.hasHistoryChat = c2cList.filter((e) => {
