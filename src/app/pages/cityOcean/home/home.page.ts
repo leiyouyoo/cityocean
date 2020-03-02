@@ -48,7 +48,7 @@ export class HomePage implements OnInit {
       this.toolsList = [
         // 游客模式业务类型
         {
-          name: this.translate.instant('sailingSchedules'),
+          name: this.translate.instant('sailing'),
           type: 'sailingSchedules',
           marker: false,
           id: 0,
