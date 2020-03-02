@@ -16,6 +16,7 @@ export class CityOceanService {
   globelCustomerName = '';
   customerId: ''; // 当前登录人的id
   hasHistoryChat: any = [];
+  c2cList: any;
   constructor(
     private httpService: HttpService,
     private startupService: StartupService,
@@ -77,17 +78,20 @@ export class CityOceanService {
       this.gotoChat();
       return;
     }
+    this.sendMessage(this.customerId,this.globelCustomerName)
+  }
+  async sendMessage(userId,name){
     try {
       let textMessage;
-      textMessage = createTextMessage(this.customerId, 'signle', 'hello');
+      textMessage = createTextMessage(userId, 'signle', 'hello');
       await sendmessage(textMessage).then((imRes) => {
         const imData = imRes.data.message;
         this.nav.navigateForward(['/cityOcean/home/chat'], {
           queryParams: {
             conversationID: imData.conversationID,
             C2C: true,
-            id: this.customerId,
-            groupName: this.globelCustomerName,
+            id: userId,
+            groupName: name,
             conversationType: 'c2c',
           },
         });
@@ -125,8 +129,9 @@ export class CityOceanService {
 
     // });
   }
-  filterHistoryCustomerId(c2cList) {
-    this.hasHistoryChat = c2cList.filter((e) => {
+  filterHistoryCustomerId(list) {
+    this.c2cList = list;
+    this.hasHistoryChat = this.c2cList.filter((e) => {
       return e.userProfile.userID == this.globelCustomerId;
     });
   }
@@ -138,6 +143,14 @@ export class CityOceanService {
         id: this.hasHistoryChat[0].userProfile.userID,
         groupName: this.hasHistoryChat[0].userProfile.nick,
         conversationType: 'c2c',
+      },
+    });
+  }
+  // 个人信息
+  gotoUserProfile(userId) {
+    this.nav.navigateForward(['/cityOcean/home/chat/userProfile'], {
+      queryParams: {
+        userId: userId,
       },
     });
   }

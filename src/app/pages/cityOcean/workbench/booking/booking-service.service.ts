@@ -19,4 +19,8 @@ export class BookingServiceService {
   GetDetail(id: number) {
     return this.http.get('/CSP/Booking/Get', { id });
   }
+  GetBookingListByIds(input: Array<number>) {
+    return this.http.postJson('/CSP/Booking/GetListByIds', input);
+  }
+  
 }

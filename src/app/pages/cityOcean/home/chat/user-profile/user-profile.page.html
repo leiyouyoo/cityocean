@@ -25,8 +25,8 @@
   </section>
 </ion-content>
 
-<ion-footer id='keyboard-flex'>
-  <div class="foot-wrap font-16">
+<ion-footer *ngIf="!isSelf" id='keyboard-flex'>
+  <div (click)="sendMessage()" class="foot-wrap font-16">
     发消息
   </div>
 </ion-footer>

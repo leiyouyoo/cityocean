@@ -38,4 +38,8 @@ export class BillingServiceService {
   GetBankAccount(BillId: number) {
     return this.http.get('/CSP/Billing/GetBankAccount', { BillId });
   }
+
+  GetBillingListByIds(input: Array<any>) {
+    return this.http.postJson('/CSP/Billing/GetListByIds', input );
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { getUserProfile, updateMyProfile } from '@cityocean/im-library';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, NavController } from '@ionic/angular';
 import { RemarksComponent } from './remarks/remarks.component';
 import { CityOceanService } from '../../../city-ocean.service';
 
@@ -14,9 +14,10 @@ export class UserProfilePage implements OnInit {
   userId: any;
   myUserId = this.cityOceanService.customerId;
   userProfile: any = [{}];
-
+  isSelf = false;
   constructor(private activatedRoute: ActivatedRoute,
     private alertController:AlertController,
+    private nav:NavController,
     private cityOceanService:CityOceanService) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.activatedRoute.queryParams.subscribe((data: any) => {
@@ -33,6 +34,7 @@ export class UserProfilePage implements OnInit {
     } catch (error) {
       console.log(error)
     }
+    this.cityOceanService.customerId == this.userId?this.isSelf = true:this.isSelf = false;
   }
   goback() {
     window.history.back();
@@ -76,5 +78,23 @@ export class UserProfilePage implements OnInit {
         console.log(res)
     });
     return await modal.present();
+  }
+  sendMessage(){
+    let chatedFlag = this.cityOceanService.c2cList.filter((e) => {
+      return e.userProfile.userID == this.userId;
+    });
+    if(chatedFlag.lenght){
+      this.nav.navigateForward(['/cityOcean/home/chat'], {
+        queryParams: {
+          conversationID: chatedFlag[0].conversationID,
+          C2C: true,
+          id: chatedFlag[0].userProfile.userID,
+          groupName: chatedFlag[0].userProfile.nick,
+          conversationType: 'c2c',
+        },
+      });
+    }else{
+      this.cityOceanService.sendMessage(this.userId,this.userProfile[0].nick)
+    }
   }
 }

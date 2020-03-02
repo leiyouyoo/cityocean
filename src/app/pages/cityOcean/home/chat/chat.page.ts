@@ -9,7 +9,7 @@ import {
 import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file'; // 不需要导入
+import { File } from '@ionic-native/file/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { HomeService } from '../home.service';
@@ -254,11 +254,7 @@ export class ChatPage implements OnInit {
   }
   // 个人信息
   gotoUserProfile(userId) {
-    this.nav.navigateForward(['/cityOcean/home/chat/userProfile'], {
-      queryParams: {
-        userId: userId,
-      },
-    });
+    this.cityOceanService.gotoUserProfile(userId)
   }
   // 拍照
   imgUpload() {

@@ -14,15 +14,15 @@ export class BookingPage implements OnInit {
     maxResultCount: 5,
     skipCount: 0,
   };
-  searchKey='';
+  searchKey = '';
   BookingStatus: any; // 筛选状态
-  currentParams: any = {};//筛选条件
-  ids: any;     // 可能为多个id
+  currentParams: any = {}; //筛选条件
+  ids: any; // 可能为多个id
   constructor(
     private bookingServiceService: BookingServiceService,
     private actionSheetController: ActionSheetController,
     private nav: NavController,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.ids = data.ids;
@@ -30,10 +30,16 @@ export class BookingPage implements OnInit {
   }
 
   ngOnInit() {
+    this.ids = '4701,4700';
+    if (this.ids) {
+      this.bookingServiceService.GetBookingListByIds(this.ids.split(",")).subscribe((res)=>{
+        console.log(res)
+      })
+    }
     this.getBookingList();
   }
   getBookingList(event?) {
-    this.searchKey ? this.currentParams.SearchKey = this.searchKey:delete this.currentParams.SearchKey;
+    this.searchKey ? (this.currentParams.SearchKey = this.searchKey) : delete this.currentParams.SearchKey;
     this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
     this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
     if (this.BookingStatus != null) {
@@ -57,9 +63,8 @@ export class BookingPage implements OnInit {
   }
   goback() {
     // this.nav.navigateForward(['/cityOcean/workbench']);
-    window.history.back()
+    window.history.back();
   }
-  
 
   async bookingFilter() {
     const actionSheet = await this.actionSheetController.create({
