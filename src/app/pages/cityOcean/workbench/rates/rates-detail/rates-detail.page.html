@@ -10,18 +10,17 @@
 <ion-content>
 
   <ion-segment (ionChange)="segmentChanged($event)" mode = "md" value="20gp">
-    <ion-segment-button  [value]="data" *ngFor="let data of ratesDetail.boxType">
-      <ion-label>{{data}}</ion-label>
+    <ion-segment-button  [value]="item" *ngFor="let item of ratesDetail.boxType">
+      <ion-label>{{item}}</ion-label>
     </ion-segment-button>
   </ion-segment>
   <section>
     <div class="content-wrap">
       <span class="title">FREIGHT CHARGES/运费</span>
-      <ng-container *ngFor="let data of AdditionalData.originLocalUnitCharges"></ng-container>
       
       <div>
         <span>Ocean Freight/海运费</span>
-        <span>{{ data.currencyName }} {{ data.rate }}</span>
+        <!-- <span>{{ data.currencyName }} {{ data.rate }}</span> -->
       </div>
       <div>
         <span>Quantity/数量</span>

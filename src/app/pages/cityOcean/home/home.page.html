@@ -4,8 +4,7 @@
       <div>
         <input
           type="text"
-          appDebounceInput="500"
-          (debounceInput)="onInputChange()"
+          (ngModelChange)="onInputChange($event)"
           [(ngModel)]="searchInput"
           [placeholder]="'key_word' | translate"
         />
