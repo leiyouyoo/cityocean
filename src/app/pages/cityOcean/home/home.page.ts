@@ -6,6 +6,8 @@ import { SearchlocaltionComponent } from './search-localtion/search-localtion.co
 import { HomeService } from './home.service';
 import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady } from '@cityocean/im-library';
 import { CityOceanService } from '../city-ocean.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +27,7 @@ export class HomePage implements OnInit {
   deliveryPort: any = {}; // 目的港
   totalCount: any;
   scrollList = []; // 系统消息列表
+  private searchTerms = new Subject<string>();
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -40,6 +43,12 @@ export class HomePage implements OnInit {
         this.imLogin(res);
       }
     });
+    this.searchTerms.pipe(
+        // 请求防抖 100毫秒
+        debounceTime(200),
+      ).subscribe((type)=>{
+        this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { text: this.searchInput } });
+      })
   }
   ionViewWillEnter() {
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
@@ -127,8 +136,8 @@ export class HomePage implements OnInit {
   swipedown() {
     this.transportationCost = true;
   }
-  onInputChange() {
-    this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { text: this.searchInput } });
+  onInputChange(e) {
+    this.searchTerms.next(e);
   }
 
   // 下拉加载(暂无用)
