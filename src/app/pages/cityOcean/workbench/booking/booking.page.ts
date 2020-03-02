@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingServiceService } from './booking-service.service';
 import { ActionSheetController, NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -16,11 +17,17 @@ export class BookingPage implements OnInit {
   searchKey='';
   BookingStatus: any; // 筛选状态
   currentParams: any = {};//筛选条件
+  ids: any;     // 可能为多个id
   constructor(
     private bookingServiceService: BookingServiceService,
     private actionSheetController: ActionSheetController,
     private nav: NavController,
-  ) {}
+    private activatedRoute:ActivatedRoute
+  ) {
+    this.activatedRoute.queryParams.subscribe((data: any) => {
+      this.ids = data.ids;
+    });
+  }
 
   ngOnInit() {
     this.getBookingList();

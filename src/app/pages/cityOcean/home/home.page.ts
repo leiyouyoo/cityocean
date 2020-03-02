@@ -262,6 +262,15 @@ export class HomePage implements OnInit {
       },
     );
   }
+  showDeleteButtonFn(node){
+    this.showDeleteButton = true;
+    node.close();
+    node.open();
+  }
+  canceDelete(node){
+    this.showDeleteButton = false;;
+    node.close();
+  }
   async searchLocaltion(type) {
     const modal = await this.modalController.create({
       component: SearchlocaltionComponent,

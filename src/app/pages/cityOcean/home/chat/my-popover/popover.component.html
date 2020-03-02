@@ -1,6 +1,6 @@
 <section class="popover-wrap">
-  <div (click)="dismiss()" *ngFor="let item of list">
-    <i [class]="item.name"></i>
-    <span class="font-12">{{ item.name }}</span>
+  <div (click)="dismiss(item)" *ngFor="let item of list">
+    <i [class]="item"></i>
+    <span class="font-12">{{ item }}</span>
   </div>
 </section>

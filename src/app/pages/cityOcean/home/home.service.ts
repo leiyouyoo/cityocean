@@ -13,6 +13,10 @@ export class HomeService {
   getGroupMsgMobileList(params: { FromAccount: number }) {
     return this.httpService.get('/IM/Message/GetGroupMsgMobileList', params);
   }
+  GetRelatedBusiness(params: { id: number }) {
+    return this.httpService.get('/CSP/Shipment/GetRelatedBusiness', params);
+  }
+  
   // 获取群聊信息列表
   getGroupMsg(params:any={}) {
     return this.httpService.get('/IM/Message/GetGroupMsg', params);

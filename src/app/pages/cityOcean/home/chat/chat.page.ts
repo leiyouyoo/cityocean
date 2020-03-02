@@ -49,6 +49,7 @@ export class ChatPage implements OnInit {
   bussinessId; //业务ID
   bussinessDetail = { bookingNo: '', status: -1 }; //业务详情
   conversationType: any;
+  popoverList ; // 更多列表数据
   constructor(
     private nav: NavController,
     public popoverController: PopoverController,
@@ -78,15 +79,16 @@ export class ChatPage implements OnInit {
       case 'booking':
         this.statusType = BookingStatusType; //状态枚举
         this.bookingServiceService.GetDetail(this.bussinessId).subscribe((res: any) => {
-          console.log(res);
           this.bussinessDetail = res;
         });
         break;
       case 'shipment':
         this.statusType = ShipmentStatusType; //状态枚举
         this.myShipmentService.GetShipmentDetail(this.bussinessId).subscribe((res: any) => {
-          console.log(res);
           this.bussinessDetail = res;
+        });
+        this.homeService.GetRelatedBusiness({id:this.bussinessId}).subscribe((res: any) => {
+          this.popoverList = res;
         });
         break;
 
@@ -203,14 +205,14 @@ export class ChatPage implements OnInit {
    */
   chooseMoreType(event) {
     if (!this.isC2C) {
-      this.showPopover(event, PopoverComponent);
+      this.showPopover(event, PopoverComponent,'chat-popover');
     } else {
       this.gotoGroup();
     }
   }
   gotoDetail() {
     if (!this.isC2C) {
-      if (this.bussinessType !== 'booking') {
+      if (this.bussinessType !== 'booking' || this.bussinessType !== 'shipment') {
         return;
       }
       this.nav.navigateForward([`/cityOcean/workbench/${this.bussinessType}/${this.bussinessType}Detail`], {
@@ -228,7 +230,7 @@ export class ChatPage implements OnInit {
       event: event,
       backdropDismiss: true,
       cssClass: cssClass,
-      componentProps: { name: 'world' },
+      componentProps: { popoverList: this.popoverList ,type:this.bussinessType},
     });
     popover.onDidDismiss().then((event) => {
       this.currentPopover = event.data;
