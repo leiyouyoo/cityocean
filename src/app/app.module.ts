@@ -14,7 +14,6 @@ import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { CommonLibraryModule, ResponseInterceptor } from '@cityocean/common-library';
 import { environment } from '@env/environment';
 import { MyHammerConfig } from './myHammer.config';
-import { File } from '@ionic-native/file/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -27,7 +26,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
-
+import { File } from '@ionic-native/file/ngx';
 import { AmapLibraryModule } from '@cityocean/amap-library';
 // #region Http Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -38,14 +37,21 @@ import { BaseInfoModule } from '@cityocean/basicdata-library/basicdata.module';
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
 }
-const IONIC_NATIVE_PROVIDERS=[Camera,FileTransfer,
+const IONIC_NATIVE_PROVIDERS = [
+  Camera,
+  File,
+  FileTransfer,
   Device,
   SplashScreen,
   StatusBar,
   AppVersion,
   CallNumber,
   DatePicker,
-  FileOpener,AndroidPermissions,ImagePicker,Clipboard]
+  FileOpener,
+  AndroidPermissions,
+  ImagePicker,
+  Clipboard,
+];
 const APPINIT_PROVIDES = [
   StartupService,
   {

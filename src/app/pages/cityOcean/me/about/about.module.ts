@@ -7,7 +7,6 @@ import { AboutPage } from './about.page';
 import { AboutPageRoutingModule } from './about-routing.module';
 import { SharedModule } from '@shared/shared.module';
 
-
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, SharedModule, AboutPageRoutingModule],
   declarations: [AboutPage],

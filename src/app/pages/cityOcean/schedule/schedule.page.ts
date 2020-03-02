@@ -6,6 +6,7 @@ import { ScheduleService } from '@cityocean/basicdata-library/region/service/sch
 import { debug } from 'util';
 import { EventService } from '@shared/helpers/event.service';
 import { CityOceanService } from '../city-ocean.service';
+import { ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-schedule',
@@ -19,6 +20,7 @@ export class SchedulePage implements OnInit {
   options: any;
   msgData: any;
   constructor(
+    private el: ElementRef,
     private eventService: EventService,
     public router: Router,
     public citycoeanService: CityOceanService,
@@ -150,6 +152,10 @@ export class SchedulePage implements OnInit {
   }
 
   onShowMore() {
-    this.isMore = !this.isMore;
+    if (this.el.nativeElement.querySelector('.small-calendar').style.height === '25em') {
+      this.el.nativeElement.querySelector('.small-calendar').style.height = '11em';
+    } else {
+      this.el.nativeElement.querySelector('.small-calendar').style.height = '25em';
+    }
   }
 }

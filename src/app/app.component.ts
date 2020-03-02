@@ -39,7 +39,7 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       // this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
-      let color = '#428cff';
+      let color = '#4B97FF';
       const theme = LocalStorage.localStorage.get('ThemeType');
       document.body.classList.remove('blue');
       document.body.classList.remove('dark');
