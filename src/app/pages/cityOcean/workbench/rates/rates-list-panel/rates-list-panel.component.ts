@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
+import { CityOceanService } from '../../../city-ocean.service';
 
 @Component({
   selector: 'app-rates-list-panel',
@@ -8,7 +9,7 @@ import * as moment from 'moment';
 })
 export class RatesListPanelComponent implements OnInit {
   @Input() rateListItem;
-  constructor() { }
+  constructor(private cityOceanService:CityOceanService) { }
 
   ngOnInit() {}
   getTime(time) {
@@ -23,5 +24,10 @@ export class RatesListPanelComponent implements OnInit {
     dateSpan = Math.abs(dateSpan);
     iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
     return iDays;
+  }
+  // 客服
+  chatWithCustomer(event) {
+    event.stopPropagation();
+    this.cityOceanService.chatWithCustomerService();
   }
 }
