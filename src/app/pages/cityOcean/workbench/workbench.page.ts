@@ -11,61 +11,12 @@ import { HomeService } from '../home/home.service';
   styleUrls: ['workbench.page.scss'],
 })
 export class WorkbenchPage implements OnInit {
-  typeList = [
-    // 所有业务类型
-    {
-      name: this.translate.instant('rates'),
-      type: 'rates',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('sailingSchedules'),
-      type: 'sailingSchedules',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('shipment'),
-      type: 'shipment',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('Booking'),
-      type: 'booking',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('Quote'),
-      type: 'quotes',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('billing'),
-      type: 'billing',
-      marker: false,
-      id: 0,
-    },
-  ];
+  typeList: any;
   quickEnterList = []; // 已添加到快捷入口的数据
-    
-  moreTypeList = [];// 还未添加到快捷入口的数据
-  title = this.translate.instant('shipment');
-  titleStatisticsList = [
-    {
-      type: 'intransit',
-      name: this.translate.instant('In Transit'),
-      value: 0,
-    },
-    {
-      type: 'finished',
-      name: this.translate.instant('Arrival'),
-      value: 0,
-    },
-  ];
+
+  moreTypeList = []; // 还未添加到快捷入口的数据
+  title: any;
+  titleStatisticsList: any;
 
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
@@ -79,9 +30,48 @@ export class WorkbenchPage implements OnInit {
     private modalController: ModalController,
     private workbenchService: WorkbenchService,
     private homeService: HomeService,
-    private alertController:AlertController
+    private alertController: AlertController,
   ) {}
   ionViewDidEnter() {
+    this.typeList = [
+      // 所有业务类型
+      {
+        name: this.translate.instant('rates'),
+        type: 'rates',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('sailingSchedules'),
+        type: 'sailingSchedules',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('shipment'),
+        type: 'shipment',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('Booking'),
+        type: 'booking',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('Quote'),
+        type: 'quotes',
+        marker: false,
+        id: 0,
+      },
+      {
+        name: this.translate.instant('billing'),
+        type: 'billing',
+        marker: false,
+        id: 0,
+      },
+    ];
     this.title = this.translate.instant('shipment');
     this.titleStatisticsList = [
       {
@@ -248,8 +238,8 @@ export class WorkbenchPage implements OnInit {
    * @memberof WorkbenchPage
    */
   typeClick(item) {
-    if(this.clickLoginWithTourist(item.type)){
-      return
+    if (this.clickLoginWithTourist(item.type)) {
+      return;
     }
     if (item.type === 'rates') {
       this.searchTransportationCost = !this.searchTransportationCost;
@@ -268,9 +258,9 @@ export class WorkbenchPage implements OnInit {
    * @returns {boolean}
    * @memberof WorkbenchPage
    */
-  clickLoginWithTourist(type):boolean{
+  clickLoginWithTourist(type): boolean {
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
-      if (type != 'sailingSchedules' && type != 'shipment'){
+      if (type != 'sailingSchedules' && type != 'shipment') {
         this.showMore();
         return true;
       }
@@ -278,21 +268,20 @@ export class WorkbenchPage implements OnInit {
   }
   async showMore() {
     const alert = await this.alertController.create({
-      header: this.translate.instant('Jump to login')+"?",
+      header: this.translate.instant('Jump to login') + '?',
       message: this.translate.instant('Show more detail'),
       buttons: [
         {
-          text: "Cancel",
-          handler: blah => {
-          }
+          text: 'Cancel',
+          handler: (blah) => {},
         },
         {
-          text: "Yes",
-          handler: blah => {
+          text: 'Yes',
+          handler: (blah) => {
             window.location.href = '/login';
-          }
+          },
         },
-      ]
+      ],
     });
     await alert.present();
   }
