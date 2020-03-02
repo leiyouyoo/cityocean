@@ -7,7 +7,8 @@
         <input
           [(ngModel)]="searchKey"
           (keyup)="($event.which === 13) ? filterConfirm(null) : 0"
-          type="text"
+          type="search"
+          name = "searh"
           placeholder="搜索"
         />
       </div>

@@ -66,7 +66,8 @@ export class RatesPage implements OnInit {
     });
   }
   goback() {
-    this.nav.navigateForward(['/cityOcean/workbench']);
+    // this.nav.navigateForward(['/cityOcean/workbench']);
+    window.history.back()
   }
   gotoRatesDetail(item) {
     this.ratesService.ratesDetail = item;

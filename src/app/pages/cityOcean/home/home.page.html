@@ -3,12 +3,13 @@
     <div class="search-box">
       <div>
         <input
-          type="text"
-          (ngModelChange)="onInputChange($event)"
+          type="search"
+          name = "searh"
+          (keyup)="($event.which === 13) ? onInputChange() : 0"
           [(ngModel)]="searchInput"
           [placeholder]="'key_word' | translate"
         />
-        <i class="search-icon"></i>
+        <i (click)="onInputChange()" class="search-icon"></i>
       </div>
       <i (click)="chatWithCustomer()" class="customer-service"></i>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BillingServiceService } from '../../workbench/billing/billing-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-globel-search',
@@ -21,7 +22,12 @@ export class GlobelSearchPage implements OnInit {
     private billingService: BillingServiceService,
     private shipmentService: MyShipmentService,
     private nav: NavController,
-  ) {}
+    private activatedRoute:ActivatedRoute
+  ) {
+    this.activatedRoute.queryParams.subscribe((data: any) => {
+      this.searchKey = data.searchKey;
+    });
+  }
 
   ngOnInit() {
     this.filterConfirm()
@@ -30,11 +36,15 @@ export class GlobelSearchPage implements OnInit {
     this.searchBilling();
     this.searchShipment();
   }
+  delete(){
+    this.searchKey = '';
+    this.filterConfirm();
+  }
   goback() {
     this.nav.navigateForward(['/cityOcean/home']);
   }
   searchBilling() {
-    this.billingService.getAllBilling({ maxResultCount: this.page.pageSize } as any).subscribe((data) => {
+    this.billingService.getAllBilling({ maxResultCount: this.page.pageSize,ShipmentId:this.searchKey } as any).subscribe((data) => {
       this.billingData = data as any;
     });
   }
@@ -44,7 +54,7 @@ export class GlobelSearchPage implements OnInit {
     });
   }
   searchShipment() {
-    this.shipmentService.GetAll({ MaxResultCount: this.page.pageSize }).subscribe((data: any) => {
+    this.shipmentService.GetAll({ MaxResultCount: this.page.pageSize,searchText:this.searchKey }).subscribe((data: any) => {
       this.shipmentData = data;
     });
   }

@@ -53,7 +53,8 @@ export class ShipmentPage implements OnInit {
   }
   
   goback() {
-    this.nav.navigateForward(['/cityOcean/workbench']);
+    // this.nav.navigateForward(['/cityOcean/workbench']);
+    window.history.back()
   }
   gotoShipmentDetail(item) {
     this.nav.navigateForward(['/cityOcean/workbench/shipment/shipmentDetail'], {

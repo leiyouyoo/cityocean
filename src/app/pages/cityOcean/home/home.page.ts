@@ -48,11 +48,12 @@ export class HomePage implements OnInit {
     this.searchTerms.pipe(
         // 请求防抖 100毫秒
         debounceTime(200),
-      ).subscribe((type)=>{
-        this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { text: this.searchInput } });
+      ).subscribe(()=>{
+        this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { searchKey: this.searchInput } });
       })
   }
   ionViewWillEnter() {
+    this.searchInput = '';
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
       this.toolsList = [
         // 游客模式业务类型
@@ -138,8 +139,8 @@ export class HomePage implements OnInit {
   swipedown() {
     this.transportationCost = true;
   }
-  onInputChange(e) {
-    this.searchTerms.next(e);
+  onInputChange() {
+    this.searchTerms.next();
   }
 
   // 下拉加载(暂无用)

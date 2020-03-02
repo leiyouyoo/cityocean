@@ -7,7 +7,8 @@
         <input
           [(ngModel)]="searchText"
           (keyup)="($event.which === 13) ? resetFilter() : 0"
-          type="text"
+          type="search"
+          name = "searh"
           placeholder="搜索PO/SKU"
         />
       </div>

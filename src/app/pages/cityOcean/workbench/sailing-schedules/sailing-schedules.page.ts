@@ -37,7 +37,8 @@ export class SailingSchedulesPage implements OnInit {
     this.getSailingList();
   }
   goback() {
-    this.nav.navigateForward(['/cityOcean/workbench']);
+    // this.nav.navigateForward(['/cityOcean/workbench']);
+    window.history.back()
   }
   getSailingList(obj?,event?) {
     let params = {

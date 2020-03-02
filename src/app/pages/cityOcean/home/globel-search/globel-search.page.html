@@ -7,17 +7,18 @@
         <input
           [(ngModel)]="searchKey"
           (keyup)="($event.which === 13) ? filterConfirm() : 0"
-          type="text"
+          type="search"
+          name = "searh"
           placeholder="搜索"
         />
       </div>
-      <ion-icon name="shanchu" class="filter"></ion-icon>
+      <ion-icon *ngIf="searchKey" (click)="delete()" name="shanchu" class="filter"></ion-icon>
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <section>
+  <section *ngIf="shipmentData?.totalCount">
     <p>{{"shipment" | translate}}</p>
     <app-shipment-list-panel
       [shipmentListItem]="item"
@@ -25,7 +26,7 @@
       *ngFor="let item of shipmentData?.items; let i=index"
     ></app-shipment-list-panel>
   </section>
-  <section>
+  <section *ngIf="billingData?.totalCount">
     <p>{{"billing" | translate}}</p>
     <app-billing-list-panel
     [billingListItem]="item"
