@@ -8,6 +8,7 @@ import { getConversationList, genTestUserSig, login, deleteConversation, onSDKRe
 import { CityOceanService } from '../city-ocean.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -32,6 +33,7 @@ export class HomePage implements OnInit {
     private nav: NavController,
     private modalController: ModalController,
     private homeService: HomeService,
+    private translate: TranslateService,
     private cityOceanService: CityOceanService,
   ) {}
 
@@ -55,13 +57,13 @@ export class HomePage implements OnInit {
       this.toolsList = [
         // 游客模式业务类型
         {
-          name: '船期',
+          name: this.translate.instant('sailing'),
           type: 'sailingSchedules',
           marker: false,
           id: 0,
         },
         {
-          name: '运单',
+          name: this.translate.instant('rates'),
           type: 'shipment',
           marker: false,
           id: 0,
