@@ -3,10 +3,10 @@
     <div>
       <div class="left-content">
         <i (click)="goback()" class="go-back"></i>
-        <i (click)="filterConfirm(null)" class="search-icon"></i>
+        <i (click)="filterConfirm()" class="search-icon"></i>
         <input
           [(ngModel)]="searchKey"
-          (keyup)="($event.which === 13) ? filterConfirm(null) : 0"
+          (keyup)="($event.which === 13) ? filterConfirm() : 0"
           type="text"
           placeholder="搜索"
         />

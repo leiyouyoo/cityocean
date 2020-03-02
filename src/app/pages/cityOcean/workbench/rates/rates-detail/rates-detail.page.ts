@@ -9,6 +9,7 @@ import { RatesService } from '../rates.service';
 })
 export class RatesDetailPage implements OnInit {
   ratesDetail: any;
+  AdditionalData: any;
 
   constructor(private nav:NavController,
     private ratesService:RatesService) { }
@@ -23,5 +24,13 @@ export class RatesDetailPage implements OnInit {
   }
   segmentChanged($event){
     console.log($event)
+  }
+  onTableSelected(selected) {
+    this.AdditionalData = null;
+    // this.AdditionalTableData.chargesGroups.forEach((r) => {
+    //   if (r.freightCharges.containerCode === selected) {
+    //     this.AdditionalData = r;
+    //   }
+    // });
   }
 }

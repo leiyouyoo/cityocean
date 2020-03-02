@@ -11,6 +11,7 @@ import { NavController } from '@ionic/angular';
 export class GlobelSearchPage implements OnInit {
   billingData: any;
   shipmentData: any;
+  searchKey = '';
   page = {
     pageSize: 5,
     pageIndex: 1,
@@ -23,6 +24,9 @@ export class GlobelSearchPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.filterConfirm()
+  }
+  filterConfirm(){
     this.searchBilling();
     this.searchShipment();
   }
