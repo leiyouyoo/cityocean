@@ -69,6 +69,7 @@ export class RatesPage implements OnInit {
     this.nav.navigateForward(['/cityOcean/workbench']);
   }
   gotoRatesDetail(item) {
+    this.ratesService.ratesDetail = item;
     this.nav.navigateForward(['/cityOcean/workbench/rates/ratesDetail'], {
       queryParams: {},
     });

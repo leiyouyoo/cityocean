@@ -8,6 +8,7 @@ import { environment } from "../../../../../../src/environments/environment";
   providedIn: "root"
 })
 export class RatesService {
+  ratesDetail:any;
   constructor(private httpService: HttpService, private http: HttpClient) {}
 
   geFreightRates(params) {

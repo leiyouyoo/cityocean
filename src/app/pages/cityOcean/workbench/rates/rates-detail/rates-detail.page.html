@@ -8,18 +8,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment mode = "md" value="20gp">
-    <ion-segment-button value="20gp" (ionSelect)="segmentButtonClicked($event)" checked>
-      <ion-label>20GP</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="40gp">
-      <ion-label>40GP</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="40hq">
-      <ion-label>40HQ</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="45hq">
-      <ion-label>45HQ</ion-label>
+
+  <ion-segment (ionChange)="segmentChanged($event)" mode = "md" value="20gp">
+    <ion-segment-button  [value]="item" *ngFor="let item of ratesDetail.boxType">
+      <ion-label>{{item}}</ion-label>
     </ion-segment-button>
   </ion-segment>
   <section>
