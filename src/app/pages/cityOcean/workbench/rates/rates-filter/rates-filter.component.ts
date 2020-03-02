@@ -128,11 +128,11 @@ export class RatesFilterComponent implements OnInit {
     if (this.profileForm.carrierId != 'all') {
       data.carrierId = this.profileForm.carrierId;
     }
-    if (!this.profileForm.orignLocationId) {
+    if (!this.profileForm.orignPortId) {
       this.helper.toast(this.translate.instant('Please Enter Origin Port') + '!');
       return;
     }
-    if (this.profileForm.deliveryPortId) {
+    if (!this.profileForm.deliveryPortId) {
       this.helper.toast(this.translate.instant('Please Enter Delivery Port') + '!');
       return;
     }

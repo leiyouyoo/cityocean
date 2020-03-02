@@ -2,7 +2,13 @@
   <section class="search-group clearfix">
     <div class="search-box">
       <div>
-        <input type="text" [placeholder]="'key_word' | translate" />
+        <input
+          type="text"
+          appDebounceInput="500"
+          (debounceInput)="onInputChange($event)"
+          [(ngModel)]="searchInput"
+          [placeholder]="'key_word' | translate"
+        />
         <i class="search-icon"></i>
       </div>
       <i (click)="chatWithCustomer()" class="customer-service"></i>
@@ -20,12 +26,22 @@
   <div *ngIf="transportationCost" class="search-detail">
     <div class="qiyungang">
       <i></i>
-      <input (click)="searchLocaltion('start')" [(ngModel)]="orignPort.name" type="text" placeholder="{{'Please enter port of shipment' | translate}}" />
+      <input
+        (click)="searchLocaltion('start')"
+        [(ngModel)]="orignPort.name"
+        type="text"
+        placeholder="{{'Please enter port of shipment' | translate}}"
+      />
     </div>
     <div class="search-line"></div>
     <div class="mudigang">
       <i></i>
-      <input type="text" (click)="searchLocaltion('destination')" [(ngModel)]="deliveryPort.name" placeholder="{{'Please enter the port of destination' | translate}}" />
+      <input
+        type="text"
+        (click)="searchLocaltion('destination')"
+        [(ngModel)]="deliveryPort.name"
+        placeholder="{{'Please enter the port of destination' | translate}}"
+      />
     </div>
     <button (click)="go4search()" class="search-yunjia font-12">{{searchType | translate}}</button>
   </div>
@@ -35,7 +51,7 @@
 <ion-content fullscreen [ngClass]="{'content-background': !transportationCost}">
   <ion-list>
     <section class="content-group">
-      <app-message-rolling *ngIf="scrollList.length>0" [massgeList] = "scrollList"></app-message-rolling>
+      <app-message-rolling *ngIf="scrollList.length>0" [massgeList]="scrollList"></app-message-rolling>
       <div class="massge-group-wrap">
         <div lines="none" class="wolcome-wrap">
           <ion-icon name="welcome"></ion-icon>

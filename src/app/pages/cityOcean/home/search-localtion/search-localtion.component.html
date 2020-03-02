@@ -5,6 +5,7 @@
       <div class="search-wrap">
         <i></i>
         <input
+          #search
           placeholder="Search"
           (ngModelChange)="ngModelChange($event)"
           [(ngModel)]="searchText"
@@ -12,23 +13,25 @@
           autofocus="autofocus"
         />
       </div>
-      <span class="font-16" (click)="dismissModal($event,'cancel')">Cancel</span>
+      <span class="font-16" (click)="dismissModal($event, 'cancel')">Cancel</span>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
   <ion-list *ngIf="localtionList.length">
     <ng-container *ngFor="let item of localtionList">
-      <ion-item (click)="dismissModal(item,false)">{{item.name}}</ion-item>
+      <ion-item (click)="dismissModal(item, false)">{{ item.name }}</ion-item>
     </ng-container>
   </ion-list>
-  <section *ngIf="localtionList.length===0">
+  <section *ngIf="localtionList.length === 0">
     <div class="search-history">
-      <span>{{'Search history' | translate}}</span>
+      <span>{{ 'Search history' | translate }}</span>
       <i></i>
     </div>
     <div *ngIf="searchHistoryList.length" class="search-content">
-      <span *ngFor="let item of searchHistoryList" (click)="dismissModal(item,true)">{{item.orignPortHistory.name}}-{{item.deliveryPortHistory.name}}</span>
+      <span *ngFor="let item of searchHistoryList" (click)="dismissModal(item, true)"
+        >{{ item.orignPortHistory.name }}-{{ item.deliveryPortHistory.name }}</span
+      >
     </div>
   </section>
 </ion-content>

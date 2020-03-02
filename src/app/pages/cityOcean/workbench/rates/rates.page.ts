@@ -18,7 +18,7 @@ export class RatesPage implements OnInit {
     deliveryPortId: [], //目的港id
     deliveryLocationId: '',
     carrierId: '',
-    ratesValidDays: '7',
+    ratesValidDays: '',
   };
   pageInfo = {
     maxResultCount: 5,
@@ -69,6 +69,7 @@ export class RatesPage implements OnInit {
     this.nav.navigateForward(['/cityOcean/workbench']);
   }
   gotoRatesDetail(item) {
+    this.ratesService.ratesDetail = item;
     this.nav.navigateForward(['/cityOcean/workbench/rates/ratesDetail'], {
       queryParams: {},
     });

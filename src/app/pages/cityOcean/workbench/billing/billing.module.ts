@@ -9,16 +9,17 @@ import { BillingPageRoutingModule } from './billing-routing.module';
 import { BillingPage } from './billing.page';
 import { BillingPopoverComponent } from './billing-popover/billing-popover.component';
 import { BankAccountComponent } from './bank-account/bank-account.component';
-import { BillingListPanelComponent } from './billing-list-panel/billing-list-panel.component';
+import { SharedModule } from '@shared';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BillingPageRoutingModule
+    BillingPageRoutingModule,
+    SharedModule
   ],
-  declarations: [BillingPage,BillingPopoverComponent,BankAccountComponent,BillingListPanelComponent ],
+  declarations: [BillingPage,BillingPopoverComponent,BankAccountComponent ],
   entryComponents:[BillingPopoverComponent,BankAccountComponent]
 })
 export class BillingPageModule {}

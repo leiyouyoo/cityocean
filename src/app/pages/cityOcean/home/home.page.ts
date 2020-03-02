@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
   infiniteScroll: IonInfiniteScroll;
   searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
-
+  searchInput = ''; // 全局搜索
   conversationsList = [];
   orignPort: any = {}; // 启运港
   deliveryPort: any = {}; // 目的港
@@ -75,7 +75,9 @@ export class HomePage implements OnInit {
   getConversationsList() {
     onSDKReady(async () => {
       let imRes = await getConversationList();
-      if(!imRes) {return}
+      if (!imRes) {
+        return;
+      }
       // this.totalCount = imRes.totalCount;
       // if (this.totalCount == imRes.items.length) {
       //   this.infiniteScroll.disabled = true;
@@ -126,6 +128,10 @@ export class HomePage implements OnInit {
   }
   swipedown() {
     this.transportationCost = true;
+  }
+  onInputChange(e) {
+    console.log(e);
+    this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { text: e } });
   }
 
   // 下拉加载(暂无用)

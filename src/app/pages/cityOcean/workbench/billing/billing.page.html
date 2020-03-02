@@ -13,7 +13,11 @@
 
 <ion-content>
   <section>
-    <app-billing-list-panel [billingListItem] = "item" (click)="gotoBillingDetail(item)" *ngFor="let item of billingList; let i=index"></app-billing-list-panel>
+    <app-billing-list-panel
+      [billingListItem]="item"
+      (click)="gotoBillingDetail(item)"
+      *ngFor="let item of billingList; let i=index"
+    ></app-billing-list-panel>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getBillingList({},$event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
