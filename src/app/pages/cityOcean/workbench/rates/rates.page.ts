@@ -18,7 +18,7 @@ export class RatesPage implements OnInit {
     deliveryPortId: [], //目的港id
     deliveryLocationId: '',
     carrierId: '',
-    ratesValidDays: '7',
+    ratesValidDays: '',
   };
   pageInfo = {
     maxResultCount: 5,
