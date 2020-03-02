@@ -19,7 +19,7 @@
       </div>
     </div>
   </section>
-  <div *ngIf="transportationCost" class="control-search-detail">
+  <div (swipeup)="swipeup()" (swipedown)="swipedown()" *ngIf="transportationCost" class="control-search-detail">
     <div></div>
   </div>
   <div *ngIf="transportationCost" class="search-detail">
