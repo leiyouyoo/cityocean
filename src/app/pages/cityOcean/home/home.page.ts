@@ -129,9 +129,8 @@ export class HomePage implements OnInit {
   swipedown() {
     this.transportationCost = true;
   }
-  onInputChange(e) {
-    console.log(e);
-    this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { text: e } });
+  onInputChange() {
+    this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { text: this.searchInput } });
   }
 
   // 下拉加载(暂无用)
