@@ -47,8 +47,7 @@ h5 {
 }
 
 .more {
-  height: 10em !important;
-  overflow: hidden;
+  height: auto !important;
 }
 
 .calendar-detial {
@@ -68,4 +67,13 @@ h5 {
       border-radius: 10px;
     }
   }
+}
+
+.small-calendar {
+  transition: all 1s;
+  -moz-transition: all 1s; /* Firefox 4 */
+  -webkit-transition: all 1s; /* Safari and Chrome */
+  -o-transition: all 1s; /* Opera */
+  height: 11em;
+  overflow: hidden;
 }

@@ -8,6 +8,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-me-about',
@@ -27,6 +28,7 @@ export class AboutPage implements OnInit {
     public activeRoute: ActivatedRoute,
     private device: Device,
     public helper: Helper,
+    public file: File,
   ) {}
 
   ngOnInit() {
@@ -94,32 +96,32 @@ export class AboutPage implements OnInit {
   downloadApp() {
     // 4.下载apk
     const targetUrl = 'https://www.xxxx.cn/app/CITYOCEAN.apk';
-    // const fileTransfer: FileTransferObject = this.transfer.create();
-    // fileTransfer.download(targetUrl, this.file.dataDirectory + 'CITYOCEAN.apk').then(
-    //   (entry) => {
-    //     this.fileOpener
-    //       .open(entry.toURL(), 'application/vnd.android.package-archive')
-    //       .then(() => {})
-    //       .catch((e) => {
-    //         alert('Error openening file' + JSON.stringify(e));
-    //       });
-    //   },
-    //   (error) => {
-    //     alert(JSON.stringify(error));
-    //   },
-    // );
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    fileTransfer.download(targetUrl, this.file.dataDirectory + 'CITYOCEAN.apk').then(
+      (entry) => {
+        this.fileOpener
+          .open(entry.toURL(), 'application/vnd.android.package-archive')
+          .then(() => {})
+          .catch((e) => {
+            alert('Error openening file' + JSON.stringify(e));
+          });
+      },
+      (error) => {
+        alert(JSON.stringify(error));
+      },
+    );
 
-    // // 5、获取下载进度
-    // // tslint:disable-next-line: prefer-const
-    // let oProgressNum = document.getElementById('progressnum');
-    // fileTransfer.onProgress((event) => {
-    //   let num = Math.ceil((event.loaded / event.total) * 100); // 转化成1-100的进度
-    //   if (num === 100) {
-    //     oProgressNum.innerHTML = '下载完成';
-    //   } else {
-    //     oProgressNum.innerHTML = '下载进度：' + num + '%';
-    //   }
-    // });
+    // 5、获取下载进度
+    // tslint:disable-next-line: prefer-const
+    let oProgressNum = document.getElementById('progressnum');
+    fileTransfer.onProgress((event) => {
+      let num = Math.ceil((event.loaded / event.total) * 100); // 转化成1-100的进度
+      if (num === 100) {
+        oProgressNum.innerHTML = '下载完成';
+      } else {
+        oProgressNum.innerHTML = '下载进度：' + num + '%';
+      }
+    });
   }
 
   /*检查是否有写入权限*/

@@ -9,16 +9,12 @@
   </div>
 
   <div class="calendar-detial">
-    <ion-calendar
-      [(ngModel)]="date"
-      [options]="options"
-      format="YYYY-MM-DD"
-      (change)="onChange($event)"
-      [ngClass]="{'more': isMore==false}"
-    >
-    </ion-calendar>
+    <div class="small-calendar">
+      <ion-calendar [(ngModel)]="date" [options]="options" format="YYYY-MM-DD" (change)="onChange($event)">
+      </ion-calendar>
+    </div>
 
-    <div class="more-icon" (click)="onShowMore()">
+    <div class="more-icon" (click)="onShowMore()" (swipeup)="onShowMore()" (swipedown)="onShowMore()">
       <div></div>
     </div>
   </div>
