@@ -28,11 +28,13 @@ ion-header {
     }
 
     .search-detail {
-        padding: px2rem(32px) px2rem(40px) px2rem(27px) px2rem(41px);
+        padding: px2rem(32px) px2rem(24px) px2rem(27px) px2rem(24px);
         box-shadow: 0px -12px 12px 0px rgba(71, 135, 254, 1);
         border-radius: 0.5333333333rem 0.5333333333rem 0 0;
         background: #fff;
-
+        &>div{
+            margin-left: px2rem(17px);
+        }
         input {
             border: 0;
             flex: auto;
@@ -58,7 +60,7 @@ ion-header {
             height: px2rem(22px);
             width: px2rem(1px);
             background: #E4E4E4;
-            margin: px2rem(3px) 0 px2rem(3px) px2rem(4px);
+            margin: px2rem(3px) 0 px2rem(3px) px2rem(21px);
         }
 
         .mudigang {
@@ -109,7 +111,7 @@ ion-header {
 
                 input {
                     width: 100%;
-                    height: px2rem(36px);
+                    height: px2rem(30px);
                     background: rgba(255, 255, 255, 1);
                     box-shadow: 0px px2rem(8px) px2rem(16px) 0px rgba(175, 148, 148, 0.08), 0px 0px 1px 0px rgba(0, 0, 0, 0.08);
                     border-radius: px2rem(22px);
