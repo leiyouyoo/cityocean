@@ -39,7 +39,7 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       // this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
-      let color = '#4B97FF';
+      let color = '#3e8eff';
       const theme = LocalStorage.localStorage.get('ThemeType');
       document.body.classList.remove('blue');
       document.body.classList.remove('dark');
@@ -52,7 +52,7 @@ export class AppComponent {
         //   color = '#000000';
         // }
       }
-      this.statusBar.overlaysWebView(false);
+      // this.statusBar.overlaysWebView(true);
       this.statusBar.backgroundColorByHexString(color);
       this.statusBar.show();
       this.jpush.setDebugMode(true);

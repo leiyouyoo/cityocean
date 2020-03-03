@@ -83,7 +83,7 @@ export class AboutPage implements OnInit {
     // 3.弹窗提示用户是否更新
     const alert = await this.alertController.create({
       header: 'CityOcean',
-      message: '发现新版本,是否立即升级？',
+      message: this.translate.instant('Found a new version, whether to upgrade immediately') + '?',
       buttons: [
         {
           text: this.translate.instant('Cancel'),

@@ -94,6 +94,7 @@ export class LoginComponent implements OnInit {
         }
       })
       .catch((e: any) => {
+        this.helper.hideLoading();
         if (e.error && e.error.error_description == 'invalid_username_or_password') {
           this.helper.toast('Password or name error');
         }
@@ -135,9 +136,9 @@ export class LoginComponent implements OnInit {
       cssClass: 'billing-popover',
     });
     popover.onDidDismiss().then((event) => {
-      console.log(event.data) ;
-     });
-     await popover.present();
+      console.log(event.data);
+    });
+    await popover.present();
   }
   onUsernameKeyup(e) {
     if (!(e instanceof KeyboardEvent)) {

@@ -1,7 +1,7 @@
-@import "../../../../theme/variables";
+@import '../../../../theme/variables';
 
 ion-content {
-  --background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
+  --background: #3e8eff;
   .edit-wrap {
     height: px2rem(64px);
     line-height: px2rem(64px);
@@ -36,7 +36,7 @@ ion-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    @include bg-image("../../../../assets/icon/workbench/quxian");
+    @include bg-image('../../../../assets/icon/workbench/quxian');
 
     .business-change-wrap {
       width: px2rem(130px);
@@ -51,7 +51,7 @@ ion-content {
       align-items: center;
       justify-content: space-between;
       padding: 0 px2rem(10px) 0 px2rem(12px);
-      margin-left:px2rem(16px);
+      margin-left: px2rem(16px);
 
       div {
         width: 0;
@@ -66,7 +66,7 @@ ion-content {
       display: flex;
       margin-left: px2rem(26px);
 
-      &>div {
+      & > div {
         display: flex;
         align-items: center;
         flex: auto;
@@ -78,7 +78,7 @@ ion-content {
         }
 
         .intransit {
-          @include bg-image("../../.././../assets/icon/workbench/lan")
+          @include bg-image('../../.././../assets/icon/workbench/lan');
         }
 
         .finished {
@@ -87,10 +87,9 @@ ion-content {
 
         .delay {
           @include bg-image('../../.././../assets/icon/workbench/hong');
-
         }
 
-        &>p {
+        & > p {
           display: flex;
           flex-direction: column;
           margin-left: px2rem(15px);
@@ -114,7 +113,6 @@ ion-content {
           }
         }
       }
-
     }
   }
   .default-content {
@@ -134,7 +132,7 @@ ion-content {
       }
 
       input::-webkit-input-placeholder {
-        color: #CCCCCC;
+        color: #cccccc;
       }
 
       .qiyungang {
@@ -150,7 +148,7 @@ ion-content {
       .search-line {
         height: px2rem(22px);
         width: px2rem(1px);
-        background: #E4E4E4;
+        background: #e4e4e4;
         margin: px2rem(3px) 0 px2rem(3px) px2rem(4px);
       }
 
@@ -219,10 +217,9 @@ ion-content {
         font-weight: 400;
         color: rgba(0, 122, 255, 1);
         line-height: px2rem(22px);
-        background: #FFf;
+        background: #fff;
       }
     }
-
 
     i {
       display: inline-block;
@@ -234,7 +231,7 @@ ion-content {
       transform: translateX(100%);
       width: px2rem(16px);
       height: px2rem(16px);
-      @include bg-image("../../../../assets/icon/workbench/my-icon-add")
+      @include bg-image('../../../../assets/icon/workbench/my-icon-add');
     }
 
     i.icon-delete {
@@ -243,7 +240,7 @@ ion-content {
       transform: translateX(100%);
       width: px2rem(16px);
       height: px2rem(16px);
-      @include bg-image("../../../../assets/icon/workbench/my-icon-delete")
+      @include bg-image('../../../../assets/icon/workbench/my-icon-delete');
     }
 
     .all-applications,
@@ -252,7 +249,7 @@ ion-content {
       display: flex;
       flex-wrap: wrap;
 
-      &>div {
+      & > div {
         width: 25vw;
         height: px2rem(80px);
 
@@ -262,14 +259,14 @@ ion-content {
           align-items: center;
           justify-content: center;
 
-          &>i {
+          & > i {
             width: px2rem(30px);
             height: px2rem(30px);
             position: relative;
             margin-bottom: px2rem(5px);
           }
 
-          &>span {
+          & > span {
             height: px2rem(13px);
             font-size: 14px;
             font-family: PingFangSC-Regular, PingFang SC;
@@ -279,27 +276,27 @@ ion-content {
           }
 
           i.icon-rates {
-            @include bg-image("../../../../assets/icon/workbench/chayunjia")
+            @include bg-image('../../../../assets/icon/workbench/chayunjia');
           }
 
           i.icon-sailingSchedules {
-            @include bg-image("../../../../assets/icon/workbench/chachuanqi")
+            @include bg-image('../../../../assets/icon/workbench/chachuanqi');
           }
 
           i.icon-shipments {
-            @include bg-image("../../../../assets/icon/workbench/yundan")
+            @include bg-image('../../../../assets/icon/workbench/yundan');
           }
 
           i.icon-booking {
-            @include bg-image("../../../../assets/icon/workbench/dingdan")
+            @include bg-image('../../../../assets/icon/workbench/dingdan');
           }
 
           i.icon-billing {
-            @include bg-image("../../../../assets/icon/workbench/zhangdan")
+            @include bg-image('../../../../assets/icon/workbench/zhangdan');
           }
 
           i.icon-quotes {
-            @include bg-image("../../../../assets/icon/workbench/baojia")
+            @include bg-image('../../../../assets/icon/workbench/baojia');
           }
         }
       }
