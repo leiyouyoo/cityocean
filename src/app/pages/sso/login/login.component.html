@@ -5,12 +5,12 @@
   </div>
   <section class="logo-group">
     <i class="logo-wrap"></i>
-    <span class="logo-text font-36">{{ 'Login' | translate }}</span>
+    <span class="logo-text font-36">{{ 'Login in' | translate }}</span>
   </section>
   <section class="bottom-wrap">
     <form [formGroup]="validateForm" autocomplete="off" class="input-group">
       <div class="email-wrap">
-        <ion-label class="font-9" color="primary">{{ 'Email Adress' | translate }}</ion-label>
+        <ion-label class="font-9" color="primary">{{ 'Email Address' | translate }}</ion-label>
         <input
           (keyup)="onUsernameKeyup($event)"
           [ngClass]="{
@@ -66,7 +66,7 @@
     </form>
     <section class="button-group">
       <div (click)="onLogin()" class="login-group">
-        <span class="font-16">{{ 'Login' | translate }}</span>
+        <span class="font-16">{{ 'Login in' | translate }}</span>
         <i></i>
       </div>
       <span (click)="loginWithTourist()" class="login-other font-9">{{'LoginInTouristMode' | translate}}</span>

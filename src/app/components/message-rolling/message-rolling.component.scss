@@ -8,11 +8,12 @@
     height: px2rem(30px);
     overflow: hidden;
     text-align: center;
-    margin: px2rem(16px);
+    margin: px2rem(8px) px2rem(24px);
     p{
       height: px2rem(30px);
       display: flex;
       align-items: center;
+      border-bottom: 1px solid #F2F2F9;
     }
     i {
       display: inline-block;

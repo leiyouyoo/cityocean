@@ -36,52 +36,52 @@ export class WorkbenchPage implements OnInit {
     this.typeList = [
       // 所有业务类型
       {
-        name: this.translate.instant('rates'),
+        name: this.translate.instant('Rates'),
         type: 'rates',
         marker: false,
         id: 0,
       },
       {
-        name: this.translate.instant('sailing'),
+        name: this.translate.instant('Sail Schedule'),
         type: 'sailingSchedules',
         marker: false,
         id: 0,
       },
       {
-        name: this.translate.instant('shipment'),
-        type: 'shipment',
+        name: this.translate.instant('Shipments'),
+        type: 'shipments',
         marker: false,
         id: 0,
       },
       {
-        name: this.translate.instant('Booking'),
+        name: this.translate.instant('Bookings'),
         type: 'booking',
         marker: false,
         id: 0,
       },
       {
-        name: this.translate.instant('Quote'),
+        name: this.translate.instant('Quotes'),
         type: 'quotes',
         marker: false,
         id: 0,
       },
       {
-        name: this.translate.instant('billing'),
+        name: this.translate.instant('Billings'),
         type: 'billing',
         marker: false,
         id: 0,
       },
     ];
-    this.title = this.translate.instant('shipment');
+    this.title = this.translate.instant('Shipments');
     this.titleStatisticsList = [
       {
         type: 'intransit',
-        name: this.translate.instant('In Transit'),
+        name: this.translate.instant('In transit'),
         value: 0,
       },
       {
         type: 'finished',
-        name: this.translate.instant('Arrival'),
+        name: this.translate.instant('Arrival port'),
         value: 0,
       },
     ];
@@ -121,12 +121,12 @@ export class WorkbenchPage implements OnInit {
         this.titleStatisticsList = [
           {
             type: 'intransit',
-            name: this.translate.instant('In Transit'),
+            name: this.translate.instant('In transit'),
             value: inProgress,
           },
           {
             type: 'finished',
-            name: this.translate.instant('Arrival'),
+            name: this.translate.instant('Arrival port'),
             value: arrival,
           },
         ];
@@ -144,7 +144,7 @@ export class WorkbenchPage implements OnInit {
       cssClass: 'my-action-sheet',
       buttons: [
         {
-          text: this.translate.instant('Shipment'),
+          text: this.translate.instant('Shipments'),
           icon: 'shipment',
           handler: () => {
             this.title = 'shipment';
@@ -152,10 +152,10 @@ export class WorkbenchPage implements OnInit {
           },
         },
         {
-          text: this.translate.instant('Booking'),
+          text: this.translate.instant('Bookings'),
           icon: 'booking',
           handler: () => {
-            this.title = this.translate.instant('booking');
+            this.title = this.translate.instant('Bookings');
             this.workbenchService.GetBookingsStatistics().subscribe((res: any) => {
               let booked = 0;
               let booking = 0;
@@ -182,10 +182,10 @@ export class WorkbenchPage implements OnInit {
           },
         },
         {
-          text: this.translate.instant('Billing'),
+          text: this.translate.instant('Billings'),
           icon: 'billing',
           handler: () => {
-            this.title = this.translate.instant('billing');
+            this.title = this.translate.instant('Billings');
             this.workbenchService.GetBillingsStatistics().subscribe((res: any) => {
               console.log(res);
               let payed = 0;

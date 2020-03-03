@@ -1,10 +1,18 @@
 {
-  "Login": "Login in",
   "pleaseEnter": "Please Enter...",
-  "LoginInTouristMode": "Tourist Mode",
+  "LoginInTouristMode": "Visitor Mode",
   "Search history": "Search history",
-  "seachRates": "Rates",
-  "seachSailingSchedules": "Sailing Schedules",
+  "Schedules": "Schedules",
   "Welcome to cityocean": "Welcome to cityocean,Have a good mood",
-  "key_word":"Enter keyword search"
+  "key_word":"Enter keyword search",
+  "billing": "Billings",
+  "quotes": "Quotes",
+  "rates": "Rates",
+  "sailSchedules": "Sail Schedule",
+  "shipments": "Shipments",
+  "booking": "Bookings",
+  "seachRates": "Search",
+  "seachSailingSchedules":"Search",
+  "sailingSchedules":"Sail Schedule",
+  "registerCustomer":"Ask for an account Call"
 }
