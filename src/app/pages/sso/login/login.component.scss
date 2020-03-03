@@ -33,12 +33,12 @@ ion-content {
       display: inline-block;
       width: 6em;
       height: 6em;
-      @include bg-image("../../../../assets/images/Logo");
+      @include bg-image('../../../../assets/images/Logo');
     }
 
     .logo-text {
       font-family: PingFangSC-Semibold, PingFang SC;
-      color: #F2F2F9;
+      color: #f2f2f9;
       @include font-dpr(36px);
       margin-top: 0.5em;
       display: inline-block;
@@ -51,7 +51,6 @@ ion-content {
     margin-top: 4em;
 
     form.input-group {
-
       .email-wrap,
       .password-wrap {
         display: flex;
@@ -82,7 +81,7 @@ ion-content {
           &::-webkit-input-placeholder {
             color: var(--ion-color-light-placeholder);
             font-family: PingFangSC-Regular;
-            @include font-dpr(16px);
+            font-size: 1em;
           }
 
           &:focus {
@@ -111,7 +110,7 @@ ion-content {
           display: inline-block;
           width: 1em;
           height: 1em;
-          @include bg-image("../../../../assets/images/login/Icon-Checkmark");
+          @include bg-image('../../../../assets/images/login/Icon-Checkmark');
         }
       }
 
@@ -129,14 +128,14 @@ ion-content {
           display: inline-block;
           width: 1em;
           height: 1em;
-          @include bg-image("../../../../assets/images/login/Icon-Right");
+          @include bg-image('../../../../assets/images/login/Icon-Right');
         }
 
         .notpwicon {
           display: inline-block;
           width: 1em;
           height: 1em;
-          @include bg-image("../../../../assets/images/login/Icon-Hide");
+          @include bg-image('../../../../assets/images/login/Icon-Hide');
         }
       }
     }
@@ -145,7 +144,7 @@ ion-content {
       margin-top: 2em;
       position: relative;
 
-      &>div {
+      & > div {
         height: 4em;
         border-radius: 5px;
         display: flex;
@@ -176,7 +175,7 @@ ion-content {
         i {
           width: 1em;
           height: 1em;
-          @include bg-image("../../../../assets/images/login/Icon-Login");
+          @include bg-image('../../../../assets/images/login/Icon-Login');
         }
       }
 
@@ -191,9 +190,8 @@ ion-content {
         i {
           width: 1em;
           height: 1em;
-          @include bg-image("../../../../assets/images/login/icon-wechat");
+          @include bg-image('../../../../assets/images/login/icon-wechat');
         }
-
       }
 
       .facebook-group {
@@ -205,10 +203,9 @@ ion-content {
         i {
           width: 1em;
           height: 1em;
-          @include bg-image("../../../../assets/images/login/Logo-Facebook");
+          @include bg-image('../../../../assets/images/login/Logo-Facebook');
         }
       }
     }
   }
-
 }

@@ -1,12 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ 'schedule' | translate}}
+    </ion-title>
+    <ion-buttons slot="end" class="title-right">
+      <ion-icon name="add-outline" (click)="onScheduleAdd()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <!-- <div class="schedule-title">
     <div></div>
     2020年2月
    
   </div> -->
-  <div class="calendar">
-    <ion-icon name="add-outline" (click)="onScheduleAdd()"></ion-icon>
-  </div>
 
   <div class="calendar-detial">
     <div class="small-calendar">

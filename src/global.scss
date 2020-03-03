@@ -217,9 +217,11 @@ app-schedule-detial ion-content {
 }
 
 app-contacts,
+app-schedule,
+app-schedule-add,
 app-me-language,
 app-me-setting {
-  --ion-toolbar-background: linear-gradient(to right, #61adff, #007aff);
+  --ion-toolbar-background: #3e8eff;
   --ion-toolbar-color: #fff;
 }
 

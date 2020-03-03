@@ -86,7 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DelonModule.forRoot(),
     IonicModule.forRoot({
       backButtonText: '', // 配置返回按钮
-      backButtonIcon: 'arrow-back', // 配置返回图标
+      backButtonIcon: 'chevron-back-outline', // 配置返回图标
     }),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
