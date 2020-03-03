@@ -7,6 +7,7 @@ import { WorkbenchPage } from './workbench.page';
 import { WorkbenchPageRoutingModule } from './workbench-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { WorkbenchService } from './workbench.service';
+import { QuickEnterComponent } from './quick-enter/quick-enter.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { WorkbenchService } from './workbench.service';
     WorkbenchPageRoutingModule,
     TranslateModule
   ],
-  declarations: [WorkbenchPage],
+  declarations: [WorkbenchPage,QuickEnterComponent],
   entryComponents:[],
   providers:[WorkbenchService]
 })

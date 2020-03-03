@@ -13,7 +13,8 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 })
 export class CityOceanService {
   globelCustomerId = ''; //  全局客服id
-  globelCustomerName = '';
+  globelCustomerName = '';// 客服名称
+  globelCustomerPhone = ''; // 客服电话
   customerId: ''; // 当前登录人的id
   hasHistoryChat: any = [];
   c2cList: any;
@@ -28,12 +29,20 @@ export class CityOceanService {
   ) {
     this.getCustomerId().then((res) => {
       if (localStorage.getItem('isLoginWithTourist') == 'true') {
-        this.GetIdByEmail();
+        this.GetIdByEmail().subscribe((res: any) => {
+          if (res && res.id) {
+            this.globelCustomerId = res.id;
+            this.globelCustomerName = res.name;
+            this.globelCustomerPhone = res.phoneNumber;
+            return res.id;
+          }
+        });
       } else {
         this.GetCoUserByCustomer({ customerId: res }).subscribe((res) => {
           if (res.id) {
             this.globelCustomerId = res.id;
             this.globelCustomerName = res.name;
+            this.globelCustomerPhone = res.phoneNumber;
           } else {
             this.GetIdByEmail();
           }
@@ -42,13 +51,7 @@ export class CityOceanService {
     });
   }
   GetIdByEmail() {
-    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' }).subscribe((res: any) => {
-      if (res && res.id) {
-        this.globelCustomerId = res.id;
-        this.globelCustomerName = res.name;
-        return res.id;
-      }
-    });
+    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' })
   }
   // 根据当前登录客户获取客户所属业务员
   GetCoUserByCustomer(obj = {}): Observable<any> {
@@ -105,7 +108,7 @@ export class CityOceanService {
       cssClass: 'my-action-sheet my-action-sheet-customer',
       buttons: [
         {
-          text: this.translate.instant('Call') + ' 0755 -1234567',
+          text: this.translate.instant('Call') + ' ' + this.globelCustomerPhone,
           icon: 'phone',
           handler: () => {
             this.callNumber

@@ -17,7 +17,7 @@ export class BookingPage implements OnInit {
   searchKey = '';
   BookingStatus: any; // 筛选状态
   currentParams: any = {}; //筛选条件
-  ids: any; // 可能为多个id
+  ids: any = []; // 可能为多个id
   constructor(
     private bookingServiceService: BookingServiceService,
     private actionSheetController: ActionSheetController,
@@ -25,20 +25,31 @@ export class BookingPage implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
-      this.ids = data.ids;
+      if(data.ids){
+        this.ids = data.ids.split(',').map((e) => {
+          return Number(e);
+        });
+      }
     });
   }
 
   ngOnInit() {
-    this.ids = '4701,4700';
-    if (this.ids) {
-      this.bookingServiceService.GetBookingListByIds(this.ids.split(",").map(e=>{return Number(e)})).subscribe((res)=>{
-        console.log(res)
-      })
+    if (this.ids.length) {
+      this.bookingServiceService.GetBookingListByIds(this.ids).subscribe((res: any) => {
+        this.bookingList = this.bookingList.concat(res.items);
+      });
+    } else {
+      this.getBookingList();
     }
-    this.getBookingList();
   }
   getBookingList(event?) {
+    if (this.ids.length) {
+      if (event) {
+        event.target.complete();
+        event.target.disabled = true;
+      }
+      return;
+    }
     this.searchKey ? (this.currentParams.SearchKey = this.searchKey) : delete this.currentParams.SearchKey;
     this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
     this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
 import { WorkbenchService } from './workbench.service';
 import { TranslateService } from '@ngx-translate/core';
 import { HomeService } from '../home/home.service';
+import { QuickEnterComponent } from './quick-enter/quick-enter.component';
 
 @Component({
   selector: 'app-workbench',
@@ -17,7 +18,7 @@ export class WorkbenchPage implements OnInit {
   moreTypeList = []; // 还未添加到快捷入口的数据
   title: any;
   titleStatisticsList: any;
-
+  @ViewChild('quickEnter', {static: false}) quickEnter:QuickEnterComponent
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
   orignPort: any = {}; //启运港
@@ -104,9 +105,7 @@ export class WorkbenchPage implements OnInit {
     });
   }
   confirm() {
-    this.homeService.createQuickEntrance(this.quickEnterList).subscribe((res) => {
-      console.log(res);
-    });
+    this.quickEnter.confirm();
   }
   shipmentStatistics() {
     this.workbenchService.GetShipmentsStatistics().subscribe((res: any) => {

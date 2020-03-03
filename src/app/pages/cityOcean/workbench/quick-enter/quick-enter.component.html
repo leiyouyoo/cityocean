@@ -1,0 +1,24 @@
+<section>
+  <label>{{'Home quick' | translate}}</label>
+  <div class="quick-enter-applictions">
+    <div *ngFor="let item of quickEnterList;let i = index">
+      <p>
+        <i [class]="'icon-'+item.type">
+          <i (click)="delete($event,item,i)" class="icon-delete"></i>
+        </i>
+        <span>{{item.name | translate}}</span>
+      </p>
+    </div>
+  </div>
+  <label>{{'More App' | translate}}</label>
+  <div class="more-applictions">
+    <div *ngFor="let item of moreTypeList;let i =index">
+      <p>
+        <i [class]="'icon-'+item.type">
+          <i (click)="add($event,item,i)" class="icon-add"></i>
+        </i>
+        <span>{{item.name| translate}}</span>
+      </p>
+    </div>
+  </div>
+</section>

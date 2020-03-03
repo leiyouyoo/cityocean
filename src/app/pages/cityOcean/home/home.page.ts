@@ -47,7 +47,6 @@ export class HomePage implements OnInit {
     });
     this.searchTerms.pipe(
         // 请求防抖 100毫秒
-        debounceTime(200),
       ).subscribe(()=>{
         this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { searchKey: this.searchInput } });
       })

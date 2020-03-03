@@ -1,0 +1,127 @@
+@import "../../../../../theme/variables";
+
+section {
+    overflow: hidden; //bfc
+    background-color: #ffffff;
+    height: 100%;
+
+    label {
+      margin: px2rem(20px) 0 px2rem(20px) px2rem(16px);
+      display: inline-block;
+      height: px2rem(22px);
+      font-size: 16px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: rgba(76, 75, 94, 1);
+      line-height: px2rem(22px);
+    }
+
+    .title {
+      margin: px2rem(36px) 0 px2rem(27px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 px2rem(16px);
+
+      span {
+        height: px2rem(22px);
+        font-size: 16px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(76, 75, 94, 1);
+        line-height: px2rem(22px);
+      }
+
+      button {
+        height: px2rem(22px);
+        font-size: 16px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(0, 122, 255, 1);
+        line-height: px2rem(22px);
+        background: #FFf;
+      }
+    }
+
+
+    i {
+      display: inline-block;
+    }
+
+    i.icon-add {
+      position: absolute;
+      right: px2rem(-6px);
+      transform: translateX(100%);
+      width: px2rem(16px);
+      height: px2rem(16px);
+      @include bg-image("../../../../../assets/icon/workbench/my-icon-add")
+    }
+
+    i.icon-delete {
+      position: absolute;
+      right: px2rem(-6px);
+      transform: translateX(100%);
+      width: px2rem(16px);
+      height: px2rem(16px);
+      @include bg-image("../../../../../assets/icon/workbench/my-icon-delete")
+    }
+
+    .all-applications,
+    .quick-enter-applictions,
+    .more-applictions {
+      display: flex;
+      flex-wrap: wrap;
+
+      &>div {
+        width: 25vw;
+        height: px2rem(80px);
+
+        p {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          &>i {
+            width: px2rem(30px);
+            height: px2rem(30px);
+            position: relative;
+            margin-bottom: px2rem(5px);
+          }
+
+          &>span {
+            height: px2rem(13px);
+            font-size: 14px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(76, 75, 94, 1);
+            line-height: px2rem(13px);
+          }
+
+          i.icon-rates {
+            @include bg-image("../../../../../assets/icon/workbench/chayunjia")
+          }
+
+          i.icon-sailingSchedules {
+            @include bg-image("../../../../../assets/icon/workbench/chachuanqi")
+          }
+
+          i.icon-shipments {
+            @include bg-image("../../../../../assets/icon/workbench/yundan")
+          }
+
+          i.icon-booking {
+            @include bg-image("../../../../../assets/icon/workbench/dingdan")
+          }
+
+          i.icon-billing {
+            @include bg-image("..//../../../../assets/icon/workbench/zhangdan")
+          }
+
+          i.icon-quotes {
+            @include bg-image("../../../../../assets/icon/workbench/baojia")
+          }
+        }
+      }
+    }
+  }

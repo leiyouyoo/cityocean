@@ -5,7 +5,7 @@
         <input
           type="search"
           name="searh"
-          (keyup)="($event.which === 13) ? onInputChange() : 0"
+          (click)="onInputChange()"
           [(ngModel)]="searchInput"
           [placeholder]="'key_word' | translate"
         />

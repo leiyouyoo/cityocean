@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ActionSheetController } from '@ionic/angular';
 import { BillingServiceService } from './billing-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-billing',
@@ -13,22 +14,40 @@ export class BillingPage implements OnInit {
     maxResultCount: 5,
     skipCount: 0,
   };
-
+  ids: any = []; // 可能为多个id
   billingStatus: any; // 筛选状态
   constructor(
     private billingServiceService: BillingServiceService,
     private actionSheetController: ActionSheetController,
     private nav: NavController,
-  ) {}
+    private activatedRoute: ActivatedRoute,
+  ) {
+    this.activatedRoute.queryParams.subscribe((data: any) => {
+      if(data.ids){
+        this.ids = data.ids.split(',').map((e) => {
+          return Number(e);
+        });
+      }
+    });
+  }
 
   ngOnInit() {
-    let ids = '1979,1977';
-    this.billingServiceService.GetBillingListByIds(ids.split(",").map(e=>{return Number(e)})).subscribe(res=>{
-      console.log(res)
-    })
-    this.getBillingList({});
+    if (this.ids.length) {
+      this.billingServiceService.GetBillingListByIds(this.ids).subscribe((res: any) => {
+        this.billingList = this.billingList.concat(res.items);
+      });
+    } else {
+      this.getBillingList({});
+    }
   }
   getBillingList(params, event?) {
+    if (this.ids.length) {
+      if (event) {
+        event.target.complete();
+        event.target.disabled = true;
+      }
+      return;
+    }
     params.MaxResultCount = this.pageInfo.maxResultCount;
     params.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
     if (this.billingStatus != null) {
@@ -52,11 +71,9 @@ export class BillingPage implements OnInit {
   }
   goback() {
     // this.nav.navigateForward(['/cityOcean/workbench']);
-    window.history.back()
+    window.history.back();
   }
-  
- 
- 
+
   /**
    * 筛选
    *
