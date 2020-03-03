@@ -73,6 +73,12 @@ export class HomePage implements OnInit {
     } else {
       this.homeService.getQuickEntrance().subscribe((res) => {
         this.toolsList = res.items;
+        const hasRatesOrSailing =  this.toolsList.some(e=>{
+          return e.type === 'rates' || e.type==='sailingSchedules'
+        })
+        if(!hasRatesOrSailing){
+          this.transportationCost = false;
+        }
         this.toolsList.push({
           name: 'More',
           type: 'More',
@@ -221,11 +227,11 @@ export class HomePage implements OnInit {
   toolTypeClick(item) {
     switch (item.type) {
       case 'rates':
-        // this.transportationCost = !this.transportationCost;
+        this.transportationCost = true;
         this.searchType = 'seachRates';
         break;
       case 'sailingSchedules':
-        // this.transportationCost = !this.transportationCost;
+        this.transportationCost = true;
         this.searchType = 'seachSailingSchedules';
         break;
       case 'billing':

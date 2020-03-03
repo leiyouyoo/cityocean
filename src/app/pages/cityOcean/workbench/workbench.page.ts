@@ -242,10 +242,10 @@ export class WorkbenchPage implements OnInit {
       return;
     }
     if (item.type === 'rates') {
-      this.searchTransportationCost = !this.searchTransportationCost;
+      this.searchTransportationCost = true;
       this.searchType = 'seachRates';
     } else if (item.type === 'sailingSchedules') {
-      this.searchTransportationCost = !this.searchTransportationCost;
+      this.searchTransportationCost = true;
       this.searchType = 'seachSailingSchedules';
     } else {
       this.goRouter(item);

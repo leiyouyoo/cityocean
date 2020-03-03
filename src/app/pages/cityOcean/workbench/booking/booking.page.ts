@@ -32,7 +32,7 @@ export class BookingPage implements OnInit {
   ngOnInit() {
     this.ids = '4701,4700';
     if (this.ids) {
-      this.bookingServiceService.GetBookingListByIds(this.ids.split(",")).subscribe((res)=>{
+      this.bookingServiceService.GetBookingListByIds(this.ids.split(",").map(e=>{return Number(e)})).subscribe((res)=>{
         console.log(res)
       })
     }

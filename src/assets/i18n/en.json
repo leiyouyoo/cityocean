@@ -11,8 +11,8 @@
   "sailSchedules": "Sail Schedule",
   "shipments": "Shipments",
   "booking": "Bookings",
-  "seachRates": "Search",
-  "seachSailingSchedules":"Search",
+  "seachRates": "Search Rates",
+  "seachSailingSchedules":"Search Schedule",
   "sailingSchedules":"Sail Schedule",
   "registerCustomer":"Ask for an account Call"
 }

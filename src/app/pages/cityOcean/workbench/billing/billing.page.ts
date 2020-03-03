@@ -23,7 +23,7 @@ export class BillingPage implements OnInit {
 
   ngOnInit() {
     let ids = '1979,1977';
-    this.billingServiceService.GetBillingListByIds(ids.split(",")).subscribe(res=>{
+    this.billingServiceService.GetBillingListByIds(ids.split(",").map(e=>{return Number(e)})).subscribe(res=>{
       console.log(res)
     })
     this.getBillingList({});
