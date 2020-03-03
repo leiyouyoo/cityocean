@@ -53,7 +53,6 @@ export class ShipmentDetailPage implements OnInit {
     shipmentNo: '',
   };
   businessTypeTitle: any;
-  agreement: any; //Freight Type
   icons: any[];
   lines: any[];
   dashedLines: any[];
@@ -69,7 +68,6 @@ export class ShipmentDetailPage implements OnInit {
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
-      this.agreement = data.agreement;
     });
   }
 
@@ -89,6 +87,10 @@ export class ShipmentDetailPage implements OnInit {
       },
     );
   }
+  setAgreement(){
+    return this.routeDetail.routeDetails.consigneeInfos.length === 0 && this.routeDetail.routeDetails.shipperInfos.length === 0 ? 'Cy-Cy' : this.routeDetail.routeDetails.shipperInfos.length === 0 ? 'Cy-Door' : this.routeDetail.routeDetails.consigneeInfos.length === 0 ? 'Door-Cy' : 'Door-Door';
+  }
+  
   getMapData(data) {
     this.shipmentService.getShipmentMapDataByDetails([data]).subscribe((mapData) => {
       if (mapData.length) {

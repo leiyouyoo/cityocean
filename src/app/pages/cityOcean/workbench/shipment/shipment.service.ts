@@ -487,6 +487,22 @@ export class MyShipmentService {
   GetAll(json: { searchText?: string, IsDelivered?: boolean, TransportationMode?: TransportationMode, Sorting?: string, MaxResultCount?: number, SkipCount?: number }) {
     return this.http.postJson('/CSP/Shipment/GetAllList', json)
       .pipe(map((data: any) => {
+        const temp = data.items;
+        temp.forEach(s => {
+          try {
+            s.shiperShow = s.routeDetails.shipperInfos.length && s.routeDetails.shipperInfos[0].shipperNetWorkInfo.name || '';
+            s.consigneeShow = s.routeDetails.consigneeInfos.length && s.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.name || '';
+          } catch (e) {
+            console.log(e);
+          }
+          s.state = s.status;
+          if (s.containerList) {
+            s.containerListShow = '';
+            s.containerList.forEach(sc => {
+              s.containerListShow += `${sc.count}*${sc.code}` + ' ';
+            });
+          }
+        });
         return data;
       }));
   }

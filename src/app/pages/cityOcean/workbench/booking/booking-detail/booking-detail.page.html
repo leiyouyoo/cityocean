@@ -44,12 +44,12 @@
         <span>Incoterms</span>
         <span>{{bookingDetail.incotermsString}}</span>
       </p>
-      <p>
+      <p *ngIf="getContainerType(bookingDetail)">
         <span>Container Type</span>
         <span>{{getContainerType(bookingDetail)}}</span>
       </p>
       <div *ngIf="baseShow">
-        <ng-container *ngIf="bookingDetail?.quantity">
+        <ng-container *ngIf="bookingDetail?.quantity>0">
           <label class="title">Cargo</label>
           <p>
             <span>Quantity</span>

@@ -58,7 +58,7 @@ export class ShipmentPage implements OnInit {
   }
   gotoShipmentDetail(item) {
     this.nav.navigateForward(['/cityOcean/workbench/shipments/shipmentDetail'], {
-      queryParams: { id: item.id, agreement: item.agreement },
+      queryParams: { id: item.id},
     });
   }
   async shipmentFilter(type) {

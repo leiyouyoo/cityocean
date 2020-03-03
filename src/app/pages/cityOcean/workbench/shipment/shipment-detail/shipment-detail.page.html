@@ -26,13 +26,13 @@
       <label class="title">Basic</label>
       <p>
         <span>Freight Type</span>
-        <span>{{agreement}}</span>
+        <span>{{setAgreement()}}</span>
       </p>
       <p>
         <span>Incoterms</span>
         <span>{{basicDetail.incotermsString}}</span>
       </p>
-      <p>
+      <p *ngIf="getContainerType(basicDetail)">
         <span>Container Type</span>
         <span>{{getContainerType(basicDetail)}}</span>
       </p>
@@ -46,19 +46,21 @@
           <span>Container No</span>
           <span>{{basicDetail?.containerNos}}</span>
         </p>
-        <label class="title">Cargo</label>
-        <p>
-          <span>Quantity</span>
-          <span>{{basicDetail?.quantityString}}</span>
-        </p>
-        <p>
-          <span>Total Weight</span>
-          <span>{{basicDetail?.totalWeightString}}</span>
-        </p>
-        <p>
-          <span>Total Volume</span>
-          <span>{{basicDetail?.totalVolumeString}}</span>
-        </p>
+        <ng-container *ngIf="basicDetail?.quantityString>0">
+          <label class="title">Cargo</label>
+          <p>
+            <span>Quantity</span>
+            <span>{{basicDetail?.quantityString}}</span>
+          </p>
+          <p>
+            <span>Total Weight</span>
+            <span>{{basicDetail?.totalWeightString}}</span>
+          </p>
+          <p>
+            <span>Total Volume</span>
+            <span>{{basicDetail?.totalVolumeString}}</span>
+          </p>
+        </ng-container>
         <ng-container *ngIf="basicDetail?.specialInstructions">
           <label class="title">Specifics</label>
           <p>
@@ -81,7 +83,10 @@
       <label *ngIf="routeDetail?.routeDetails?.shipperInfos.length" class="title">起运地</label>
       <ng-container *ngFor="let shipperInfo of routeDetail?.routeDetails?.shipperInfos; let i=index">
         <ng-container *ngIf="originPortShow || i ===0">
-          <p  [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'" [id] =" isLoginWithTourist?'isLoginWithTourist':''">
+          <p
+            [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'"
+            [id]=" isLoginWithTourist?'isLoginWithTourist':''"
+          >
             <span>{{shipperInfo.shipperNetWorkInfo.name}}</span>
           </p>
           <p [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'">
@@ -118,7 +123,10 @@
         <span>Arrived/抵达</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualDepatureOrginPortDate)}}</span>
       </p>
-      <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'" [id] =" isLoginWithTourist?'isLoginWithTourist':''">
+      <p
+        [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'"
+        [id]=" isLoginWithTourist?'isLoginWithTourist':''"
+      >
         <span>Carrier/承运人</span>
         <span>{{routeDetail?.routeDetails?.carrierCustomerName}}</span>
       </p>
@@ -138,7 +146,10 @@
         <span>Estimated Pick-Up/预计上车时间</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualPickUpTruckDestinationDate)}}</span>
       </p>
-      <p  [id] =" isLoginWithTourist?'isLoginWithTourist':''" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+      <p
+        [id]=" isLoginWithTourist?'isLoginWithTourist':''"
+        [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'"
+      >
         <span>Carrier/承运人</span>
         <span>{{routeDetail?.routeDetails?.truckCustomerName}}</span>
       </p>
@@ -149,7 +160,10 @@
       >
       <ng-container *ngFor="let consigneeInfo of routeDetail?.routeDetails?.consigneeInfos; let i=index">
         <ng-container *ngIf="consigneeShow || i ===0">
-          <p  [id] =" isLoginWithTourist?'isLoginWithTourist':''" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+          <p
+            [id]=" isLoginWithTourist?'isLoginWithTourist':''"
+            [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'"
+          >
             <span>{{consigneeInfo.consigneeNetWorkInfo.name}}</span>
           </p>
           <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
