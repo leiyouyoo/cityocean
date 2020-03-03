@@ -9,6 +9,9 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-me-about',
@@ -27,8 +30,10 @@ export class AboutPage implements OnInit {
     private fileOpener: FileOpener,
     public activeRoute: ActivatedRoute,
     private device: Device,
+    public appService: ScheduleService,
     public helper: Helper,
     public file: File,
+    public translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -60,13 +65,18 @@ export class AboutPage implements OnInit {
   initData() {
     const token = LocalStorage.localStorage.get('Token');
     const numversion = this.version.replace(/\./g, '');
-    // this.appService.get('xxx', { version: numversion, Token: token }).subscribe((res: any) => {
-    //   if (res.Update === true) {
-    //     this.showAlert();
-    //   } else {
-    //     this.helper.toast('已经是最新版本');
-    //   }
-    // });
+    this.appService
+      .checkUpdate({
+        appType: 1,
+        version: this.device.version,
+      })
+      .subscribe((res: any) => {
+        if (res.result === true) {
+          this.showAlert();
+        } else {
+          this.helper.toast(this.translate.instant('Already the latest version'));
+        }
+      });
   }
 
   async showAlert() {
@@ -76,13 +86,13 @@ export class AboutPage implements OnInit {
       message: '发现新版本,是否立即升级？',
       buttons: [
         {
-          text: '取消',
+          text: this.translate.instant('Cancel'),
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {},
         },
         {
-          text: '确认',
+          text: this.translate.instant('Ok'),
           handler: () => {
             // 4.下载apk
             this.downloadApp();
@@ -95,7 +105,7 @@ export class AboutPage implements OnInit {
 
   downloadApp() {
     // 4.下载apk
-    const targetUrl = 'https://www.xxxx.cn/app/CITYOCEAN.apk';
+    const targetUrl = environment.SERVER_URL + '/app/CITYOCEAN.apk';
     const fileTransfer: FileTransferObject = this.transfer.create();
     fileTransfer.download(targetUrl, this.file.dataDirectory + 'CITYOCEAN.apk').then(
       (entry) => {

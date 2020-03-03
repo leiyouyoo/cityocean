@@ -38,4 +38,8 @@ export class ScheduleService {
   getCRMContacts(customerId: any) {
     return this.http.get('/CRM/ContactExternal/GetContactAndSaleByCustomerId', { customerId: customerId });
   }
+
+  checkUpdate(json: any) {
+    return this.http.postJson('/Platform/AppVersion/CheckVersion', json);
+  }
 }
