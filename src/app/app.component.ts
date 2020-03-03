@@ -52,6 +52,7 @@ export class AppComponent {
         //   color = '#000000';
         // }
       }
+      this.statusBar.overlaysWebView(false);
       this.statusBar.backgroundColorByHexString(color);
       this.statusBar.show();
       this.jpush.setDebugMode(true);

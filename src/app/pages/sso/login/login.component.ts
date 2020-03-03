@@ -78,10 +78,11 @@ export class LoginComponent implements OnInit {
       'pchkh04@cityocean.com': 11,
     };
     let tenantId = map[obj.username] ? map[obj.username] : 4;
-
+    this.helper.showLoading('Loading...');
     this.loginService
       .login(obj.username, obj.password, tenantId, true)
       .then((res: any) => {
+        this.helper.hideLoading();
         // 极光推送绑定
         this.onSetJpush();
         if (res.access_token) {
