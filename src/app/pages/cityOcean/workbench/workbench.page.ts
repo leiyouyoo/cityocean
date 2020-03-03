@@ -15,7 +15,6 @@ export class WorkbenchPage implements OnInit {
   typeList: any;
   quickEnterList = []; // 已添加到快捷入口的数据
 
-  moreTypeList = []; // 还未添加到快捷入口的数据
   title: any;
   titleStatisticsList: any;
   @ViewChild('quickEnter', {static: false}) quickEnter:QuickEnterComponent
@@ -94,14 +93,6 @@ export class WorkbenchPage implements OnInit {
   ionViewWillEnter() {
     this.homeService.getQuickEntrance().subscribe((res) => {
       this.quickEnterList = res.items;
-      this.moreTypeList = this.typeList.filter((e) => {
-        if (this.quickEnterList.length == 0) {
-          return true;
-        }
-        return !this.quickEnterList.some((ele) => {
-          return e.type == ele.type;
-        });
-      });
     });
   }
   confirm() {
@@ -358,32 +349,6 @@ export class WorkbenchPage implements OnInit {
       }
     });
     return await modal.present();
-  }
-  /**
-   *
-   *  从快捷入口删除
-   * @param {*} event
-   * @param {*} item
-   * @param {*} index
-   * @memberof WorkbenchPage
-   */
-  delete(event, item, index) {
-    event.stopPropatgaion;
-    this.quickEnterList.splice(index, 1);
-    this.moreTypeList.push(item);
-  }
-  /**
-   *  添加到快捷入口
-   *
-   * @param {*} event
-   * @param {*} item
-   * @param {*} index
-   * @memberof WorkbenchPage
-   */
-  add(event, item, index) {
-    event.stopPropatgaion;
-    this.moreTypeList.splice(index, 1);
-    this.quickEnterList.push(item);
   }
 
   goRouter(item) {

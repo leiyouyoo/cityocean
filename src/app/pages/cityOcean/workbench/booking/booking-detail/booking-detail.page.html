@@ -49,19 +49,21 @@
         <span>{{getContainerType(bookingDetail)}}</span>
       </p>
       <div *ngIf="baseShow">
-        <label class="title">Cargo</label>
-        <p>
-          <span>Quantity</span>
-          <span>{{bookingDetail?.quantity}}</span>
-        </p>
-        <p>
-          <span>Total Weight</span>
-          <span>{{bookingDetail?.weight}}{{bookingDetail?.weightUnitString}}</span>
-        </p>
-        <p>
-          <span>Total Volume</span>
-          <span>{{bookingDetail?.volume}}{{bookingDetail?.volumeUnitString}}</span>
-        </p>
+        <ng-container *ngIf="bookingDetail?.quantity">
+          <label class="title">Cargo</label>
+          <p>
+            <span>Quantity</span>
+            <span>{{bookingDetail?.quantity}}</span>
+          </p>
+          <p>
+            <span>Total Weight</span>
+            <span>{{bookingDetail?.weight}}{{bookingDetail?.weightUnitString}}</span>
+          </p>
+          <p>
+            <span>Total Volume</span>
+            <span>{{bookingDetail?.volume}}{{bookingDetail?.volumeUnitString}}</span>
+          </p>
+        </ng-container>
         <ng-container *ngIf="bookingDetail?.isContainsSpecialGoods">
           <label class="title">Specifics</label>
           <label class="title">Description Of Products</label>

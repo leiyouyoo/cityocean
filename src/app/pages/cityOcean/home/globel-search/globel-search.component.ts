@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BillingServiceService } from '../../workbench/billing/billing-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-globel-search',
-  templateUrl: './globel-search.page.html',
-  styleUrls: ['./globel-search.page.scss'],
+  templateUrl: './globel-search.component.html',
+  styleUrls: ['./globel-search.component.scss'],
 })
-export class GlobelSearchPage implements OnInit {
+export class GlobelSearchComponent implements OnInit {
   billingData: any;
   shipmentData: any;
-  searchKey = '';
+  @Input() searchKey = '';
   page = {
     pageSize: 5,
     pageIndex: 1,
@@ -22,11 +22,8 @@ export class GlobelSearchPage implements OnInit {
     private billingService: BillingServiceService,
     private shipmentService: MyShipmentService,
     private nav: NavController,
-    private activatedRoute:ActivatedRoute
+    private modalController:ModalController
   ) {
-    this.activatedRoute.queryParams.subscribe((data: any) => {
-      this.searchKey = data.searchKey;
-    });
   }
 
   ngOnInit() {
@@ -41,7 +38,8 @@ export class GlobelSearchPage implements OnInit {
     this.filterConfirm();
   }
   goback() {
-    this.nav.navigateForward(['/cityOcean/home']);
+    // this.nav.navigateForward(['/cityOcean/home']);
+    this.modalController.dismiss();
   }
   searchBilling() {
     this.billingService.getAllBilling({ maxResultCount: this.page.pageSize,ShipmentId:this.searchKey } as any).subscribe((data) => {
@@ -59,7 +57,7 @@ export class GlobelSearchPage implements OnInit {
     });
   }
   gotoShipmentDetail(item) {
-    this.nav.navigateForward(['/cityOcean/workbench/shipment/shipmentDetail'], {
+    this.nav.navigateForward(['/cityOcean/workbench/shipments/shipmentDetail'], {
       queryParams: { id: item.id, agreement: item.agreement },
     });
   }

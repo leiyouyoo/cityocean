@@ -11,10 +11,6 @@ const routes: Routes = [
   {
     path: 'chat',
     loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
-  },
-  {
-    path: 'globelSearch',
-    loadChildren: () => import('./globel-search/globel-search.module').then( m => m.GlobelSearchPageModule)
   }
 ];
 

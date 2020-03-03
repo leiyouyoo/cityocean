@@ -7,7 +7,7 @@ import { WorkbenchPage } from './workbench.page';
 import { WorkbenchPageRoutingModule } from './workbench-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { WorkbenchService } from './workbench.service';
-import { QuickEnterComponent } from './quick-enter/quick-enter.component';
+import { SharedModule } from '@shared';
 
 @NgModule({
   imports: [
@@ -15,9 +15,10 @@ import { QuickEnterComponent } from './quick-enter/quick-enter.component';
     CommonModule,
     FormsModule,
     WorkbenchPageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    SharedModule,
   ],
-  declarations: [WorkbenchPage,QuickEnterComponent],
+  declarations: [WorkbenchPage,],
   entryComponents:[],
   providers:[WorkbenchService]
 })

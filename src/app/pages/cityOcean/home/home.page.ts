@@ -9,6 +9,8 @@ import { CityOceanService } from '../city-ocean.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.component';
+import { GlobelSearchComponent } from './globel-search/globel-search.component';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +30,6 @@ export class HomePage implements OnInit {
   deliveryPort: any = {}; // 目的港
   totalCount: any;
   scrollList = []; // 系统消息列表
-  private searchTerms = new Subject<string>();
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -45,11 +46,6 @@ export class HomePage implements OnInit {
         this.imLogin(res);
       }
     });
-    this.searchTerms.pipe(
-        // 请求防抖 100毫秒
-      ).subscribe(()=>{
-        this.nav.navigateForward(['/cityOcean/home/globelSearch'], { queryParams: { searchKey: this.searchInput } });
-      })
   }
   ionViewWillEnter() {
     this.searchInput = '';
@@ -72,10 +68,10 @@ export class HomePage implements OnInit {
     } else {
       this.homeService.getQuickEntrance().subscribe((res) => {
         this.toolsList = res.items;
-        const hasRatesOrSailing =  this.toolsList.some(e=>{
-          return e.type === 'rates' || e.type==='sailingSchedules'
-        })
-        if(!hasRatesOrSailing){
+        const hasRatesOrSailing = this.toolsList.some((e) => {
+          return e.type === 'rates' || e.type === 'sailingSchedules';
+        });
+        if (!hasRatesOrSailing) {
           this.transportationCost = false;
         }
         this.toolsList.push({
@@ -144,8 +140,15 @@ export class HomePage implements OnInit {
   swipedown() {
     this.transportationCost = true;
   }
-  onInputChange() {
-    this.searchTerms.next();
+  async onInputChange() {
+    const modal = await this.modalController.create({
+      component: GlobelSearchComponent,
+      componentProps: { searchKey: this.searchInput },
+    });
+    modal.onWillDismiss().then((res) => {
+      console.log(res);
+    });
+    return await modal.present();
   }
 
   // 下拉加载(暂无用)
@@ -243,9 +246,32 @@ export class HomePage implements OnInit {
         this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
         break;
       case 'More':
-        this.nav.navigateForward(['/cityOcean/workbench']);
+        // this.nav.navigateForward(['/cityOcean/workbench']);
+        this.moreClick();
         break;
     }
+  }
+  async moreClick() {
+    const modal = await this.modalController.create({
+      cssClass: 'home-quick-enter',
+      component: QuickEnterComponent,
+      componentProps: {
+        isHome: true,
+        quickEnterList: this.toolsList.filter((e) => {
+          return e.type != 'More';
+        }),
+      },
+    });
+    modal.onWillDismiss().then((res) => {
+      if(res.data){
+        this.toolsList = res.data;
+        this.toolsList.push({
+          name: 'More',
+          type: 'More',
+        });
+      }
+    });
+    return await modal.present();
   }
   deleteItem(i: any, data, node) {
     this.showDeleteButton = false;
@@ -264,13 +290,13 @@ export class HomePage implements OnInit {
       },
     );
   }
-  showDeleteButtonFn(node){
+  showDeleteButtonFn(node) {
     this.showDeleteButton = true;
     node.close();
     node.open();
   }
-  canceDelete(node){
-    this.showDeleteButton = false;;
+  canceDelete(node) {
+    this.showDeleteButton = false;
     node.close();
   }
   async searchLocaltion(type) {
@@ -283,13 +309,13 @@ export class HomePage implements OnInit {
       if (res.data.isHistory === 'cancel') {
         return;
       }
-      if (!res.data.isHistory)
+      if (!res.data.isHistory) {
         if (type == 'start') {
           this.orignPort = res.data.data;
         } else {
           this.deliveryPort = res.data.data;
         }
-      else {
+      } else {
         this.orignPort = res.data.data.orignPortHistory;
         this.deliveryPort = res.data.data.deliveryPortHistory;
       }
