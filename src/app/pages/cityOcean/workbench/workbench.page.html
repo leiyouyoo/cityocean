@@ -70,7 +70,7 @@
           <i [class]="'icon-'+item.type">
             <i (click)="delete($event,item,i)" class="icon-delete"></i>
           </i>
-          <span>{{item.name}}</span>
+          <span>{{item.name | translate}}</span>
         </p>
       </div>
     </div>
@@ -81,7 +81,7 @@
           <i [class]="'icon-'+item.type">
             <i (click)="add($event,item,i)" class="icon-add"></i>
           </i>
-          <span>{{item.name}}</span>
+          <span>{{item.name| translate}}</span>
         </p>
       </div>
     </div>

@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomePage implements OnInit {
   showDeleteButton = false;
-  transportationCost = false; //运价或船期查询
+  transportationCost = true; //运价或船期查询
   @ViewChild(IonInfiniteScroll, { static: true })
   infiniteScroll: IonInfiniteScroll;
   searchType = 'seachRates'; //  当前查询类别
@@ -58,14 +58,14 @@ export class HomePage implements OnInit {
       this.toolsList = [
         // 游客模式业务类型
         {
-          name: this.translate.instant('sailing'),
+          name: this.translate.instant('Schedules'),
           type: 'sailingSchedules',
           marker: false,
           id: 0,
         },
         {
-          name: this.translate.instant('rates'),
-          type: 'shipment',
+          name: this.translate.instant('Shipments'),
+          type: 'shipments',
           marker: false,
           id: 0,
         },
@@ -74,8 +74,8 @@ export class HomePage implements OnInit {
       this.homeService.getQuickEntrance().subscribe((res) => {
         this.toolsList = res.items;
         this.toolsList.push({
-          name: 'more',
-          type: 'more',
+          name: 'More',
+          type: 'More',
         });
       });
     }
@@ -221,11 +221,11 @@ export class HomePage implements OnInit {
   toolTypeClick(item) {
     switch (item.type) {
       case 'rates':
-        this.transportationCost = !this.transportationCost;
+        // this.transportationCost = !this.transportationCost;
         this.searchType = 'seachRates';
         break;
       case 'sailingSchedules':
-        this.transportationCost = !this.transportationCost;
+        // this.transportationCost = !this.transportationCost;
         this.searchType = 'seachSailingSchedules';
         break;
       case 'billing':
@@ -234,13 +234,10 @@ export class HomePage implements OnInit {
       case 'booking':
         this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
         break;
-      case 'sailingSchedules':
+      case 'shipments':
         this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
         break;
-      case 'shipment':
-        this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
-        break;
-      case 'more':
+      case 'More':
         this.nav.navigateForward(['/cityOcean/workbench']);
         break;
     }

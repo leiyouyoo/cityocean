@@ -16,7 +16,8 @@ ion-header {
     .control-search-detail {
         display: flex;
         justify-content: center;
-        margin: px2rem(7px) 0 px2rem(15px);
+        padding: px2rem(7px) 0 px2rem(15px);
+        height: px2rem(26px);
 
         &>div {
             height: px2rem(4px);
@@ -113,6 +114,12 @@ ion-header {
                     box-shadow: 0px px2rem(8px) px2rem(16px) 0px rgba(175, 148, 148, 0.08), 0px 0px 1px 0px rgba(0, 0, 0, 0.08);
                     border-radius: px2rem(22px);
                     padding-left: px2rem(34px);
+                    &::-webkit-input-placeholder {
+                        font-size: 12px;
+                        font-family: PingFangSC-Regular, PingFang SC;
+                        font-weight: 400;
+                        color: #7A869A;
+                    }
                 }
 
                 i.search-icon {
@@ -160,7 +167,7 @@ ion-header {
                     @include bg-image("../../../../assets/icon//home/icon_chuanqi");
                 }
 
-                i.shipment {
+                i.shipments {
                     @include bg-image("../../../../assets/icon/home/icon-yundan");
                 }
 
@@ -176,7 +183,7 @@ ion-header {
                     @include bg-image("../../../../assets/icon/home/icon_zhangdan");
                 }
 
-                i.more {
+                i.More {
                     @include bg-image("../../../../assets/icon/home/icon_gengduo");
                 }
 

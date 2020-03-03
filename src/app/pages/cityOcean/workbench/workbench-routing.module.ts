@@ -9,7 +9,7 @@ const routes: Routes = [
     component: WorkbenchPage
   },
   {
-    path: 'shipment',
+    path: 'shipments',
     loadChildren: () => import('./shipment/shipment.module').then( m => m.ShipmentPageModule)
   },{
     path: 'rates',
