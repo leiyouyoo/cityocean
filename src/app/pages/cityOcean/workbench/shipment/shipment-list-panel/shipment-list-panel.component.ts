@@ -15,6 +15,10 @@ export class ShipmentListPanelComponent implements OnInit {
 
   ngOnInit() {}
   getTime(time) {
-    return moment(time).format('MMM D YYYY');
+    if (!time) {
+      return '';
+    } else {
+      return moment(time).format('MMM D YYYY');
+    }
   }
 }

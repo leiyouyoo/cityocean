@@ -16,14 +16,14 @@
       <div class="flag"></div>
       <span>Shipper</span>
     </div>
-    <span class="address-name">{{bookingListItem.shipperAddress?.name}}</span>
+    <span class="address-name">{{bookingListItem.shipperAddress?.tenantName}}</span>
   </div>
   <div class="Consignee content-group line-class">
     <div>
       <div class="flag"></div>
       <span>Consignee</span>
     </div>
-    <span>{{bookingListItem.consigneeAddress?.name}}</span>
+    <span>{{bookingListItem.consigneeAddress?.tenantName}}</span>
   </div>
   <div  class="Cargo content-group">
     <div>
@@ -35,6 +35,6 @@
     <div>
       <span>Cargo details</span>
     </div>
-    <span>{{bookingListItem.weight}}kg <span>{{bookingListItem.volume}}cbm</span></span>
+    <span>{{bookingListItem.weight}} {{bookingListItem.weightUnitString}} <span>{{bookingListItem.volume}} {{bookingListItem.volumeUnitString}}</span></span>
   </div>
 </div>

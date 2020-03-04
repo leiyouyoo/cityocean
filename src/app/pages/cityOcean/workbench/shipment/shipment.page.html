@@ -9,7 +9,7 @@
           (keyup)="($event.which === 13) ? resetFilter() : 0"
           type="search"
           name = "searh"
-          placeholder="搜索PO/SKU"
+          [placeholder]="'Search' | translate"
         />
       </div>
       <i (click)="shipmentFilter($event)" class="filter"></i>
