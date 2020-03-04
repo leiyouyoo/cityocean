@@ -1,4 +1,4 @@
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, NavParams } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,8 +12,9 @@ import { SharedModule } from '@shared/shared.module';
     CommonModule,
     FormsModule,
     SharedModule,
-    RouterModule.forChild([{ path: '', component: ContactsPage }])
+    RouterModule.forChild([{ path: '', component: ContactsPage }]),
   ],
-  declarations: [ContactsPage]
+  providers: [NavParams],
+  declarations: [ContactsPage],
 })
 export class ContactsPageModule {}

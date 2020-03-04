@@ -1,114 +1,17 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 
 @Component({
-  selector: "app-contacts",
-  templateUrl: "contacts.page.html",
-  styleUrls: ["contacts.page.scss"]
+  selector: 'app-contacts',
+  templateUrl: 'contacts.page.html',
+  styleUrls: ['contacts.page.scss'],
 })
-export class ContactsPage {
-  items=[
-    {
-      count:1,
-      theme:'张三',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'李四',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'王五',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'张麻子',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'张三',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'李四',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'王五',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'张麻子',
-      integral:123
-    },{
-      count:1,
-      theme:'张三',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'李四',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'王五',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'张麻子',
-      integral:123
-    },{
-      count:1,
-      theme:'张三',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'李四',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'王五',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'张麻子',
-      integral:123
-    },{
-      count:1,
-      theme:'张三',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'李四',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'王五',
-      integral:123
-    },
-    {
-      count:1,
-      theme:'张麻子',
-      integral:123
-    }
-  ]
-  constructor() {}
-  ionViewWillEnter() {}
-  deleteItem(i: any, node) {
-    node.close();
-    this.items.splice(i,1)
+export class ContactsPage implements OnInit {
+  list: any;
+  constructor(public scheduleService: ScheduleService) {}
+  ngOnInit() {
+    this.scheduleService.getCRMContacts(abp.session.user.customerId).subscribe((res: any) => {
+      this.list = res.items;
+    });
   }
 }
