@@ -276,7 +276,7 @@ export class WorkbenchPage implements OnInit {
     await alert.present();
   }
   /**
-   * 导航到运单列表
+   * 导航到运价或船期列表
    *
    * @memberof WorkbenchPage
    */
@@ -308,7 +308,9 @@ export class WorkbenchPage implements OnInit {
       this.nav.navigateForward(['/cityOcean/workbench/rates'], {
         queryParams: {
           orignPortId: this.orignPort.id,
+          orignPortName: this.orignPort.name,
           deliveryPortId: this.deliveryPort.id,
+          deliveryPortName: this.deliveryPort.name,
         },
       });
     } else if (this.searchType === 'seachSailingSchedules') {

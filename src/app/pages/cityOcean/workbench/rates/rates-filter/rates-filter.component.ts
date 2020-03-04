@@ -31,6 +31,10 @@ export class RatesFilterComponent implements OnInit {
     carrierId: 'all',
     ratesValidDays: '7',
   };
+  @Input() orignPortName;
+  @Input() deliveryPortName;
+  @Input() orignPortId;
+  @Input() deliveryPortId;
   carrierList = [];
   private searchTerms = new Subject<string>();
 
@@ -46,6 +50,10 @@ export class RatesFilterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.profileForm.originPortSearchText = this.orignPortName;
+    this.profileForm.deliveryPortSearchText = this.deliveryPortName;
+    this.profileForm.orignPortId = this.orignPortId;
+    this.profileForm.deliveryPortId = this.deliveryPortId;
     this.sailService.getCarrierList().subscribe((res) => {
       console.log(res);
       this.carrierList = res;
@@ -163,6 +171,26 @@ export class RatesFilterComponent implements OnInit {
     });
     popover.onDidDismiss().then((event) => {
       if (!event.data || !event.data.name) {
+        switch (type) {
+          case 'originPortSearchText':
+            this.profileForm.orignPortId = this.orignPortId;
+            this.profileForm.originPortSearchText = this.orignPortName;
+            break;
+          case 'originLocatonSearchText':
+            this.profileForm.orignLocationId = '';
+            this.profileForm.originLocatonSearchText = '';
+            break;
+          case 'deliveryPortSearchText':
+            this.profileForm.deliveryPortId = this.deliveryPortId;
+            this.profileForm.deliveryPortSearchText = this.deliveryPortName;
+            break;
+          case 'destinationLocationSearchText':
+            this.profileForm.deliveryLocationId = '';
+            this.profileForm.destinationLocationSearchText = '';
+            break;
+          default:
+            break;
+        }
         return;
       }
       this.profileForm[type] = event.data.name;
