@@ -14,7 +14,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 export class CityOceanService {
   globelCustomerId = ''; //  全局客服id
   globelCustomerName = '';// 客服名称
-  globelCustomerPhone = ''; // 客服电话
+  globelCustomerPhone = '0755-33958211'; // 客服电话
   customerId: ''; // 当前登录人的id
   hasHistoryChat: any = [];
   c2cList: any;
@@ -33,7 +33,6 @@ export class CityOceanService {
           if (res && res.id) {
             this.globelCustomerId = res.id;
             this.globelCustomerName = res.name;
-            this.globelCustomerPhone = res.phoneNumber;
             return res.id;
           }
         });
@@ -42,7 +41,6 @@ export class CityOceanService {
           if (res.id) {
             this.globelCustomerId = res.id;
             this.globelCustomerName = res.name;
-            this.globelCustomerPhone = res.phoneNumber;
           } else {
             this.GetIdByEmail();
           }
@@ -131,7 +129,7 @@ export class CityOceanService {
           icon: 'phone',
           handler: () => {
             this.callNumber
-              .callNumber('0755-33958211', true)
+              .callNumber(this.globelCustomerPhone, true)
               .then((res) => console.log('Launched dialer!', res))
               .catch((err) => console.log('Error launching dialer', err));
           },
