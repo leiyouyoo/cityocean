@@ -8,6 +8,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
 import { LocalStorage } from '@shared/localstorage';
+import { Helper } from '@shared/helper';
 
 @Component({
   selector: 'app-root',
@@ -25,13 +26,11 @@ export class AppComponent {
     private alertController: AlertController,
     private router: Router,
     private nav: NavController,
+    private helper: Helper,
     private jpush: JPush,
     public translate: TranslateService,
   ) {
     this.initializeApp();
-    this.initTranslateConfig();
-    this.backButtonEvent();
-    this.navEvents();
   }
 
   initializeApp() {
@@ -57,6 +56,10 @@ export class AppComponent {
       this.statusBar.show();
       this.jpush.setDebugMode(true);
       this.jpush.init();
+
+      this.initTranslateConfig();
+      this.backButtonEvent();
+      this.navEvents();
     });
   }
   /**
@@ -96,16 +99,13 @@ export class AppComponent {
    */
   backButtonEvent() {
     this.platform.backButton.subscribe(() => {
-      if (this.router.url.indexOf('home') != -1 || this.router.url.indexOf('login') != -1) {
+      if (this.router.url.indexOf('home') !== -1 || this.router.url.indexOf('login') !== -1) {
         if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
-          navigator['app'].exitApp(); //退出APP
+          navigator['app'].exitApp(); // 退出APP
         } else {
-          //this.presentAlertConfirm();
-          this.lastTimeBackPress = new Date().getTime(); //再次按
+          this.helper.toast(this.translate.instant('Try Again Exit'), 3000, 'bottom');
+          this.lastTimeBackPress = new Date().getTime(); // 再次按
         }
-        // navigator['app'].exitApp(); //ionic4 退出APP的方法
-      } else {
-        this.nav.back();
       }
     });
   }

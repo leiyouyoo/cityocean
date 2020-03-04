@@ -20,7 +20,7 @@ export class ScheduleAddPage implements OnInit {
   id: any;
   edit = false;
   minEndTime: any;
-  choosedContacts: any;
+  choosedContacts: any = [];
   data = {
     remindStartTime: null,
     remindEndTime: null,
@@ -51,12 +51,13 @@ export class ScheduleAddPage implements OnInit {
         this.scheduleService.get(this.id).subscribe((res: any) => {
           this.data = res;
           if (this.data.remindPeople) {
+            debugger;
             this.choosedContacts = [];
             this.scheduleService.getCRMContacts(abp.session.user.customerId).subscribe((res: any) => {
               let arr = this.data.remindPeople.split(',');
               arr.forEach((e) => {
                 res.items.forEach((element) => {
-                  if (Number(e) === element.id) {
+                  if (Number(e) === element.userId) {
                     this.choosedContacts.push(element);
                   }
                 });
@@ -137,9 +138,11 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onUpdateData() {
-    this.data.remindPeople = this.choosedContacts.map((da) => {
-      return da.id;
-    }).toString();
+    this.data.remindPeople = this.choosedContacts
+      .map((da) => {
+        return da.userId;
+      })
+      .toString();
     this.scheduleService.updateAsync(this.data).subscribe((res: any) => {
       this.helper.toast(this.translate.instant('Save Success') + '!');
       this.refresh();
@@ -192,6 +195,9 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onSetEndTime(time) {
+    if (!this.edit && !this.id) {
+      return;
+    }
     if (this.data.remindStartTime) {
       const time = new Date(this.data.remindStartTime).setDate(new Date(this.data.remindStartTime).getDate() + 1);
       this.minEndTime = new Date(time).toISOString();
@@ -199,19 +205,17 @@ export class ScheduleAddPage implements OnInit {
   }
 
   async onSetRemind() {
-    if (!this.edit && this.id) {
+    if (!this.edit) {
       return;
     }
     const modal = await this.modalController.create({
       component: ContactsComponent,
       componentProps: {
-        ids: this.id
-          ? this.choosedContacts
-              .map((res) => {
-                return res.id;
-              })
-              .toString()
-          : null,
+        ids: this.choosedContacts
+          .map((res) => {
+            return res.userId;
+          })
+          .toString(),
       },
       cssClass: 'contacts',
     });
