@@ -81,5 +81,7 @@
   "seachSailingSchedules":"查船期",
   "registerCustomer":"注册账户请联系客服",
   "Already the latest version":"已经是最新版本",
-  "Found a new version, whether to upgrade immediately":"发现新版本,是否立即升级"
+  "Try Again Exit":"再次点击退出APP",
+  "Found a new version, whether to upgrade immediately":"发现新版本,是否立即升级",
+  "Login Error":"登录失败"
 }

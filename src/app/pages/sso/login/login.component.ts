@@ -8,6 +8,7 @@ import { ScheduleService } from '@cityocean/basicdata-library/region/service/sch
 import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomerPhoneComponent } from './customer-phone/customer-phone.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'user-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private jpush: JPush,
     public helper: Helper,
+    private router: Router,
     private fb: FormBuilder,
     public loginService: AuthService,
     private nav: NavController,
@@ -88,14 +90,15 @@ export class LoginComponent implements OnInit {
         if (res.access_token) {
           localStorage.setItem('isLoginWithTourist', 'false');
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
-          this.nav.navigateRoot('/cityOcean');
+          this.router.navigateByUrl('/cityOcean', { replaceUrl: true });
         } else {
-          this.errorTip = '登录失败!';
+          this.errorTip = this.translate.instant('Login Error');
         }
       })
       .catch((e: any) => {
         this.helper.hideLoading();
-        if (e.error && e.error.error_description == 'invalid_username_or_password') {
+        this.errorTip = this.translate.instant('Login Error');
+        if (e.error && e.error.error_description === 'invalid_username_or_password') {
           this.helper.toast('Password or name error');
         }
       });
@@ -106,7 +109,7 @@ export class LoginComponent implements OnInit {
       .then((res: any) => {
         if (res.access_token) {
           localStorage.setItem('isLoginWithTourist', 'true');
-          this.nav.navigateRoot('/cityOcean');
+          this.router.navigateByUrl('/cityOcean', { replaceUrl: true });
         } else {
           this.errorTip = '登录失败!';
         }

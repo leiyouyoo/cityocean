@@ -36,7 +36,10 @@ export class ScheduleService {
   }
 
   getCRMContacts(customerId: any) {
-    return this.http.get('/CRM/ContactExternal/GetContactAndSaleByCustomerId', { customerId: customerId });
+    return this.http.get('/CRM/ContactExternal/GetByCustomerAndPartner', {
+      customerId: customerId,
+      IsTenantUser: true,
+    });
   }
 
   checkUpdate(json: any) {
