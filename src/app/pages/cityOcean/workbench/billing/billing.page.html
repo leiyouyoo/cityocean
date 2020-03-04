@@ -4,7 +4,10 @@
       <div class="left-content">
         <i (click)="goback()" class="go-back"></i>
         <i class="search-icon"></i>
-        <input type="text" placeholder="搜索" />
+        <input  [(ngModel)]="searchText"
+        (keyup)="($event.which === 13) ? resetFilter() : 0"
+        type="search"
+        name = "searh" [placeholder]="'Search' | translate" />
       </div>
       <i (click)="billingFilter()" class="filter"></i>
     </div>

@@ -8,11 +8,11 @@
           [(ngModel)]="searchText"
           (keyup)="($event.which === 13) ? resetFilter() : 0"
           type="search"
-          name = "searh"
+          name="searh"
           [placeholder]="'Search' | translate"
         />
       </div>
-      <i (click)="shipmentFilter($event)" class="filter"></i>
+      <i *ngIf="!isLoginWithTourist" (click)="shipmentFilter($event)" class="filter"></i>
     </div>
   </ion-toolbar>
 </ion-header>

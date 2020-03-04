@@ -20,7 +20,7 @@ export class MePage implements OnInit {
     public device: Device,
     private router: Router,
     private helper: Helper,
-    public citycoeanService: CityOceanService,
+    public cityOceanService: CityOceanService,
   ) {}
 
   ngOnInit() {
@@ -39,15 +39,15 @@ export class MePage implements OnInit {
   }
 
   onWalletPage() {
-    if (localStorage.getItem('isLoginWithTourist') === 'true') {
-      this.citycoeanService.chatWithTourist();
+    if (this.cityOceanService.getIsLoginWithTourist()) {
+      this.cityOceanService.chatWithTourist();
       return;
     }
   }
 
   onInvoicePage() {
-    if (localStorage.getItem('isLoginWithTourist') === 'true') {
-      this.citycoeanService.chatWithTourist();
+    if (this.cityOceanService.getIsLoginWithTourist()) {
+      this.cityOceanService.chatWithTourist();
       return;
     }
   }
