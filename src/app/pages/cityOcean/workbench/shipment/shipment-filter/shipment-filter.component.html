@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
-  <form formGroupName="profileForm">
+  <section>
     <div>
       <ion-select
         name="process"
@@ -16,11 +16,13 @@
         placeholder="Select One"
         (ionChange) = "processChange($event)"
         [value]="profileForm.process"
-        (ngModelChange)="processOptionClick($event)"
       >
         <ion-select-option (click)="processOptionClick(item.value)" *ngFor="let item of processOptionList" [value]="item.value">{{item.name}}</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
+    </div>
+    <div *ngIf="processCopy.length" class="showMulti">
+      <span>{{processShowName}}</span><span *ngIf="processCopy.length>1">多选</span>
     </div>
     <div>
       <ion-select
@@ -34,9 +36,12 @@
         <ion-select-option selected value="all">Select  all</ion-select-option>
         <ion-select-option value="air">Air</ion-select-option>
         <ion-select-option value="LCL">Ocean LCL</ion-select-option>
-        <ion-select-option value="FCL">Ocean FCl</ion-select-option>
+        <ion-select-option value="FCL">Ocean FCL</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
+    </div>
+    <div *ngIf="modeCopy.length" class="showMulti">
+      <span>{{modeShowName}}</span><span *ngIf="modeCopy.length>1">多选</span>
     </div>
     <div>
       <ion-select
@@ -54,6 +59,6 @@
       </ion-select>
       <div class="my-icon"></div>
     </div>
-  </form>
+  </section>
   <ion-button (click)="confirm()" expand="block">确认</ion-button>
 </ion-content>

@@ -18,6 +18,7 @@ export class BillingListPanelComponent implements OnInit {
 
   ngOnInit() {}
   getTime(time) {
+    if(!time){return ''}
     return moment(time).format('MMM D YYYY');
   }
   async moreClick($event, item) {

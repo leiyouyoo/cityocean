@@ -1,11 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import {
-  NavController,
-  PopoverController,
-  IonContent,
-  AlertController,
-  IonRefresher,
-} from '@ionic/angular';
+import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
@@ -14,12 +8,20 @@ import { ActivatedRoute } from '@angular/router';
 import { HomeService } from '../home.service';
 import { ShipmentStatusType } from '../../workbench/shipment/class/shipment-status-type';
 import { BookingStatusType } from '../../workbench/booking/class/booking-status-type';
-import { createTextMessage, onMessage, getMessageList, sendmessage, createImageMessage } from '@cityocean/im-library';
+import {
+  createTextMessage,
+  onMessage,
+  getMessageList,
+  sendmessage,
+  createImageMessage,
+  getGroupMemberlist,
+} from '@cityocean/im-library';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 import { CityOceanService } from '../../city-ocean.service';
 import { Location } from '@angular/common';
+import { Helper } from '@shared/helper';
 
 @Component({
   selector: 'app-chat',
@@ -39,7 +41,7 @@ export class ChatPage implements OnInit {
   groupID: any;
   groupName: any;
   pressStatus: boolean;
-  userId =  this.cityOceanService.customerId;
+  userId = this.cityOceanService.customerId;
   pageInfo = {
     maxResultCount: 10,
     skipCount: 0,
@@ -48,7 +50,9 @@ export class ChatPage implements OnInit {
   bussinessId; //业务ID
   bussinessDetail = { bookingNo: '', status: -1 }; //业务详情
   conversationType: any;
-  popoverList ; // 更多列表数据
+  popoverList; // 更多列表数据
+  ImageScale: any;
+  isDisbanded: boolean;
   constructor(
     private nav: NavController,
     public popoverController: PopoverController,
@@ -61,8 +65,9 @@ export class ChatPage implements OnInit {
     public alertController: AlertController,
     private bookingServiceService: BookingServiceService,
     private myShipmentService: MyShipmentService,
-    private cityOceanService:CityOceanService,
-    private location:Location
+    private cityOceanService: CityOceanService,
+    private location: Location,
+    private helper: Helper,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -86,7 +91,7 @@ export class ChatPage implements OnInit {
         this.myShipmentService.GetShipmentDetail(this.bussinessId).subscribe((res: any) => {
           this.bussinessDetail = res;
         });
-        this.homeService.GetRelatedBusiness({id:this.bussinessId}).subscribe((res: any) => {
+        this.homeService.GetRelatedBusiness({ id: this.bussinessId }).subscribe((res: any) => {
           this.popoverList = res;
         });
         break;
@@ -103,6 +108,17 @@ export class ChatPage implements OnInit {
     window.onresize = () => {
       this.scrollToBottom(1);
     };
+    try {
+      getGroupMemberlist(this.groupID)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          if (error.message.indexOf('群组不存在') != -1) {
+            this.isDisbanded = true;
+          }
+        });
+    } catch (error) {}
   }
   ionViewDidEnter() {
     this.scrollToBottom(1);
@@ -139,7 +155,7 @@ export class ChatPage implements OnInit {
     }
   }
   ionRefresherCheck(res) {
-    res.items.reverse();  //消息按时间排序
+    res.items.reverse(); //消息按时间排序
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
       e.type = e.msgBody[0].msgType;
@@ -170,8 +186,8 @@ export class ChatPage implements OnInit {
       return;
     }
     textMessage = createTextMessage(this.groupID, this.isC2C ? 'signle' : 'group', this.sendingMessage);
-    await sendmessage(textMessage).then(imRes=>{
-      console.log(imRes)
+    await sendmessage(textMessage).then((imRes) => {
+      console.log(imRes);
     });
     this.chatList.push({
       flow: 'out',
@@ -186,15 +202,19 @@ export class ChatPage implements OnInit {
     this.sendingMessage = '';
   }
   async sendImg(imageData) {
-    let fileMessage = createImageMessage(this.groupID, this.isC2C ? 'signle' : 'group', imageData);
-    await sendmessage(fileMessage).then((res) => {
-      this.chatList.push({
-        flow: 'out',
-        payload: {
-          file: res,
-        },
+    try {
+      let fileMessage = createImageMessage(this.groupID, this.isC2C ? 'signle' : 'group', imageData);
+      await sendmessage(fileMessage).then((res) => {
+        this.chatList.push({
+          flow: 'out',
+          payload: {
+            file: res,
+          },
+        });
       });
-    });
+    } catch (error) {
+      this.helper.toast(error);
+    }
   }
   /**
    *更多按钮，区分群聊还是单聊
@@ -204,7 +224,7 @@ export class ChatPage implements OnInit {
    */
   chooseMoreType(event) {
     if (!this.isC2C) {
-      this.showPopover(event, PopoverComponent,'chat-popover');
+      this.showPopover(event, PopoverComponent, 'chat-popover');
     } else {
       this.gotoGroup();
     }
@@ -229,7 +249,7 @@ export class ChatPage implements OnInit {
       event: event,
       backdropDismiss: true,
       cssClass: cssClass,
-      componentProps: { popoverList: this.popoverList ,type:this.bussinessType},
+      componentProps: { popoverList: this.popoverList, type: this.bussinessType },
     });
     popover.onDidDismiss().then((event) => {
       this.currentPopover = event.data;
@@ -253,26 +273,41 @@ export class ChatPage implements OnInit {
   }
   // 个人信息
   gotoUserProfile(userId) {
-    this.cityOceanService.gotoUserProfile(userId)
+    this.cityOceanService.gotoUserProfile(userId);
+  }
+
+  dataURLtoFile(dataurl, filename) {
+    let arr = dataurl.dataURL.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
   }
   // 拍照
   imgUpload() {
     const options: CameraOptions = {
       quality: 100, // 图片质量
-      destinationType: this.camera.DestinationType.FILE_URI, // 返回类型 .FILE_URI 返回文件地址 .DATA_URL 返回base64编码
-      encodingType: this.camera.EncodingType.JPEG, // 图片格式 JPEG=0 PNG=1
+      destinationType: this.camera.DestinationType.DATA_URL, // 返回类型 .FILE_URI 返回文件地址 .DATA_URL 返回base64编码
+      encodingType: this.camera.EncodingType.PNG, // 图片格式 JPEG=0 PNG=1
       mediaType: this.camera.MediaType.PICTURE, // 媒体类型
-      sourceType: this.camera.PictureSourceType.CAMERA, // 图片来源  CAMERA相机 PHOTOLIBRARY 图库
-      allowEdit: true, // 允许编辑
-      targetWidth: 300, // 缩放图片的宽度
-      targetHeight: 300, // 缩放图片的高度
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY, // 图片来源  CAMERA相机 PHOTOLIBRARY 图库
+      allowEdit: false, // 允许编辑
+      // targetWidth: 300, // 缩放图片的宽度
+      // targetHeight: 300, // 缩放图片的高度
       saveToPhotoAlbum: false, // 是否保存到相册
       correctOrientation: true, // 设置摄像机拍摄的图像是否为正确的方向
     };
     this.camera.getPicture(options).then(
       (imageData) => {
         // imageData is either a base64 encoded string or a file URI
-        this.sendImg(imageData);
+        let ImageBase = imageData;
+        this.ImageScale = ImageBase;
+        this.helper.toast(ImageBase);
+        this.sendImg(this.dataURLtoFile(ImageBase, 'picture.png'));
       },
       (err) => {
         // Handle error
@@ -324,8 +359,9 @@ export class ChatPage implements OnInit {
     this.imagePicker.getPictures(options).then(
       (results) => {
         for (var i = 0; i < results.length; i++) {
-          // console.log('Image URI: ' + results[i]);
-          this.sendImg(results[i]);
+          this.helper.toast(results[i]);
+          this.ImageScale = results[i];
+          this.sendImg(this.dataURLtoFile(results[i], `picture${i}.png`));
         }
       },
       (err) => {},

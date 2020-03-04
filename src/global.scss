@@ -254,3 +254,9 @@ button.days-btn small {
 //   bottom: 0;
 //   top: auto;
 // }
+.amap-logo{
+  display: none!important;//去掉高德地图logo
+}
+.amap-copyright {
+  display: none!important;//去掉高德的版本号
+}

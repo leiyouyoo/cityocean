@@ -425,6 +425,7 @@ export class BookingDetailPage implements OnInit {
     });
   }
   getTime(time) {
+    if(!time){return ''}
     return moment(time).format('MMM D YYYY');
   }
   goback() {
@@ -433,7 +434,7 @@ export class BookingDetailPage implements OnInit {
   }
   // 客服
   chatWithCustomer() {
-    this.cityOceanService.chatWithCustomerService();
+    this.cityOceanService.chatWithCustomerService('Booking',this.id,this.bookingDetail.bookingNo);
   }
 
   getContainerType(data) {

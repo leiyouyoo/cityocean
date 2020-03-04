@@ -2,7 +2,7 @@
   <div class="content-group no-group-wrap">
     <div class="no-group">
       <i
-        [ngClass]="{ 'ship-icon': shipmentListItem?.transportType !== 'air', 'air-icon': shipmentListItem?.transportType === 'air' }"
+        [ngClass]="{ 'ship-icon': shipmentListItem?.freightMethodType == 1, 'air-icon': shipmentListItem?.freightMethodType == 2 }"
         class="ship-icon"
       ></i>
       <div>

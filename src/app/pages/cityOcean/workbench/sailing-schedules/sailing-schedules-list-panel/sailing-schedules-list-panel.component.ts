@@ -12,6 +12,7 @@ export class SailingSchedulesListPanelComponent implements OnInit {
 
   ngOnInit() {}
   getTime(time) {
+    if(!time){return ''}
     return moment(time).format('MMM D YYYY');
   }
 }

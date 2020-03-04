@@ -184,11 +184,12 @@ export class BilliingDetailPage implements OnInit {
     });
   }
   getTime(time) {
+    if(!time){return ''}
     return moment(time).format('MMM D YYYY');
   }
   // 客服
   chatWithCustomer() {
-    this.cityOceanService.chatWithCustomerService();
+    this.cityOceanService.chatWithCustomerService('Billing',this.id,this.billingDetail.billNo);
   }
   goback() {
     // this.nav.navigateForward(['/cityOcean/workbench/billing']);

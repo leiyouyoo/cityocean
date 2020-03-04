@@ -8,6 +8,7 @@ import { ShipmentService } from '@cityocean/shipment-library';
 import { CityOceanService } from '../../../city-ocean.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Helper } from '@shared/helper';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -53,7 +54,6 @@ export class ShipmentDetailPage implements OnInit {
     shipmentNo: '',
   };
   businessTypeTitle: any;
-  agreement: any; //Freight Type
   icons: any[];
   lines: any[];
   dashedLines: any[];
@@ -65,11 +65,11 @@ export class ShipmentDetailPage implements OnInit {
     private cityOceanService:CityOceanService,
     private nav:NavController,
     private alertController:AlertController,
-    private translate:TranslateService
+    private translate:TranslateService,
+    public helper: Helper,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
-      this.agreement = data.agreement;
     });
   }
 
@@ -89,21 +89,34 @@ export class ShipmentDetailPage implements OnInit {
       },
     );
   }
+  setAgreement(){
+    return this.routeDetail.routeDetails.consigneeInfos.length === 0 && this.routeDetail.routeDetails.shipperInfos.length === 0 ? 'Cy-Cy' : this.routeDetail.routeDetails.shipperInfos.length === 0 ? 'Cy-Door' : this.routeDetail.routeDetails.consigneeInfos.length === 0 ? 'Door-Cy' : 'Door-Door';
+  }
+  
   getMapData(data) {
-    this.shipmentService.getShipmentMapDataByDetails([data]).subscribe((mapData) => {
-      if (mapData.length) {
-        this.icons = mapData[0].icons;
-        this.lines = mapData[0].lines;
-        this.dashedLines = mapData[0].dashedLines;
-      }
-    });
+    try {
+      this.shipmentService.getShipmentMapDataByDetails([data]).subscribe((mapData:any) => {
+        this.helper.toast('success:'+String(mapData[0].icons[0].icon))
+        if (mapData.length) {
+          this.icons = mapData[0].icons;
+          this.lines = mapData[0].lines;
+          this.dashedLines = mapData[0].dashedLines;
+        }
+      },(error)=>{
+        this.helper.toast(error)
+      });
+    } catch (error) {
+      this.helper.toast(error)
+    }
+    
   }
   getTime(time) {
+    if(!time){return ''}
     return moment(time).format('MMM D YYYY');
   }
   // 客服
   chatWithCustomer() {
-    this.cityOceanService.chatWithCustomerService();
+    this.cityOceanService.chatWithCustomerService('Shipment',this.id,this.routeDetail.shipmentNo);
   }
 
   async showMore() {

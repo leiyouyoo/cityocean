@@ -31,6 +31,9 @@
                 color: var(--ion-color-dark);
                 line-height: px2rem(17px);
             }
+            span:nth-child(2){
+                font-weight: 400;
+            }
         }
     }
 

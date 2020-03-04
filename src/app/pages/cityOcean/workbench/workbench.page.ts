@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
 import { WorkbenchService } from './workbench.service';
 import { TranslateService } from '@ngx-translate/core';
 import { HomeService } from '../home/home.service';
+import { QuickEnterComponent } from './quick-enter/quick-enter.component';
 
 @Component({
   selector: 'app-workbench',
@@ -14,10 +15,9 @@ export class WorkbenchPage implements OnInit {
   typeList: any;
   quickEnterList = []; // 已添加到快捷入口的数据
 
-  moreTypeList = []; // 还未添加到快捷入口的数据
   title: any;
   titleStatisticsList: any;
-
+  @ViewChild('quickEnter', {static: false}) quickEnter:QuickEnterComponent
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
   orignPort: any = {}; //启运港
@@ -42,7 +42,7 @@ export class WorkbenchPage implements OnInit {
         id: 0,
       },
       {
-        name: this.translate.instant('Sail Schedule'),
+        name: this.translate.instant('Schedule'),
         type: 'sailingSchedules',
         marker: false,
         id: 0,
@@ -93,20 +93,10 @@ export class WorkbenchPage implements OnInit {
   ionViewWillEnter() {
     this.homeService.getQuickEntrance().subscribe((res) => {
       this.quickEnterList = res.items;
-      this.moreTypeList = this.typeList.filter((e) => {
-        if (this.quickEnterList.length == 0) {
-          return true;
-        }
-        return !this.quickEnterList.some((ele) => {
-          return e.type == ele.type;
-        });
-      });
     });
   }
   confirm() {
-    this.homeService.createQuickEntrance(this.quickEnterList).subscribe((res) => {
-      console.log(res);
-    });
+    this.quickEnter.confirm();
   }
   shipmentStatistics() {
     this.workbenchService.GetShipmentsStatistics().subscribe((res: any) => {
@@ -242,10 +232,10 @@ export class WorkbenchPage implements OnInit {
       return;
     }
     if (item.type === 'rates') {
-      this.searchTransportationCost = !this.searchTransportationCost;
+      this.searchTransportationCost = true;
       this.searchType = 'seachRates';
     } else if (item.type === 'sailingSchedules') {
-      this.searchTransportationCost = !this.searchTransportationCost;
+      this.searchTransportationCost = true;
       this.searchType = 'seachSailingSchedules';
     } else {
       this.goRouter(item);
@@ -260,7 +250,7 @@ export class WorkbenchPage implements OnInit {
    */
   clickLoginWithTourist(type): boolean {
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
-      if (type != 'sailingSchedules' && type != 'shipment') {
+      if (type != 'sailingSchedules' && type != 'shipments') {
         this.showMore();
         return true;
       }
@@ -286,7 +276,7 @@ export class WorkbenchPage implements OnInit {
     await alert.present();
   }
   /**
-   * 导航到运单列表
+   * 导航到运价或船期列表
    *
    * @memberof WorkbenchPage
    */
@@ -318,7 +308,9 @@ export class WorkbenchPage implements OnInit {
       this.nav.navigateForward(['/cityOcean/workbench/rates'], {
         queryParams: {
           orignPortId: this.orignPort.id,
+          orignPortName: this.orignPort.name,
           deliveryPortId: this.deliveryPort.id,
+          deliveryPortName: this.deliveryPort.name,
         },
       });
     } else if (this.searchType === 'seachSailingSchedules') {
@@ -359,32 +351,6 @@ export class WorkbenchPage implements OnInit {
       }
     });
     return await modal.present();
-  }
-  /**
-   *
-   *  从快捷入口删除
-   * @param {*} event
-   * @param {*} item
-   * @param {*} index
-   * @memberof WorkbenchPage
-   */
-  delete(event, item, index) {
-    event.stopPropatgaion;
-    this.quickEnterList.splice(index, 1);
-    this.moreTypeList.push(item);
-  }
-  /**
-   *  添加到快捷入口
-   *
-   * @param {*} event
-   * @param {*} item
-   * @param {*} index
-   * @memberof WorkbenchPage
-   */
-  add(event, item, index) {
-    event.stopPropatgaion;
-    this.moreTypeList.splice(index, 1);
-    this.quickEnterList.push(item);
   }
 
   goRouter(item) {

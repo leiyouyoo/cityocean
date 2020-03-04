@@ -4,10 +4,6 @@
     <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
   </header>
   <header *ngIf="!isEditing" class="default-wrap">
-    <!-- <ion-select  interface="popover" value="shipment" placeholder="Select One">
-          <ion-select-option value="shipment">shipment</ion-select-option>
-          <ion-select-option value="booking">booking</ion-select-option>
-        </ion-select> -->
     <div (click)="businessChange()" class="business-change-wrap">
       <span>{{title}}</span>
       <ion-icon name="caret-down-outline"></ion-icon>
@@ -62,44 +58,5 @@
       </div>
     </div>
   </section>
-  <section *ngIf="isEditing">
-    <label>{{'Home quick' | translate}}</label>
-    <div class="quick-enter-applictions">
-      <div *ngFor="let item of quickEnterList;let i = index">
-        <p>
-          <i [class]="'icon-'+item.type">
-            <i (click)="delete($event,item,i)" class="icon-delete"></i>
-          </i>
-          <span>{{item.name | translate}}</span>
-        </p>
-      </div>
-    </div>
-    <label>{{'More App' | translate}}</label>
-    <div class="more-applictions">
-      <div *ngFor="let item of moreTypeList;let i =index">
-        <p>
-          <i [class]="'icon-'+item.type">
-            <i (click)="add($event,item,i)" class="icon-add"></i>
-          </i>
-          <span>{{item.name| translate}}</span>
-        </p>
-      </div>
-    </div>
-
-    <!-- <ion-reorder-group id="reorder" (ionItemReorder)="reorder($event)">
-      <div (click)="goRouter(item)" class="content-wrap" *ngFor="let item of typeList">
-        <div class="name-group">
-          <i class="logo-icon"></i>
-          <span>{{item.name}}</span>
-        </div>
-        <i *ngIf="!isEditing" class="right-arrow"></i>
-        <div *ngIf="isEditing" class="toggle-group">
-          <ion-toggle [(ngModel)]="item.checked"></ion-toggle>
-          <ion-reorder class="toggle-group" slot="end">
-            <i></i>
-          </ion-reorder>
-        </div>
-      </div>
-    </ion-reorder-group> -->
-  </section>
+  <app-quick-enter #quickEnter  *ngIf="isEditing" [quickEnterList]= "quickEnterList"></app-quick-enter>
 </ion-content>

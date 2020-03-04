@@ -29,6 +29,7 @@ export class RatesDetailPage implements OnInit {
     window.history.back();
   }
   getTime(time) {
+    if(!time){return ''}
     return moment(time).format('YYYY/MM/DD');
   }
   segmentChanged($event) {
@@ -49,15 +50,19 @@ export class RatesDetailPage implements OnInit {
       this.ratesDetail.chargesGroups.forEach((element) => {
         total += element.freightCharges.rate;
         currencyName = element.freightCharges.currencyName;
-        element.originLocalUnitCharges.forEach((e) => {
-          total += e.rate;
-        });
-        element.deliveryLocalUnitCharges.forEach((e) => {
-          total += e.rate;
-        });
+        if (element.originLocalUnitCharges) {
+          element.originLocalUnitCharges.forEach((e) => {
+            total += e.rate;
+          });
+        }
+        if (element.deliveryLocalUnitCharges) {
+          element.deliveryLocalUnitCharges.forEach((e) => {
+            total += e.rate;
+          });
+        }
       });
     }
-    return currencyName + ' ' + total
+    return currencyName + ' ' + total;
   }
   // 客服
   chatWithCustomer() {

@@ -13,11 +13,12 @@ import { PressPopoverComponent } from './chat/press-popover/press-popover.compon
 import { MessageRollingComponent } from 'src/app/components/message-rolling/message-rolling.component';
 import { SharedModule } from '@shared';
 import { MassageComponent } from './massage/massage.component';
+import { GlobelSearchComponent } from './globel-search/globel-search.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule, SharedModule],
-  declarations: [HomePage, PopoverComponent, MessageRollingComponent, PressPopoverComponent,MassageComponent],
-  entryComponents: [PopoverComponent, PressPopoverComponent],
+  declarations: [HomePage, PopoverComponent, MessageRollingComponent, PressPopoverComponent,MassageComponent,GlobelSearchComponent],
+  entryComponents: [PopoverComponent, PressPopoverComponent,GlobelSearchComponent],
   providers: [HomeService],
 })
 export class HomePageModule {}

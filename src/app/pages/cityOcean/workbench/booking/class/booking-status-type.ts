@@ -15,7 +15,7 @@ export enum BookingStatusType {
   /// 已申请取消
   /// </summary>
   ///[Description("已申请取消")]
-  Cancelled = 1,
+  'Waiting for confirm' = 1,
 
   /// <summary>
   /// 已提交预订舱
@@ -33,25 +33,25 @@ export enum BookingStatusType {
   /// 已申请订舱，未关联到有效报价
   /// </summary>
   ///[Description("已申请订舱但未关联到有效报价")]
-  WaitingForPricing = 4,
+  'Waiting for Pricing' = 4,
 
   /// <summary>
   /// 等待买家确认报价
   /// </summary>
   ///[Description("等待买家确认报价")]
-  WaitingForBuyer = 5,
+  'Waiting for Buyer' = 5,
 
   /// <summary>
   /// 等待卖家确认价格（贸易条款是卖家付款）
   /// </summary>
   //////[Description("等待卖家确认价格（贸易条款是卖家付款）")]
-  WaitingForSeller = 6,
+  'Waiting for Seller' = 6,
 
   /// <summary>
   /// 业务员已确认取消
   /// </summary>
   //////[Description("业务员已确认取消")]
-  ConfirmCancelled = 7,
+  Cancelled = 7,
 
   ///[Description("ICP 端已下载")]
   IcpDownloaded = 8,

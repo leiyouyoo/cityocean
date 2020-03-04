@@ -335,28 +335,50 @@ $font-base-size: 12px;
 .my-action-sheet-customer {
   .action-sheet-title {
     font-size: 14px !important;
-    font-family: PingFangSC-Regular, PingFang SC!important;
-    color: #3F4047!important;
+    font-family: PingFangSC-Regular, PingFang SC !important;
+    color: #3F4047 !important;
   }
+
   .action-sheet-button:last-child {
-    background:linear-gradient(135deg,rgba(75,101,255,1) 0%,rgba(0,37,255,1) 100%)!important;
+    background: linear-gradient(135deg, rgba(75, 101, 255, 1) 0%, rgba(0, 37, 255, 1) 100%) !important;
   }
 }
 
 .billing-popover {
   --background: var(--ionc-color-biling-more);
 }
-.chat-popover{
-  --width:4.2rem
+
+.chat-popover {
+  --width: 4.2rem
 }
+
 // billing下银行账户弹窗自定义样式
-.my-billing-bank-account{
+.my-billing-bank-account {
   --width: 90%;
   --height: 12rem;
   --border-radius: 0.4rem;
 }
+
+.home-quick-enter {
+  --height: 72%;
+
+  .modal-wrapper {
+    border-radius: 0.5333333333rem 0.5333333333rem 0 0;
+    position: absolute;
+    bottom: 0;
+  }
+
+}
+
 .my-popover-input-search {
   --min-width: 80%;
+}
+
+.my-action-sheet-booking,
+.ion-select-my-class {
+  .action-sheet-cancel {
+    color: var(--ion-color-primary);
+  }
 }
 
 /*

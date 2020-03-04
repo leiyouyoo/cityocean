@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { GlobelSearchPage } from './globel-search.page';
+import { QuickEnterComponent } from './quick-enter.component';
 
-describe('GlobelSearchPage', () => {
-  let component: GlobelSearchPage;
-  let fixture: ComponentFixture<GlobelSearchPage>;
+describe('QuickEnterComponent', () => {
+  let component: QuickEnterComponent;
+  let fixture: ComponentFixture<QuickEnterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GlobelSearchPage ],
+      declarations: [ QuickEnterComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GlobelSearchPage);
+    fixture = TestBed.createComponent(QuickEnterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

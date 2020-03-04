@@ -7,6 +7,7 @@ import { WorkbenchPage } from './workbench.page';
 import { WorkbenchPageRoutingModule } from './workbench-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { WorkbenchService } from './workbench.service';
+import { SharedModule } from '@shared';
 
 @NgModule({
   imports: [
@@ -14,9 +15,10 @@ import { WorkbenchService } from './workbench.service';
     CommonModule,
     FormsModule,
     WorkbenchPageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    SharedModule,
   ],
-  declarations: [WorkbenchPage],
+  declarations: [WorkbenchPage,],
   entryComponents:[],
   providers:[WorkbenchService]
 })

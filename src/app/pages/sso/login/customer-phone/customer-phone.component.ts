@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer-phone.component.scss'],
 })
 export class CustomerPhoneComponent implements OnInit {
+  globelCustomerPhone: any = '0755-1234567';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {}
-
+  ngOnInit() {
+  }
 }

@@ -1,69 +1,70 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
-import { ModalController } from "@ionic/angular";
-import { FormBuilder, FormGroup } from "@angular/forms";
-
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { cloneDeep } from 'lodash';
 @Component({
-  selector: "app-shipment-filter",
-  templateUrl: "./shipment-filter.component.html",
-  styleUrls: ["./shipment-filter.component.scss"]
+  selector: 'app-shipment-filter',
+  templateUrl: './shipment-filter.component.html',
+  styleUrls: ['./shipment-filter.component.scss'],
 })
 export class ShipmentFilterComponent implements OnInit {
   profileForm = {
-    process: ["allInProcess"],
-    mode: ["air"],
-    date: "deliveryDate"
+    process: ['allInProcess'],
+    mode: ['air'],
+    date: 'deliveryDate',
   };
+  modeCopy = ['air'];
+  modeShowName = 'air';
+  processCopy = ['allInProcess'];
+  processShowName = 'All shipments in progess';
   processOptionList = [
     {
-      name: "Select  all",
-      value: "all"
+      name: 'Select  all',
+      value: 'all',
     },
     {
-      name: "All shipments in progess",
-      value: "allInProcess"
+      name: 'All shipments in progess',
+      value: 'allInProcess',
     },
     {
       name: "At Seller 's Location",
-      value: "0"
+      value: '0',
     },
     {
-      name: "Origin Stop-off",
-      value: "1"
+      name: 'Origin Stop-off',
+      value: '1',
     },
     {
-      name: "In trainsit to departure port",
-      value: "2"
+      name: 'In trainsit to departure port',
+      value: '2',
     },
     {
-      name: "At Departure Port",
-      value: "3"
+      name: 'At Departure Port',
+      value: '3',
     },
     {
-      name: "In trainsit to arrival port",
-      value: "4"
+      name: 'In trainsit to arrival port',
+      value: '4',
     },
     {
-      name: "At Arrival Port",
-      value: "5"
+      name: 'At Arrival Port',
+      value: '5',
     },
     {
-      name: "In trainsit to final port",
-      value: "6"
+      name: 'In trainsit to final port',
+      value: '6',
     },
     {
-      name: "Destination Stop-Off",
-      value: "7"
+      name: 'Destination Stop-Off',
+      value: '7',
     },
     {
-      name: "Delivered",
-      value: "8"
-    }
+      name: 'Delivered',
+      value: '8',
+    },
   ];
   carrierList = [];
-  constructor(
-    private modalController: ModalController,
-    private el: ElementRef
-  ) {}
+  constructor(private modalController: ModalController, private el: ElementRef) {}
 
   ngOnInit() {}
   dismissModal(data?) {
@@ -73,7 +74,7 @@ export class ShipmentFilterComponent implements OnInit {
     console.log(value);
   }
   ionViewDidEnter() {
-    let select_elements = this.el.nativeElement.querySelectorAll("ion-select");
+    let select_elements = this.el.nativeElement.querySelectorAll('ion-select');
     const styles = `
     .select-text{
       height: 100%;
@@ -96,25 +97,42 @@ export class ShipmentFilterComponent implements OnInit {
       }
 
     `;
-    select_elements.forEach(element => {
-      this.injectStyles(element, ".select-icon", styles);
+    select_elements.forEach((element) => {
+      this.injectStyles(element, '.select-icon', styles);
     });
   }
-  injectStyles(
-    shadowRootElement: HTMLElement,
-    insertBeforeSelector: string,
-    styles: string
-  ) {
+  injectStyles(shadowRootElement: HTMLElement, insertBeforeSelector: string, styles: string) {
     const root = shadowRootElement.shadowRoot;
-    const newStyleTag = document.createElement("style");
+    const newStyleTag = document.createElement('style');
     newStyleTag.innerHTML = styles;
     root.insertBefore(newStyleTag, root.querySelector(insertBeforeSelector));
   }
   modeChange(event) {
-    this.profileForm.mode = event.detail.value;
+    this.modeCopy = cloneDeep(event.detail.value);
+    switch (this.modeCopy[0]) {
+      case 'all':
+        this.modeShowName = 'this.modeCopy[0]';
+        break;
+      case 'air':
+        this.modeShowName = 'Air';
+        break;
+      case 'LCL':
+        this.modeShowName = 'Ocean LCL';
+        break;
+      case 'FCL':
+        this.modeShowName = 'Ocean FCL';
+        break;
+      default:
+        break;
+    }
   }
   processChange(event) {
-    this.profileForm.process = event.detail.value;
+    this.processCopy = cloneDeep(event.detail.value);
+    this.processOptionList.forEach((e) => {
+      if (e.value == this.processCopy[0]) {
+        this.processShowName = e.name;
+      }
+    });
   }
   dateChange(event) {
     this.profileForm.date = event.detail.value;
@@ -122,29 +140,29 @@ export class ShipmentFilterComponent implements OnInit {
   confirm() {
     let params = {
       freightMethodType: [],
-      shipmentType: []
+      shipmentType: [],
     };
-    let hasAllInProcess = this.profileForm.process.some(e => {
-      return e === "allInProcess";
+    let hasAllInProcess = this.processCopy.some((e) => {
+      return e === 'allInProcess';
     });
-    this.profileForm.process = this.profileForm.process.filter(e=>{
-      return e !== "allInProcess";
-    })
+    this.processCopy = this.processCopy.filter((e) => {
+      return e !== 'allInProcess';
+    });
     if (hasAllInProcess) {
-      this.profileForm.process = this.profileForm.process.concat(["0", "1", "2", "3", "4", "5", "6", "7"]);
+      this.processCopy = this.processCopy.concat(['0', '1', '2', '3', '4', '5', '6', '7']);
     }
-    params["status"] = Array.from(new Set(this.profileForm.process));
+    params['status'] = Array.from(new Set(this.processCopy));
 
-    this.profileForm.mode.forEach(e => {
+    this.profileForm.mode.forEach((e) => {
       switch (e) {
-        case "air":
+        case 'air':
           params.freightMethodType.push(2);
           break;
-        case "LCL":
+        case 'LCL':
           params.freightMethodType.push(1);
           params.shipmentType.push(1);
           break;
-        case "FCL":
+        case 'FCL':
           params.freightMethodType.push(1);
           params.shipmentType.push(0);
           break;
@@ -154,7 +172,7 @@ export class ShipmentFilterComponent implements OnInit {
     });
     params.freightMethodType = Array.from(new Set(params.freightMethodType));
     if (this.profileForm.date) {
-      params["sorting"] = this.profileForm.date;
+      params['sorting'] = this.profileForm.date;
     }
     if (params.freightMethodType.length === 0) {
       delete params.freightMethodType;

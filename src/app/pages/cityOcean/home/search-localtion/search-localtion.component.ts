@@ -40,7 +40,10 @@ export class SearchlocaltionComponent implements OnInit {
   ngModelChange(event) {
     this.searchTerms.next(event);
   }
-
+  deleteHistory(){
+    localStorage.removeItem(this.type);
+    this.searchHistoryList= [];
+  }
   dismissModal(item, isHistory) {
     this.modalController.dismiss({  isHistory: isHistory, data: item });
   }

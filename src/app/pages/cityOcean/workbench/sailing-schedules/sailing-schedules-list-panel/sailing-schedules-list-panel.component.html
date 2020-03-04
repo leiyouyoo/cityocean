@@ -10,7 +10,7 @@
     </div>
     <p class="day-group">
       <i [class] = "sailingSchedulesListItem.type"></i>
-      <span class="day-bg">{{sailingSchedulesListItem['T/T']}}</span>Day
+      <span class="day-bg">{{sailingSchedulesListItem['T/T']}}</span>Days
     </p>
   </div>
   <!-- <div class="first content-group line-class">
@@ -23,7 +23,7 @@
   <div class="start content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>Port of Loading</span>
+      <span>{{"Port of Loading" | translate}}</span>
     </div>
       <span>{{sailingSchedulesListItem['Port of Loading']}}
         <div>
@@ -42,7 +42,7 @@
   <div class="end content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>目的港</span>
+      <span>{{"Port of Discharge" | translate}}</span>
     </div>
       <span>{{sailingSchedulesListItem['Port of Discharge']}}
         <div>
@@ -54,7 +54,7 @@
   <div *ngIf="sailingSchedulesListItem.finally" class="finally content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>最终目的地</span>
+      <span>{{"Destination loaction" | translate}}</span>
     </div>
       <span>{{sailingSchedulesListItem.finally}}</span>
   </div>

@@ -26,7 +26,7 @@
   <section *ngIf="localtionList.length === 0">
     <div class="search-history">
       <span>{{ 'Search history' | translate }}</span>
-      <i></i>
+      <i (click)="deleteHistory()"></i>
     </div>
     <div *ngIf="searchHistoryList.length" class="search-content">
       <span *ngFor="let item of searchHistoryList" (click)="dismissModal(item, true)"
