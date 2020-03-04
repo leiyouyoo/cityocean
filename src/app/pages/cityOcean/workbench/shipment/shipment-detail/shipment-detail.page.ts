@@ -74,7 +74,7 @@ export class ShipmentDetailPage implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem('isLoginWithTourist') == 'true'){
+    if (this.cityOceanService.getIsLoginWithTourist()){
       this.isLoginWithTourist = true
     }
   }

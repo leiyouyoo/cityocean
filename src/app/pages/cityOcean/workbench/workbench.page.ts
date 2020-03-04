@@ -5,6 +5,7 @@ import { WorkbenchService } from './workbench.service';
 import { TranslateService } from '@ngx-translate/core';
 import { HomeService } from '../home/home.service';
 import { QuickEnterComponent } from './quick-enter/quick-enter.component';
+import { CityOceanService } from '../city-ocean.service';
 
 @Component({
   selector: 'app-workbench',
@@ -31,6 +32,7 @@ export class WorkbenchPage implements OnInit {
     private workbenchService: WorkbenchService,
     private homeService: HomeService,
     private alertController: AlertController,
+    private cityOceanService: CityOceanService
   ) {}
   ionViewDidEnter() {
     this.typeList = [
@@ -249,7 +251,7 @@ export class WorkbenchPage implements OnInit {
    * @memberof WorkbenchPage
    */
   clickLoginWithTourist(type): boolean {
-    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+    if (this.cityOceanService.getIsLoginWithTourist()) {
       if (type != 'sailingSchedules' && type != 'shipments') {
         this.showMore();
         return true;

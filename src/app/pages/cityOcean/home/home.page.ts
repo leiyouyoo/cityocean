@@ -49,7 +49,7 @@ export class HomePage implements OnInit {
   }
   ionViewWillEnter() {
     this.searchInput = '';
-    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+    if (this.cityOceanService.getIsLoginWithTourist()) {
       this.searchType = 'seachSailingSchedules';
       this.toolsList = [
         // 游客模式业务类型

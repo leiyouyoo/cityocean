@@ -23,7 +23,7 @@ export class SchedulePage implements OnInit {
     private el: ElementRef,
     private eventService: EventService,
     public router: Router,
-    public citycoeanService: CityOceanService,
+    public cityOceanService: CityOceanService,
     public nav: NavController,
     public schedule: ScheduleService,
   ) {}
@@ -139,8 +139,8 @@ export class SchedulePage implements OnInit {
   }
 
   onScheduleAdd() {
-    if (localStorage.getItem('isLoginWithTourist') === 'true') {
-      this.citycoeanService.chatWithTourist();
+    if (this.cityOceanService.getIsLoginWithTourist()) {
+      this.cityOceanService.chatWithTourist();
       return;
     }
 

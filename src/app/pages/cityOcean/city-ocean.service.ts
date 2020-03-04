@@ -28,7 +28,7 @@ export class CityOceanService {
     private callNumber: CallNumber,
   ) {
     this.getCustomerId().then((res) => {
-      if (localStorage.getItem('isLoginWithTourist') == 'true') {
+      if (this.getIsLoginWithTourist()) {
         this.GetIdByEmail().subscribe((res: any) => {
           if (res && res.id) {
             this.globelCustomerId = res.id;
@@ -49,6 +49,13 @@ export class CityOceanService {
         });
       }
     });
+  }
+  getIsLoginWithTourist(){
+    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+      return true;
+    }else{
+      return false;
+    }
   }
   GetIdByEmail() {
     return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' })
@@ -85,7 +92,7 @@ export class CityOceanService {
       });
       return
     }
-    if (localStorage.getItem('isLoginWithTourist') == 'true') {
+    if (this.getIsLoginWithTourist()) {
       this.chatWithTourist();
       return;
     }
@@ -124,7 +131,7 @@ export class CityOceanService {
           icon: 'phone',
           handler: () => {
             this.callNumber
-              .callNumber('10086', true)
+              .callNumber('0755-33958211', true)
               .then((res) => console.log('Launched dialer!', res))
               .catch((err) => console.log('Error launching dialer', err));
           },

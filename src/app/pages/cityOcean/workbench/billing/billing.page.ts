@@ -17,6 +17,7 @@ export class BillingPage implements OnInit {
   };
   ids: any = []; // 可能为多个id
   billingStatus: any; // 筛选状态
+  searchText: any;
   constructor(
     private billingServiceService: BillingServiceService,
     private actionSheetController: ActionSheetController,
@@ -55,6 +56,7 @@ export class BillingPage implements OnInit {
     if (this.billingStatus != null) {
       params.status = this.billingStatus;
     }
+    // this.searchText ? params.searchText = this.searchText:delete this.currentParams.searchText;
     this.billingServiceService.getAllBilling(params).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
@@ -65,6 +67,10 @@ export class BillingPage implements OnInit {
         event.target.disabled = true;
       }
     });
+  }
+  resetFilter(){
+    this.billingList = [];
+    // this.getBillingList()
   }
   gotoBillingDetail(item) {
     this.nav.navigateForward(['/cityOcean/workbench/billing/billiingDetail'], {

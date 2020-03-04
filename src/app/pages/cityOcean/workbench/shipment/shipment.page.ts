@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 import { MyShipmentService } from './shipment.service';
 import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.component';
+import { CityOceanService } from '../../city-ocean.service';
 
 @Component({
   selector: 'app-shipment',
@@ -16,10 +17,12 @@ export class ShipmentPage implements OnInit {
   searchText = '';
   shipmentsList = [];
   currentParams: any = {};
+  isLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
   constructor(
     private nav: NavController,
     private myShipmentService: MyShipmentService,
     private modalController: ModalController,
+    private cityOceanService: CityOceanService
   ) {}
 
   ngOnInit() {
@@ -49,6 +52,7 @@ export class ShipmentPage implements OnInit {
   }
   resetFilter(){
     this.shipmentsList = [];
+    this.pageInfo.skipCount = 0;
     this.getShipmentList()
   }
   
