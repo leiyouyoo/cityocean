@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ActionSheetController } from '@ionic/angular';
 import { BillingServiceService } from './billing-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-billing',
@@ -21,6 +22,7 @@ export class BillingPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private nav: NavController,
     private activatedRoute: ActivatedRoute,
+    private translate:TranslateService
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       if(data.ids){
@@ -85,33 +87,33 @@ export class BillingPage implements OnInit {
       cssClass: 'my-action-sheet-billing',
       buttons: [
         {
-          text: 'Outstanding',
+          text: this.translate.instant('Outstangding'),
           handler: () => {
-            this.filterConfirm(0);
+            this.filterConfirm(1);
           },
         },
         {
-          text: 'Past_due',
-          handler: () => {
-            this.filterConfirm(3);
-          },
-        },
-        {
-          text: 'Void',
-          handler: () => {
-            this.filterConfirm(4);
-          },
-        },
-        {
-          text: 'Paid',
+          text: this.translate.instant('Overdue'),
           handler: () => {
             this.filterConfirm(2);
           },
         },
         {
-          text: 'Payment pending',
+          text: this.translate.instant('Partial paid'),
           handler: () => {
-            this.filterConfirm(6);
+            this.filterConfirm(3);
+          },
+        },
+        {
+          text: this.translate.instant('Paid'),
+          handler: () => {
+            this.filterConfirm(4);
+          },
+        },
+        {
+          text: this.translate.instant('Voided'),
+          handler: () => {
+            this.filterConfirm(5);
           },
         },
         { text: 'Cancel', role: 'cancel' },

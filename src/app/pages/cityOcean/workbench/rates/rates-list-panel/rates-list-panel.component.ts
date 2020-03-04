@@ -13,6 +13,7 @@ export class RatesListPanelComponent implements OnInit {
 
   ngOnInit() {}
   getTime(time) {
+    if(!time){return ''}
     return moment(time).format('MMM D YYYY');
   }
    getTT(item) {

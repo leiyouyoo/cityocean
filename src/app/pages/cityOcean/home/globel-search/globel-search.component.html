@@ -18,6 +18,17 @@
 </ion-header>
 
 <ion-content>
+  <section *ngIf="!shipmentData?.totalCount && !billingData?.totalCount">
+    <div class="search-history">
+      <span>{{ 'Search history' | translate }}</span>
+      <i (click)="deleteHistory()"></i>
+    </div>
+    <div *ngIf="searchHistoryList.length" class="search-content">
+      <span *ngFor="let item of searchHistoryList" (click)="filterConfirm(item)"
+        >{{ item }}</span
+      >
+    </div>
+  </section>
   <section *ngIf="shipmentData?.totalCount">
     <p>{{"shipment" | translate}}</p>
     <app-shipment-list-panel

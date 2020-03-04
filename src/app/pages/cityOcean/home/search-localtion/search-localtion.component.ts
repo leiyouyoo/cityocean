@@ -42,7 +42,7 @@ export class SearchlocaltionComponent implements OnInit {
   }
   deleteHistory(){
     localStorage.removeItem(this.type);
-    this.localtionList= [];
+    this.searchHistoryList= [];
   }
   dismissModal(item, isHistory) {
     this.modalController.dismiss({  isHistory: isHistory, data: item });

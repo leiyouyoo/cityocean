@@ -74,7 +74,51 @@ ion-header {
 ion-content {
     section {
         padding: px2rem(16px) px2rem(8px);
+        .search-history {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 px2rem(16px) 0 px2rem(20px);
 
+            span {
+                height: px2rem(22px);
+                font-size: 16px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: rgba(76, 75, 94, 1);
+                line-height: px2rem(22px);
+            }
+
+            i {
+                display: inline-block;
+                width: px2rem(20px);
+                height: px2rem(20px);
+                @include bg-image("../../../../../assets/icon/qingkong")
+            }
+        }
+        .search-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 px2rem(5px) 0 px2rem(20px);
+            margin-top: px2rem(20px);
+
+            span {
+                height: px2rem(30px);
+                background: rgba(0, 122, 255, 0.15);
+                border-radius: px2rem(15px);
+                white-space: pre;
+                padding: px2rem(6px) px2rem(16px);
+                margin-bottom: px2rem(10px);
+                font-size: 12px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: var(--ion-color-primary);
+            }
+
+            span:nth-of-type(odd) {
+                margin-right: px2rem(16px);
+            }
+        }
         p {
             font-size: 12px;
             font-family: PingFangSC-Regular, PingFang SC;

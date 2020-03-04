@@ -4,6 +4,5 @@ export enum BillStatus {
   Paid = 2,
   Overdue = 3,
   Voided = 4,
-  Confirmed = 5,
-  PartialPaid = 6,
+  PartialPaid = 5,
 }

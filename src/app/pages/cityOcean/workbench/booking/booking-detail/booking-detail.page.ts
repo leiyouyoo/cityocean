@@ -425,6 +425,7 @@ export class BookingDetailPage implements OnInit {
     });
   }
   getTime(time) {
+    if(!time){return ''}
     return moment(time).format('MMM D YYYY');
   }
   goback() {
