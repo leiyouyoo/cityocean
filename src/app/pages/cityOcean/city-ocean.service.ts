@@ -48,6 +48,12 @@ export class CityOceanService {
       }
     });
   }
+  /**
+   *判断是否为游客登录
+   *
+   * @returns
+   * @memberof CityOceanService
+   */
   getIsLoginWithTourist(){
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
       return true;
@@ -63,6 +69,13 @@ export class CityOceanService {
     let params = obj;
     return this.httpService.get('/CRM/CustomerExternal/GetCoUserByCustomer', params);
   }
+
+  /**
+   *获取当前登录人的id
+   *
+   * @returns
+   * @memberof CityOceanService
+   */
   getCustomerId() {
     if (abp.session && abp.session.user && abp.session.user.id) {
       return Promise.resolve(this.customerId);
@@ -73,12 +86,21 @@ export class CityOceanService {
       });
     }
   }
+  /**
+   *处理与客服聊天的方法
+   *
+   * @param {*} [type]
+   * @param {*} [id]
+   * @param {*} [name]
+   * @returns
+   * @memberof CityOceanService
+   */
   async chatWithCustomerService(type?,id?,name?) {
     // if (!this.globelCustomerId) {
     //   this.helper.toast(this.translate.instant('No customer'));
     //   return;
     // }
-    if(type && id){
+    if(type && id){    // 从业务详情联系业务人员入口
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: `GROUP${type}${id}`,
@@ -90,15 +112,15 @@ export class CityOceanService {
       });
       return
     }
-    if (this.getIsLoginWithTourist()) {
+    if (this.getIsLoginWithTourist()) {     // 如果为游客登录，找全局客服
       this.chatWithTourist();
       return;
     }
-    if (this.hasHistoryChat.length) {
+    if (this.hasHistoryChat.length) {   // 如果之前有会话记录
       this.gotoChat();
       return;
     }
-    this.sendMessage(this.customerId,this.globelCustomerName)
+    this.sendMessage(this.customerId,this.globelCustomerName) // 发送消息，建立会话
   }
   async sendMessage(userId,name){
     try {
@@ -149,7 +171,7 @@ export class CityOceanService {
 
     // });
   }
-  filterHistoryCustomerId(list) {
+  filterHistoryCustomerId(list) { // 匹配是否有历史会话记录
     this.c2cList = list;
     this.hasHistoryChat = this.c2cList.filter((e) => {
       return e.userProfile.userID == this.globelCustomerId;
