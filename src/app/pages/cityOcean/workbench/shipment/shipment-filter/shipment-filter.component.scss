@@ -45,7 +45,7 @@ ion-header {
 }
 
 ion-content {
-    form {
+    section {
         &>div {
             height: px2rem(54px);
             line-height: px2rem(54px);
@@ -69,6 +69,18 @@ ion-content {
 
             ion-select {
                 flex: auto;
+            }
+        }
+
+        .showMulti {
+            span {
+                height: px2rem(30px);
+                line-height: px2rem(30px);
+                background: rgba(var(--ion-color-primary-rgb), 0.15);
+                color: var(--ion-color-primary);
+                border-radius: px2rem(15px);
+                padding: 0 px2rem(16px);
+                margin-right: px2rem(6px);
             }
         }
     }
