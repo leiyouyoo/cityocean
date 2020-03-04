@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sailing-filter',
@@ -9,11 +11,30 @@ import { ModalController } from '@ionic/angular';
 export class SailingFilterComponent implements OnInit {
   profileForm = {
     etaetd: 'ETD',
-    week: '1',
+    week: '',
     date:'',
   };
-  carrierList = [];
-  constructor(private modalController:ModalController,private el:ElementRef) { }
+  customPickerOptions: any;
+  constructor(private modalController:ModalController,
+    private el:ElementRef,
+    private translate:TranslateService) { 
+    this.customPickerOptions = {
+      cssClass :'ion-datetime-my-class',
+      buttons: [{
+        text: this.translate.instant('Cancel'),
+        handler: () => {}
+      }, {
+        text: this.translate.instant('Confirm'),
+        handler: (value) => {
+          let toUTC = new Date(value.year.value,value.month.value-1,value.day.value).toISOString();
+          this.profileForm.date = moment(toUTC).format('MMM D YYYY')
+          console.log(value)
+          return true;
+        }
+      }]
+    }
+  }
+  
 
   ngOnInit() {}
   dismissModal(data?) {

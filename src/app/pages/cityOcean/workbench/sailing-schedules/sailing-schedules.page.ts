@@ -4,6 +4,7 @@ import { SailingFilterComponent } from "./sailing-filter/sailing-filter.componen
 import { SailService } from "@cityocean/basicdata-library/region/service/sail.service";
 import { ActivatedRoute } from "@angular/router";
 import { CityOceanService } from '../../city-ocean.service';
+import * as moment from 'moment';
 
 @Component({
   selector: "app-sailing-schedules",
@@ -42,8 +43,6 @@ export class SailingSchedulesPage implements OnInit {
   }
   getSailingList(obj?,event?) {
     let params = {
-      //OrigPortId: 16768,
-      //DestPortId: 90443,
       OrigPortId: this.orignPortId,
       DestPortId: this.deliveryPortId,
       CarrierCode: [],
@@ -53,6 +52,12 @@ export class SailingSchedulesPage implements OnInit {
       SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount
     };
     obj && Object.assign(params, obj);
+    if(params['ETA']){
+      params['ETA'] = moment(params['ETA']).format();
+    }
+    if(params['ETD']){
+      params['ETD'] = moment(params['ETD']).format();
+    }
     this.sailService.getSailingSchedules(params).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成

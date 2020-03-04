@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
   }
   loginWithTourist() {
     this.loginService
-      .login('admin', '123qwe', 4, true)
+      .login('guest', 'co@123', 4, true)
       .then((res: any) => {
         if (res.access_token) {
           localStorage.setItem('isLoginWithTourist', 'true');

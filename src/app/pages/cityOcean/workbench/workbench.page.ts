@@ -250,7 +250,7 @@ export class WorkbenchPage implements OnInit {
    */
   clickLoginWithTourist(type): boolean {
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
-      if (type != 'sailingSchedules' && type != 'shipment') {
+      if (type != 'sailingSchedules' && type != 'shipments') {
         this.showMore();
         return true;
       }

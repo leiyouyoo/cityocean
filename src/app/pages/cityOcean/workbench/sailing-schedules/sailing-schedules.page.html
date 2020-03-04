@@ -10,8 +10,11 @@
 
 <ion-content>
   <section>
-    <app-sailing-schedules-list-panel [sailingSchedulesListItem] = "item" (click)="gotoSailingDetail(item)" *ngFor="let item of sailingList; let i=index"></app-sailing-schedules-list-panel>
-
+    <app-sailing-schedules-list-panel
+      [sailingSchedulesListItem]="item"
+      (click)="gotoSailingDetail(item)"
+      *ngFor="let item of sailingList; let i=index"
+    ></app-sailing-schedules-list-panel>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getSailingList(null,$event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
@@ -20,7 +23,5 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-button (click)="chatWithCustomer()" expand="block">询价</ion-button>
-  </ion-toolbar>
+  <ion-button (click)="chatWithCustomer()" expand="block">询价</ion-button>
 </ion-footer>
