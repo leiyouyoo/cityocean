@@ -42,7 +42,7 @@ export class WorkbenchPage implements OnInit {
         id: 0,
       },
       {
-        name: this.translate.instant('Sail Schedule'),
+        name: this.translate.instant('Schedule'),
         type: 'sailingSchedules',
         marker: false,
         id: 0,

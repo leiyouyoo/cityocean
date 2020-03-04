@@ -14,6 +14,8 @@ export class SailingFilterComponent implements OnInit {
     week: '',
     date:'',
   };
+  minDate = moment().format("YYYY-MM-DD");
+  maxDate = moment().add(3, "months").format("YYYY-MM-DD");
   customPickerOptions: any;
   constructor(private modalController:ModalController,
     private el:ElementRef,

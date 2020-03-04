@@ -5,9 +5,10 @@
         <input
           type="search"
           name="searh"
+          readonly
           (click)="onInputChange()"
           [(ngModel)]="searchInput"
-          [placeholder]="'key_word' | translate"
+          [placeholder]="'Search' | translate"
         />
         <i (click)="onInputChange()" class="search-icon"></i>
       </div>
@@ -30,7 +31,7 @@
         (click)="searchLocaltion('start')"
         [(ngModel)]="orignPort.name"
         type="text"
-        placeholder="{{'Please enter port of shipment' | translate}}"
+        placeholder="{{'Port of loading' | translate}}"
       />
     </div>
     <div class="search-line"></div>
@@ -40,10 +41,10 @@
         type="text"
         (click)="searchLocaltion('destination')"
         [(ngModel)]="deliveryPort.name"
-        placeholder="{{'Please enter the port of destination' | translate}}"
+        placeholder="{{'Port of discharge' | translate}}"
       />
     </div>
-    <button (click)="go4search()" class="search-yunjia font-12">{{searchType | translate}}</button>
+    <button (click)="go4search()" [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}" class="search-yunjia font-12">{{searchType | translate}}</button>
   </div>
   <div *ngIf="transportationCost" class="division"></div>
 </ion-header>

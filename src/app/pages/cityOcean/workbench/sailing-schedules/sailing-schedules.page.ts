@@ -53,11 +53,12 @@ export class SailingSchedulesPage implements OnInit {
     };
     obj && Object.assign(params, obj);
     if(params['ETA']){
-      params['ETA'] = moment(params['ETA']).format();
+      params['ETA'] = moment(params['ETA']).utc();
     }
     if(params['ETD']){
-      params['ETD'] = moment(params['ETD']).format();
+      params['ETD'] = moment(params['ETD']).utc();
     }
+    params['sorting'] = 'DepartureDate desc';
     this.sailService.getSailingSchedules(params).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成

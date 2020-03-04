@@ -24,7 +24,7 @@
     </div>
     <div>
       <label class="date-title" for="">日期</label>
-      <ion-datetime [pickerOptions] = "customPickerOptions" [value]="profileForm.date" placeholder="请选择日期"></ion-datetime>
+      <ion-datetime displayFormat="YYYY/MMM/DD" [min]="minDate" [max]="maxDate" [pickerOptions] = "customPickerOptions" [value]="profileForm.date" placeholder="请选择日期"></ion-datetime>
     </div>
     <div>
       <ion-select

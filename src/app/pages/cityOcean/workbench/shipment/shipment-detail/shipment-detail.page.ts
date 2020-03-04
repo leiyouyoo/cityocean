@@ -8,6 +8,7 @@ import { ShipmentService } from '@cityocean/shipment-library';
 import { CityOceanService } from '../../../city-ocean.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Helper } from '@shared/helper';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -64,7 +65,8 @@ export class ShipmentDetailPage implements OnInit {
     private cityOceanService:CityOceanService,
     private nav:NavController,
     private alertController:AlertController,
-    private translate:TranslateService
+    private translate:TranslateService,
+    public helper: Helper,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
@@ -92,13 +94,21 @@ export class ShipmentDetailPage implements OnInit {
   }
   
   getMapData(data) {
-    this.shipmentService.getShipmentMapDataByDetails([data]).subscribe((mapData) => {
-      if (mapData.length) {
-        this.icons = mapData[0].icons;
-        this.lines = mapData[0].lines;
-        this.dashedLines = mapData[0].dashedLines;
-      }
-    });
+    try {
+      this.shipmentService.getShipmentMapDataByDetails([data]).subscribe((mapData:any) => {
+        this.helper.toast('success:'+String(mapData[0].icons[0].icon))
+        if (mapData.length) {
+          this.icons = mapData[0].icons;
+          this.lines = mapData[0].lines;
+          this.dashedLines = mapData[0].dashedLines;
+        }
+      },(error)=>{
+        this.helper.toast(error)
+      });
+    } catch (error) {
+      this.helper.toast(error)
+    }
+    
   }
   getTime(time) {
     if(!time){return ''}
