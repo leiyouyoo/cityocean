@@ -9,7 +9,7 @@
           (keyup)="($event.which === 13) ? filterConfirm(null) : 0"
           type="search"
           name = "searh"
-          placeholder="搜索"
+          [placeholder]="'Search' | translate"
         />
       </div>
       <i (click)="bookingFilter()" class="filter"></i>

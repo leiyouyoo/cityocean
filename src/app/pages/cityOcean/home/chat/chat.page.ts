@@ -8,7 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 import { HomeService } from '../home.service';
 import { ShipmentStatusType } from '../../workbench/shipment/class/shipment-status-type';
 import { BookingStatusType } from '../../workbench/booking/class/booking-status-type';
-import { createTextMessage, onMessage, getMessageList, sendmessage, createImageMessage } from '@cityocean/im-library';
+import {
+  createTextMessage,
+  onMessage,
+  getMessageList,
+  sendmessage,
+  createImageMessage,
+  getGroupMemberlist,
+} from '@cityocean/im-library';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
@@ -45,6 +52,7 @@ export class ChatPage implements OnInit {
   conversationType: any;
   popoverList; // 更多列表数据
   ImageScale: any;
+  isDisbanded: boolean;
   constructor(
     private nav: NavController,
     public popoverController: PopoverController,
@@ -59,7 +67,7 @@ export class ChatPage implements OnInit {
     private myShipmentService: MyShipmentService,
     private cityOceanService: CityOceanService,
     private location: Location,
-    private helper:Helper
+    private helper: Helper,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -100,6 +108,17 @@ export class ChatPage implements OnInit {
     window.onresize = () => {
       this.scrollToBottom(1);
     };
+    try {
+      getGroupMemberlist(this.groupID)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          if (error.message.indexOf('群组不存在') != -1) {
+            this.isDisbanded = true;
+          }
+        });
+    } catch (error) {}
   }
   ionViewDidEnter() {
     this.scrollToBottom(1);
@@ -185,18 +204,17 @@ export class ChatPage implements OnInit {
   async sendImg(imageData) {
     try {
       let fileMessage = createImageMessage(this.groupID, this.isC2C ? 'signle' : 'group', imageData);
-    await sendmessage(fileMessage).then((res) => {
-      this.chatList.push({
-        flow: 'out',
-        payload: {
-          file: res,
-        },
+      await sendmessage(fileMessage).then((res) => {
+        this.chatList.push({
+          flow: 'out',
+          payload: {
+            file: res,
+          },
+        });
       });
-    });
     } catch (error) {
-      this.helper.toast(error)
+      this.helper.toast(error);
     }
-    
   }
   /**
    *更多按钮，区分群聊还是单聊
@@ -260,13 +278,14 @@ export class ChatPage implements OnInit {
 
   dataURLtoFile(dataurl, filename) {
     let arr = dataurl.dataURL.split(','),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]), n = bstr.length, 
-    u8arr = new Uint8Array(n);
-    while(n--){
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
     }
-    return new File([u8arr], filename, {type:mime});
+    return new File([u8arr], filename, { type: mime });
   }
   // 拍照
   imgUpload() {
@@ -287,8 +306,8 @@ export class ChatPage implements OnInit {
         // imageData is either a base64 encoded string or a file URI
         let ImageBase = imageData;
         this.ImageScale = ImageBase;
-        this.helper.toast(ImageBase)
-        this.sendImg(this.dataURLtoFile(ImageBase,'picture.png'));
+        this.helper.toast(ImageBase);
+        this.sendImg(this.dataURLtoFile(ImageBase, 'picture.png'));
       },
       (err) => {
         // Handle error
@@ -340,9 +359,9 @@ export class ChatPage implements OnInit {
     this.imagePicker.getPictures(options).then(
       (results) => {
         for (var i = 0; i < results.length; i++) {
-          this.helper.toast(results[i])
+          this.helper.toast(results[i]);
           this.ImageScale = results[i];
-          this.sendImg(this.dataURLtoFile(results[i],`picture${i}.png`));
+          this.sendImg(this.dataURLtoFile(results[i], `picture${i}.png`));
         }
       },
       (err) => {},

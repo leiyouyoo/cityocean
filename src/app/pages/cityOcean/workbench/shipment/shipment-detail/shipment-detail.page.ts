@@ -105,7 +105,7 @@ export class ShipmentDetailPage implements OnInit {
   }
   // 客服
   chatWithCustomer() {
-    this.cityOceanService.chatWithCustomerService();
+    this.cityOceanService.chatWithCustomerService('Shipment',this.id,this.routeDetail.shipmentNo);
   }
 
   async showMore() {

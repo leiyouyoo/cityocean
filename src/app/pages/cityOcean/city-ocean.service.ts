@@ -68,11 +68,23 @@ export class CityOceanService {
       });
     }
   }
-  async chatWithCustomerService() {
+  async chatWithCustomerService(type?,id?,name?) {
     // if (!this.globelCustomerId) {
     //   this.helper.toast(this.translate.instant('No customer'));
     //   return;
     // }
+    if(type && id){
+      this.nav.navigateForward(['/cityOcean/home/chat'], {
+        queryParams: {
+          conversationID: `GROUP${type}${id}`,
+          C2C: false,
+          id: `${type}${id}`,
+          groupName: name,
+          conversationType: 'Private',
+        },
+      });
+      return
+    }
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
       this.chatWithTourist();
       return;

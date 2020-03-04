@@ -6,7 +6,8 @@
         class="ship-icon"
       ></i>
       <div>
-        <span>{{bookingListItem.name}}</span>
+        <span *ngIf="bookingListItem.name">{{bookingListItem.name}}</span>
+        <span>1221424254353</span>
       </div>
     </div>
     <div class="status">{{statusType[bookingListItem.status]}}</div>

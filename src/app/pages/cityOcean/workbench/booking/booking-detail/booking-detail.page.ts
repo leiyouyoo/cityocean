@@ -433,7 +433,7 @@ export class BookingDetailPage implements OnInit {
   }
   // 客服
   chatWithCustomer() {
-    this.cityOceanService.chatWithCustomerService();
+    this.cityOceanService.chatWithCustomerService('Booking',this.id,this.bookingDetail.bookingNo);
   }
 
   getContainerType(data) {
