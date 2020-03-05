@@ -36,6 +36,7 @@ export class SearchConversationComponent implements OnInit {
     });
   }
   getChatList(event?) {
+    this.pageInfo.skipCount = 0;
     this.chatList = [];
     if (!this.searchText) {
       return;
