@@ -1,62 +1,66 @@
 <ion-content>
-  <header *ngIf="isEditing" [ngClass]="{'padding-edit': !isEditing}" class="edit-wrap">
-    <span class="font-18 title">{{'WorkBench' | translate}}</span>
-    <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
-  </header>
-  <header *ngIf="!isEditing" class="default-wrap">
-    <div (click)="businessChange()" class="business-change-wrap">
-      <span>{{title}}</span>
-      <ion-icon name="caret-down-outline"></ion-icon>
-    </div>
-    <div class="message-group">
-      <div *ngFor="let item of titleStatisticsList">
-        <i [class]="item.type"></i>
-        <p>
-          <span>{{item.name}}</span>
-          <span>{{item.value}}</span>
-        </p>
+  <div class="ion-content-wrap">
+    <header *ngIf="isEditing" [ngClass]="{'padding-edit': !isEditing}" class="edit-wrap">
+      <span class="font-18 title">{{'WorkBench' | translate}}</span>
+      <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
+    </header>
+    <header *ngIf="!isEditing" class="default-wrap">
+      <div (click)="businessChange()" class="business-change-wrap">
+        <span>{{title}}</span>
+        <ion-icon name="caret-down-outline"></ion-icon>
       </div>
-    </div>
-  </header>
-  <section [ngClass]="{'default-content': !isEditing}" *ngIf="!isEditing">
-    <div *ngIf="searchTransportationCost" class="search-detail">
-      <div class="qiyungang">
-        <i></i>
-        <input
-          (click)="searchLocaltion('start')"
-          [(ngModel)]="orignPort.name"
-          type="text"
-          placeholder="{{'Please enter port of shipment' | translate}}"
-        />
+      <div class="message-group">
+        <div *ngFor="let item of titleStatisticsList">
+          <i [class]="item.type"></i>
+          <p>
+            <span>{{item.name}}</span>
+            <span>{{item.value}}</span>
+          </p>
+        </div>
       </div>
-      <div style="text-align: center;height: 2em;display: inline-block;margin-left: 0.45em;">
-        <div style="border-left:0.1em solid #e4e4e4;height: 2em;"></div>
+    </header>
+    <section [ngClass]="{'default-content': !isEditing}" *ngIf="!isEditing">
+      <div *ngIf="searchTransportationCost" class="search-detail">
+        <div class="qiyungang">
+          <i></i>
+          <input
+            (click)="searchLocaltion('start')"
+            [(ngModel)]="orignPort.name"
+            type="text"
+            placeholder="{{'Please enter port of shipment' | translate}}"
+          />
+        </div>
+        <div style="text-align: center;height: 2em;display: inline-block;margin-left: 0.45em;">
+          <div style="border-left:0.1em solid #e4e4e4;height: 2em;"></div>
+        </div>
+        <div class="mudigang">
+          <i></i>
+          <input
+            type="text"
+            (click)="searchLocaltion('destination')"
+            [(ngModel)]="deliveryPort.name"
+            placeholder="{{'Please enter the port of destination' | translate}}"
+          />
+        </div>
+        <div style="text-align: center;">
+          <button (click)="searchConfirm()" class="search-yunjia font-12">{{searchType | translate}}</button>
+        </div>
       </div>
-      <div class="mudigang">
-        <i></i>
-        <input
-          type="text"
-          (click)="searchLocaltion('destination')"
-          [(ngModel)]="deliveryPort.name"
-          placeholder="{{'Please enter the port of destination' | translate}}"
-        />
+      <div class="title">
+        <span>{{'All applications' | translate}}</span>
+        <button (click)="isEditing = !isEditing">{{'Add To Home' | translate}}</button>
       </div>
-      <div style="text-align: center;">
-        <button (click)="searchConfirm()" class="search-yunjia font-12">{{searchType | translate}}</button>
+      <div class="all-applications">
+        <div *ngFor="let item of typeList">
+          <p (click)="typeClick(item)">
+            <i [class]="'icon-'+item.type"></i>
+            <span>{{item.name}}</span>
+          </p>
+        </div>
       </div>
-    </div>
-    <div class="title">
-      <span>{{'All applications' | translate}}</span>
-      <button (click)="isEditing = !isEditing">{{'Add To Home' | translate}}</button>
-    </div>
-    <div class="all-applications">
-      <div *ngFor="let item of typeList">
-        <p (click)="typeClick(item)">
-          <i [class]="'icon-'+item.type"></i>
-          <span>{{item.name}}</span>
-        </p>
-      </div>
-    </div>
-  </section>
-  <app-quick-enter #quickEnter  *ngIf="isEditing" [quickEnterList]= "quickEnterList"></app-quick-enter>
+    </section>
+    <footer>
+      <app-quick-enter #quickEnter *ngIf="isEditing" [quickEnterList]="quickEnterList"></app-quick-enter>
+    </footer>
+  </div>
 </ion-content>

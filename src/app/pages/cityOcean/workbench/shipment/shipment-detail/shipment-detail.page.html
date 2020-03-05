@@ -111,7 +111,7 @@
         <i class="arrow-bg" [ngClass]="{'originPortShow': originPortShow,'originPortNotShow': !originPortShow}"></i>
       </p>
 
-      <label [class]="routeDetail?.status>=3?'left-line title':'left-dashed-line title'">起运港</label>
+      <label [class]="routeDetail?.status>=3?'left-line title':'left-dashed-line title'">{{"'Port of Loading' | translate"}}</label>
       <p [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'">
         <span>{{routeDetail?.routeDetails?.originPort.name}}</span>
       </p>
@@ -130,7 +130,7 @@
         <span>Carrier/承运人</span>
         <span>{{routeDetail?.routeDetails?.carrierCustomerName}}</span>
       </p>
-      <label [class]="routeDetail?.status>=5?'left-line title':'left-dashed-line title'">目的港</label>
+      <label [class]="routeDetail?.status>=5?'left-line title':'left-dashed-line title'">{{"'Port of Discharge' | translate"}}</label>
       <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
         <span>{{routeDetail?.routeDetails?.destinationPort.name}}</span>
       </p>

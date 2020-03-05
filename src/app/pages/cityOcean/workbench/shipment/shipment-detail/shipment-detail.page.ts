@@ -96,7 +96,6 @@ export class ShipmentDetailPage implements OnInit {
   getMapData(data) {
     try {
       this.shipmentService.getShipmentMapDataByDetails([data]).subscribe((mapData:any) => {
-        this.helper.toast('success:'+String(mapData[0].icons[0].icon))
         if (mapData.length) {
           this.icons = mapData[0].icons;
           this.lines = mapData[0].lines;
