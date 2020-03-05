@@ -56,7 +56,7 @@ export class BillingPage implements OnInit {
     if (this.billingStatus != null) {
       params.status = this.billingStatus;
     }
-    // this.searchText ? params.searchText = this.searchText:delete this.currentParams.searchText;
+    this.searchText ? params.SearchKey = this.searchText:delete params.SearchKey;
     this.billingServiceService.getAllBilling(params).subscribe((res: any) => {
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
@@ -70,7 +70,12 @@ export class BillingPage implements OnInit {
   }
   resetFilter(){
     this.billingList = [];
-    // this.getBillingList()
+    this.billingStatus = null;
+    this.pageInfo = {
+      maxResultCount: 5,
+      skipCount: 0,
+    };
+    this.getBillingList({})
   }
   gotoBillingDetail(item) {
     this.nav.navigateForward(['/cityOcean/workbench/billing/billiingDetail'], {
@@ -132,6 +137,7 @@ export class BillingPage implements OnInit {
       maxResultCount: 5,
       skipCount: 0,
     };
+    this.searchText = '';
     this.billingStatus = status;
     this.billingList = [];
     this.getBillingList({});

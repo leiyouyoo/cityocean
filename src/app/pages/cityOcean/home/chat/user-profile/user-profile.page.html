@@ -17,7 +17,7 @@
       <span class="font-15 role">{{userProfile[0].role?userProfile[0].role:'角色未设置'}}</span>
       <div class="change-remarks-wrap">
         <span class="remarks font-15">备注和描述</span>
-        <i *ngIf="myUserId == userId" (click)= "changeRemarks()" class="change-remarks"></i>
+        <!-- <i *ngIf="myUserId == userId" (click)= "changeRemarks()" class="change-remarks"></i> -->
       </div>
       <span class="description font-14">{{userProfile[0].selfSignature?userProfile[0].selfSignature:'暂未填写描述'}}</span>
     </div>

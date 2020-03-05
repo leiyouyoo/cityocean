@@ -27,7 +27,7 @@ export class GroupMessagePage implements OnInit {
     public actionSheetController: ActionSheetController,
     private activatedRoute: ActivatedRoute,
     private cityOceanService: CityOceanService,
-    private homeService:HomeService
+    private homeService: HomeService,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.activatedRoute.queryParams.subscribe((data: any) => {
@@ -46,12 +46,21 @@ export class GroupMessagePage implements OnInit {
         getGroupMemberlist(this.groupID).then((res) => {
           console.log(res);
           this.membersList = res.data.memberList;
-          let ids = this.membersList.map(e=>{
-            return e.userID
-          })
-          this.homeService.GetBatchUserPositions(ids).subscribe(res=>{
+          let ids = this.membersList.map((e) => {
+            return e.userID;
+          });
+          this.homeService.GetBatchUserPositions(ids).subscribe((res: any) => {
             console.log(res);
-          })
+            if (res) {
+              res.forEach((element) => {
+                this.membersList.forEach((e) => {
+                  if (element.id == e.userID) {
+                    e.positionName = element.positionName;
+                  }
+                });
+              });
+            }
+          });
         });
       } else {
         getUserProfile([this.groupID]).then((res) => {
@@ -78,7 +87,7 @@ export class GroupMessagePage implements OnInit {
   }
   // 个人信息
   gotoUserProfile(userId) {
-    this.cityOceanService.gotoUserProfile(userId)
+    this.cityOceanService.gotoUserProfile(userId);
   }
   goback() {
     window.history.back();
@@ -190,16 +199,13 @@ export class GroupMessagePage implements OnInit {
   async presentModal(component, type) {
     const modal = await this.modalController.create({
       component: component,
-      componentProps:
-        type == 'search'
-          ? {}
-          : {
-              BusinessId: this.groupID.replace(/[^\d]/gi, ''),
-              BusinessType: this.groupID.replace(/\d/g, '').toLowerCase(),
-              groupID: this.groupID,
-              isC2C: this.isC2C,
-              conversationType: this.conversationType,
-            },
+      componentProps: {
+        BusinessId: this.groupID.replace(/[^\d]/gi, ''),
+        BusinessType: this.groupID.replace(/\d/g, '').toLowerCase(),
+        groupID: this.groupID,
+        isC2C: this.isC2C,
+        conversationType: this.conversationType,
+      },
     });
     modal.onWillDismiss().then((res) => {
       if (type == 'search') {

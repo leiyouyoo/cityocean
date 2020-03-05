@@ -58,7 +58,7 @@ ion-tabs {
             }
             i.schedule {
                 @extend .icon-my-size;
-                @include bg-image("../../../assets/icon//schedule//icon_rili");
+                @include bg-image("../../../assets/icon/schedule//icon_rili");
             }
 
             i.scheduleSelected {
@@ -68,34 +68,40 @@ ion-tabs {
 
             i.workbench {
                 @extend .icon-my-size;
-                @include bg-image("../../../assets//icon/workbench/icon_workbench");
+                @include bg-image("../../../assets/icon/workbench/icon_workbench");
             }
-            i.homeSelected,i.home{
+            i.home{
+                @include bg-image("../../../assets/icon/home/icon_home");
+                @extend .icon-my-size;
+            }
+            i.homeSelected{
+                @include bg-image("../../../assets/icon/home/icon_home_selected");
+
                 @extend .icon-my-size;
             }
             i.workbenchSelected {
                 @extend .icon-my-size;
-                @include bg-image("../../../assets//icon/workbench/icon_workbench_selected");
+                @include bg-image("../../../assets/icon/workbench/icon_workbench_selected");
             }
 
             i.contacts {
                 @extend .icon-my-size;
-                @include bg-image("../../../assets//icon/contacts/icon_contacts");
+                @include bg-image("../../../assets/icon/contacts/icon_contacts");
             }
 
             i.contactsSelected {
                 @extend .icon-my-size;
-                @include bg-image("../../../assets//icon/contacts/icon_contacts_selected");
+                @include bg-image("../../../assets/icon/contacts/icon_contacts_selected");
             }
 
             i.me {
                 @extend .icon-my-size;
-                @include bg-image("../../../assets//icon/me/icon_me");
+                @include bg-image("../../../assets/icon/me/icon_me");
             }
 
             i.meSelected {
                 @extend .icon-my-size;
-                @include bg-image("../../../assets//icon/me/icon_me_selected");
+                @include bg-image("../../../assets/icon/me/icon_me_selected");
             }
         }
     }

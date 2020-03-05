@@ -1,5 +1,12 @@
 <ion-tabs>
   <ion-tab-bar class="myTabBar" slot="bottom" (ionTabBarChanged)="tabsChange($event)">
+    <ion-tab-button tab="home">
+      <div>
+        <i *ngIf="currentTab != 'home'" class="tab-my-icon" class="home"></i>
+        <i *ngIf="currentTab == 'home'" class="tab-my-icon" class="homeSelected"></i>
+        <ion-label class="tab-my-label font-10">{{ 'Home' | translate}}</ion-label>
+      </div>
+    </ion-tab-button>
     <ion-tab-button tab="schedule">
       <div>
         <i *ngIf="currentTab != 'schedule'" class="tab-my-icon" class="schedule"></i>
@@ -13,14 +20,6 @@
         <i *ngIf="currentTab != 'workbench'" class="tab-my-icon" class="workbench"></i>
         <i *ngIf="currentTab == 'workbench'" class="tab-my-icon" class="workbenchSelected"></i>
         <ion-label class="tab-my-label font-10">{{ 'Work' | translate}}</ion-label>
-      </div>
-    </ion-tab-button>
-
-    <ion-tab-button tab="home">
-      <div>
-        <i *ngIf="currentTab != 'home'" class="tab-my-icon" class="home"></i>
-        <i *ngIf="currentTab == 'home'" class="tab-my-icon" class="homeSelected"></i>
-        <ion-label class="tab-my-label font-10">{{ 'Home' | translate}}</ion-label>
       </div>
     </ion-tab-button>
 
@@ -40,7 +39,7 @@
       </div>
     </ion-tab-button>
   </ion-tab-bar>
-  <ion-tab-button tab="home" class="myTabBar center-tab">
+  <!-- <ion-tab-button tab="home" class="myTabBar center-tab">
     <i class="tab-my-icon home"></i>
-  </ion-tab-button>
+  </ion-tab-button> -->
 </ion-tabs>

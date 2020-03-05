@@ -18,7 +18,7 @@
       <img (click)="gotoUserProfile(item.userID)" [src]="item.avatar?item.avatar:'../../../../../../assets/icon/avatar-2.png'" alt="头像" />
       <div>
         <span class="member-name font-16">{{item.nick?item.nick:item.userID}}</span>
-        <span class="member-type font-14">{{item.role?item.role:"角色未设置"}}</span>
+        <span class="member-type font-14">{{item.positionName?item.positionName:"角色未设置"}}</span>
       </div>
     </div>
   </section>

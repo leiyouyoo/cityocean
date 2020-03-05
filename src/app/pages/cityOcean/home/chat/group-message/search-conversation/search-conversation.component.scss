@@ -1,5 +1,10 @@
 @import "../../../../../../../theme/variables";
 
+.head-anchor-size {
+    width: px2rem(32px);
+    height: px2rem(32px);
+}
+
 ion-header {
     ion-toolbar {
         --background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
@@ -17,7 +22,7 @@ ion-header {
                 position: relative;
                 position: relative;
 
-                i {
+                i.search {
                     width: px2rem(20px);
                     height: px2rem(20px);
                     display: inline-block;
@@ -25,7 +30,14 @@ ion-header {
                     left: px2rem(16px);
                     @include bg-image("../../../../../../../assets/icon/home/chat/white-search");
                 }
-
+                i.delete {
+                    width: px2rem(20px);
+                    height: px2rem(20px);
+                    display: inline-block;
+                    position: absolute;
+                    right: px2rem(16px);
+                    @include bg-image("../../../../../../../assets/icon/shanchu");
+                }
                 input {
                     background: rgba(255, 255, 255, 0.15);
                     color: rgba(255, 255, 255, 0.7);
@@ -56,14 +68,80 @@ ion-header {
 
 ion-content {
     section {
-        display: flex;
-        justify-content: center;
+
         span.no-data {
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
             color: rgba(76, 75, 94, 1);
             margin-top: px2rem(80px);
+            text-align: center;
             @include font-dpr(16px);
+            display: inline-block;
+            width: 100%;
+        }
+
+        .content-wrap {
+            margin-left: px2rem(16px);
+            flex: auto;
+
+            .name-group {
+                display: flex;
+                align-items: center;
+                margin-bottom: px2rem(3px);
+                justify-content: space-between;
+
+                h5 {
+                    height: px2rem(19px);
+                    font-size: 16px;
+                    font-family: Helvetica;
+                    color: #706F7E;
+                    line-height: px2rem(19px);
+                }
+
+                span {
+                    font-size: 12px;
+                    font-family: PingFangSC-Regular, PingFang SC;
+                    font-weight: 400;
+                    color: var(--ion-color-dark);
+                }
+            }
+        }
+
+        ion-card {
+            padding: px2rem(10px) px2rem(12px);
+            border-radius: px2rem(25px);
+            margin: 0;
+            box-shadow: none;
+            flex: none;
+            display: flex;
+            align-items: flex-start;
+            display: flex;
+            align-items: center;
+
+            img {
+                @extend .head-anchor-size;
+                align-self: flex-start;
+            }
+
+            img.anchor-in {
+                margin-right: px2rem(10px);
+            }
+
+            img.anchor-out {
+                margin-left: px2rem(10px);
+            }
+
+            ion-card-content {
+                padding: 0;
+
+                &>span {
+                    font-size: 14px;
+                    font-family: PingFangSC-Regular, PingFang SC;
+                    font-weight: 400;
+                    color: rgba(var(--ion-color-medium-rgb), 0.8);
+                    line-height: px2rem(20px);
+                }
+            }
         }
     }
 }
