@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HomeService } from '../home.service';
 import { ShipmentStatusType } from '../../workbench/shipment/class/shipment-status-type';
 import { BookingStatusType } from '../../workbench/booking/class/booking-status-type';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {
   createTextMessage,
   onMessage,
@@ -54,7 +55,7 @@ export class ChatPage implements OnInit {
   popoverList; // 更多列表数据
   ImageScale: any;
   isDisbanded: boolean;
-  bfscrolltop: any;
+
   constructor(
     private nav: NavController,
     public popoverController: PopoverController,
@@ -70,6 +71,7 @@ export class ChatPage implements OnInit {
     private cityOceanService: CityOceanService,
     private location: Location,
     private helper: Helper,
+    private statusBar: StatusBar,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -81,7 +83,6 @@ export class ChatPage implements OnInit {
     });
   }
   ngOnInit() {
-    this.bfscrolltop = document.body.scrollTop;
     switch (this.bussinessType) {
       case 'booking':
         this.statusType = BookingStatusType; //状态枚举
@@ -123,6 +124,18 @@ export class ChatPage implements OnInit {
         });
     } catch (error) {}
   }
+
+  ionViewWillEnter() {
+    debugger;
+    this.statusBar.overlaysWebView(false);
+    this.statusBar.backgroundColorByHexString('#ffffff');
+  }
+
+  ionViewWillLeave() {
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.styleLightContent();
+  }
+
   ionViewDidEnter() {
     this.scrollToBottom(1);
   }
@@ -378,13 +391,5 @@ export class ChatPage implements OnInit {
     console.log(event);
     this.pressStatus = true;
     this.showPopover(event, PressPopoverComponent, 'press-css-class');
-  }
-
-  focusInput() {
-    document.body.scrollTop = document.body.scrollHeight;
-  }
-
-  blurInput() {
-    document.body.scrollTop = this.bfscrolltop;
   }
 }

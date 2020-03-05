@@ -47,7 +47,5 @@ export class ThemePage implements OnInit {
     }
     LocalStorage.localStorage.set('ThemeType', event.detail.value);
     document.body.classList.toggle(event.detail.value, true);
-    this.statusBar.backgroundColorByHexString(color);
-    this.statusBar.show();
   }
 }

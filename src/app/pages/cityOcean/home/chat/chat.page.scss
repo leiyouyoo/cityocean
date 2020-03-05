@@ -1,221 +1,222 @@
-@import "../../../../../theme/variables";
+@import '../../../../../theme/variables';
 
 .head-anchor-size {
-    width: px2rem(32px);
-    height: px2rem(32px);
+  width: px2rem(32px);
+  height: px2rem(32px);
 }
 
 ion-header {
-    display: flex;
-    align-items: flex-end;
-    height: px2rem(64px);
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0px px2rem(2px) px2rem(30px) 0px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: flex-end;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px px2rem(2px) px2rem(30px) 0px rgba(0, 0, 0, 0.06);
 
-    ion-toolbar {
-        padding: 0 px2rem(16px);
-        width: 100%;
+  ion-toolbar {
+    padding-top: 0 !important;
+    padding: 0 px2rem(16px);
+    width: 100%;
 
-        &>div {
-            position: relative;
-        }
-
-        i {
-            display: inline-block;
-            width: px2rem(24px);
-            height: px2rem(24px);
-        }
-
-        i.go-back {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            @include bg-image("../../../../../assets/icon/home/chat/icon-back");
-        }
-
-        i.more {
-            @include bg-image("../../../../../assets/icon/home/chat/icon_more");
-        }
-
-        i.group-massege {
-            margin-right: px2rem(16px);
-            @include bg-image("../../../../../assets/icon/home/chat/icon_group");
-        }
-
-        h5 {
-            font-family: PingFangSC-Semibold, PingFang SC;
-            font-weight: 600;
-            color: rgba(76, 75, 94, 1);
-            @include font-dpr(18px);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%);
-            
-        }
-
-        div.tool-wrap {
-            display: flex;
-            align-items: center;
-            position: absolute;
-            top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-        }
+    & > div {
+      height: px2rem(64px);
+      line-height: px2rem(64px);
+      position: relative;
     }
+
+    i {
+      display: inline-block;
+      width: px2rem(24px);
+      height: px2rem(24px);
+    }
+
+    i.go-back {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      @include bg-image('../../../../../assets/icon/home/chat/icon-back');
+    }
+
+    i.more {
+      @include bg-image('../../../../../assets/icon/home/chat/icon_more');
+    }
+
+    i.group-massege {
+      margin-right: px2rem(16px);
+      @include bg-image('../../../../../assets/icon/home/chat/icon_group');
+    }
+
+    h5 {
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: rgba(76, 75, 94, 1);
+      @include font-dpr(18px);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    div.tool-wrap {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+  }
 }
 
 ion-content {
-    --background: rgba(245, 245, 246, 1);
-    .type-wrap{
-        position: fixed;
-        width: 100%;
-        padding: px2rem(16px) px2rem(10px) 0;
-        z-index: 10;
-        background: rgba(245, 245, 246, 1);
-    }
-    section.chat-content-wrap {
-        &.chat-content-wrap-margin{
-            margin-top: px2rem(136px)!important
-        }
-        margin-top: px2rem(20px);
-        display: flex;
-        flex-direction: column;
-        ion-card.card-in-group {
-            align-self: flex-start;
-            background: rgba(255, 255, 255, 1);
-        }
-
-        ion-card.card-out-group {
-            flex-direction: row-reverse;
-            align-self: flex-end;
-            background: rgba(0, 122, 255, 0.15);
-        }
-
-        ion-card {
-            padding: px2rem(10px) px2rem(12px);
-            border-radius: px2rem(25px);
-            margin: 0;
-            box-shadow: none;
-            flex: none;
-            display: flex;
-            align-items: flex-start;
-            margin: 0 px2rem(16px) px2rem(20px) px2rem(16px);
-            max-width: px2rem(300px);
-            min-width: px2rem(120px);
-            display: flex;
-            align-items: center;
-
-            img {
-                @extend .head-anchor-size;
-                align-self: flex-start;
-            }
-
-            img.anchor-in {
-                margin-right: px2rem(10px);
-            }
-
-            img.anchor-out {
-                margin-left: px2rem(10px);
-            }
-
-            ion-card-content {
-                padding: 0;
-
-                &>span {
-                    padding: 0;
-                    margin: 0;
-                    font-family: PingFangSC-Regular;
-                    color: rgba(76, 75, 94, 0.9);
-                    @include font-dpr(14px);
-                }
-            }
-        }
-    }
-}
-
-ion-footer {
-    padding: px2rem(10px) px2rem(16px);
-    background: rgba(245, 245, 246, 1);
+  --background: rgba(245, 245, 246, 1);
+  .type-wrap {
+    position: fixed;
     width: 100%;
-
-    div.foot-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: rgba(255, 255, 255, 1);
-        box-shadow: 0px px2rem(2px) px2rem(24px) 0px rgba(0, 0, 0, 0.03);
-        border-radius: px2rem(25px);
-
-        i {
-            display: inline-block;
-            width: px2rem(42px);
-            height: px2rem(42px);
-        }
-
-        input {
-            flex: auto;
-            margin-left: px2rem(10px);
-        }
-
-        i.yuyin {
-            @include bg-image("../../../../../assets/icon/home/chat/seri");
-        }
-
-        i.change {
-            @include bg-image("../../../../../assets/icon/home/chat/change");
-        }
-
-        i.send {
-            @include bg-image("../../../../../assets/icon/home/chat/send");
-        }
-
-        i.qiehuan {
-            @include bg-image("../../../../../assets/icon/home/chat/qiehuan");
-        }
+    padding: px2rem(16px) px2rem(10px) 0;
+    z-index: 10;
+    background: rgba(245, 245, 246, 1);
+  }
+  section.chat-content-wrap {
+    &.chat-content-wrap-margin {
+      margin-top: px2rem(136px) !important;
+    }
+    margin-top: px2rem(20px);
+    display: flex;
+    flex-direction: column;
+    ion-card.card-in-group {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 1);
     }
 
-    div.hide-tools {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: px2rem(20px);
-        padding: 0 px2rem(12px);
-
-        &>div {
-            width: px2rem(100px);
-            height: px2rem(80px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 1);
-            box-shadow: 0px px2rem(2px) px2rem(20px) 0px rgba(0, 0, 0, 0.04);
-            border-radius: px2rem(6px);
-
-            i {
-                display: inline-block;
-                width: px2rem(28px);
-                height: px2rem(28px);
-                margin-bottom: px2rem(9px);
-            }
-
-            i.camera {
-                @include bg-image("../../../../../assets/icon/home/chat/camera");
-            }
-
-            i.photo {
-                @include bg-image("../../../../../assets/icon/home/chat/photo");
-            }
-
-            i.business-card {
-                @include bg-image("../../../../../assets/icon/home/chat/Shape");
-            }
-        }
-
-        &>div:nth-child(2) {
-            margin: 0 px2rem(10px);
-        }
+    ion-card.card-out-group {
+      flex-direction: row-reverse;
+      align-self: flex-end;
+      background: rgba(0, 122, 255, 0.15);
     }
+
+    ion-card {
+      padding: px2rem(10px) px2rem(12px);
+      border-radius: px2rem(25px);
+      margin: 0;
+      box-shadow: none;
+      flex: none;
+      display: flex;
+      align-items: flex-start;
+      margin: 0 px2rem(16px) px2rem(20px) px2rem(16px);
+      max-width: px2rem(300px);
+      min-width: px2rem(120px);
+      display: flex;
+      align-items: center;
+
+      img {
+        @extend .head-anchor-size;
+        align-self: flex-start;
+      }
+
+      img.anchor-in {
+        margin-right: px2rem(10px);
+      }
+
+      img.anchor-out {
+        margin-left: px2rem(10px);
+      }
+
+      ion-card-content {
+        padding: 0;
+
+        & > span {
+          padding: 0;
+          margin: 0;
+          font-family: PingFangSC-Regular;
+          color: rgba(76, 75, 94, 0.9);
+          @include font-dpr(14px);
+        }
+      }
+    }
+  }
 }
+
+// ion-footer {
+//   padding: px2rem(10px) px2rem(16px);
+//   background: rgba(245, 245, 246, 1);
+//   width: 100%;
+
+//   div.foot-wrap {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     background: rgba(255, 255, 255, 1);
+//     box-shadow: 0px px2rem(2px) px2rem(24px) 0px rgba(0, 0, 0, 0.03);
+//     border-radius: px2rem(25px);
+
+//     i {
+//       display: inline-block;
+//       width: px2rem(42px);
+//       height: px2rem(42px);
+//     }
+
+//     input {
+//       flex: auto;
+//       margin-left: px2rem(10px);
+//     }
+
+//     i.yuyin {
+//       @include bg-image('../../../../../assets/icon/home/chat/seri');
+//     }
+
+//     i.change {
+//       @include bg-image('../../../../../assets/icon/home/chat/change');
+//     }
+
+//     i.send {
+//       @include bg-image('../../../../../assets/icon/home/chat/send');
+//     }
+
+//     i.qiehuan {
+//       @include bg-image('../../../../../assets/icon/home/chat/qiehuan');
+//     }
+//   }
+
+//   div.hide-tools {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     margin-top: px2rem(20px);
+//     padding: 0 px2rem(12px);
+
+//     & > div {
+//       width: px2rem(100px);
+//       height: px2rem(80px);
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       justify-content: center;
+//       background: rgba(255, 255, 255, 1);
+//       box-shadow: 0px px2rem(2px) px2rem(20px) 0px rgba(0, 0, 0, 0.04);
+//       border-radius: px2rem(6px);
+
+//       i {
+//         display: inline-block;
+//         width: px2rem(28px);
+//         height: px2rem(28px);
+//         margin-bottom: px2rem(9px);
+//       }
+
+//       i.camera {
+//         @include bg-image('../../../../../assets/icon/home/chat/camera');
+//       }
+
+//       i.photo {
+//         @include bg-image('../../../../../assets/icon/home/chat/photo');
+//       }
+
+//       i.business-card {
+//         @include bg-image('../../../../../assets/icon/home/chat/Shape');
+//       }
+//     }
+
+//     & > div:nth-child(2) {
+//       margin: 0 px2rem(10px);
+//     }
+//   }
+// }

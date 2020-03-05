@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Platform, AlertController, NavController } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { filter, ignoreElements } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { LocalStorage } from '@shared/localstorage';
 import { Helper } from '@shared/helper';
 
@@ -25,7 +25,6 @@ export class AppComponent {
     private storage: Storage,
     private alertController: AlertController,
     private router: Router,
-    private nav: NavController,
     private helper: Helper,
     private jpush: JPush,
     public translate: TranslateService,
@@ -51,7 +50,7 @@ export class AppComponent {
       }
 
       this.statusBar.overlaysWebView(true);
-      this.statusBar.styleDefault();
+      this.statusBar.styleLightContent();
       this.jpush.setDebugMode(true);
       this.jpush.init();
 
@@ -101,7 +100,7 @@ export class AppComponent {
         if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
           navigator['app'].exitApp(); // 退出APP
         } else {
-          this.helper.toast(this.translate.instant('Try Again Exit'), 3000, 'bottom');
+          this.helper.toast(this.translate.instant('Try Again Exit'), 3000, 'middle');
           this.lastTimeBackPress = new Date().getTime(); // 再次按
         }
       }

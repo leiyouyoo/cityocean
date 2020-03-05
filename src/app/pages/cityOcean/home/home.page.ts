@@ -11,6 +11,7 @@ import { debounceTime } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.component';
 import { GlobelSearchComponent } from './globel-search/globel-search.component';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,10 @@ export class HomePage implements OnInit {
     private homeService: HomeService,
     private translate: TranslateService,
     private cityOceanService: CityOceanService,
+    private statusBar: StatusBar,
   ) {}
+
+
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
@@ -48,6 +52,7 @@ export class HomePage implements OnInit {
     });
   }
   ionViewWillEnter() {
+
     this.searchInput = '';
     if (this.cityOceanService.getIsLoginWithTourist()) {
       this.searchType = 'seachSailingSchedules';
@@ -264,7 +269,7 @@ export class HomePage implements OnInit {
       },
     });
     modal.onWillDismiss().then((res) => {
-      if(res.data){
+      if (res.data) {
         this.toolsList = res.data;
         this.toolsList.push({
           name: 'More',
