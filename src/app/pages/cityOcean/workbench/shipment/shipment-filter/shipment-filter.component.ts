@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { cloneDeep } from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-shipment-filter',
   templateUrl: './shipment-filter.component.html',
@@ -19,52 +20,54 @@ export class ShipmentFilterComponent implements OnInit {
   processShowName = 'All shipments in progess';
   processOptionList = [
     {
-      name: 'Select  all',
+      name: this.translate.instant('Select all'),
       value: 'all',
     },
     {
-      name: 'All shipments in progess',
+      name: this.translate.instant('All shipments in progess'),
       value: 'allInProcess',
     },
     {
-      name: "At Seller 's Location",
+      name: this.translate.instant("At Seller 's Location"),
       value: '0',
     },
     {
-      name: 'Origin Stop-off',
+      name: this.translate.instant('Origin Stop-off'),
       value: '1',
     },
     {
-      name: 'In trainsit to departure port',
+      name: this.translate.instant('In trainsit to departure port'),
       value: '2',
     },
     {
-      name: 'At Departure Port',
+      name: this.translate.instant('At Departure Port'),
       value: '3',
     },
     {
-      name: 'In trainsit to arrival port',
+      name: this.translate.instant('In trainsit to arrival port'),
       value: '4',
     },
     {
-      name: 'At Arrival Port',
+      name: this.translate.instant('At Arrival Port'),
       value: '5',
     },
     {
-      name: 'In trainsit to final port',
+      name: this.translate.instant('In trainsit to final port'),
       value: '6',
     },
     {
-      name: 'Destination Stop-Off',
+      name: this.translate.instant('Destination Stop-Off'),
       value: '7',
     },
     {
-      name: 'Delivered',
+      name: this.translate.instant('Delivered'),
       value: '8',
     },
   ];
   carrierList = [];
-  constructor(private modalController: ModalController, private el: ElementRef) {}
+  constructor(private modalController: ModalController, 
+    private el: ElementRef,
+    private translate:TranslateService) {}
 
   ngOnInit() {}
   dismissModal(data?) {

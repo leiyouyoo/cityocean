@@ -22,6 +22,6 @@
     </div>
   </div>
 </section>
-<ion-footer>
+<ion-footer *ngIf="isHome">
   <ion-button (click)="confirm()" expand="block">确认</ion-button>
 </ion-footer>

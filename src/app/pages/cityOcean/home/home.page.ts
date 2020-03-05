@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Renderer2,ElementRef } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
 import 'hammerjs';
@@ -6,11 +6,12 @@ import { SearchlocaltionComponent } from './search-localtion/search-localtion.co
 import { HomeService } from './home.service';
 import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady } from '@cityocean/im-library';
 import { CityOceanService } from '../city-ocean.service';
-import { Subject } from 'rxjs';
+import { Subject, fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.component';
 import { GlobelSearchComponent } from './globel-search/globel-search.component';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,8 @@ export class HomePage implements OnInit {
   transportationCost = true; //运价或船期查询
   @ViewChild(IonInfiniteScroll, { static: true })
   infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonContent, { static: true }) ionContent: IonContent;
+  @ViewChild('deliveryTool',{ static: true }) deliveryTool: ElementRef;
   searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
   searchInput = ''; // 全局搜索
@@ -30,12 +33,17 @@ export class HomePage implements OnInit {
   deliveryPort: any = {}; // 目的港
   totalCount: any;
   scrollList = []; // 系统消息列表
+  showWelcome: boolean = true;
+  toolsGroupElement: any;
+  toolsGroupEleHeight: any;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
     private homeService: HomeService,
     private translate: TranslateService,
     private cityOceanService: CityOceanService,
+    private el:ElementRef,
+    private renderer2: Renderer2
   ) {}
 
   ngOnInit() {
@@ -46,6 +54,20 @@ export class HomePage implements OnInit {
         this.imLogin(res);
       }
     });
+    
+  }
+  ionScroll(event) {
+    if(!this.toolsGroupEleHeight){
+      this.toolsGroupElement = this.el.nativeElement.querySelector('#tools-group-id');
+      this.toolsGroupEleHeight = this.toolsGroupElement.clientHeight;
+    }
+    
+    if(event.detail.scrollTop<=this.toolsGroupEleHeight){
+      this.toolsGroupElement.style.height = this.toolsGroupEleHeight- event.detail.scrollTop + "px";
+    }else{
+      this.toolsGroupElement.style.height = "0px";
+    }
+    console.log(event.detail.scrollTop);
   }
   ionViewWillEnter() {
     this.searchInput = '';
@@ -83,7 +105,9 @@ export class HomePage implements OnInit {
     }
     this.getConversationsList();
   }
-
+  ngAfterViewInit(){
+    
+  }
   getConversationsList() {
     onSDKReady(async () => {
       let imRes = await getConversationList();
@@ -264,7 +288,7 @@ export class HomePage implements OnInit {
       },
     });
     modal.onWillDismiss().then((res) => {
-      if(res.data){
+      if (res.data) {
         this.toolsList = res.data;
         this.toolsList.push({
           name: 'More',
@@ -281,6 +305,10 @@ export class HomePage implements OnInit {
     //   console.log(imRes);
     // });
 
+    if (!i) {
+      this.showWelcome = false;
+      return;
+    }
     deleteConversation(data.conversationID).then(
       (imRes) => {
         console.log(imRes);

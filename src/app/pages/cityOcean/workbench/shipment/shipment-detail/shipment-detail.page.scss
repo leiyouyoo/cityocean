@@ -247,6 +247,9 @@ ion-content {
             border-left: px2rem(1px) dashed var(--ion-color-medium);
         }
     }
+    .left-dashed-line:first-child::before{
+        content: unset !important;
+    }
 
     #isLoginWithTourist {
         background: rgba(64,156,255,0.2);

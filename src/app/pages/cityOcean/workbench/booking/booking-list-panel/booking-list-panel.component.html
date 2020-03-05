@@ -15,26 +15,26 @@
   <div class="Shipper content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>Shipper</span>
+      <span>{{"Shipper" | translate}}</span>
     </div>
     <span class="address-name">{{bookingListItem.shipperAddress?.tenantName}}</span>
   </div>
   <div class="Consignee content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>Consignee</span>
+      <span>{{"Consignee" | translate}}</span>
     </div>
     <span>{{bookingListItem.consigneeAddress?.tenantName}}</span>
   </div>
   <div  class="Cargo content-group">
     <div>
-      <span>Cargo ready date</span>
+      <span>{{"Cargo Ready Date" | translate}}</span>
     </div>
     <span>{{getTime(bookingListItem.cargoReadyDate)}}</span>
   </div>
   <div  class="Cargo content-group">
     <div>
-      <span>Cargo details</span>
+      <span>{{"Cargo details" | translate}}</span>
     </div>
     <span>{{bookingListItem.weight}} {{bookingListItem.weightUnitString}} <span>{{bookingListItem.volume}} {{bookingListItem.volumeUnitString}}</span></span>
   </div>

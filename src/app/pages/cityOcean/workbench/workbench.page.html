@@ -59,8 +59,8 @@
         </div>
       </div>
     </section>
-    <footer>
-      <app-quick-enter #quickEnter *ngIf="isEditing" [quickEnterList]="quickEnterList"></app-quick-enter>
+    <footer *ngIf="isEditing">
+      <app-quick-enter #quickEnter  [quickEnterList]="quickEnterList"></app-quick-enter>
     </footer>
   </div>
 </ion-content>

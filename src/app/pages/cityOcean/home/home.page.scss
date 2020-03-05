@@ -7,7 +7,8 @@
 }
 
 ion-header {
-    --background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
+    background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
+
     &::after {
         display: none;
     }
@@ -206,18 +207,18 @@ ion-header {
 ion-content.content-background {
     --background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
 }
+ion-header.my-header-background-color{
+    background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
+}
 
 ion-content {
     ion-list {
         margin: 0;
         padding: 0;
-        border-radius: px2rem(20px) px2rem(20px) 0 0;
-        height: 100%;
+        border-radius: px2rem(16px) px2rem(16px) 0 0;
     }
 
     section.content-group {
-        overflow: auto;
-        height: 100%;
         background: rgba(255, 255, 255, 1);
 
         .massge-group-wrap {
