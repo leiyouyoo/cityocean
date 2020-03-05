@@ -183,7 +183,7 @@ export class HomePage implements OnInit {
           C2C: item.type == 'C2C' ? true : false,
           id: item.type == 'C2C' ? item.userProfile.userID : item.groupProfile.groupID,
           groupName: item.name,
-          conversationType: item.type == 'C2C' ? 'c2c' : item.groupProfile.type,
+          conversationType: item.type,
         },
       });
   }

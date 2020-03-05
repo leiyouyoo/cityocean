@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '@cityocean/common-library';
 import { Observable } from 'rxjs';
 import { StartupService } from '@core';
-import { createTextMessage, sendmessage } from '@cityocean/im-library';
+import { createTextMessage, sendmessage, setMessageRead } from '@cityocean/im-library';
 import { NavController, ActionSheetController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -124,19 +124,16 @@ export class CityOceanService {
   }
   async sendMessage(userId,name){
     try {
-      let textMessage;
-      textMessage = createTextMessage(userId, 'signle', 'hello');
-      await sendmessage(textMessage).then((imRes) => {
-        const imData = imRes.data.message;
-        this.nav.navigateForward(['/cityOcean/home/chat'], {
-          queryParams: {
-            conversationID: imData.conversationID,
-            C2C: true,
-            id: userId,
-            groupName: name,
-            conversationType: 'c2c',
-          },
-        });
+      let conversationID = "C2C"+userId;
+      setMessageRead( conversationID );
+      this.nav.navigateForward(['/cityOcean/home/chat'], {
+        queryParams: {
+          conversationID: conversationID,
+          C2C: true,
+          id: userId,
+          groupName: name || userId,
+          conversationType: 'c2c',
+        },
       });
     } catch (error) {
       this.helper.toast(this.translate.instant('Failed to contact customer'));

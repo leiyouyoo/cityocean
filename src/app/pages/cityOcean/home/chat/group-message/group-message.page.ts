@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { getGroupMemberlist, updateGroupProfile, quitGroup, getUserProfile } from '@cityocean/im-library';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { CityOceanService } from '../../../city-ocean.service';
+import { HomeService } from '../../home.service';
 
 @Component({
   selector: 'app-group-message',
@@ -26,6 +27,7 @@ export class GroupMessagePage implements OnInit {
     public actionSheetController: ActionSheetController,
     private activatedRoute: ActivatedRoute,
     private cityOceanService: CityOceanService,
+    private homeService:HomeService
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.activatedRoute.queryParams.subscribe((data: any) => {
@@ -44,6 +46,12 @@ export class GroupMessagePage implements OnInit {
         getGroupMemberlist(this.groupID).then((res) => {
           console.log(res);
           this.membersList = res.data.memberList;
+          let ids = this.membersList.map(e=>{
+            return e.userID
+          })
+          this.homeService.GetBatchUserPositions(ids).subscribe(res=>{
+            console.log(res);
+          })
         });
       } else {
         getUserProfile([this.groupID]).then((res) => {

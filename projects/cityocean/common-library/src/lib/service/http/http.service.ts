@@ -296,8 +296,7 @@ export class HttpService {
  * 添加时间戳 timestamp；
  * 转换 undefined 或者 null 为 ''
  */
-export function buildHttpParams(params: any): HttpParams {
-  let httpParams = new HttpParams();
+export function buildHttpParams(params: any) {
   params = params ? params : {};
   const timestamp = Date.parse(new Date().toString());
   params.timestamp = timestamp.toString();
@@ -310,15 +309,7 @@ export function buildHttpParams(params: any): HttpParams {
       delete params[key];
     }
   }
-
-  Object.keys(params).forEach(key => {
-    httpParams = httpParams.set(
-      key,
-      params[key] !== null || params[key] !== undefined ? params[key] : ''
-    );
-  });
-
-  return httpParams;
+  return params;
 }
 
 /**

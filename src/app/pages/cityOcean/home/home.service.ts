@@ -28,14 +28,17 @@ export class HomeService {
   // 获取个人资料
   getPortrait(to_Account: Array<string>) {
     let params = {
-      to_Account: ['user0'],
+      to_Account: to_Account,
       tagList: ['Tag_Profile_IM_Image', 'Tag_Profile_IM_Nick', 'Tag_Profile_IM_Role'],
     };
-    return this.httpService.postJson('/IM/AccountManage/PortraitGet', params).subscribe((res) => {
-      console.log(res);
-      return res;
-    });
+    return this.httpService.postJson('/IM/AccountManage/PortraitGet', params)
   }
+  // 批量获取用户职位集合
+  GetBatchUserPositions(ids:Array<any>) {
+    let params={UserIds:ids};
+    return this.httpService.get('/Platform/Position/GetBatchUserPositions', params);
+  }
+  // 获取快捷入口
   getQuickEntrance(): Observable<any> {
     return this.httpService.get('/CSP/QuickEntrance/GetAllList', {});
   }

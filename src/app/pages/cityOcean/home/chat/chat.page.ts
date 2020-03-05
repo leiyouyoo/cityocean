@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { FileEntry,  } from "@ionic-native/file/ngx";
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { ActivatedRoute } from '@angular/router';
@@ -57,7 +58,7 @@ export class ChatPage implements OnInit {
     private nav: NavController,
     public popoverController: PopoverController,
     private transfer: FileTransfer,
-    // private file: File, // 不能注入file,否则报错
+    // private file: File, 
     private camera: Camera,
     private imagePicker: ImagePicker,
     private activatedRoute: ActivatedRoute,
@@ -231,7 +232,7 @@ export class ChatPage implements OnInit {
   }
   gotoDetail() {
     if (!this.isC2C) {
-      if (this.bussinessType !== 'booking' || this.bussinessType !== 'shipment') {
+      if (this.bussinessType !== 'booking' && this.bussinessType !== 'shipment') {
         return;
       }
       this.nav.navigateForward([`/cityOcean/workbench/${this.bussinessType}/${this.bussinessType}Detail`], {
@@ -294,7 +295,7 @@ export class ChatPage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL, // 返回类型 .FILE_URI 返回文件地址 .DATA_URL 返回base64编码
       encodingType: this.camera.EncodingType.PNG, // 图片格式 JPEG=0 PNG=1
       mediaType: this.camera.MediaType.PICTURE, // 媒体类型
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY, // 图片来源  CAMERA相机 PHOTOLIBRARY 图库
+      sourceType: this.camera.PictureSourceType.CAMERA, // 图片来源  CAMERA相机 PHOTOLIBRARY 图库
       allowEdit: false, // 允许编辑
       // targetWidth: 300, // 缩放图片的宽度
       // targetHeight: 300, // 缩放图片的高度
@@ -304,6 +305,11 @@ export class ChatPage implements OnInit {
     this.camera.getPicture(options).then(
       (imageData) => {
         // imageData is either a base64 encoded string or a file URI
+        window.resolveLocalFileSystemURL(imageData, function (fileEntry:FileEntry) {
+          fileEntry.file((fileObj)=> {
+            this.helper.toast(fileObj.size);
+          });
+      });
         let ImageBase = imageData;
         this.ImageScale = ImageBase;
         this.helper.toast(ImageBase);
@@ -313,15 +319,6 @@ export class ChatPage implements OnInit {
         // Handle error
       },
     );
-    // this.camera.getPicture(options).then(
-    //   imageData => {
-    //     // 返回拍照的地址
-    //     this.doUpload(imageData);
-    //   },
-    //   err => {
-    //     alert(err);
-    //   }
-    // );
   }
   // 文件上传
   doUpload(src: any) {

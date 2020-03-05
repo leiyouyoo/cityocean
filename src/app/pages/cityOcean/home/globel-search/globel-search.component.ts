@@ -33,24 +33,28 @@ export class GlobelSearchComponent implements OnInit {
     }
   }
   filterConfirm(data?) {
-    let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem('globelSearchHistory'));
-    if (!searchLocalStorage) {
-      let tmp = [];
-      tmp.push(this.searchKey);
-      localStorage.setItem('globelSearchHistory', JSON.stringify(tmp));
-    } else {
-      const hasExit = searchLocalStorage.some((e) => {
-        return e == this.searchKey;
-      });
-      if (!hasExit) {
-        if (searchLocalStorage.length >= 10) {
-          searchLocalStorage.shift();
+    if (this.searchKey) {
+      let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem('globelSearchHistory'));
+      if (!searchLocalStorage) {
+        let tmp = [];
+        tmp.push(this.searchKey);
+        localStorage.setItem('globelSearchHistory', JSON.stringify(tmp));
+      } else {
+        const hasExit = searchLocalStorage.some((e) => {
+          return e == this.searchKey;
+        });
+        if (!hasExit) {
+          if (searchLocalStorage.length >= 10) {
+            searchLocalStorage.shift();
+          }
+          searchLocalStorage.push(this.searchKey);
+          localStorage.setItem('globelSearchHistory', JSON.stringify(searchLocalStorage));
         }
-        searchLocalStorage.push(this.searchKey);
-        localStorage.setItem('globelSearchHistory', JSON.stringify(searchLocalStorage));
       }
     }
-    if(data){this.searchKey= data}
+    if (data) {
+      this.searchKey = data;
+    }
     this.searchBilling();
     this.searchShipment();
   }
