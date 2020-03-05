@@ -68,6 +68,10 @@ export class SearchConversationComponent implements OnInit {
       });
     }
   }
+  // 个人信息
+  gotoUserProfile(userId) {
+    this.cityOceanService.gotoUserProfile(userId);
+  }
   delete(){
     this.chatList = [];
     this.searchText= '';
