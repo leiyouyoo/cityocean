@@ -109,9 +109,10 @@ export class LoginComponent implements OnInit {
     this.loginService
       .login('guest', 'co@123', 4, true)
       .then((res: any) => {
+        debugger;
         if (res.access_token) {
           localStorage.setItem('isLoginWithTourist', 'true');
-          this.router.navigateByUrl('/cityOcean', { replaceUrl: true });
+          this.router.navigateByUrl('/cityOcean');
         } else {
           this.errorTip = '登录失败!';
         }

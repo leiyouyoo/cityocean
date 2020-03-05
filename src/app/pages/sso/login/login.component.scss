@@ -1,7 +1,9 @@
 @import '../../../../theme//variables.scss';
 
 ion-content {
+  padding-top: 2em;
   .sign-up {
+    margin-top: px2rem(32px);
     position: absolute;
     right: px2rem(24px);
     top: px2rem(10px);
@@ -25,7 +27,7 @@ ion-content {
   }
 
   section.logo-group {
-    margin: 4em 0 0 4em;
+    margin: 6em 0 0 4em;
     display: flex;
     flex-direction: column;
 

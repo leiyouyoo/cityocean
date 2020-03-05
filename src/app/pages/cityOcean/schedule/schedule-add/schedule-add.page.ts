@@ -127,6 +127,8 @@ export class ScheduleAddPage implements OnInit {
         })
         .toString();
     }
+    this.data.remindStartTime = new Date(this.data.remindStartTime).toISOString();
+    this.data.remindEndTime = new Date(this.data.remindEndTime).toISOString();
     this.scheduleService.createAsync(this.data).subscribe((res: any) => {
       this.helper.toast(this.translate.instant('Add Success') + '!');
       this.refresh();
@@ -138,11 +140,14 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onUpdateData() {
+    debugger;
     this.data.remindPeople = this.choosedContacts
       .map((da) => {
         return da.userId;
       })
       .toString();
+    this.data.remindStartTime = new Date(this.data.remindStartTime).toISOString();
+    this.data.remindEndTime = new Date(this.data.remindEndTime).toISOString();
     this.scheduleService.updateAsync(this.data).subscribe((res: any) => {
       this.helper.toast(this.translate.instant('Save Success') + '!');
       this.refresh();

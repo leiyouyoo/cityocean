@@ -115,29 +115,19 @@ button:focus {
   right: 1em;
 }
 
-
 ion-title {
-  font-size: 1.25em;
   text-align: center;
+  font-size: 1em;
 }
 
-.ios ion-title {
-  font-size: 1.25em;
-  text-align: center;
-  padding-top: 1em;
-}
+// .ios ion-title {
+//   
+//   text-align: center;
+//   padding-top: 1em;
+// }
 
-ion-toolbar {
-  --padding-top: 25px;
-  --min-height: 5.5em;
-}
-
-.header-ios ion-toolbar:first-of-type {
-  padding: 0 !important;
-}
-
-.header-ios ion-toolbar:last-of-type {
-  --border-width: 0;
+ion-header ion-toolbar {
+  padding-top: 2em !important;
 }
 
 ion-toolbar ion-back-button {
@@ -238,7 +228,7 @@ app-schedule,
 app-schedule-add,
 app-me-language,
 app-me-setting {
-  --ion-toolbar-background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);;
+  --ion-toolbar-background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
   --ion-toolbar-color: #fff;
 }
 
