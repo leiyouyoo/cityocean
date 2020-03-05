@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { FileEntry,  } from "@ionic-native/file/ngx";
+import { FileEntry } from '@ionic-native/file/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { ActivatedRoute } from '@angular/router';
@@ -59,7 +59,7 @@ export class ChatPage implements OnInit {
     private nav: NavController,
     public popoverController: PopoverController,
     private transfer: FileTransfer,
-    // private file: File, 
+    // private file: File,
     private camera: Camera,
     private imagePicker: ImagePicker,
     private activatedRoute: ActivatedRoute,
@@ -307,11 +307,11 @@ export class ChatPage implements OnInit {
     this.camera.getPicture(options).then(
       (imageData) => {
         // imageData is either a base64 encoded string or a file URI
-        window.resolveLocalFileSystemURL(imageData, function (fileEntry:FileEntry) {
-          fileEntry.file((fileObj)=> {
-            this.helper.toast(fileObj.size);
-          });
-      });
+        // window.resolveLocalFileSystemURL(imageData, function(fileEntry: FileEntry) {
+        //   fileEntry.file((fileObj) => {
+        //     this.helper.toast(fileObj.size);
+        //   });
+        // });
         let ImageBase = imageData;
         this.ImageScale = ImageBase;
         this.helper.toast(ImageBase);
