@@ -3,15 +3,44 @@
     <div>
       <!-- <ion-searchbar ionInput="handleInput()"></ion-searchbar> -->
       <div class="search-wrap">
-        <i></i>
-        <input placeholder="Search"  type="text">
+        <i class="search" (click)="getChatList()"></i>
+
+        <input
+          [(ngModel)]="searchText"
+          (keyup)="$event.which === 13 ? getChatList() : 0"
+          type="search"
+          name="searh"
+          [placeholder]="'Search'"
+        />
+        <i class="delete" *ngIf="searchText" (click)="delete()"></i>
       </div>
       <span class="font-16" (click)="dismissModal()">Cancel</span>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
-    <section>
-      <span class="no-data font-16">快速搜索聊天内容</span>
-    </section>
+  <section>
+    <span *ngIf="chatList.length==0" class="no-data font-16">快速搜索聊天内容</span>
+    <ion-card *ngFor="let item of chatList">
+      <img
+        (click)="gotoUserProfile(item.from)"
+        class="head-anchor"
+        [src]="item?.fromAccountImageUrl ? item?.fromAccountImageUrl : '../../../../../assets/icon/avatar-2.png'"
+      />
+      <div class="content-wrap">
+        <div class="name-group">
+          <h5>{{ item?.nickName ? item?.nickName : item?.from }}</h5>
+          <span>{{ getTime(item?.msgTime) }}</span>
+        </div>
+
+        <ion-card-content>
+          <span *ngIf="item?.type === 'TIMCustomElem'" [innerHTML]="item.msgBody[0].msgContent.Ext"></span>
+          <span *ngIf="item?.type === 'TIMTextElem'" [innerHTML]="item.payload.text"></span>
+          <span *ngIf="item?.type === 'TIMImageElem'">
+            <img [src]="item.msgBody[0].msgContent.ImageInfoArray[0].URL" class="image-element" />
+          </span>
+        </ion-card-content>
+      </div>
+    </ion-card>
+  </section>
 </ion-content>
