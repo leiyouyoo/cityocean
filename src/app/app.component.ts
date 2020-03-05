@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { filter } from 'rxjs/operators';
+import { filter, ignoreElements } from 'rxjs/operators';
 import { LocalStorage } from '@shared/localstorage';
 import { Helper } from '@shared/helper';
 
@@ -35,8 +35,6 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleLightContent();
-      // this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
       let color = '#3e8eff';
       const theme = LocalStorage.localStorage.get('ThemeType');
@@ -51,9 +49,9 @@ export class AppComponent {
         //   color = '#000000';
         // }
       }
-      // this.statusBar.overlaysWebView(true);
-      this.statusBar.backgroundColorByHexString(color);
-      this.statusBar.show();
+
+      this.statusBar.overlaysWebView(true);
+      this.statusBar.styleDefault();
       this.jpush.setDebugMode(true);
       this.jpush.init();
 

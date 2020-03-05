@@ -118,10 +118,20 @@ button:focus {
 ion-title {
   font-size: 1.25em;
   text-align: center;
+  padding-top: 1em;
 }
 
 ion-toolbar {
-  --min-height: 4em;
+  --padding-top: 25px;
+  --min-height: 5em;
+}
+
+.header-ios ion-toolbar:first-of-type {
+  padding: 0 !important;
+}
+
+.header-ios ion-toolbar:last-of-type {
+  --border-width: 0;
 }
 
 ion-toolbar ion-back-button {
@@ -254,9 +264,13 @@ button.days-btn small {
 //   bottom: 0;
 //   top: auto;
 // }
-.amap-logo{
-  display: none!important;//去掉高德地图logo
+.amap-logo {
+  display: none !important; //去掉高德地图logo
 }
 .amap-copyright {
-  display: none!important;//去掉高德的版本号
+  display: none !important; //去掉高德的版本号
+}
+
+.header-md:after {
+  display: none;
 }

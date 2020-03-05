@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
     public httpService: HttpService,
     private translate: TranslateService,
     private popoverController: PopoverController,
-  ) {}
+  ) {
+    // this.helper.setStatuBar('#ffffff');
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

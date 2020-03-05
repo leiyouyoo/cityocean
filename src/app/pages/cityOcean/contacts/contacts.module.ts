@@ -14,7 +14,6 @@ import { SharedModule } from '@shared/shared.module';
     SharedModule,
     RouterModule.forChild([{ path: '', component: ContactsPage }]),
   ],
-  providers: [NavParams],
   declarations: [ContactsPage],
 })
 export class ContactsPageModule {}

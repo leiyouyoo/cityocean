@@ -62,8 +62,10 @@
       [(ngModel)]="sendingMessage"
       (click)="showTools = false"
       placeholder="Type a message"
+      (ionFocus)="focusInput()"
+      (ionBlur)="blurInput()"
       name=""
-      [readonly] = isDisbanded
+      [readonly]="isDisbanded"
       id="inputElement"
     />
     <i *ngIf="!sendingMessage && !showTools" (click)="showTools = true" class="change"></i>
