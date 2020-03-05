@@ -1,7 +1,7 @@
 @import '../../../../theme/variables';
 
 ion-content {
-  --background: #3e8eff;
+  --background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
   .edit-wrap {
     height: px2rem(64px);
     line-height: px2rem(64px);

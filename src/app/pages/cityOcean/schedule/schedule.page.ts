@@ -152,10 +152,10 @@ export class SchedulePage implements OnInit {
   }
 
   onShowMore() {
-    if (this.el.nativeElement.querySelector('.small-calendar').style.height === '25em') {
+    if (this.el.nativeElement.querySelector('.small-calendar').style.height === '30em') {
       this.el.nativeElement.querySelector('.small-calendar').style.height = '11em';
     } else {
-      this.el.nativeElement.querySelector('.small-calendar').style.height = '25em';
+      this.el.nativeElement.querySelector('.small-calendar').style.height = '30em';
     }
   }
 }
