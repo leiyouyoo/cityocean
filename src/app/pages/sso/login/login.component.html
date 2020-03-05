@@ -1,6 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <div class="sign-up">
-    <ion-icon  (click)="handleButtonClick($event)" name="signup"></ion-icon>
+    <ion-icon (click)="handleButtonClick($event)" name="signup"></ion-icon>
     <span>Sign Up</span>
   </div>
   <section class="logo-group">
@@ -69,7 +76,7 @@
         <span class="font-16">{{ 'Login in' | translate }}</span>
         <i></i>
       </div>
-      <span (click)="loginWithTourist()" class="login-other font-9">{{'LoginInTouristMode' | translate}}</span>
+      <span (click)="loginWithTourist()" class="login-other font-9">{{ 'LoginInTouristMode' | translate }}</span>
       <div class="facebook-group">
         <span class="font-16">{{ 'Facebook' | translate }}</span>
         <i></i>
