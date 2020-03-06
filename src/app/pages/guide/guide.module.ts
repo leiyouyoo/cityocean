@@ -9,12 +9,7 @@ import { GuidePageRoutingModule } from './guide-routing.module';
 import { GuidePage } from './guide.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    GuidePageRoutingModule
-  ],
-  declarations: [GuidePage]
+  imports: [CommonModule, FormsModule, IonicModule, GuidePageRoutingModule],
+  declarations: [GuidePage],
 })
 export class GuidePageModule {}

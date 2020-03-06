@@ -96,7 +96,4 @@ export class SearchConversationComponent implements OnInit {
     return moment(time).format("dddd A h:mm")
   }
 
-  gotoUserProfile(data){
-    
-  }
 }

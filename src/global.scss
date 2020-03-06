@@ -272,3 +272,8 @@ button.days-btn small {
 .header-md:after {
   display: none;
 }
+
+.form-error{
+  color: var(--ion-color-danger);
+  margin: 1em 0 1em 1em;
+}

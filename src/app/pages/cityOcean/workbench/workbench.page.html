@@ -1,8 +1,15 @@
-<ion-header>
-  <header *ngIf="isEditing" [ngClass]="{'padding-edit': !isEditing}" class="edit-wrap">
-    <span class="font-18 title">{{'WorkBench' | translate}}</span>
-    <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
-  </header>
+<ion-header *ngIf="isEditing">
+  <ion-toolbar>
+    <ion-title>
+      {{'WorkBench' | translate}}
+    </ion-title>
+    <ion-buttons slot="end" class="title-right" (click)="isEditing = !isEditing;confirm()">
+      {{'Ok' | translate}}
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
   <header *ngIf="!isEditing" class="default-wrap">
     <div (click)="businessChange()" class="business-change-wrap">
       <span>{{title}}</span>
@@ -18,8 +25,7 @@
       </div>
     </div>
   </header>
-</ion-header>
-<ion-content>
+
   <div class="ion-content-wrap">
     <section [ngClass]="{'default-content': !isEditing}" *ngIf="!isEditing">
       <div *ngIf="searchTransportationCost" class="search-detail">

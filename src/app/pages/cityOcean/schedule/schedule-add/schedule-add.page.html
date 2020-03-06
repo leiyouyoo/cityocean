@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text=""></ion-back-button>
+    <ion-buttons slot="start" class="title-left">
+    <ion-icon name="chevron-back-outline" (click)="onBack()" style="font-size: 1.5em;"></ion-icon>
     </ion-buttons>
     <ion-title>
       <span *ngIf="!id;else detial">{{'Schedule Add' | translate}}</span>
@@ -18,69 +18,85 @@
 </ion-header>
 
 <ion-content>
-  <div class="title">
-    <div class="colorblue"></div>
-    <ion-input
-      placeholder="{{'Enter Schedule Title' | translate}}"
-      [(ngModel)]="data.remindContent"
-      [disabled]="!edit"
-    ></ion-input>
-  </div>
-
-  <div class="time">
-    <ion-icon name="time-outline"></ion-icon>
-    <div style="align-items: center;text-align: right;">
-      <strong>{{'Start Time' | translate}}</strong>
-      <ion-datetime
-        style="flex:1"
+  <form [formGroup]="data">
+    <div class="title">
+      <div class="colorblue"></div>
+      <ion-input
+        placeholder="{{'Enter Schedule Title' | translate}}"
+        formControlName="place"
         [disabled]="!edit"
-        [(ngModel)]="data.remindStartTime"
-        displayFormat="YYYY-MM-DD HH:mm"
-        cancelText="{{'Cancel' | translate}}"
-        doneText="{{'Save' | translate}}"
-        placeholder="{{'Please Enter Time' | translate}}"
-      ></ion-datetime>
+      ></ion-input>
     </div>
-  </div>
-
-  <div class="time">
-    <ion-icon name="time-outline" style="opacity: 0;"></ion-icon>
-    <div style="align-items: center;text-align: right;">
-      <strong>{{'End Time' | translate}}</strong>
-      <ion-datetime
-        style="flex:1"
-        [min]="data.remindStartTime"
-        [(ngModel)]="data.remindEndTime"
-        [disabled]="!edit || !data.remindStartTime"
-        displayFormat="YYYY-MM-DD HH:mm"
-        placeholder="{{'Please Enter Time' | translate}}"
-      ></ion-datetime>
+    <div *ngIf="data.get('place').dirty && data.get('place').errors" class="form-error">
+      {{'Please Enter Title' | translate}}
     </div>
-  </div>
 
-  <div class="time" (click)="presentActionSheet()">
-    <ion-icon name="alarm-outline"></ion-icon>
-    <div style="justify-content:start;">
-      <strong>{{data.advanceTime}}{{'minutes ago' | translate}}</strong>
+    <div class="time">
+      <ion-icon name="time-outline"></ion-icon>
+      <div style="align-items: center;text-align: right;">
+        <strong>{{'Start Time' | translate}}</strong>
+        <ion-datetime
+          style="flex:1"
+          [disabled]="!edit"
+          formControlName="remindStartTime"
+          displayFormat="YYYY-MM-DD HH:mm"
+          cancelText="{{'Cancel' | translate}}"
+          doneText="{{'Save' | translate}}"
+          placeholder="{{'Please Enter Time' | translate}}"
+          (ionChange)="onSetEndTime()"
+        ></ion-datetime>
+      </div>
     </div>
-  </div>
-
-  <div class="time" (click)="onSetRemind()">
-    <ion-icon name="person-outline"></ion-icon>
-    <div style="justify-content:start;">
-      <strong>{{'Remind people' | translate}}</strong>
+    <div *ngIf="data.get('remindStartTime').dirty && data.get('remindStartTime').errors" class="form-error">
+      {{'Please Enter Time' | translate}}
     </div>
-  </div>
 
-  <div class="choosed">
-    <div *ngFor="let contact of choosedContacts" class="choosed-contact">
-      <img src="/assets/images/Logo.png" />
-      <p>{{contact.name}}</p>
+    <div class="time">
+      <ion-icon name="time-outline" style="opacity: 0;"></ion-icon>
+      <div style="align-items: center;text-align: right;">
+        <strong>{{'End Time' | translate}}</strong>
+        <ion-datetime
+          style="flex:1"
+          [min]="data.get('remindStartTime').value"
+          formControlName="remindEndTime"
+          [disabled]="!edit || !data.get('remindStartTime').value"
+          displayFormat="YYYY-MM-DD HH:mm"
+          placeholder="{{'Please Enter Time' | translate}}"
+        ></ion-datetime>
+      </div>
     </div>
-  </div>
+    <div *ngIf="data.get('remindEndTime').dirty && data.get('remindEndTime').errors" class="form-error">
+      {{'Please Enter Title' | translate}}
+    </div>
 
-  <div class="title">
-    <ion-icon name="reader-outline" style="margin-right: 1em;"></ion-icon>
-    <ion-input placeholder="{{'Add Remark' | translate}}" [disabled]="!edit" [(ngModel)]="data.place"></ion-input>
-  </div>
+    <div class="time" (click)="presentActionSheet()">
+      <ion-icon name="alarm-outline"></ion-icon>
+      <div style="justify-content:start;">
+        <strong>{{data.get('advanceTime').value}}{{'minutes ago' | translate}}</strong>
+      </div>
+    </div>
+
+    <div class="time" (click)="onSetRemind()">
+      <ion-icon name="person-outline"></ion-icon>
+      <div style="justify-content:start;">
+        <strong>{{'Remind people' | translate}}</strong>
+      </div>
+    </div>
+
+    <div class="choosed">
+      <div *ngFor="let contact of choosedContacts" class="choosed-contact">
+        <img src="/assets/images/Logo.png" />
+        <p>{{contact.name}}</p>
+      </div>
+    </div>
+
+    <div class="title">
+      <ion-icon name="reader-outline" style="margin-right: 1em;"></ion-icon>
+      <ion-input
+        placeholder="{{'Add Remark' | translate}}"
+        [disabled]="!edit"
+        formControlName="remindContent"
+      ></ion-input>
+    </div>
+  </form>
 </ion-content>

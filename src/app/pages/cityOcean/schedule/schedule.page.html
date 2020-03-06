@@ -29,7 +29,7 @@
 
   <div class="schedule-content" (click)="onScheduleDetial(detial.id)" *ngFor="let detial of msgData">
     <div class="content-msg" style="background-color: #CFECFF;">
-      <p class="msg">{{detial.remindContent}}</p>
+      <p class="msg">{{detial.place}}</p>
       <p class="time">
         {{detial.remindStartTime | date:'yyyy-MM-dd HH:mm'}} - {{detial.remindEndTime | date:'yyyy-MM-dd HH:mm'}}
       </p>

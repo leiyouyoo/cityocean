@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
-import { ActionSheetController, PopoverController, ModalController } from '@ionic/angular';
+import { ActionSheetController, PopoverController, ModalController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { Helper } from '@shared/helper';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { EventService } from '@shared/helpers/event.service';
 import { ScheduleEditComponent } from './schedule-edit-component/schedule-edit.component';
 import { ContactsComponent } from 'src/app/components/contacts/contacts.component';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-schedule-add',
@@ -16,47 +17,53 @@ import { ContactsComponent } from 'src/app/components/contacts/contacts.componen
   styleUrls: ['schedule-add.page.scss'],
 })
 export class ScheduleAddPage implements OnInit {
-  warnTime: any;
   id: any;
   edit = false;
-  minEndTime: any;
   choosedContacts: any = [];
-  data = {
-    remindStartTime: null,
-    remindEndTime: null,
-    remindContent: null,
-    place: '',
-    remindPeople: '',
-    advanceTime: 15,
-    scheduleType: 0,
-  };
+  data: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     public modalController: ModalController,
+    public alertController: AlertController,
     public popoverController: PopoverController,
     public eventService: EventService,
     public activeRoute: ActivatedRoute,
     public helper: Helper,
+    public router: Router,
     private translate: TranslateService,
-    private datePicker: DatePicker,
     public location: Location,
     public scheduleService: ScheduleService,
     public actionSheetController: ActionSheetController,
   ) {}
 
   ngOnInit() {
+    this.data = this.formBuilder.group({
+      remindContent: [null],
+      remindPeople: [null],
+      advanceTime: [15],
+      scheduleType: [0],
+      remindStartTime: [null, [Validators.required]],
+      remindEndTime: [null, [Validators.required]],
+      place: [null, [Validators.required]],
+    });
+
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params.id) {
         this.id = Number(params.id);
         this.scheduleService.get(this.id).subscribe((res: any) => {
-          this.data = res;
-          if (this.data.remindPeople) {
-            debugger;
+          this.data.patchValue({
+            remindContent: res.remindContent,
+            remindStartTime: res.remindStartTime,
+            remindEndTime: res.remindEndTime,
+            place: res.place,
+          });
+          if (res.remindPeople) {
             this.choosedContacts = [];
-            this.scheduleService.getCRMContacts(abp.session.user.customerId).subscribe((res: any) => {
-              let arr = this.data.remindPeople.split(',');
+            this.scheduleService.getCRMContacts(abp.session.user.customerId).subscribe((ress: any) => {
+              let arr = res.remindPeople.split(',');
               arr.forEach((e) => {
-                res.items.forEach((element) => {
+                ress.items.forEach((element) => {
                   if (Number(e) === element.userId) {
                     this.choosedContacts.push(element);
                   }
@@ -83,7 +90,9 @@ export class ScheduleAddPage implements OnInit {
           role: 'destructive',
 
           handler: () => {
-            this.data.advanceTime = 15;
+            this.data.patchValue({
+              advanceTime: 15,
+            });
           },
         },
         {
@@ -91,14 +100,18 @@ export class ScheduleAddPage implements OnInit {
           role: 'destructive',
 
           handler: () => {
-            this.data.advanceTime = 30;
+            this.data.patchValue({
+              advanceTime: 30,
+            });
           },
         },
         {
           text: '60' + this.translate.instant('minutes ago'),
           role: 'destructive',
           handler: () => {
-            this.data.advanceTime = 60;
+            this.data.patchValue({
+              advanceTime: 60,
+            });
           },
         },
         {
@@ -112,24 +125,23 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onSave() {
+    if (!this.validate()) {
+      return;
+    }
+
     if (this.id) {
       this.onUpdateData();
       return;
     }
-    if (!this.data.remindContent) {
-      this.helper.toast(this.translate.instant('Please Enter Title'));
-      return;
-    }
-    if (this.choosedContacts) {
-      this.data.remindPeople = this.choosedContacts
-        .map((res) => {
-          return res.id;
-        })
-        .toString();
-    }
-    this.data.remindStartTime = new Date(this.data.remindStartTime).toISOString();
-    this.data.remindEndTime = new Date(this.data.remindEndTime).toISOString();
-    this.scheduleService.createAsync(this.data).subscribe((res: any) => {
+    let items = this.data.value;
+    items.remindPeople = this.choosedContacts
+      .map((da) => {
+        return da.userId;
+      })
+      .toString();
+    items.remindStartTime = new Date(items.remindStartTime).toISOString();
+    items.remindEndTime = new Date(items.remindEndTime).toISOString();
+    this.scheduleService.createAsync(items).subscribe((res: any) => {
       this.helper.toast(this.translate.instant('Add Success') + '!');
       this.refresh();
     });
@@ -140,14 +152,14 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onUpdateData() {
-    debugger;
-    this.data.remindPeople = this.choosedContacts
+    let items = this.data.value;
+    items.remindPeople = this.choosedContacts
       .map((da) => {
         return da.userId;
       })
       .toString();
-    this.data.remindStartTime = new Date(this.data.remindStartTime).toISOString();
-    this.data.remindEndTime = new Date(this.data.remindEndTime).toISOString();
+    items.remindStartTime = new Date(items.remindStartTime).toISOString();
+    items.remindEndTime = new Date(items.remindEndTime).toISOString();
     this.scheduleService.updateAsync(this.data).subscribe((res: any) => {
       this.helper.toast(this.translate.instant('Save Success') + '!');
       this.refresh();
@@ -200,12 +212,13 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onSetEndTime(time) {
-    if (!this.edit && !this.id) {
-      return;
-    }
-    if (this.data.remindStartTime) {
-      const time = new Date(this.data.remindStartTime).setDate(new Date(this.data.remindStartTime).getDate() + 1);
-      this.minEndTime = new Date(time).toISOString();
+    debugger;
+    if (this.data.value.remindStartTime && this.data.value.remindEndTime) {
+      if (new Date(this.data.value.remindStartTime) > new Date(this.data.value.remindEndTime)) {
+        this.data.patchValue({
+          remindEndTime: this.data.value.remindStartTime,
+        });
+      }
     }
   }
 
@@ -213,6 +226,39 @@ export class ScheduleAddPage implements OnInit {
     if (!this.edit) {
       return;
     }
+    debugger;
+    if (this.choosedContacts.length > 0 && this.id) {
+      this.presentAlert();
+    } else {
+      this.onContactModal();
+    }
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('Contact has been notified'),
+      message: this.translate.instant('Edit') + '?',
+      buttons: [
+        {
+          text: this.translate.instant('Cancel'),
+          role: 'cancel',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: this.translate.instant('Ok'),
+          handler: () => {
+            this.onContactModal();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async onContactModal() {
     const modal = await this.modalController.create({
       component: ContactsComponent,
       componentProps: {
@@ -232,5 +278,40 @@ export class ScheduleAddPage implements OnInit {
         this.choosedContacts = res.data.list;
       }
     });
+  }
+
+  validate() {
+    // tslint:disable-next-line: forin
+    for (const i in this.data.controls) {
+      this.data.controls[i].markAsDirty();
+      this.data.controls[i].updateValueAndValidity();
+    }
+    return this.data.valid;
+  }
+
+  async onBack() {
+    if (this.edit) {
+      const alert = await this.alertController.create({
+        message: this.translate.instant('Are you sure you want to discard your changes') + '?',
+        buttons: [
+          {
+            text: this.translate.instant('Cancel'),
+            role: 'cancel',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            },
+          },
+          {
+            text: this.translate.instant('Ok'),
+            handler: () => {
+              this.router.navigate(['/cityOcean/schedule']);
+            },
+          },
+        ],
+      });
+      await alert.present();
+    } else {
+      this.router.navigate(['/cityOcean/schedule']);
+    }
   }
 }
