@@ -101,6 +101,12 @@
   "Quantity": "数量",
   "Total Weight": "总重",
   "Total Volume": "总体积",
+  "Contact has been notified": "日程已通知联系人",
+  "Delete Success": "删除成功",
+  "Please Enter Title": "请填写标题",
+  "Please Enter Time": "请填写时间",
+  "jump over": "跳过",
+  "Are you sure you want to discard your changes": "确认要放弃更改吗",
   "Specifics": "货描",
   "Special Instructions": "特殊货物类型",
   "Arrived": "到达时间",
@@ -136,11 +142,9 @@
   "Cargo details": "货物信息",
   "Origin Location": "提货地址",
   "Destination Location": "最终目的地",
+  "Destination": "目的地",
   "Route Details": "路线信息",
-  "Contact has been notified": "日程已通知联系人",
-  "Delete Success": "删除成功",
-  "Please Enter Title": "请填写标题",
-  "Please Enter Time": "请填写时间",
-  "jump over":"跳过",
-  "Are you sure you want to discard your changes":"确认要放弃更改吗"
+  "Origin": "起运地",
+  "POL": "起运港",
+  "POD": "目的港"
 }

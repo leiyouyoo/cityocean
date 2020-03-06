@@ -112,15 +112,17 @@ export class ChatPage implements OnInit {
     window.onresize = () => {
       this.scrollToBottom(1);
     };
-    try {
-      getGroupMemberlist(this.groupID)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
+    if (!this.isC2C) {
+      try {
+        getGroupMemberlist(this.groupID)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((error) => {
             this.isDisbanded = true;
-        });
-    } catch (error) {}
+          });
+      } catch (error) {}
+    }
   }
 
   ionViewWillEnter() {

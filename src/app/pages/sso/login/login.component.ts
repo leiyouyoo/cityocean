@@ -9,6 +9,7 @@ import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomerPhoneComponent } from './customer-phone/customer-phone.component';
 import { Router } from '@angular/router';
+import { CityOceanService } from '../../cityOcean/city-ocean.service';
 
 @Component({
   selector: 'user-login',
@@ -109,7 +110,6 @@ export class LoginComponent implements OnInit {
     this.loginService
       .login('guest', 'co@123', 4, true)
       .then((res: any) => {
-        debugger;
         if (res.access_token) {
           localStorage.setItem('isLoginWithTourist', 'true');
           this.router.navigateByUrl('/cityOcean');

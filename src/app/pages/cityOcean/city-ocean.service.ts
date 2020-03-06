@@ -1,23 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpService } from '@cityocean/common-library';
 import { Observable } from 'rxjs';
 import { StartupService } from '@core';
-import { createTextMessage, sendmessage, setMessageRead } from '@cityocean/im-library';
+import { createTextMessage, logOut,sendmessage, setMessageRead } from '@cityocean/im-library';
 import { NavController, ActionSheetController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import * as moment from 'moment';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CityOceanService {
   globelCustomerId = ''; //  全局客服id
-  globelCustomerName = '';// 客服名称
+  globelCustomerName = ''; // 客服名称
   globelCustomerPhone = '0755-33958211'; // 客服电话
   customerId: ''; // 当前登录人的id
   hasHistoryChat: any = [];
   c2cList: any;
+  loginTime = '';
   constructor(
     private httpService: HttpService,
     private startupService: StartupService,
@@ -26,16 +29,11 @@ export class CityOceanService {
     private translate: TranslateService,
     private actionSheetController: ActionSheetController,
     private callNumber: CallNumber,
+    @Inject(DA_SERVICE_TOKEN) private tokenSrv: ITokenService, 
   ) {
     this.getCustomerId().then((res) => {
       if (this.getIsLoginWithTourist()) {
-        this.GetIdByEmail().subscribe((res: any) => {
-          if (res && res.id) {
-            this.globelCustomerId = res.id;
-            this.globelCustomerName = res.name;
-            return res.id;
-          }
-        });
+        this.GetIdByEmail()
       } else {
         this.GetCoUserByCustomer({ customerId: res }).subscribe((res) => {
           if (res.id) {
@@ -54,15 +52,27 @@ export class CityOceanService {
    * @returns
    * @memberof CityOceanService
    */
-  getIsLoginWithTourist(){
+  getIsLoginWithTourist() {
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
   GetIdByEmail() {
-    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' })
+    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' }).subscribe((res: any) => {
+      if (res && res.id) {
+        this.globelCustomerId = res.id;
+        this.globelCustomerName = res.name;
+        return res.id;
+      }
+    });;
+  }
+  getNowTime() {
+    if (!this.loginTime) {
+      this.loginTime = moment(new Date()).format('HH:mm');
+    }
+    return this.loginTime;
   }
   // 根据当前登录客户获取客户所属业务员
   GetCoUserByCustomer(obj = {}): Observable<any> {
@@ -95,12 +105,13 @@ export class CityOceanService {
    * @returns
    * @memberof CityOceanService
    */
-  async chatWithCustomerService(type?,id?,name?) {
+  async chatWithCustomerService(type?, id?, name?) {
     // if (!this.globelCustomerId) {
     //   this.helper.toast(this.translate.instant('No customer'));
     //   return;
     // }
-    if(type && id){    // 从业务详情联系业务人员入口
+    if (type && id) {
+      // 从业务详情联系业务人员入口
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: `GROUP${type}${id}`,
@@ -110,22 +121,24 @@ export class CityOceanService {
           conversationType: 'Private',
         },
       });
-      return
+      return;
     }
-    if (this.getIsLoginWithTourist()) {     // 如果为游客登录，找全局客服
+    if (this.getIsLoginWithTourist()) {
+      // 如果为游客登录，找全局客服
       this.chatWithTourist();
       return;
     }
-    if (this.hasHistoryChat.length) {   // 如果之前有会话记录
+    if (this.hasHistoryChat.length) {
+      // 如果之前有会话记录
       this.gotoChat();
       return;
     }
-    this.sendMessage(this.customerId,this.globelCustomerName) // 发送消息，建立会话
+    this.sendMessage(this.customerId, this.globelCustomerName); // 发送消息，建立会话
   }
-  async sendMessage(userId,name){
+  async sendMessage(userId, name) {
     try {
-      let conversationID = "C2C"+userId;
-      setMessageRead( conversationID );
+      let conversationID = 'C2C' + userId;
+      setMessageRead(conversationID);
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: conversationID,
@@ -157,7 +170,8 @@ export class CityOceanService {
           text: this.translate.instant('Login'),
           icon: 'register',
           handler: () => {
-            window.location.href = '/login';
+            // window.location.href = '/login';
+            this.loginOut()
           },
         },
       ],
@@ -168,7 +182,8 @@ export class CityOceanService {
 
     // });
   }
-  filterHistoryCustomerId(list) { // 匹配是否有历史会话记录
+  filterHistoryCustomerId(list) {
+    // 匹配是否有历史会话记录
     this.c2cList = list;
     this.hasHistoryChat = this.c2cList.filter((e) => {
       return e.userProfile.userID == this.globelCustomerId;
@@ -192,5 +207,16 @@ export class CityOceanService {
         userId: userId,
       },
     });
+  }
+  loginOut(){
+    this.tokenSrv.clear();
+    abp.session = null;
+    try {
+      logOut();
+    } catch (error) {
+      
+    }
+    // window.location.href = '/login';
+    this.nav.navigateRoot(['/login']);
   }
 }

@@ -11,6 +11,7 @@ import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.compon
 import { GlobelSearchComponent } from './globel-search/globel-search.component';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonContent } from '@ionic/angular';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -32,6 +33,7 @@ export class HomePage implements OnInit {
   totalCount: any;
   scrollList = []; // 系统消息列表
   showWelcome: boolean = true;
+  loginTime = '';
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -53,6 +55,7 @@ export class HomePage implements OnInit {
         this.imLogin(res);
       }
     });
+    this.loginTime = this.cityOceanService.loginTime || moment(new Date()).format('HH:mm');
   }
   ionScroll(event) {
     const inputForSearch= this.el.nativeElement.querySelector('#inputForSearch')
@@ -77,7 +80,6 @@ export class HomePage implements OnInit {
       this.ionContent.scrollToPoint(null,searchetail.clientHeight + toolsGroupElement.clientHeight-1)
       this.renderer2.removeClass(contentGroup,"overFlow-hide-header");
     }
-    console.log(event.detail.scrollTop);
   }
   ionViewWillEnter() {
     if (this.cityOceanService.getIsLoginWithTourist()) {
@@ -142,8 +144,7 @@ export class HomePage implements OnInit {
           ele.name = ele.groupProfile.name;
         }
         const time = ele.lastMessage.lastTime;
-
-        ele.lastMessage.lastTime = new Date(time).getHours() + ':' + new Date(time).getMinutes();
+        ele.lastMessage.lastTime = moment(time*1000).format('HH:mm');
       });
       this.conversationsList = [...list];
       let c2cList = this.conversationsList.filter((e) => {
