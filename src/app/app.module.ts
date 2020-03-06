@@ -33,6 +33,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // #region Startup Service
 import { StartupService } from '@core';
 import { BaseInfoModule } from '@cityocean/basicdata-library/basicdata.module';
+import { RouteGuardService } from './route-guard.service';
 
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
@@ -106,6 +107,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     TranslateService,
+    RouteGuardService,
     { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }, // 重载手势方向
     JPush,
     ...INTERCEPTOR_PROVIDES,

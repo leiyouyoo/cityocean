@@ -36,6 +36,10 @@ export class ShipmentPage implements OnInit {
    * @memberof ShipmentPage
    */
   getShipmentList(event?) {
+    if(this.cityOceanService.getIsLoginWithTourist()){
+      this.getShipmentListByVisitor(event);
+      return
+    }
     this.searchText ? this.currentParams.searchText = this.searchText:delete this.currentParams.searchText;
     this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
     this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
@@ -49,6 +53,19 @@ export class ShipmentPage implements OnInit {
         event.target.disabled = true;
       }
     });
+  }
+  getShipmentListByVisitor(event?){
+    if(this.searchText){
+      this.myShipmentService.GetRouteDetailsByShipmentNo(String(this.searchText)).subscribe((res:any)=>{
+        console.log(res);
+        this.shipmentsList = this.shipmentsList.concat([res]);
+        if (event) {
+          // 已加载全部数据，禁用上拉刷新
+          event.target.disabled = true;
+          event.target.complete();
+        }
+      })
+    }
   }
   resetFilter(){
     this.shipmentsList = [];

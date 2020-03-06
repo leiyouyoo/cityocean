@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpService } from '@cityocean/common-library';
 import { DA_SERVICE_TOKEN, DelonAuthConfig, ITokenService } from '@delon/auth';
 import { Helper } from '@shared/helper';
+import { JPush } from '@jiguang-ionic/jpush/ngx';
+import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,8 @@ export class AuthService {
   constructor(public httpService: HttpService,
               public http: HttpClient, 
               public helper: Helper,
+              private jpush: JPush,
+              public scheduleService: ScheduleService,
               @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
               @Inject(DelonAuthConfig) private logUrl: string,
   ) {
@@ -71,7 +75,15 @@ export class AuthService {
     this.refreshTokenTimer =
       setTimeout(() => this.refreshToken(), delay);
   }
-
+  onSetJpush() {
+    this.jpush.getRegistrationID().then((res) => {
+      this.scheduleService
+        .jpush({
+          registrationId: res,
+        })
+        .subscribe((data) => {});
+    });
+  }
   // 刷新令牌
   refreshToken(rememberMe = false) {
     let refresh_token = localStorage.getItem('refresh_token');

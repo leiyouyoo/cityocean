@@ -33,7 +33,7 @@ import { Helper } from '@shared/helper';
 export class ChatPage implements OnInit {
   @ViewChild(IonContent, { static: true }) ioncontent: IonContent;
   statusType: any = { '-1': '暂无' }; //状态枚举
-  ionRefresher: any;
+  @ViewChild(IonRefresher, { static: true }) ionRefresher: IonRefresher;
   showTools = false; //隐藏底部功能区
   sendingMessage: string;
   chatList = [];
@@ -103,7 +103,6 @@ export class ChatPage implements OnInit {
       default:
         break;
     }
-    this.ionRefresher = document.getElementById('refresher');
     this.getChatList();
     onMessage((imRes) => {
       this.chatList = this.chatList.concat(imRes.data);

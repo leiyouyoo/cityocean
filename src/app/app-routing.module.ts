@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouteGuardService } from './route-guard.service';
 const routes: Routes = [
   { path: '', redirectTo: 'guide', pathMatch: 'full' },
   {
     path: 'login',
-    loadChildren: () => import('./pages/sso/sso.web.module').then( m => m.SsoWebModule)
+    loadChildren: () => import('./pages/sso/sso.web.module').then( m => m.SsoWebModule),
   },
   {
     path: 'guide',
-    loadChildren: () => import('./pages/guide/guide.module').then(m => m.GuidePageModule)
+    loadChildren: () => import('./pages/guide/guide.module').then(m => m.GuidePageModule),
+    canActivate: [RouteGuardService]
   },
   {
     path: 'cityOcean',
