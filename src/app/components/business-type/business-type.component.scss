@@ -4,7 +4,7 @@
     @include bg-image("../../../assets/icon/home/chat/bg");
     width: 100%;
     height: px2rem(90px);
-    padding: 0 px2rem(34px) 0 px2rem(20px);
+    padding: 0 px2rem(20px) 0 px2rem(20px);
 
     .type-wrap {
         height: px2rem(80px);
@@ -60,7 +60,6 @@
             font-weight: 600;
             color: rgba(255, 255, 255, 1);
             letter-spacing: px2rem(1px);
-            text-shadow: 0px px2rem(8px) px2rem(7px) rgba(0, 0, 0, 0.09);
         }
     }
 }
