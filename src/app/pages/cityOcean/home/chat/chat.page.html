@@ -1,19 +1,15 @@
 <ion-header>
-  <!-- <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/cityOcean/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>transportationCost</ion-title>
-  </ion-toolbar> -->
   <ion-toolbar>
-    <div>
-      <i (click)="goback()" class="go-back"></i>
-      <h5 class="font-18">{{groupName}}</h5>
-      <div class="tool-wrap">
-        <i *ngIf="!isC2C" (click)="gotoGroup()" class="group-massege"></i>
-        <i (click)="chooseMoreType($event)" class="more"></i>
-      </div>
-    </div>
+    <ion-buttons slot="start" class="title-left">
+      <ion-icon name="chevron-back-outline" (click)="goback()" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
+
+    <ion-title>{{groupName}}</ion-title>
+
+    <ion-buttons slot="end" class="title-right">
+      <ion-icon *ngIf="!isC2C" name="people-outline" (click)="gotoGroup()" style="font-size: 1.5em;"></ion-icon>
+      <ion-icon name="menu-outline" (click)="chooseMoreType($event)" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
