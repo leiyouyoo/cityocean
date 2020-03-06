@@ -514,7 +514,7 @@ export class MyShipmentService {
     return this.http.get('/CSP/Shipment/GetDetail', { id });
   }
   
-  GetRouteDetailsByShipmentNo(id: number) {
+  GetRouteDetailsByShipmentNo(id: any) {
     return this.http.get('/CSP/Shipment/GetRouteDetailsByShipmentNo', { shipmentNo:id });
   }
   GetShipmentDetail(id: number) {

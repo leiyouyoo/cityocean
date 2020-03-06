@@ -56,8 +56,9 @@ export class ShipmentPage implements OnInit {
   }
   getShipmentListByVisitor(event?){
     if(this.searchText){
-      this.myShipmentService.GetRouteDetailsByShipmentNo(Number(this.searchText)).subscribe(res=>{
+      this.myShipmentService.GetRouteDetailsByShipmentNo(String(this.searchText)).subscribe((res:any)=>{
         console.log(res);
+        this.shipmentsList = this.shipmentsList.concat([res]);
         if (event) {
           // 已加载全部数据，禁用上拉刷新
           event.target.disabled = true;
