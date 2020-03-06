@@ -137,5 +137,9 @@
   "Cargo details":"货物信息",
   "Origin Location":"提货地址",
   "Destination Location":"最终目的地",
-  "Route Details":"路线信息"
+  "Destination":"目的地",
+  "Route Details":"路线信息",
+  "Origin":"起运地",
+  "POL":"起运港",
+  "POD":"目的港"
 }

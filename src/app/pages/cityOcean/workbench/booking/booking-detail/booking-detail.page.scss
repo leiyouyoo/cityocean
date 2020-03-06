@@ -149,10 +149,10 @@ ion-content {
 
             .title {
                 display: block;
-                font-size: 14px;
+                font-size: 14px !important;
                 font-family: PingFangSC-Regular, PingFang SC;
                 font-weight: 400;
-                color: rgba(76, 75, 94, 1);
+                color: rgba(76, 75, 94, 1) !important;
                 height: px2rem(36px);
                 line-height: px2rem(36px);
                 padding-left: px2rem(32px);
@@ -216,6 +216,22 @@ ion-content {
             &>p,
             &>label {
                 padding-left: px2rem(46px) !important;
+            }
+
+            span {
+                color: #4c4b5e !important;
+                font-size: 14px !important;
+            }
+
+            .route-title {
+                display: block;
+                font-size: 14px !important;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: #9f9faf !important;
+                font-size: 12px !important;
+                height: 0.96rem;
+                line-height: 0.96rem;
             }
         }
     }

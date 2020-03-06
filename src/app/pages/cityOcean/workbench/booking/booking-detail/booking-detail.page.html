@@ -88,22 +88,22 @@
   <section class="content-wrap message-wrap">
     <div class="detail-wrap">
       <label class="title">{{"Route Details" | translate}}</label>
-      <label class="title">{{"Origin Location" | translate}}</label>
+      <label class="route-title">{{"Origin" | translate}}</label>
       <p class="unarrival-location">
         <span>{{bookingDetail.shipperAddress?.streetAddress}}</span>
       </p>
 
-      <label class="left-dashed-line title">{{"Port of Loading" | translate}}</label>
+      <label class="left-dashed-line route-title">{{"POL" | translate}}</label>
       <p class="unarrival-location">
         <span>{{bookingDetail?.originPort?.name}}</span>
       </p>
 
-      <label class="left-dashed-line title">{{"Port of Discharge" | translate}}</label>
+      <label class="left-dashed-line route-title">{{"POD" | translate}}</label>
       <p class="unarrival-location">
         <span>{{bookingDetail?.destinationPort?.name}}</span>
       </p>
 
-      <label class="left-dashed-line title">{{"Destination Location" | translate}}</label>
+      <label class="left-dashed-line route-title">{{"Destination" | translate}}</label>
       <p class="unarrival-location">
         <span>{{bookingDetail?.consigneeAddress?.streetAddress}}</span>
       </p>

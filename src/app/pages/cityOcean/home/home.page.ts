@@ -73,7 +73,6 @@ export class HomePage implements OnInit {
       this.ionContent.scrollToPoint(null,searchetail.clientHeight + toolsGroupElement.clientHeight-1)
       this.renderer2.removeClass(contentGroup,"overFlow-hide-header");
     }
-    console.log(event.detail.scrollTop);
   }
   ionViewWillEnter() {
     if (this.cityOceanService.getIsLoginWithTourist()) {
