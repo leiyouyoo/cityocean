@@ -382,9 +382,4 @@ export class ChatPage implements OnInit {
     this.pressStatus = true;
     this.showPopover(event, PressPopoverComponent, 'press-css-class');
   }
-
-  xxx(e) {
-    debugger
-    console.log(e);
-  }
 }
