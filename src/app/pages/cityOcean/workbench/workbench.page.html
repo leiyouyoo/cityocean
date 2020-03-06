@@ -1,24 +1,26 @@
+<ion-header>
+  <header *ngIf="isEditing" [ngClass]="{'padding-edit': !isEditing}" class="edit-wrap">
+    <span class="font-18 title">{{'WorkBench' | translate}}</span>
+    <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
+  </header>
+  <header *ngIf="!isEditing" class="default-wrap">
+    <div (click)="businessChange()" class="business-change-wrap">
+      <span>{{title}}</span>
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </div>
+    <div class="message-group">
+      <div *ngFor="let item of titleStatisticsList">
+        <i [class]="item.type"></i>
+        <p>
+          <span>{{item.name}}</span>
+          <span>{{item.value}}</span>
+        </p>
+      </div>
+    </div>
+  </header>
+</ion-header>
 <ion-content>
   <div class="ion-content-wrap">
-    <header *ngIf="isEditing" [ngClass]="{'padding-edit': !isEditing}" class="edit-wrap">
-      <span class="font-18 title">{{'WorkBench' | translate}}</span>
-      <span (click)="isEditing = !isEditing;confirm()" class="font-16 edit">{{'Ok' | translate}}</span>
-    </header>
-    <header *ngIf="!isEditing" class="default-wrap">
-      <div (click)="businessChange()" class="business-change-wrap">
-        <span>{{title}}</span>
-        <ion-icon name="caret-down-outline"></ion-icon>
-      </div>
-      <div class="message-group">
-        <div *ngFor="let item of titleStatisticsList">
-          <i [class]="item.type"></i>
-          <p>
-            <span>{{item.name}}</span>
-            <span>{{item.value}}</span>
-          </p>
-        </div>
-      </div>
-    </header>
     <section [ngClass]="{'default-content': !isEditing}" *ngIf="!isEditing">
       <div *ngIf="searchTransportationCost" class="search-detail">
         <div class="qiyungang">
@@ -60,7 +62,7 @@
       </div>
     </section>
     <footer *ngIf="isEditing">
-      <app-quick-enter #quickEnter  [quickEnterList]="quickEnterList"></app-quick-enter>
+      <app-quick-enter #quickEnter [quickEnterList]="quickEnterList"></app-quick-enter>
     </footer>
   </div>
 </ion-content>
