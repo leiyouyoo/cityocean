@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.component';
 import { GlobelSearchComponent } from './globel-search/globel-search.component';
 import { IonContent } from '@ionic/angular';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -137,8 +138,8 @@ export class HomePage implements OnInit {
           ele.name = ele.groupProfile.name;
         }
         const time = ele.lastMessage.lastTime;
-
-        ele.lastMessage.lastTime = new Date(time).getHours() + ':' + new Date(time).getMinutes();
+        ele.lastMessage.lastTime = moment(time*1000).format('HH:mm');
+        // ele.lastMessage.lastTime = new Date(time).getHours() + ':' + new Date(time).getMinutes();
       });
       this.conversationsList = [...list];
       let c2cList = this.conversationsList.filter((e) => {
