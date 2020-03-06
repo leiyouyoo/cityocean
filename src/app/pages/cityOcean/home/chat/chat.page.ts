@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { NavController, PopoverController, IonContent, AlertController } from '@ionic/angular';
+import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileEntry } from '@ionic-native/file/ngx';
@@ -32,6 +32,7 @@ import { Helper } from '@shared/helper';
 })
 export class ChatPage implements OnInit {
   @ViewChild(IonContent, { static: true }) ioncontent: IonContent;
+  @ViewChild(IonRefresher, { static: true }) ionRefresher: IonRefresher;
   statusType: any = { '-1': '暂无' }; //状态枚举
   showTools = false; //隐藏底部功能区
   sendingMessage: string;
@@ -52,7 +53,6 @@ export class ChatPage implements OnInit {
   bussinessDetail = { bookingNo: '', status: -1 }; //业务详情
   conversationType: any;
   popoverList; // 更多列表数据
-  ImageScale: any;
   isDisbanded: boolean;
 
   constructor(
@@ -176,9 +176,14 @@ export class ChatPage implements OnInit {
     });
     this.chatList = res.items.concat(this.chatList);
     this.pageInfo.skipCount++;
-    if (this.chatList.length >= res.totalCount && event) {
+    if (this.chatList.length >= res.totalCount) {
       // 已加载全部数据，禁用上拉刷新
-      event.target.disabled = true;
+      this.ionRefresher.disabled = true;
+      this.ionRefresher.complete();
+      if(event){
+        event.target.disabled = true;
+      }
+      
     }
     event && event.target.complete();
   }
@@ -296,7 +301,7 @@ export class ChatPage implements OnInit {
     while (n--) {
       u8arr[n] = data.charCodeAt(n);
     }
-    return new (((window as any).FileOrigin))([u8arr], 'img.jpg', );
+    return new (((window as any).FileOrigin))([u8arr], filename, );
   }
   // 拍照
   imgUpload() {
@@ -315,15 +320,7 @@ export class ChatPage implements OnInit {
     this.camera.getPicture(options).then(
       (imageData) => {
         // imageData is either a base64 encoded string or a file URI
-        // window.resolveLocalFileSystemURL(imageData, function(fileEntry: FileEntry) {
-        //   fileEntry.file((fileObj) => {
-        //     this.helper.toast(fileObj.size);
-        //   });
-        // });
-        let ImageBase = imageData;
-        this.ImageScale = ImageBase;
-        this.helper.toast(ImageBase);
-        this.sendImg(this.dataURLtoFile(ImageBase, 'picture.png'));
+        this.sendImg(this.dataURLtoFile(imageData, 'picture.png'));
       },
       (err) => {
         // Handle error
@@ -366,8 +363,6 @@ export class ChatPage implements OnInit {
     this.imagePicker.getPictures(options).then(
       (results) => {
         for (var i = 0; i < results.length; i++) {
-          this.helper.toast(results[i]);
-          this.ImageScale = results[i];
           this.sendImg(this.dataURLtoFile(results[i], `picture${i}.png`));
         }
       },
