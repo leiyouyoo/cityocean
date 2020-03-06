@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
+import { NavController, PopoverController, IonContent, AlertController } from '@ionic/angular';
 import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileEntry } from '@ionic-native/file/ngx';
@@ -33,7 +33,6 @@ import { Helper } from '@shared/helper';
 export class ChatPage implements OnInit {
   @ViewChild(IonContent, { static: true }) ioncontent: IonContent;
   statusType: any = { '-1': '暂无' }; //状态枚举
-  @ViewChild(IonRefresher, { static: true }) ionRefresher: IonRefresher;
   showTools = false; //隐藏底部功能区
   sendingMessage: string;
   chatList = [];
@@ -152,7 +151,7 @@ export class ChatPage implements OnInit {
         Sorting: 'msgTime desc',
       };
       this.homeService.getGroupMsg(params).subscribe((res: any) => {
-        this.ionRefresherCheck(res);
+        this.ionRefresherCheck(res, event);
       });
     } else {
       let params = {
@@ -163,12 +162,12 @@ export class ChatPage implements OnInit {
         Sorting: 'msgTime desc',
       };
       this.homeService.getC2CMsg(params).subscribe((res: any) => {
-        this.ionRefresherCheck(res);
+        this.ionRefresherCheck(res, event);
         console.log(res);
       });
     }
   }
-  ionRefresherCheck(res) {
+  ionRefresherCheck(res, event) {
     res.items.reverse(); //消息按时间排序
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
@@ -177,11 +176,11 @@ export class ChatPage implements OnInit {
     });
     this.chatList = res.items.concat(this.chatList);
     this.pageInfo.skipCount++;
-    if (this.chatList.length >= res.totalCount) {
+    if (this.chatList.length >= res.totalCount && event) {
       // 已加载全部数据，禁用上拉刷新
-      this.ionRefresher.disabled = true;
+      event.target.disabled = true;
     }
-    this.ionRefresher.complete();
+    event && event.target.complete();
   }
   // 上拉刷新
   doRefresh(event) {

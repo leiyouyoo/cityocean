@@ -25,7 +25,6 @@ export class HomePage implements OnInit {
   @ViewChild(IonInfiniteScroll, { static: true })
   infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonContent, { static: true }) ionContent: IonContent;
-  @ViewChild('deliveryTool', { static: true }) deliveryTool: ElementRef;
   searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
   conversationsList = [];
