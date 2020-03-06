@@ -121,7 +121,7 @@ ion-title {
 }
 
 // .ios ion-title {
-//   
+//
 //   text-align: center;
 //   padding-top: 1em;
 // }
@@ -138,10 +138,13 @@ ion-toolbar ion-back-button {
 /** toast **/
 
 ion-toast {
-  opacity: 0.7;
-  --background: rgba(58, 58, 58);
+  opacity: 0.6;
+  --background: #f2f2f2;
   --color: #fff;
   text-align: center;
+  --border-radius: 20px;
+  width: 85%;
+  margin-left:7.5%;
 }
 
 html {
@@ -222,7 +225,7 @@ app-schedule-add ion-content {
 app-schedule-detial ion-content {
   --background: #f0f2f5 !important;
 }
-app-workbench{
+app-workbench {
   background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
 }
 app-contacts,
@@ -273,7 +276,7 @@ button.days-btn small {
   display: none;
 }
 
-.form-error{
+.form-error {
   color: var(--ion-color-danger);
   margin: 1em 0 1em 1em;
 }
