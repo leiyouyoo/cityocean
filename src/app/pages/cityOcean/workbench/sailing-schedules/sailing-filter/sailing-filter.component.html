@@ -1,11 +1,12 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <i (click)="dismissModal()" class="go-back"></i>
-      <h5 class="font-18">筛选</h5>
-    </div>
+    <ion-buttons slot="start" class="title-left">
+      <ion-icon name="chevron-back-outline" (click)="dismissModal()" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
+    <ion-title>筛选</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content fullscreen>
   <form>
     <div>

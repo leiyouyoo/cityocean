@@ -1,10 +1,14 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <i (click)="goback()" class="go-back"></i>
-      <h5 class="font-18">Rates</h5>
+    <ion-buttons slot="start" class="title-left">
+      <ion-icon name="chevron-back-outline" (click)="goback()" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
+
+    <ion-title>Rates</ion-title>
+
+    <ion-buttons slot="end" class="title-right">
       <i (click)="ratesFilter($event)" class="filter"></i>
-    </div>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

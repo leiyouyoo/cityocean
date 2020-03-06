@@ -1,21 +1,25 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <i (click)="goback()" class="go-back"></i>
-      <span class="font-18">群聊信息</span>
-    </div>
+    <ion-buttons slot="start" class="title-left">
+      <ion-icon name="chevron-back-outline" (click)="goback()" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
+    <ion-title>群聊信息</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <section class="member-group">
     <label class="font-16" for="">Members</label>
-    <div (click) = "addMember()"  class="add-members">
+    <div (click)="addMember()" class="add-members">
       <i></i>
       <span class="font-16">Add member</span>
     </div>
     <div class="member-wrap" *ngFor="let item of membersList">
-      <img (click)="gotoUserProfile(item.userID)" [src]="item.avatar?item.avatar:'../../../../../../assets/icon/avatar-2.png'" alt="头像" />
+      <img
+        (click)="gotoUserProfile(item.userID)"
+        [src]="item.avatar?item.avatar:'../../../../../../assets/icon/avatar-2.png'"
+        alt="头像"
+      />
       <div>
         <span class="member-name font-16">{{item.nick?item.nick:item.userID}}</span>
         <span class="member-type font-14">{{item.positionName?item.positionName:"角色未设置"}}</span>

@@ -6,8 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { CityOceanService } from '../../city-ocean.service';
 
-
-
 @Component({
   selector: 'app-me-setting',
   templateUrl: './setting.page.html',
@@ -21,8 +19,7 @@ export class SettingPage {
     public activeRoute: ActivatedRoute,
     public helper: Helper,
     private statusBar: StatusBar,
-    private cityOceanService:CityOceanService
-    
+    private cityOceanService: CityOceanService,
   ) {}
 
   /**

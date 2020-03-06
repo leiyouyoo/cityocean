@@ -1,64 +1,21 @@
 @import "../../../../../../theme/variables";
 
 ion-header {
-    display: flex;
-    align-items: flex-end;
-      // height: px2rem(64px);
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0px px2rem(2px) px2rem(30px) 0px rgba(0, 0, 0, 0.06);
-
     ion-toolbar {
-        padding: 0 px2rem(16px);
-        width: 100%;
-
-        &>div {
-
-            position: relative;
-        }
-
-        i {
-            display: inline-block;
-            width: px2rem(24px);
-            height: px2rem(24px);
-        }
-
-        i.go-back {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            @include bg-image("../../../../../../assets/icon/home/chat/icon-back");
-        }
-
-        .bg-group {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-
-            .location {
-                margin-right: px2rem(16px);
-                @include bg-image("../../../../../../assets/icon/workbench/location-icon");
-            }
-
-            .kefu {
-                @include bg-image("../../../../../../assets/icon/workbench/kefu-icon")
-            }
-        }
-
-        h5 {
-            font-family: PingFangSC-Semibold, PingFang SC;
-            font-weight: 600;
-            color: rgba(76, 75, 94, 1);
-            @include font-dpr(18px);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%);
-        }
+      padding-top: 0 !important;
+      background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
+      --ion-toolbar-color: #fff;
     }
+  }
+  
+
+.location {
+    margin-right: px2rem(16px);
+    @include bg-image("../../../../../../assets/icon/workbench/location-icon");
+}
+
+.kefu {
+    @include bg-image("../../../../../../assets/icon/workbench/kefu-icon")
 }
 
 ion-content {

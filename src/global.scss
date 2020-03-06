@@ -103,16 +103,12 @@ button:focus {
   ion-icon {
     vertical-align: middle;
   }
-  position: absolute;
-  left: 1em;
 }
 
 .title-right {
   ion-icon {
     vertical-align: middle;
   }
-  position: absolute;
-  right: 1em;
 }
 
 ion-title {
@@ -130,18 +126,14 @@ ion-title {
 }
 
 ion-toolbar {
+  padding: 0 0.5em;
   ion-icon {
-    font-size: 2em!important;
+    font-size: 2em !important;
   }
 }
 
 .ios ion-header ion-toolbar {
   padding-top: 3em !important;
-}
-
-ion-toolbar ion-back-button {
-  position: absolute;
-  left: 0;
 }
 
 /** toast **/
@@ -236,15 +228,6 @@ app-schedule-detial ion-content {
 }
 app-workbench {
   background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
-}
-app-contacts,
-app-schedule,
-app-schedule-add,
-app-me-language,
-app-me-about,
-app-me-setting {
-  --ion-toolbar-background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
-  --ion-toolbar-color: #fff;
 }
 
 .datetime-text {

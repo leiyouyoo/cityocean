@@ -1,16 +1,15 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <i (click)="goback()" class="go-back"></i>
-      <h5 class="font-18">Rates</h5>
-    </div>
+    <ion-buttons slot="start" class="title-left">
+      <ion-icon name="chevron-back-outline" (click)="goback()" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
+    <ion-title>Rates</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <ion-segment (ionChange)="segmentChanged($event)" mode = "md" [value]="AdditionalData?.freightCharges?.containerCode">
-    <ion-segment-button  [value]="item" *ngFor="let item of ratesDetail?.boxType">
+  <ion-segment (ionChange)="segmentChanged($event)" mode="md" [value]="AdditionalData?.freightCharges?.containerCode">
+    <ion-segment-button [value]="item" *ngFor="let item of ratesDetail?.boxType">
       <ion-label>{{item}}</ion-label>
     </ion-segment-button>
   </ion-segment>
@@ -78,5 +77,5 @@
       </div>
     </div>
   </section>
-  <img (click)="chatWithCustomer()" src="../../../../../../assets/icon/workbench/rates/icon_kefu@3x.png" alt="" >
+  <img (click)="chatWithCustomer()" src="../../../../../../assets/icon/workbench/rates/icon_kefu@3x.png" alt="" />
 </ion-content>

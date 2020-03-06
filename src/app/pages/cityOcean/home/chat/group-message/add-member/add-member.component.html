@@ -1,12 +1,17 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <i (click)="dismissModal()" class="go-back"></i>
-      <span class="font-18 selete">选择联系人</span>
-      <span (click)="save()" class="font-16 save">Save</span>
-    </div>
+    <ion-buttons slot="start" class="title-left">
+      <ion-icon name="chevron-back-outline" (click)="dismissModal()" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
+
+    <ion-title>选择联系人</ion-title>
+
+    <ion-buttons slot="end" class="title-right" (click)="save()">
+      Save
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content fullscreen>
   <section>
     <div class="add-member-wrap">

@@ -1,13 +1,14 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <i (click)="goback()" class="go-back"></i>
-      <h5 class="font-18">{{routeDetail?.shipmentNo}}</h5>
-      <div class="bg-group">
-        <!-- <i class="location"></i> -->
-        <i (click)="chatWithCustomer()" class="kefu"></i>
-      </div>
-    </div>
+    <ion-buttons slot="start" class="title-left">
+      <ion-icon name="chevron-back-outline" (click)="goback()" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
+
+    <ion-title>{{routeDetail?.shipmentNo}}</ion-title>
+
+    <ion-buttons slot="end" class="title-right">
+      <i (click)="chatWithCustomer()" class="kefu"></i>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

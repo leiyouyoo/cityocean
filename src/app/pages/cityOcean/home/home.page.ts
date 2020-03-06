@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonContent } from '@ionic/angular';
 import * as moment from 'moment';
 import { Helper } from '@shared/helper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -42,6 +43,7 @@ export class HomePage implements OnInit {
     private cityOceanService: CityOceanService,
     private statusBar: StatusBar,
     private helper: Helper,
+    private router: Router,
     private el: ElementRef,
     private renderer2: Renderer2,
   ) {}
@@ -250,7 +252,7 @@ export class HomePage implements OnInit {
         queryParams: {
           orignPortId: this.orignPort.id,
           deliveryPortId: this.deliveryPort.id,
-          routeType: "workbench",
+          routeType: 'workbench',
         },
       });
     } else if (this.searchType === 'seachSailingSchedules') {
@@ -258,7 +260,7 @@ export class HomePage implements OnInit {
         queryParams: {
           orignPortId: this.orignPort.id,
           deliveryPortId: this.deliveryPort.id,
-          routeType: "workbench",
+          routeType: 'workbench',
         },
       });
     }
@@ -274,23 +276,23 @@ export class HomePage implements OnInit {
         this.searchType = 'seachSailingSchedules';
         break;
       case 'billing':
-        this.nav.navigateForward(['/cityOcean/workbench/' + item.type], {
+        this.router.navigate(['/cityOcean/workbench/' + item.type], {
           queryParams: {
-            routeType: "home",
+            routeType: 'home',
           },
         });
         break;
       case 'booking':
-        this.nav.navigateForward(['/cityOcean/workbench/' + item.type], {
+        this.router.navigate(['/cityOcean/workbench/' + item.type], {
           queryParams: {
-            routeType: "home",
+            routeType: 'home',
           },
         });
         break;
       case 'shipments':
-        this.nav.navigateForward(['/cityOcean/workbench/' + item.type], {
+        this.router.navigate(['/cityOcean/workbench/' + item.type], {
           queryParams: {
-            routeType: "home",
+            routeType: 'home',
           },
         });
         break;

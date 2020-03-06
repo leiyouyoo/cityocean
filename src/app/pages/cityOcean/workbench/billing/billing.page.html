@@ -1,16 +1,17 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <div class="left-content">
-        <i (click)="goback()" class="go-back"></i>
-        <i class="search-icon"></i>
-        <input  [(ngModel)]="searchText"
-        (keyup)="($event.which === 13) ? resetFilter() : 0"
-        type="search"
-        name = "searh" [placeholder]="'Search' | translate" />
-      </div>
-      <i (click)="billingFilter()" class="filter"></i>
-    </div>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="cityOcean"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar
+      [placeholder]="'Search' | translate"
+      mode="ios"
+      [(ngModel)]="searchText"
+      (ionChange)="resetFilter()"
+    ></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-icon name="filter-outline" (click)="billingFilter()"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

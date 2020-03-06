@@ -1,11 +1,12 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <i (click)="dismissModal()" class="go-back"></i>
-      <h5 class="font-18">筛选</h5>
-    </div>
+    <ion-buttons slot="start" class="title-left">
+      <ion-icon name="chevron-back-outline" (click)="dismissModal()" style="font-size: 1.5em;"></ion-icon>
+    </ion-buttons>
+    <ion-title>筛选</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content fullscreen>
   <section>
     <div>
@@ -23,10 +24,22 @@
       <div class="my-icon"></div>
     </div>
     <div>
-      <input placeholder="Enter Origin Port" [(ngModel)] = "profileForm.originPortSearchText" (click)="showPopover($event,'originPortSearchText')" (ngModelChange) = "ngModelChange('originPortSearchText')" type="text">
+      <input
+        placeholder="Enter Origin Port"
+        [(ngModel)]="profileForm.originPortSearchText"
+        (click)="showPopover($event, 'originPortSearchText')"
+        (ngModelChange)="ngModelChange('originPortSearchText')"
+        type="text"
+      />
     </div>
     <div *ngIf="profileForm.orignPortCy === 'DOOR'">
-      <input placeholder="Enter Origin Location" [(ngModel)] = "profileForm.originLocatonSearchText" (click)="showPopover($event,'originLocatonSearchText')" (ngModelChange) = "ngModelChange('originLocatonSearchText')" type="text">
+      <input
+        placeholder="Enter Origin Location"
+        [(ngModel)]="profileForm.originLocatonSearchText"
+        (click)="showPopover($event, 'originLocatonSearchText')"
+        (ngModelChange)="ngModelChange('originLocatonSearchText')"
+        type="text"
+      />
     </div>
     <!-- <div *ngIf="profileForm.orignPortCy === 'DOOR'">
       <ion-select
@@ -57,10 +70,22 @@
       <div class="my-icon"></div>
     </div>
     <div>
-      <input placeholder="Enter Delivery Port" [(ngModel)] = "profileForm.deliveryPortSearchText" (click)="showPopover($event,'deliveryPortSearchText')" (ngModelChange) = "ngModelChange('deliveryPortSearchText')" type="text">
+      <input
+        placeholder="Enter Delivery Port"
+        [(ngModel)]="profileForm.deliveryPortSearchText"
+        (click)="showPopover($event, 'deliveryPortSearchText')"
+        (ngModelChange)="ngModelChange('deliveryPortSearchText')"
+        type="text"
+      />
     </div>
     <div *ngIf="profileForm.deliveryPortCy === 'DOOR'">
-      <input placeholder="Enter Destination Location" [(ngModel)] = "profileForm.destinationLocationSearchText" (click)="showPopover($event,'destinationLocationSearchText')" (ngModelChange) = "ngModelChange('destinationLocationSearchText')" type="text">
+      <input
+        placeholder="Enter Destination Location"
+        [(ngModel)]="profileForm.destinationLocationSearchText"
+        (click)="showPopover($event, 'destinationLocationSearchText')"
+        (ngModelChange)="ngModelChange('destinationLocationSearchText')"
+        type="text"
+      />
     </div>
     <!-- <div *ngIf="profileForm.deliveryPortCy === 'DOOR'">
       <ion-select
@@ -86,9 +111,7 @@
         (ionChange)="shipCompanyChange($event)"
       >
         <ion-select-option value="all">全部船东</ion-select-option>
-        <ion-select-option [value]="item.id" *ngFor="let item of carrierList">{{
-          item.shortName
-        }}</ion-select-option>
+        <ion-select-option [value]="item.id" *ngFor="let item of carrierList">{{ item.shortName }}</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
     </div>

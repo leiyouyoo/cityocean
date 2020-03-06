@@ -1,267 +1,215 @@
-@import "../../../../../../theme/variables";
+@import '../../../../../../theme/variables';
 
 ion-header {
-    display: flex;
-    align-items: flex-end;
-      // height: px2rem(64px);
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0px px2rem(2px) px2rem(30px) 0px rgba(0, 0, 0, 0.06);
+  ion-toolbar {
+    padding-top: 0 !important;
+    background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
+    --ion-toolbar-color: #fff;
+  }
+}
 
-    ion-toolbar {
-        padding: 0 px2rem(16px);
-        width: 100%;
-
-        &>div {
-    
-            position: relative;
-        }
-
-        i {
-            display: inline-block;
-            width: px2rem(24px);
-            height: px2rem(24px);
-        }
-
-        i.go-back {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            @include bg-image("../../../../../../assets/icon/home/chat/icon-back");
-        }
-
-        .bg-group {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-
-            .location {
-                margin-right: px2rem(16px);
-                @include bg-image("../../../../../../assets/icon/workbench/location-icon");
-            }
-
-            .kefu {
-                @include bg-image("../../../../../../assets/icon/workbench/kefu-icon")
-            }
-        }
-
-        h5 {
-            font-family: PingFangSC-Semibold, PingFang SC;
-            font-weight: 600;
-            color: rgba(76, 75, 94, 1);
-            @include font-dpr(18px);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%);
-        }
-    }
+.kefu {
+  @include bg-image('../../../../../../assets/icon/workbench/kefu-icon');
 }
 
 ion-content {
-    i.arrow-bg {
+  i.arrow-bg {
+    display: inline-block;
+    width: px2rem(20px);
+    height: px2rem(20px);
+    margin-top: px2rem(3px);
+    @include bg-image('../../../../../../assets/icon/workbench/Icon-Map-Pin');
+  }
+
+  --background: #f5f5f6;
+
+  section.map-wrap {
+    height: 65vh;
+    background: #d4eafe;
+  }
+
+  section.content-wrap {
+    background: #fff;
+    border-radius: 0 0 px2rem(32px) px2rem(32px);
+
+    &.top-class {
+      background: rgba(255, 255, 255, 1);
+      border-radius: px2rem(32px) !important;
+      position: relative;
+      top: px2rem(-30px);
+    }
+
+    .control-map-show-wrap {
+      height: px2rem(30px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50%;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+
+      div {
+        border-top: px2rem(1px) solid #a4a4b3;
+        border-bottom: px2rem(1px) solid #a4a4b3;
+        height: px2rem(4px);
+        width: px2rem(24px);
+      }
+    }
+
+    .type-wrap {
+      padding: 0 px2rem(8px);
+    }
+
+    .detail-wrap {
+      padding-bottom: px2rem(12px);
+
+      label:first-child::before {
+        height: 0 !important;
+      }
+
+      .title {
         display: inline-block;
-        width: px2rem(20px);
-        height: px2rem(20px);
-        margin-top: px2rem(3px);
-        @include bg-image("../../../../../../assets/icon/workbench/Icon-Map-Pin")
-    }
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(76, 75, 94, 1);
+        height: px2rem(36px);
+        line-height: px2rem(36px);
+        padding-left: px2rem(46px);
+      }
 
-    --background: #F5F5F6;
-
-    section.map-wrap {
-        height: 65vh;
-        background: #D4EAFE;
-    }
-
-    section.content-wrap {
-        background: #fff;
-        border-radius: 0 0 px2rem(32px) px2rem(32px);
-
-        &.top-class {
-            background: rgba(255, 255, 255, 1);
-            border-radius: px2rem(32px) !important;
-            position: relative;
-            top: px2rem(-30px);
-        }
-
-        .control-map-show-wrap {
-            height: px2rem(30px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50%;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
-
-            div {
-                border-top: px2rem(1px) solid #A4A4B3;
-                border-bottom: px2rem(1px) solid #A4A4B3;
-                height: px2rem(4px);
-                width: px2rem(24px);
-            }
-        }
-
-        .type-wrap {
-            padding: 0 px2rem(8px);
-        }
-
-        .detail-wrap {
-            padding-bottom: px2rem(12px);
-
-            label:first-child::before {
-                height: 0 !important;
-            }
-
-            .title {
-                display: inline-block;
-                font-size: 14px;
-                font-family: PingFangSC-Regular, PingFang SC;
-                font-weight: 400;
-                color: rgba(76, 75, 94, 1);
-                height: px2rem(36px);
-                line-height: px2rem(36px);
-                padding-left: px2rem(46px);
-            }
-
-            p {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                height: px2rem(36px);
-                line-height: px2rem(36px);
-                padding: 0 px2rem(16px) 0 px2rem(46px);
-
-                span:nth-child(1) {
-                    line-height: normal;
-                    font-size: 12px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
-                    color: rgba(159, 159, 175, 1);
-                    min-width: px2rem(120px);
-                }
-
-                span:nth-child(2) {
-                    line-height: normal;
-                    font-size: 12px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
-                    color: rgba(76, 75, 94, 1);
-                    text-align: right;
-                }
-            }
-
-        }
-
-        .control-group {
-            position: absolute;
-            height: px2rem(36px);
-            width: px2rem(148px);
-            left: 50%;
-            transform: translate(-50%, px2rem(-12px));
-            display: flex;
-            justify-content: center;
-            @include bg-image("../../../../../../assets/icon/workbench/Icon-Pin");
-
-            // i.baseNotShow {
-            //     @include bg-image("../../../../../../assets/icon/workbench/Icon-Map-Pin")
-            // }
-            i.baseShow {
-                transform: rotate(180deg);
-            }
-        }
-
-    }
-
-    .margin-top-class {
-        margin-top: px2rem(33px);
-    }
-
-    .message-wrap {
-        border-radius: 0 !important;
-    }
-
-    #arrow-bg-wrap {
+      p {
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding: 0;
-        position: relative;
+        justify-content: space-between;
+        height: px2rem(36px);
+        line-height: px2rem(36px);
+        padding: 0 px2rem(16px) 0 px2rem(46px);
 
-        &::before {
-            content: "";
-            position: absolute;
-            height: 100%;
-            left: px2rem(27px);
-            border-left: px2rem(1px) solid #007AFF;
+        span:nth-child(1) {
+          line-height: normal;
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: rgba(159, 159, 175, 1);
+          min-width: px2rem(120px);
         }
 
-        i.originPortShow {
-            transform: rotate(180deg);
+        span:nth-child(2) {
+          line-height: normal;
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: rgba(76, 75, 94, 1);
+          text-align: right;
         }
+      }
     }
 
-    .arrival-location::before {
-        content: "";
-        position: absolute;
-        width: px2rem(24px);
-        height: px2rem(24px);
-        left: px2rem(16px);
-        @include bg-image("../../../../../../assets/icon/workbench/Icon-location-Pin");
+    .control-group {
+      position: absolute;
+      height: px2rem(36px);
+      width: px2rem(148px);
+      left: 50%;
+      transform: translate(-50%, px2rem(-12px));
+      display: flex;
+      justify-content: center;
+      @include bg-image('../../../../../../assets/icon/workbench/Icon-Pin');
 
+      // i.baseNotShow {
+      //     @include bg-image("../../../../../../assets/icon/workbench/Icon-Map-Pin")
+      // }
+      i.baseShow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .margin-top-class {
+    margin-top: px2rem(33px);
+  }
+
+  .message-wrap {
+    border-radius: 0 !important;
+  }
+
+  #arrow-bg-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      left: px2rem(27px);
+      border-left: px2rem(1px) solid #007aff;
     }
 
-    .unarrival-location::before {
-        content: "";
-        position: absolute;
-        width: px2rem(24px);
-        height: px2rem(24px);
-        left: px2rem(16px);
-        @include bg-image("../../../../../../assets/icon/workbench/Icon-destinationPort");
+    i.originPortShow {
+      transform: rotate(180deg);
     }
+  }
 
-    .left-line {
-        position: relative;
+  .arrival-location::before {
+    content: '';
+    position: absolute;
+    width: px2rem(24px);
+    height: px2rem(24px);
+    left: px2rem(16px);
+    @include bg-image('../../../../../../assets/icon/workbench/Icon-location-Pin');
+  }
 
-        &::before {
-            content: "";
-            position: absolute;
-            height: 100%;
-            left: px2rem(27px);
-            border-left: px2rem(1px) solid #007AFF;
-        }
+  .unarrival-location::before {
+    content: '';
+    position: absolute;
+    width: px2rem(24px);
+    height: px2rem(24px);
+    left: px2rem(16px);
+    @include bg-image('../../../../../../assets/icon/workbench/Icon-destinationPort');
+  }
+
+  .left-line {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      left: px2rem(27px);
+      border-left: px2rem(1px) solid #007aff;
     }
+  }
 
-    .left-dashed-line {
-        position: relative;
+  .left-dashed-line {
+    position: relative;
 
-        &::before {
-            content: "";
-            position: absolute;
-            height: 100%;
-            left: px2rem(28px);
-            border-left: px2rem(1px) dashed var(--ion-color-medium);
-        }
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      left: px2rem(28px);
+      border-left: px2rem(1px) dashed var(--ion-color-medium);
     }
-    .left-dashed-line:first-child::before{
-        content: unset !important;
-    }
+  }
+  .left-dashed-line:first-child::before {
+    content: unset !important;
+  }
 
-    #isLoginWithTourist {
-        background: rgba(64,156,255,0.2);
-        box-shadow: 0px px2rem(4px) px2rem(10px) 0px rgba(0, 0, 0, 0.1);
-        filter: blur(2px);
-    }
+  #isLoginWithTourist {
+    background: rgba(64, 156, 255, 0.2);
+    box-shadow: 0px px2rem(4px) px2rem(10px) 0px rgba(0, 0, 0, 0.1);
+    filter: blur(2px);
+  }
 }
 
 ion-footer {
-    ion-button {
-        --background: linear-gradient(135deg, #61ADFF 0%, #007AFF 100%);
-        --border-radius: 0;
-        margin: 0;
-    }
+  ion-button {
+    --background: linear-gradient(135deg, #61adff 0%, #007aff 100%);
+    --border-radius: 0;
+    margin: 0;
+  }
 }

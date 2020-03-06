@@ -71,6 +71,7 @@ export class BillingPage implements OnInit {
     });
   }
   resetFilter(){
+    debugger;
     this.billingList = [];
     this.billingStatus = null;
     this.pageInfo = {

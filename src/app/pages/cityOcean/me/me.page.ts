@@ -72,7 +72,7 @@ export class MePage {
   }
 
   onSettingPage() {
-    this.nav.navigateForward(['/cityOcean/me/setting']);
+    this.router.navigate(['/cityOcean/me/setting']);
   }
 
   /**
@@ -112,7 +112,5 @@ export class MePage {
   toLogin() {
     this.router.navigateByUrl('/login');
   }
-  ngOnInit(){
-    
-  }
+  ngOnInit() {}
 }
