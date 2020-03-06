@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpService } from '@cityocean/common-library';
 import { Observable } from 'rxjs';
 import { StartupService } from '@core';
-import { createTextMessage, sendmessage, setMessageRead } from '@cityocean/im-library';
+import { createTextMessage, logOut,sendmessage, setMessageRead } from '@cityocean/im-library';
 import { NavController, ActionSheetController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import * as moment from 'moment';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,7 @@ export class CityOceanService {
     private translate: TranslateService,
     private actionSheetController: ActionSheetController,
     private callNumber: CallNumber,
+    @Inject(DA_SERVICE_TOKEN) private tokenSrv: ITokenService, 
   ) {
     this.getCustomerId().then((res) => {
       if (this.getIsLoginWithTourist()) {
@@ -168,7 +170,8 @@ export class CityOceanService {
           text: this.translate.instant('Login'),
           icon: 'register',
           handler: () => {
-            window.location.href = '/login';
+            // window.location.href = '/login';
+            this.loginOut()
           },
         },
       ],
@@ -204,5 +207,16 @@ export class CityOceanService {
         userId: userId,
       },
     });
+  }
+  loginOut(){
+    this.tokenSrv.clear();
+    abp.session = null;
+    try {
+      logOut();
+    } catch (error) {
+      
+    }
+    // window.location.href = '/login';
+    this.nav.navigateRoot(['/login']);
   }
 }

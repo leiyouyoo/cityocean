@@ -141,7 +141,6 @@ export class HomePage implements OnInit {
         }
         const time = ele.lastMessage.lastTime;
         ele.lastMessage.lastTime = moment(time*1000).format('HH:mm');
-        // ele.lastMessage.lastTime = new Date(time).getHours() + ':' + new Date(time).getMinutes();
       });
       this.conversationsList = [...list];
       let c2cList = this.conversationsList.filter((e) => {

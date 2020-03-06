@@ -1,11 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalStorage } from '@shared/localstorage';
 import { Helper } from '@shared/helper';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, NavController } from '@ionic/angular';
-import { logOut } from '@cityocean/im-library';
-import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import { CityOceanService } from '../../city-ocean.service';
 
 
 
@@ -22,7 +21,8 @@ export class SettingPage {
     public activeRoute: ActivatedRoute,
     public helper: Helper,
     private statusBar: StatusBar,
-    @Inject(DA_SERVICE_TOKEN) private tokenSrv: ITokenService, 
+    private cityOceanService:CityOceanService
+    
   ) {}
 
   /**
@@ -45,14 +45,6 @@ export class SettingPage {
   }
 
   toLogin() {
-    this.tokenSrv.clear();
-    abp.session = null;
-    try {
-      logOut();
-    } catch (error) {
-      
-    }
-    // window.location.href = '/login';
-    this.nav.navigateRoot(['/login']);
+    this.cityOceanService.loginOut();
   }
 }
