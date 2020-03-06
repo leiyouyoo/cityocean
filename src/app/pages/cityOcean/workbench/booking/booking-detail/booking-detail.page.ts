@@ -443,7 +443,9 @@ export class BookingDetailPage implements OnInit {
       if (data.containerType) {
         let containerType = JSON.parse(data.containerType);
         containerType.forEach((element) => {
-          str += ' ' + element.value + '*' + element.name;
+          if(element.value){
+            str += ' ' + element.value + '*' + element.name;
+          }
         });
       }
     } catch (error) {

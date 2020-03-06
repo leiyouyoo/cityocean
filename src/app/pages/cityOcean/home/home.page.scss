@@ -6,220 +6,232 @@
     height: px2rem(32px);
 }
 
-ion-header {
-    --background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
-    &::after {
-        display: none;
+
+
+.control-search-detail {
+    display: flex;
+    justify-content: center;
+    padding: px2rem(7px) 0 px2rem(15px);
+    height: px2rem(26px);
+
+    &>div {
+        height: px2rem(4px);
+        width: px2rem(24px);
+        border: px2rem(1px) #ffffff;
+        border-style: solid none;
+    }
+}
+
+.search-detail {
+    padding: px2rem(32px) px2rem(24px) px2rem(27px) px2rem(24px);
+    box-shadow: 0px -12px 12px 0px rgba(71, 135, 254, 1);
+    border-radius: 0.5333333333rem 0.5333333333rem 0 0;
+    background: #fff;
+
+    &>div {
+        margin-left: px2rem(17px);
     }
 
-    .control-search-detail {
+    input {
+        border: 0;
+        flex: auto;
+        margin-left: px2rem(26px);
+    }
+
+    input::-webkit-input-placeholder {
+        color: #CCCCCC;
+    }
+
+    .qiyungang {
+        i {
+            display: inline-block;
+            flex: none;
+            width: px2rem(10px);
+            height: px2rem(10px);
+            border-radius: 100%;
+            background: rgba(5, 192, 153, 1);
+        }
+    }
+
+    .search-line {
+        height: px2rem(22px);
+        width: px2rem(1px);
+        background: #E4E4E4;
+        margin: px2rem(3px) 0 px2rem(3px) px2rem(21px);
+    }
+
+    .mudigang {
+        i {
+            display: inline-block;
+            flex: none;
+            width: px2rem(10px);
+            height: px2rem(10px);
+            border-radius: 50%;
+            background: rgba(222, 103, 23, 1);
+        }
+    }
+
+    button.search-yunjia {
+        color: #ffffff;
+        width: 100%;
+        height: px2rem(44px);
+        margin-top: px2rem(17px);
+        @include font-dpr(12px);
+        background: rgba(83, 143, 255, 1);
+        // box-shadow: 0px px2rem(-12px) px2rem(12px) 0px rgba(71, 135, 254, 1);
+        border-radius: px2rem(6px);
+    }
+
+    .search-yunjia-valid {
+        background: rgba(83, 143, 255, 0.75) !important;
+    }
+}
+
+section.search-group {
+    // background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
+    top: 0;
+    height: px2rem(100px);
+    z-index: 10;
+
+    .search-box {
+        height: px2rem(36px);
+        margin-top: px2rem(55px);
+        padding: 0 px2rem(24px);
         display: flex;
-        justify-content: center;
-        padding: px2rem(7px) 0 px2rem(15px);
-        height: px2rem(26px);
+        align-items: center;
+        justify-content: flex-end;
 
         &>div {
-            height: px2rem(4px);
-            width: px2rem(24px);
-            border: px2rem(1px) #ffffff;
-            border-style: solid none;
-        }
-    }
-
-    .search-detail {
-        padding: px2rem(32px) px2rem(24px) px2rem(27px) px2rem(24px);
-        box-shadow: 0px -12px 12px 0px rgba(71, 135, 254, 1);
-        border-radius: 0.5333333333rem 0.5333333333rem 0 0;
-        background: #fff;
-        &>div{
-            margin-left: px2rem(17px);
-        }
-        input {
-            border: 0;
-            flex: auto;
-            margin-left: px2rem(26px);
-        }
-
-        input::-webkit-input-placeholder {
-            color: #CCCCCC;
-        }
-
-        .qiyungang {
-            i {
-                display: inline-block;
-                flex: none;
-                width: px2rem(10px);
-                height: px2rem(10px);
-                border-radius: 100%;
-                background: rgba(5, 192, 153, 1);
-            }
-        }
-
-        .search-line {
-            height: px2rem(22px);
-            width: px2rem(1px);
-            background: #E4E4E4;
-            margin: px2rem(3px) 0 px2rem(3px) px2rem(21px);
-        }
-
-        .mudigang {
-            i {
-                display: inline-block;
-                flex: none;
-                width: px2rem(10px);
-                height: px2rem(10px);
-                border-radius: 50%;
-                background: rgba(222, 103, 23, 1);
-            }
-        }
-
-        button.search-yunjia {
-            color: #ffffff;
-            width: 100%;
-            height: px2rem(44px);
-            margin-top: px2rem(17px);
-            @include font-dpr(12px);
-            background: rgba(83, 143, 255, 1);
-            // box-shadow: 0px px2rem(-12px) px2rem(12px) 0px rgba(71, 135, 254, 1);
-            border-radius: px2rem(6px);
-        }
-        .search-yunjia-valid{
-            background: rgba(83, 143, 255, 0.75) !important;
-        }
-    }
-
-    .division {
-        height: px2rem(11px);
-        background-color: #F5F7FB;
-    }
-
-    section.search-group {
-        // background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
-        overflow: hidden;
-
-        .search-box {
-            height: px2rem(36px);
-            margin-top: px2rem(64px);
-            padding: 0 px2rem(24px);
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            position: relative;
+            flex: auto;
 
-            &>div {
-                display: flex;
-                align-items: center;
-                position: relative;
-                flex: auto;
+            input {
+                width: 100%;
+                height: px2rem(30px);
+                background: rgba(255, 255, 255, 1);
+                box-shadow: 0px px2rem(8px) px2rem(16px) 0px rgba(175, 148, 148, 0.08), 0px 0px 1px 0px rgba(0, 0, 0, 0.08);
+                border-radius: px2rem(22px);
+                padding-left: px2rem(34px);
 
-                input {
-                    width: 100%;
-                    height: px2rem(30px);
-                    background: rgba(255, 255, 255, 1);
-                    box-shadow: 0px px2rem(8px) px2rem(16px) 0px rgba(175, 148, 148, 0.08), 0px 0px 1px 0px rgba(0, 0, 0, 0.08);
-                    border-radius: px2rem(22px);
-                    padding-left: px2rem(34px);
-                    &::-webkit-input-placeholder {
-                        font-size: 12px;
-                        font-family: PingFangSC-Regular, PingFang SC;
-                        font-weight: 400;
-                        color: #7A869A;
-                    }
+                &::-webkit-input-placeholder {
+                    font-size: 12px;
+                    font-family: PingFangSC-Regular, PingFang SC;
+                    font-weight: 400;
+                    color: #7A869A;
                 }
-
-                i.search-icon {
-                    position: absolute;
-                    left: px2rem(10px);
-                    display: inline-block;
-                    width: px2rem(24px);
-                    height: px2rem(24px);
-                    @include bg-image("../../../../assets//icon//home/icon_search");
-                }
-
             }
 
-            i.customer-service {
-                margin-left: px2rem(15px);
+            i.search-icon {
+                position: absolute;
+                left: px2rem(10px);
                 display: inline-block;
-                width: px2rem(20px);
-                height: px2rem(20px);
-                @include bg-image("../../../../assets//icon//home/icon_consultation");
+                width: px2rem(24px);
+                height: px2rem(24px);
+                @include bg-image("../../../../assets//icon//home/icon_search");
             }
+           
+        }
+        i.search-right-icon{
+            display: none;
+            width: px2rem(20px);
+            height: px2rem(20px);
+            @include bg-image("../../../../assets//icon/Search");
+        }
+        i.customer-service {
+            margin-left: px2rem(15px);
+            display: inline-block;
+            width: px2rem(20px);
+            height: px2rem(20px);
+            @include bg-image("../../../../assets//icon//home/icon_consultation");
+        }
+    }
+
+
+}
+
+header {
+    overflow: hidden;
+    background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
+
+}
+
+.tools-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: px2rem(100px);
+    padding-top: px2rem(20px);
+    &>div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 25%;
+        padding-bottom: px2rem(20px);
+
+        i {
+            @extend .icon-search-size;
+            margin-bottom: px2rem(6px);
         }
 
-        .tools-group {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: px2rem(18px);
+        i.rates {
+            @include bg-image("../../../../assets/icon/home/icon_yunjia");
+        }
 
-            &>div {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 25%;
-                padding-bottom: px2rem(20px);
+        i.sailingSchedules {
+            @include bg-image("../../../../assets/icon//home/icon_chuanqi");
+        }
 
-                i {
-                    @extend .icon-search-size;
-                    margin-bottom: px2rem(6px);
-                }
+        i.shipments {
+            @include bg-image("../../../../assets/icon/home/icon-yundan");
+        }
 
-                i.rates {
-                    @include bg-image("../../../../assets/icon/home/icon_yunjia");
-                }
+        i.booking {
+            @include bg-image("../../../../assets/icon/home/icon_dingdan");
+        }
 
-                i.sailingSchedules {
-                    @include bg-image("../../../../assets/icon//home/icon_chuanqi");
-                }
+        i.quotes {
+            @include bg-image("../../../../assets/icon/home/icon_baojia");
+        }
 
-                i.shipments {
-                    @include bg-image("../../../../assets/icon/home/icon-yundan");
-                }
+        i.billing {
+            @include bg-image("../../../../assets/icon/home/icon_zhangdan");
+        }
 
-                i.booking {
-                    @include bg-image("../../../../assets/icon/home/icon_dingdan");
-                }
+        i.More {
+            @include bg-image("../../../../assets/icon/home/icon_gengduo");
+        }
 
-                i.quotes {
-                    @include bg-image("../../../../assets/icon/home/icon_baojia");
-                }
-
-                i.billing {
-                    @include bg-image("../../../../assets/icon/home/icon_zhangdan");
-                }
-
-                i.More {
-                    @include bg-image("../../../../assets/icon/home/icon_gengduo");
-                }
-
-                span {
-                    color: rgba(255, 255, 255, 1);
-                    @include font-dpr(14px);
-                    height: px2rem(13px);
-                    line-height: px2rem(13px);
-                    font-family: PingFangSC-Regular, PingFang SC;
-                }
-            }
+        span {
+            color: rgba(255, 255, 255, 1);
+            @include font-dpr(14px);
+            height: px2rem(13px);
+            line-height: px2rem(13px);
+            font-family: PingFangSC-Regular, PingFang SC;
         }
     }
 }
+
 
 ion-content.content-background {
     --background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
 }
 
+
 ion-content {
     ion-list {
         margin: 0;
         padding: 0;
-        border-radius: px2rem(20px) px2rem(20px) 0 0;
-        height: 100%;
+        border-radius: px2rem(16px) px2rem(16px) 0 0;
     }
 
     section.content-group {
-        overflow: auto;
-        height: 100%;
         background: rgba(255, 255, 255, 1);
-
+        min-height: 100vh;
         .massge-group-wrap {
 
             padding: 0 px2rem(24px);
@@ -304,6 +316,12 @@ ion-content {
                 }
             }
         }
+    }
+
+    .overFlow-hide-header {
+        height: 100%;
+        overflow: auto;
+        margin-top: 100px;
     }
 
     ion-infinite-scroll {

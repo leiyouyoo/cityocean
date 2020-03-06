@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2, ElementRef } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
 import 'hammerjs';
@@ -6,12 +6,11 @@ import { SearchlocaltionComponent } from './search-localtion/search-localtion.co
 import { HomeService } from './home.service';
 import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady } from '@cityocean/im-library';
 import { CityOceanService } from '../city-ocean.service';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.component';
 import { GlobelSearchComponent } from './globel-search/globel-search.component';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -23,14 +22,16 @@ export class HomePage implements OnInit {
   transportationCost = true; //运价或船期查询
   @ViewChild(IonInfiniteScroll, { static: true })
   infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonContent, { static: true }) ionContent: IonContent;
+  @ViewChild('deliveryTool', { static: true }) deliveryTool: ElementRef;
   searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
-  searchInput = ''; // 全局搜索
   conversationsList = [];
   orignPort: any = {}; // 启运港
   deliveryPort: any = {}; // 目的港
   totalCount: any;
   scrollList = []; // 系统消息列表
+  showWelcome: boolean = true;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -38,6 +39,8 @@ export class HomePage implements OnInit {
     private translate: TranslateService,
     private cityOceanService: CityOceanService,
     private statusBar: StatusBar,
+    private el: ElementRef,
+    private renderer2: Renderer2,
   ) {}
 
 
@@ -51,9 +54,32 @@ export class HomePage implements OnInit {
       }
     });
   }
-  ionViewWillEnter() {
+  ionScroll(event) {
+    const inputForSearch= this.el.nativeElement.querySelector('#inputForSearch')
 
-    this.searchInput = '';
+    const searchIicon= this.el.nativeElement.querySelector('.search-right-icon')
+    const contentGroup = this.el.nativeElement.querySelector('.content-group');
+    const searchetail = this.el.nativeElement.querySelector('.search-detail');
+    const toolsGroupElement = this.el.nativeElement.querySelector('.tools-group');
+    if (searchetail.clientHeight && searchetail.clientHeight + toolsGroupElement.clientHeight <= event.detail.scrollTop) {
+      toolsGroupElement.style.display = 'none';
+      searchetail.style.display = 'none';
+      this.renderer2.addClass(contentGroup,"overFlow-hide-header");
+      inputForSearch.style.display = 'none';
+      searchIicon.style.display = "inline-block"
+      this.ionContent.scrollToPoint(null,1);
+    }
+    if(event.detail.scrollTop === 0 &&  searchetail.style.display == 'none'){
+      toolsGroupElement.style.display = 'flex';
+      inputForSearch.style.display = 'flex';
+      searchetail.style.display = 'block';
+      searchIicon.style.display = "none";
+      this.ionContent.scrollToPoint(null,searchetail.clientHeight + toolsGroupElement.clientHeight-1)
+      this.renderer2.removeClass(contentGroup,"overFlow-hide-header");
+    }
+    console.log(event.detail.scrollTop);
+  }
+  ionViewWillEnter() {
     if (this.cityOceanService.getIsLoginWithTourist()) {
       this.searchType = 'seachSailingSchedules';
       this.toolsList = [
@@ -149,7 +175,7 @@ export class HomePage implements OnInit {
   async onInputChange() {
     const modal = await this.modalController.create({
       component: GlobelSearchComponent,
-      componentProps: { searchKey: this.searchInput },
+      componentProps: { },
     });
     modal.onWillDismiss().then((res) => {
       console.log(res);
@@ -286,6 +312,10 @@ export class HomePage implements OnInit {
     //   console.log(imRes);
     // });
 
+    if (!i) {
+      this.showWelcome = false;
+      return;
+    }
     deleteConversation(data.conversationID).then(
       (imRes) => {
         console.log(imRes);

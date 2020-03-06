@@ -5,11 +5,11 @@
   </div>
   <div class="content-group">
     <span>AMOUNT</span>
-    <span id="money">{{ billingListItem?.amount[0].value }}</span>
+    <span id="money">{{ (billingListItem?.amount)[0].value }}{{ (billingListItem?.amount)[0].name }}</span>
   </div>
   <div class="content-group BALANCE">
     <span>BALANCE</span>
-    <span id="money">{{ billingListItem?.balance[0].value }}</span>
+    <span id="money">{{ (billingListItem?.balance)[0].value }}{{ (billingListItem?.balance)[0].name }}</span>
   </div>
   <div class="content-group">
     <span>INVOICE</span>

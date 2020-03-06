@@ -15,14 +15,14 @@
   <div *ngIf="shipmentListItem?.routeDetails.shipperInfos.length" class="first content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>提货地址</span>
+      <span>{{"Origin Location" | translate}}</span>
     </div>
     <span>{{ shipmentListItem?.routeDetails.shipperInfos[0].shipperNetWorkInfo?.name }}</span>
   </div>
   <div class="start content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>装运港</span>
+      <span>{{"Port of Loading" | translate}}</span>
     </div>
     <span
       >{{ shipmentListItem?.routeDetails.originPort.name }}
@@ -35,7 +35,7 @@
   <div class="end content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>目的港</span>
+      <span>{{"Port of Discharge" | translate}}</span>
     </div>
     <span
       >{{ shipmentListItem?.routeDetails.destinationPort.name }}
@@ -48,12 +48,8 @@
   <div *ngIf="shipmentListItem?.routeDetails.consigneeInfos.length" class="finally content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>最终目的地</span>
+      <span>{{"Destination Location" | translate}}</span>
     </div>
     <span>{{ shipmentListItem?.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.name }}</span>
   </div>
-  <!-- <div class="time-group content-group">
-   
-    
-  </div> -->
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookingServiceService } from './booking-service.service';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-booking',
@@ -23,6 +24,7 @@ export class BookingPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private nav: NavController,
     private activatedRoute: ActivatedRoute,
+    private translate:TranslateService
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       if(data.ids){
@@ -82,58 +84,58 @@ export class BookingPage implements OnInit {
       cssClass: 'my-action-sheet-booking',
       buttons: [
         {
-          text: 'All Status',
+          text: this.translate.instant('All Status'),
           handler: () => {
             this.filterConfirm(null);
           },
         },
         {
-          text: 'Submitted',
+          text: this.translate.instant('Submitted'),
           handler: () => {
             console.log('2');
             this.filterConfirm(2);
           },
         },
         {
-          text: 'Booked',
+          text: this.translate.instant('Booked'),
           handler: () => {
             console.log('3');
             this.filterConfirm(3);
           },
         },
         {
-          text: 'Waiting for pricing',
+          text: this.translate.instant('Waiting for pricing'),
           handler: () => {
             console.log('4');
             this.filterConfirm(4);
           },
         },
         {
-          text: 'Waiting for buyer',
+          text: this.translate.instant('Waiting for buyer'),
           handler: () => {
             console.log('5');
             this.filterConfirm(5);
           },
         },
         {
-          text: 'Waiting for seller',
+          text: this.translate.instant('Waiting for seller'),
           handler: () => {
             this.filterConfirm(6);
           },
         },
         {
-          text: 'Draft',
+          text: this.translate.instant('Draft'),
           handler: () => {
             this.filterConfirm(0);
           },
         },
         {
-          text: 'Cancelled',
+          text: this.translate.instant('Cancelled'),
           handler: () => {
             this.filterConfirm(1);
           },
         },
-        { text: 'Cancel', role: 'cancel' },
+        { text: this.translate.instant('Cancel'), role: 'cancel' },
       ],
     });
     await actionSheet.present();

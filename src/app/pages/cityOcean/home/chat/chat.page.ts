@@ -118,9 +118,7 @@ export class ChatPage implements OnInit {
           console.log(res);
         })
         .catch((error) => {
-          if (error.message.indexOf('群组不存在') != -1) {
             this.isDisbanded = true;
-          }
         });
     } catch (error) {}
   }

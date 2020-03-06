@@ -27,16 +27,16 @@
     <div>
       <ion-select
         name="mode"
-        [interfaceOptions]="{ header: 'Select  all mode',cssClass :'ion-select-my-class' }"
+        [interfaceOptions]="{ header: 'Select all mode',cssClass :'ion-select-my-class' }"
         multiple="true"
         placeholder="Select One"
         [value] = "profileForm.mode"
         (ionChange) = "modeChange($event)"
       >
-        <ion-select-option selected value="all">Select  all</ion-select-option>
-        <ion-select-option value="air">Air</ion-select-option>
-        <ion-select-option value="LCL">Ocean LCL</ion-select-option>
-        <ion-select-option value="FCL">Ocean FCL</ion-select-option>
+        <ion-select-option selected value="all">{{"Select all" | translate}}</ion-select-option>
+        <ion-select-option value="air">{{"Air" | translate}}</ion-select-option>
+        <ion-select-option value="LCL">{{"Ocean LCL" | translate}}</ion-select-option>
+        <ion-select-option value="FCL">{{"Ocean FCL" | translate}}</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
     </div>
@@ -52,10 +52,10 @@
         [value] = "profileForm.date"
         (ionChange) ="dateChange($event)"
       >
-        <ion-select-option selected value="deliveryDate">Delivery Date</ion-select-option>
-        <ion-select-option value="mostRecentEvent">Most Recent Event</ion-select-option>
-        <ion-select-option value="cargoReadyDate">Cargo Ready Date</ion-select-option>
-        <ion-select-option value="creationTime">Time of Creation</ion-select-option>
+        <ion-select-option selected value="deliveryDate">{{"Delivery Date" | translate}}</ion-select-option>
+        <ion-select-option value="mostRecentEvent">{{"Most Recent Event" | translate}}</ion-select-option>
+        <ion-select-option value="cargoReadyDate">{{"Cargo Ready Date" | translate}}</ion-select-option>
+        <ion-select-option value="creationTime">{{"Time of Creation" | translate}}</ion-select-option>
       </ion-select>
       <div class="my-icon"></div>
     </div>

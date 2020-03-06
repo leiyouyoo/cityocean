@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class GlobelSearchComponent implements OnInit {
   billingData: any;
   shipmentData: any;
-  @Input() searchKey = '';
+  searchKey = '';
   page = {
     pageSize: 5,
     pageIndex: 1,

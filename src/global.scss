@@ -222,7 +222,9 @@ app-schedule-add ion-content {
 app-schedule-detial ion-content {
   --background: #f0f2f5 !important;
 }
-
+app-workbench{
+  background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
+}
 app-contacts,
 app-schedule,
 app-schedule-add,

@@ -1,66 +1,85 @@
-<ion-header>
-  <section class="search-group clearfix">
-    <div class="search-box">
-      <div>
-        <input
-          type="search"
-          name="searh"
-          readonly
-          (click)="onInputChange()"
-          [(ngModel)]="searchInput"
-          [placeholder]="'Search' | translate"
-        />
-        <i (click)="onInputChange()" class="search-icon"></i>
+
+  
+  <!-- <div (swipeup)="swipeup()" (swipedown)="swipedown()" *ngIf="transportationCost" class="control-search-detail">
+    <div></div>
+  </div> -->
+
+
+
+<ion-content  [scrollEvents]="true" (ionScroll) = "ionScroll($event)" fullscreen [ngClass]="{'content-background': !transportationCost}">
+  <header>
+    <section class="search-group clearfix">
+      <div class="search-box">
+        <div id="inputForSearch">
+          <input
+            type="search"
+            name="searh"
+            readonly
+            (click)="onInputChange()"
+            [placeholder]="'Search' | translate"
+          />
+          <i (click)="onInputChange()" class="search-icon"></i>
+        </div>
+        <i (click)="onInputChange()" class="search-right-icon"></i>
+        <i (click)="chatWithCustomer()" class="customer-service"></i>
       </div>
-      <i (click)="chatWithCustomer()" class="customer-service"></i>
-    </div>
-    <div (swipeup)="swipeup()" (swipedown)="swipedown()" class="tools-group">
+    </section>
+    <div (swipeup)="swipeup()" (swipedown)="swipedown()"  class="tools-group">
       <div *ngFor="let item of toolsList">
         <i (click)="toolTypeClick(item)" [class]="item.type"></i>
         <span (click)="toolTypeClick(item)" class="font-14">{{item.type | translate}}</span>
       </div>
     </div>
-  </section>
-  <div (swipeup)="swipeup()" (swipedown)="swipedown()" *ngIf="transportationCost" class="control-search-detail">
-    <div></div>
-  </div>
-  <div *ngIf="transportationCost" class="search-detail">
-    <div class="qiyungang">
-      <i></i>
-      <input
-        (click)="searchLocaltion('start')"
-        [(ngModel)]="orignPort.name"
-        type="text"
-        placeholder="{{'Port of loading' | translate}}"
-      />
+    <div *ngIf="transportationCost" class="search-detail">
+      <div class="qiyungang">
+        <i></i>
+        <input
+          (click)="searchLocaltion('start')"
+          [(ngModel)]="orignPort.name"
+          type="text"
+          placeholder="{{'Port of loading' | translate}}"
+        />
+      </div>
+      <div class="search-line"></div>
+      <div class="mudigang">
+        <i></i>
+        <input
+          type="text"
+          (click)="searchLocaltion('destination')"
+          [(ngModel)]="deliveryPort.name"
+          placeholder="{{'Port of discharge' | translate}}"
+        />
+      </div>
+      <button
+        (click)="go4search()"
+        [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
+        class="search-yunjia font-12"
+      >
+        {{searchType | translate}}
+      </button>
     </div>
-    <div class="search-line"></div>
-    <div class="mudigang">
-      <i></i>
-      <input
-        type="text"
-        (click)="searchLocaltion('destination')"
-        [(ngModel)]="deliveryPort.name"
-        placeholder="{{'Port of discharge' | translate}}"
-      />
-    </div>
-    <button (click)="go4search()" [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}" class="search-yunjia font-12">{{searchType | translate}}</button>
-  </div>
-  <div *ngIf="transportationCost" class="division"></div>
-</ion-header>
+  </header>
 
-<ion-content fullscreen [ngClass]="{'content-background': !transportationCost}">
-  <ion-list>
     <section class="content-group">
       <app-message-rolling *ngIf="scrollList.length>0" [massgeList]="scrollList"></app-message-rolling>
       <div class="massge-group-wrap">
-        <div lines="none" class="wolcome-wrap">
-          <ion-icon name="welcome"></ion-icon>
-          <p>
-            <span class="hello-class">{{"Welcome" | translate}}！</span>
-            <span class="welcome-family">{{"Welcome to cityocean" | translate}}！</span>
-          </p>
-        </div>
+        <ion-item-sliding #slide *ngIf="showWelcome">
+          <ion-item lines="none" class="wolcome-wrap app-massage-wrap">
+            <ion-icon name="welcome"></ion-icon>
+            <p>
+              <span class="hello-class">{{"Welcome" | translate}}！</span>
+              <span class="welcome-family">{{"Welcome to cityocean" | translate}}！</span>
+            </p>
+          </ion-item>
+
+          <ion-item-options>
+            <i class="delete-icon" *ngIf="!showDeleteButton" (click)="showDeleteButtonFn(slide)"></i>
+            <ng-container *ngIf="showDeleteButton">
+              <span class="cancel-delete-icon" (click)="canceDelete(slide)">取消</span>
+              <i class="confirm-delete-icon" (click)="deleteItem(null,null,slide)"></i>
+            </ng-container>
+          </ion-item-options>
+        </ion-item-sliding>
         <ion-item-sliding *ngFor="let msg of conversationsList; let i = index" #slide>
           <ion-item lines="none" class="app-massage-wrap" (click)="gotoChat(msg)">
             <app-massage [detail]="msg"></app-massage>
@@ -75,7 +94,6 @@
         </ion-item-sliding>
       </div>
     </section>
-  </ion-list>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
