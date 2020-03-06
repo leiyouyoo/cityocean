@@ -112,4 +112,7 @@ export class MePage {
   toLogin() {
     this.router.navigateByUrl('/login');
   }
+  ngOnInit(){
+    
+  }
 }

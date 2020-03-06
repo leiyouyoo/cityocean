@@ -513,7 +513,10 @@ export class MyShipmentService {
   GetDetail(id: number) {
     return this.http.get('/CSP/Shipment/GetDetail', { id });
   }
-
+  
+  GetRouteDetailsByShipmentNo(id: number) {
+    return this.http.get('/CSP/Shipment/GetRouteDetailsByShipmentNo', { id });
+  }
   GetShipmentDetail(id: number) {
     return this.http.get('/CSP/Shipment/GetShipmentDetail', { id });
   }
