@@ -7,17 +7,19 @@ import { NavController, ActionSheetController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CityOceanService {
   globelCustomerId = ''; //  全局客服id
-  globelCustomerName = '';// 客服名称
+  globelCustomerName = ''; // 客服名称
   globelCustomerPhone = '0755-33958211'; // 客服电话
   customerId: ''; // 当前登录人的id
   hasHistoryChat: any = [];
   c2cList: any;
+  loginTime = '';
   constructor(
     private httpService: HttpService,
     private startupService: StartupService,
@@ -54,15 +56,21 @@ export class CityOceanService {
    * @returns
    * @memberof CityOceanService
    */
-  getIsLoginWithTourist(){
+  getIsLoginWithTourist() {
     if (localStorage.getItem('isLoginWithTourist') == 'true') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
   GetIdByEmail() {
-    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' })
+    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' });
+  }
+  getNowTime() {
+    if (!this.loginTime) {
+      this.loginTime = moment(new Date()).format('HH:mm');
+    }
+    return this.loginTime;
   }
   // 根据当前登录客户获取客户所属业务员
   GetCoUserByCustomer(obj = {}): Observable<any> {
@@ -95,12 +103,13 @@ export class CityOceanService {
    * @returns
    * @memberof CityOceanService
    */
-  async chatWithCustomerService(type?,id?,name?) {
+  async chatWithCustomerService(type?, id?, name?) {
     // if (!this.globelCustomerId) {
     //   this.helper.toast(this.translate.instant('No customer'));
     //   return;
     // }
-    if(type && id){    // 从业务详情联系业务人员入口
+    if (type && id) {
+      // 从业务详情联系业务人员入口
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: `GROUP${type}${id}`,
@@ -110,22 +119,24 @@ export class CityOceanService {
           conversationType: 'Private',
         },
       });
-      return
+      return;
     }
-    if (this.getIsLoginWithTourist()) {     // 如果为游客登录，找全局客服
+    if (this.getIsLoginWithTourist()) {
+      // 如果为游客登录，找全局客服
       this.chatWithTourist();
       return;
     }
-    if (this.hasHistoryChat.length) {   // 如果之前有会话记录
+    if (this.hasHistoryChat.length) {
+      // 如果之前有会话记录
       this.gotoChat();
       return;
     }
-    this.sendMessage(this.customerId,this.globelCustomerName) // 发送消息，建立会话
+    this.sendMessage(this.customerId, this.globelCustomerName); // 发送消息，建立会话
   }
-  async sendMessage(userId,name){
+  async sendMessage(userId, name) {
     try {
-      let conversationID = "C2C"+userId;
-      setMessageRead( conversationID );
+      let conversationID = 'C2C' + userId;
+      setMessageRead(conversationID);
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: conversationID,
@@ -168,7 +179,8 @@ export class CityOceanService {
 
     // });
   }
-  filterHistoryCustomerId(list) { // 匹配是否有历史会话记录
+  filterHistoryCustomerId(list) {
+    // 匹配是否有历史会话记录
     this.c2cList = list;
     this.hasHistoryChat = this.c2cList.filter((e) => {
       return e.userProfile.userID == this.globelCustomerId;

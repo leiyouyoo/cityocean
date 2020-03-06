@@ -248,8 +248,22 @@ ion-content {
                 &>p {
                     display: flex;
                     flex-direction: column;
+                    flex: auto;
                     justify-content: space-around;
                     margin-left: px2rem(8px);
+                    tr{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        span:nth-child(2){
+                            height: px2rem(17px);
+                            font-family: PingFang-SC-Medium, PingFang-SC;
+                            font-weight: 500;
+                            color: #cccccc;
+                            font-size: 12px;
+                            line-height: px2rem(17px);
+                        }
+                    }
                 }
 
                 .hello-class {

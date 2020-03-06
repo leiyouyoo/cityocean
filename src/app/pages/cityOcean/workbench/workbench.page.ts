@@ -253,7 +253,7 @@ export class WorkbenchPage implements OnInit {
   clickLoginWithTourist(type): boolean {
     if (this.cityOceanService.getIsLoginWithTourist()) {
       if (type != 'sailingSchedules' && type != 'shipments') {
-        this.showMore();
+        this.cityOceanService.chatWithCustomerService()
         return true;
       }
     }

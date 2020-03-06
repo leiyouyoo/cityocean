@@ -32,6 +32,7 @@ export class HomePage implements OnInit {
   totalCount: any;
   scrollList = []; // 系统消息列表
   showWelcome: boolean = true;
+  loginTime = '';
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -50,6 +51,7 @@ export class HomePage implements OnInit {
         this.imLogin(res);
       }
     });
+    this.loginTime = this.cityOceanService.loginTime || moment(new Date()).format('HH:mm');
   }
   ionScroll(event) {
     const inputForSearch= this.el.nativeElement.querySelector('#inputForSearch')
