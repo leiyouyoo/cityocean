@@ -9,7 +9,6 @@ import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomerPhoneComponent } from './customer-phone/customer-phone.component';
 import { Router } from '@angular/router';
-import { CityOceanService } from '../../cityOcean/city-ocean.service';
 
 @Component({
   selector: 'user-login',
@@ -24,13 +23,11 @@ export class LoginComponent implements OnInit {
   focusPassword = false;
   passwordElement: HTMLElement;
   constructor(
-    private jpush: JPush,
     public helper: Helper,
     private router: Router,
     private fb: FormBuilder,
     public loginService: AuthService,
     private nav: NavController,
-    public scheduleService: ScheduleService,
     public httpService: HttpService,
     private translate: TranslateService,
     private popoverController: PopoverController,
@@ -89,9 +86,10 @@ export class LoginComponent implements OnInit {
       .then((res: any) => {
         this.helper.hideLoading();
         // 极光推送绑定
-        this.onSetJpush();
+        this.loginService.onSetJpush();
         if (res.access_token) {
           localStorage.setItem('isLoginWithTourist', 'false');
+          obj.time = new Date();
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
           this.router.navigateByUrl('/cityOcean', { replaceUrl: true });
         } else {
@@ -114,7 +112,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('isLoginWithTourist', 'true');
           this.router.navigateByUrl('/cityOcean');
         } else {
-          this.errorTip = '登录失败!';
+          this.errorTip = this.translate.instant('Login Error');
         }
       })
       .catch((e: any) => {
@@ -124,15 +122,6 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  onSetJpush() {
-    this.jpush.getRegistrationID().then((res) => {
-      this.scheduleService
-        .jpush({
-          registrationId: res,
-        })
-        .subscribe((data) => {});
-    });
-  }
   async handleButtonClick(event) {
     const popover = await this.popoverController.create({
       component: CustomerPhoneComponent,
