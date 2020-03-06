@@ -23,8 +23,11 @@ export class MePage implements OnInit {
     public cityOceanService: CityOceanService,
   ) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.userMsg = abp.session.user;
+    if (this.cityOceanService.getIsLoginWithTourist()) {
+      this.userLogin = false;
+    }
     this.initData();
   }
 
@@ -107,7 +110,6 @@ export class MePage implements OnInit {
   }
 
   toLogin() {
-    // this.nav.navigateForward('/login')
-    window.location.href = '/login';
+    this.router.navigateByUrl('/login');
   }
 }

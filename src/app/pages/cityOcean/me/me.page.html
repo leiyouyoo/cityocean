@@ -4,9 +4,8 @@
       <img src="assets/images/Logo.png" class="user" />
 
       <div class="min-header-msg">
-        <ion-button (click)="register()" *ngIf="!userLogin" color="light">{{'Sign in' | translate}}</ion-button>
-        <ion-button (click)="login()" *ngIf="!userLogin" color="danger" style="margin-left: 1em"
-          >{{'Login in' | translate}}</ion-button
+        <ion-text (click)="toLogin()" *ngIf="!userLogin" color="danger" style="margin-left: 1em"
+          >{{'Login in' | translate}}/{{'Sign in' | translate}}</ion-text
         >
         <ion-text *ngIf="userLogin">{{userMsg?.name}} </ion-text>
         <p style="color: #fff;margin-top: 1em;opacity: 0.6;">{{'International Logistics Of CITYOCEAN' | translate}}</p>
