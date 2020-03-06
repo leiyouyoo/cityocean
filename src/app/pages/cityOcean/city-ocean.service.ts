@@ -31,13 +31,7 @@ export class CityOceanService {
   ) {
     this.getCustomerId().then((res) => {
       if (this.getIsLoginWithTourist()) {
-        this.GetIdByEmail().subscribe((res: any) => {
-          if (res && res.id) {
-            this.globelCustomerId = res.id;
-            this.globelCustomerName = res.name;
-            return res.id;
-          }
-        });
+        this.GetIdByEmail()
       } else {
         this.GetCoUserByCustomer({ customerId: res }).subscribe((res) => {
           if (res.id) {
@@ -64,7 +58,13 @@ export class CityOceanService {
     }
   }
   GetIdByEmail() {
-    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' });
+    return this.httpService.get('/SSO/User/GetByEmail', { email: 'poppyhu@cityocean.com' }).subscribe((res: any) => {
+      if (res && res.id) {
+        this.globelCustomerId = res.id;
+        this.globelCustomerName = res.name;
+        return res.id;
+      }
+    });;
   }
   getNowTime() {
     if (!this.loginTime) {
