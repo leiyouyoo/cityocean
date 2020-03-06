@@ -3,5 +3,9 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">112.95.173.231</domain>
         <domain includeSubdomains="true">47.254.45.110</domain>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">192.168.1.6</domain>
+        <domain includeSubdomains="true">pingjs.qq.com</domain>
+        <domain includeSubdomains="true">myqcloud.com</domain>
     </domain-config>
 </network-security-config>

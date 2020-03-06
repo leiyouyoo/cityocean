@@ -32,8 +32,8 @@ import { Helper } from '@shared/helper';
 })
 export class ChatPage implements OnInit {
   @ViewChild(IonContent, { static: true }) ioncontent: IonContent;
-  statusType: any = { '-1': '暂无' }; //状态枚举
   @ViewChild(IonRefresher, { static: true }) ionRefresher: IonRefresher;
+  statusType: any = { '-1': '暂无' }; //状态枚举
   showTools = false; //隐藏底部功能区
   sendingMessage: string;
   chatList = [];
@@ -53,7 +53,6 @@ export class ChatPage implements OnInit {
   bussinessDetail = { bookingNo: '', status: -1 }; //业务详情
   conversationType: any;
   popoverList; // 更多列表数据
-  ImageScale: any;
   isDisbanded: boolean;
 
   constructor(
@@ -152,7 +151,7 @@ export class ChatPage implements OnInit {
         Sorting: 'msgTime desc',
       };
       this.homeService.getGroupMsg(params).subscribe((res: any) => {
-        this.ionRefresherCheck(res);
+        this.ionRefresherCheck(res, event);
       });
     } else {
       let params = {
@@ -163,12 +162,12 @@ export class ChatPage implements OnInit {
         Sorting: 'msgTime desc',
       };
       this.homeService.getC2CMsg(params).subscribe((res: any) => {
-        this.ionRefresherCheck(res);
+        this.ionRefresherCheck(res, event);
         console.log(res);
       });
     }
   }
-  ionRefresherCheck(res) {
+  ionRefresherCheck(res, event) {
     res.items.reverse(); //消息按时间排序
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
@@ -180,8 +179,13 @@ export class ChatPage implements OnInit {
     if (this.chatList.length >= res.totalCount) {
       // 已加载全部数据，禁用上拉刷新
       this.ionRefresher.disabled = true;
+      this.ionRefresher.complete();
+      if(event){
+        event.target.disabled = true;
+      }
+      
     }
-    this.ionRefresher.complete();
+    event && event.target.complete();
   }
   // 上拉刷新
   doRefresh(event) {
@@ -290,16 +294,14 @@ export class ChatPage implements OnInit {
     this.cityOceanService.gotoUserProfile(userId);
   }
 
-  dataURLtoFile(dataurl, filename) {
-    let arr = dataurl.dataURL.split(','),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
+  dataURLtoFile(dataurl: string, filename) {
+    const data = atob(dataurl);
+    let n = data.length;
+      const u8arr = new Uint8Array(n);
     while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+      u8arr[n] = data.charCodeAt(n);
     }
-    return new File([u8arr], filename, { type: mime });
+    return new (((window as any).FileOrigin))([u8arr], filename, );
   }
   // 拍照
   imgUpload() {
@@ -318,15 +320,7 @@ export class ChatPage implements OnInit {
     this.camera.getPicture(options).then(
       (imageData) => {
         // imageData is either a base64 encoded string or a file URI
-        // window.resolveLocalFileSystemURL(imageData, function(fileEntry: FileEntry) {
-        //   fileEntry.file((fileObj) => {
-        //     this.helper.toast(fileObj.size);
-        //   });
-        // });
-        let ImageBase = imageData;
-        this.ImageScale = ImageBase;
-        this.helper.toast(ImageBase);
-        this.sendImg(this.dataURLtoFile(ImageBase, 'picture.png'));
+        this.sendImg(this.dataURLtoFile(imageData, 'picture.png'));
       },
       (err) => {
         // Handle error
@@ -362,15 +356,13 @@ export class ChatPage implements OnInit {
       width: 400, // 图片宽
       height: 500, //图片高
       quality: 80, //图片质量，质量越高图片越大,请根据实际情况选择
-      outputType: 0,
+      outputType: 1,
       /** 文件输出类型，你可以选择图片URL，或者base64的文件编码
       这里建议选择文件编码  0  ：文件地址  1：图片base64编码*/
     };
     this.imagePicker.getPictures(options).then(
       (results) => {
         for (var i = 0; i < results.length; i++) {
-          this.helper.toast(results[i]);
-          this.ImageScale = results[i];
           this.sendImg(this.dataURLtoFile(results[i], `picture${i}.png`));
         }
       },
