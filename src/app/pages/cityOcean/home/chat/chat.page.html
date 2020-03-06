@@ -58,11 +58,15 @@
 <ion-footer id="keyboard-flex">
   <div class="foot-wrap">
     <i class="yuyin"></i>
-    <ion-input
+    <input
+      type="text"
       [(ngModel)]="sendingMessage"
-      placeholder="Enter Input"
+      (click)="showTools = false"
+      placeholder="Type a message"
+      name=""
       [readonly]="isDisbanded"
-    ></ion-input>
+      id="inputElement"
+    />
     <i *ngIf="!sendingMessage && !showTools" (click)="showTools = true" class="change"></i>
     <i *ngIf="!sendingMessage && showTools" (click)="showTools = false" class="qiehuan"></i>
     <i *ngIf="sendingMessage" (click)="send()" class="send"></i>
@@ -82,5 +86,3 @@
     </div>
   </div>
 </ion-footer>
-
-
