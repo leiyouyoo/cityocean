@@ -50,7 +50,7 @@ export class AppComponent {
       }
 
       this.statusBar.overlaysWebView(true);
-      this.statusBar.styleLightContent();
+      this.statusBar.styleDefault();
       this.jpush.setDebugMode(true);
       this.jpush.init();
 
@@ -96,7 +96,7 @@ export class AppComponent {
    */
   backButtonEvent() {
     this.platform.backButton.subscribe(() => {
-      if (this.router.url.indexOf('home') !== -1 || this.router.url.indexOf('login') !== -1) {
+      if (this.router.url.endsWith('home') || this.router.url.endsWith('login')) {
         if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
           navigator['app'].exitApp(); // 退出APP
         } else {
