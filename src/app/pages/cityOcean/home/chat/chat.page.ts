@@ -289,16 +289,14 @@ export class ChatPage implements OnInit {
     this.cityOceanService.gotoUserProfile(userId);
   }
 
-  dataURLtoFile(dataurl, filename) {
-    let arr = dataurl.dataURL.split(','),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
+  dataURLtoFile(dataurl: string, filename) {
+    const data = atob(dataurl);
+    let n = data.length;
+      const u8arr = new Uint8Array(n);
     while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+      u8arr[n] = data.charCodeAt(n);
     }
-    return new File([u8arr], filename, { type: mime });
+    return new (((window as any).FileOrigin))([u8arr], 'img.jpg', );
   }
   // 拍照
   imgUpload() {
@@ -361,7 +359,7 @@ export class ChatPage implements OnInit {
       width: 400, // 图片宽
       height: 500, //图片高
       quality: 80, //图片质量，质量越高图片越大,请根据实际情况选择
-      outputType: 0,
+      outputType: 1,
       /** 文件输出类型，你可以选择图片URL，或者base64的文件编码
       这里建议选择文件编码  0  ：文件地址  1：图片base64编码*/
     };
@@ -388,5 +386,10 @@ export class ChatPage implements OnInit {
     console.log(event);
     this.pressStatus = true;
     this.showPopover(event, PressPopoverComponent, 'press-css-class');
+  }
+
+  xxx(e) {
+    debugger
+    console.log(e);
   }
 }
