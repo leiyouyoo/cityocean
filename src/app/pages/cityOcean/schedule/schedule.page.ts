@@ -7,6 +7,7 @@ import { debug } from 'util';
 import { EventService } from '@shared/helpers/event.service';
 import { CityOceanService } from '../city-ocean.service';
 import { ElementRef } from '@angular/core';
+import { Device } from '@ionic-native/device/ngx';
 
 @Component({
   selector: 'app-schedule',
@@ -20,6 +21,7 @@ export class SchedulePage implements OnInit {
   options: any;
   msgData: any;
   constructor(
+    private device: Device,
     private el: ElementRef,
     private eventService: EventService,
     public router: Router,
@@ -153,7 +155,11 @@ export class SchedulePage implements OnInit {
 
   onShowMore() {
     if (this.el.nativeElement.querySelector('.small-calendar').style.height === '30em') {
-      this.el.nativeElement.querySelector('.small-calendar').style.height = '11em';
+      if (this.device.platform === 'IOS') {
+        this.el.nativeElement.querySelector('.small-calendar').style.height = '11em';
+      } else {
+        this.el.nativeElement.querySelector('.small-calendar').style.height = '12em';
+      }
     } else {
       this.el.nativeElement.querySelector('.small-calendar').style.height = '30em';
     }
