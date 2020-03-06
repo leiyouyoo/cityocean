@@ -11,7 +11,7 @@ import { CityOceanService } from '../city-ocean.service';
   templateUrl: './me.page.html',
   styleUrls: ['./me.page.scss'],
 })
-export class MePage implements OnInit {
+export class MePage {
   isAndroid = false;
   userLogin = true;
   userMsg: any;

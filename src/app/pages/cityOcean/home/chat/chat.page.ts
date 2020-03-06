@@ -127,7 +127,7 @@ export class ChatPage implements OnInit {
 
   ionViewWillEnter() {
     this.statusBar.overlaysWebView(false);
-    this.statusBar.backgroundColorByHexString('#ffffff');
+    this.statusBar.backgroundColorByHexString('#3e8eff;');
   }
 
   ionViewWillLeave() {

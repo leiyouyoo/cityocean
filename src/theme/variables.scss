@@ -7,7 +7,9 @@ ic CSS Variables **/
   /** toolbar **/
   // --ion-toolbar-background: #428cff;
   // --ion-toolbar-color: #fff;
-
+  --ion-toolbar-background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
+  --ion-toolbar-color: #fff;
+  
   /** primary **/
   --ion-color-primary: #007aff;
   --ion-color-primary-rgb: 0, 122, 255;

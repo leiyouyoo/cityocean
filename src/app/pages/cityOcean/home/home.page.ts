@@ -12,6 +12,7 @@ import { GlobelSearchComponent } from './globel-search/globel-search.component';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonContent } from '@ionic/angular';
 import * as moment from 'moment';
+import { Helper } from '@shared/helper';
 
 @Component({
   selector: 'app-home',
@@ -41,11 +42,10 @@ export class HomePage implements OnInit {
     private translate: TranslateService,
     private cityOceanService: CityOceanService,
     private statusBar: StatusBar,
+    private helper: Helper,
     private el: ElementRef,
     private renderer2: Renderer2,
   ) {}
-
-
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
@@ -58,27 +58,30 @@ export class HomePage implements OnInit {
     this.loginTime = this.cityOceanService.loginTime || moment(new Date()).format('HH:mm');
   }
   ionScroll(event) {
-    const inputForSearch= this.el.nativeElement.querySelector('#inputForSearch')
+    const inputForSearch = this.el.nativeElement.querySelector('#inputForSearch');
 
-    const searchIicon= this.el.nativeElement.querySelector('.search-right-icon')
+    const searchIicon = this.el.nativeElement.querySelector('.search-right-icon');
     const contentGroup = this.el.nativeElement.querySelector('.content-group');
     const searchetail = this.el.nativeElement.querySelector('.search-detail');
     const toolsGroupElement = this.el.nativeElement.querySelector('.tools-group');
-    if (searchetail.clientHeight && searchetail.clientHeight + toolsGroupElement.clientHeight <= event.detail.scrollTop) {
+    if (
+      searchetail.clientHeight &&
+      searchetail.clientHeight + toolsGroupElement.clientHeight <= event.detail.scrollTop
+    ) {
       toolsGroupElement.style.display = 'none';
       searchetail.style.display = 'none';
-      this.renderer2.addClass(contentGroup,"overFlow-hide-header");
+      this.renderer2.addClass(contentGroup, 'overFlow-hide-header');
       inputForSearch.style.display = 'none';
-      searchIicon.style.display = "inline-block"
-      this.ionContent.scrollToPoint(null,1);
+      searchIicon.style.display = 'inline-block';
+      this.ionContent.scrollToPoint(null, 1);
     }
-    if(event.detail.scrollTop === 0 &&  searchetail.style.display == 'none'){
+    if (event.detail.scrollTop === 0 && searchetail.style.display == 'none') {
       toolsGroupElement.style.display = 'flex';
       inputForSearch.style.display = 'flex';
       searchetail.style.display = 'block';
-      searchIicon.style.display = "none";
-      this.ionContent.scrollToPoint(null,searchetail.clientHeight + toolsGroupElement.clientHeight-1)
-      this.renderer2.removeClass(contentGroup,"overFlow-hide-header");
+      searchIicon.style.display = 'none';
+      this.ionContent.scrollToPoint(null, searchetail.clientHeight + toolsGroupElement.clientHeight - 1);
+      this.renderer2.removeClass(contentGroup, 'overFlow-hide-header');
     }
   }
   ionViewWillEnter() {
@@ -144,7 +147,7 @@ export class HomePage implements OnInit {
           ele.name = ele.groupProfile.name;
         }
         const time = ele.lastMessage.lastTime;
-        ele.lastMessage.lastTime = moment(time*1000).format('HH:mm');
+        ele.lastMessage.lastTime = moment(time * 1000).format('HH:mm');
       });
       this.conversationsList = [...list];
       let c2cList = this.conversationsList.filter((e) => {
@@ -176,7 +179,7 @@ export class HomePage implements OnInit {
   async onInputChange() {
     const modal = await this.modalController.create({
       component: GlobelSearchComponent,
-      componentProps: { },
+      componentProps: {},
     });
     modal.onWillDismiss().then((res) => {
       console.log(res);

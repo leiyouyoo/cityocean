@@ -35,10 +35,8 @@ export class CityOceanPage {
     },
   ];
   constructor( ) {
-    
   }
-  
-  
+
   tabsChange(event) {
     this.currentTab = event.detail.tab;
   }
