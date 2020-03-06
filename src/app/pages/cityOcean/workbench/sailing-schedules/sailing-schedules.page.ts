@@ -21,6 +21,7 @@ export class SailingSchedulesPage implements OnInit {
     maxResultCount : 5,
     skipCount:0,
   }
+  routeType: any;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -31,6 +32,7 @@ export class SailingSchedulesPage implements OnInit {
     this.activatedRoute.queryParams.subscribe(data => {
       this.orignPortId = data.orignPortId;
       this.deliveryPortId = data.deliveryPortId;
+      this.routeType = data.routeType
     });
   }
 
@@ -38,8 +40,8 @@ export class SailingSchedulesPage implements OnInit {
     this.getSailingList();
   }
   goback() {
-    // this.nav.navigateForward(['/cityOcean/workbench']);
-    window.history.back()
+    this.nav.navigateForward([`/cityOcean/${this.routeType}`]);
+    // window.history.back()
   }
   getSailingList(obj?,event?) {
     let params = {

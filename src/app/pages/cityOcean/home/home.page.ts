@@ -250,6 +250,7 @@ export class HomePage implements OnInit {
         queryParams: {
           orignPortId: this.orignPort.id,
           deliveryPortId: this.deliveryPort.id,
+          routeType: "workbench",
         },
       });
     } else if (this.searchType === 'seachSailingSchedules') {
@@ -257,6 +258,7 @@ export class HomePage implements OnInit {
         queryParams: {
           orignPortId: this.orignPort.id,
           deliveryPortId: this.deliveryPort.id,
+          routeType: "workbench",
         },
       });
     }
@@ -272,13 +274,25 @@ export class HomePage implements OnInit {
         this.searchType = 'seachSailingSchedules';
         break;
       case 'billing':
-        this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
+        this.nav.navigateForward(['/cityOcean/workbench/' + item.type], {
+          queryParams: {
+            routeType: "home",
+          },
+        });
         break;
       case 'booking':
-        this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
+        this.nav.navigateForward(['/cityOcean/workbench/' + item.type], {
+          queryParams: {
+            routeType: "home",
+          },
+        });
         break;
       case 'shipments':
-        this.nav.navigateForward(['/cityOcean/workbench/' + item.type]);
+        this.nav.navigateForward(['/cityOcean/workbench/' + item.type], {
+          queryParams: {
+            routeType: "home",
+          },
+        });
         break;
       case 'More':
         // this.nav.navigateForward(['/cityOcean/workbench']);

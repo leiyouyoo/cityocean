@@ -3,6 +3,7 @@ import { NavController, ModalController } from '@ionic/angular';
 import { MyShipmentService } from './shipment.service';
 import { ShipmentFilterComponent } from './shipment-filter/shipment-filter.component';
 import { CityOceanService } from '../../city-ocean.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shipment',
@@ -18,12 +19,18 @@ export class ShipmentPage implements OnInit {
   shipmentsList = [];
   currentParams: any = {};
   isLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
+  routeType: any;
   constructor(
     private nav: NavController,
     private myShipmentService: MyShipmentService,
     private modalController: ModalController,
-    private cityOceanService: CityOceanService
-  ) {}
+    private cityOceanService: CityOceanService,
+    private activatedRoute:ActivatedRoute
+  ) {
+    this.activatedRoute.queryParams.subscribe(data => {
+      this.routeType = data.routeType
+    });
+  }
 
   ngOnInit() {
     this.getShipmentList();
@@ -74,8 +81,8 @@ export class ShipmentPage implements OnInit {
   }
   
   goback() {
-    // this.nav.navigateForward(['/cityOcean/workbench']);
-    window.history.back()
+    this.nav.navigateForward([`/cityOcean/${this.routeType}`]);
+    // window.history.back()
   }
   gotoShipmentDetail(item) {
     this.nav.navigateForward(['/cityOcean/workbench/shipments/shipmentDetail'], {
