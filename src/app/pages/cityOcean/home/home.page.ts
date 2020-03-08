@@ -28,13 +28,18 @@ export class HomePage implements OnInit {
   @ViewChild(IonContent, { static: true }) ionContent: IonContent;
   searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
-  conversationsList = [];
+  conversationsList :any= [{
+    name: this.translate.instant('Welcome'),
+    lastMessage:{
+      messageForShow:this.translate.instant('Welcome to cityocean'),
+      lastTime:this.cityOceanService.loginTime || moment(new Date()).format('HH:mm')
+    },
+    type:'welcome'
+  }]
   orignPort: any = {}; // 启运港
   deliveryPort: any = {}; // 目的港
   totalCount: any;
   scrollList = []; // 系统消息列表
-  showWelcome: boolean = true;
-  loginTime = '';
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -56,7 +61,6 @@ export class HomePage implements OnInit {
         this.imLogin(res);
       }
     });
-    this.loginTime = this.cityOceanService.loginTime || moment(new Date()).format('HH:mm');
   }
   ionScroll(event) {
     const inputForSearch = this.el.nativeElement.querySelector('#inputForSearch');
@@ -151,7 +155,8 @@ export class HomePage implements OnInit {
          // 格式化显示时间
          ele.lastMessage.lastTime = this.cityOceanService.getImChatTime(time*1000,'HH:mm');
       });
-      this.conversationsList = [...list];
+      
+      this.conversationsList = this.conversationsList.concat(list);
       let c2cList = this.conversationsList.filter((e) => {
         return e.type === 'C2C';
       });
@@ -194,7 +199,6 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       for (let i = 0; i < 5; i++) {
         this.conversationsList.push({
-          num: 4,
           type: 'shipment',
           state: 'Eemurrage',
           name: 'OESZGS1909230009',
@@ -213,7 +217,10 @@ export class HomePage implements OnInit {
   }
 
   gotoChat(item) {
-    if (item.type)
+    if(item.type === 'welcome'){
+      return
+    }
+    if (item.type){
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: item.conversationID,
@@ -223,6 +230,7 @@ export class HomePage implements OnInit {
           conversationType: item.type,
         },
       });
+    }
   }
   go4search() {
     if (!this.orignPort.id || !this.deliveryPort.id) {
@@ -328,14 +336,10 @@ export class HomePage implements OnInit {
   deleteItem(i: any, data, node) {
     this.showDeleteButton = false;
     node.close();
+    if(data.type === 'welcome'){ this.conversationsList.splice(i, 1);return}
     // getMessageList(data.conversationID).then((imRes) => {
     //   console.log(imRes);
     // });
-
-    if (!i) {
-      this.showWelcome = false;
-      return;
-    }
     deleteConversation(data.conversationID).then(
       (imRes) => {
         console.log(imRes);

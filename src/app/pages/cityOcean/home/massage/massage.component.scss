@@ -14,24 +14,28 @@
     height: px2rem(82px);
     position: relative;
     box-sizing: border-box;
-    .default-avatar{
+
+    .default-avatar {
         @extend .icon-size;
         background-size: 100% 100%;
         background-image: url("../../../../../assets/icon/avatar-2.png");
     }
-    #C2C {
+
+    #welcome {
         @extend .icon-size;
-        @include bg-image("../../../../../assets/icon/home/chat/touxian5");
+        @include bg-image("../../../../../assets/icon/home/welcome-icon");
     }
 
     #booking {
         @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/icon_booking");
     }
+
     #order {
         @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/Order");
     }
+
     #quote {
         @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/icon_quote");
@@ -46,6 +50,7 @@
         @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/icon_shipment");
     }
+
 
     span.time {
         height: px2rem(17px);
@@ -77,7 +82,7 @@
             span.lables {
                 height: px2rem(16px);
                 line-height: px2rem(16px);
-                color:var(--ion-color-dark);
+                color: var(--ion-color-dark);
                 @include font-dpr(10px);
                 background: rgba(96, 71, 255, 0.14);
                 border-radius: px2rem(2px);
@@ -92,15 +97,17 @@
             }
 
             span.lable-booking {
-                background:rgba(0,219,224,0.14);
+                background: rgba(0, 219, 224, 0.14);
             }
 
             span.lable-quote {
-                background:rgba(100,74,255,0.13);
+                background: rgba(100, 74, 255, 0.13);
             }
+
             span.lable-order {
-                background:rgba(255,51,101,0.14);
+                background: rgba(255, 51, 101, 0.14);
             }
+
             span.lable-shipment {
                 background: rgba(0, 122, 255, 0.13);
             }
@@ -136,6 +143,17 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             display: inline-block;
+        }
+
+        .welcome-span {
+            letter-spacing: unset !important;
+        }
+
+        .welcome-title {
+            font-size: 14px;
+            font-family: PingFangSC-Semibold, PingFang SC;
+            font-weight: 600 !important;
+            letter-spacing: 1px;
         }
     }
 }

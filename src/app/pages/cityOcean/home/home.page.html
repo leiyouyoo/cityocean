@@ -63,26 +63,6 @@
     <section class="content-group">
       <app-message-rolling *ngIf="scrollList.length>0" [massgeList]="scrollList"></app-message-rolling>
       <div class="massge-group-wrap">
-        <ion-item-sliding #slide *ngIf="showWelcome">
-          <ion-item lines="none" class="wolcome-wrap app-massage-wrap">
-            <ion-icon name="welcome"></ion-icon>
-            <p>
-              <tr>
-                <span class="hello-class">{{"Welcome" | translate}}！</span>
-                <span>{{loginTime}}</span>
-              </tr>
-              <span class="welcome-family">{{"Welcome to cityocean" | translate}}！</span>
-            </p>
-          </ion-item>
-
-          <ion-item-options>
-            <i class="delete-icon" *ngIf="!showDeleteButton" (click)="showDeleteButtonFn(slide)"></i>
-            <ng-container *ngIf="showDeleteButton">
-              <span class="cancel-delete-icon" (click)="canceDelete(slide)">取消</span>
-              <i class="confirm-delete-icon" (click)="deleteItem(null,null,slide)"></i>
-            </ng-container>
-          </ion-item-options>
-        </ion-item-sliding>
         <ion-item-sliding *ngFor="let msg of conversationsList; let i = index" #slide>
           <ion-item lines="none" class="app-massage-wrap" (click)="gotoChat(msg)">
             <app-massage [detail]="msg"></app-massage>
