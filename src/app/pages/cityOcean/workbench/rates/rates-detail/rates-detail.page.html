@@ -18,21 +18,21 @@
       <span class="title">FREIGHT CHARGES/运费</span>
       <div>
         <span>Ocean Freight/海运费</span>
-        <span>{{ AdditionalData.freightCharges.currencyName }} {{ AdditionalData.freightCharges?.rate }}</span>
+        <span>{{ AdditionalData?.freightCharges.currencyName }} {{ AdditionalData?.freightCharges?.rate }}</span>
       </div>
       <div>
         <span>Quantity/数量</span>
-        <span>×1 {{ AdditionalData.freightCharges?.containerCode }}</span>
+        <span>×1 {{ AdditionalData?.freightCharges?.containerCode }}</span>
       </div>
       <div>
         <span>总额</span>
-        <span>{{ AdditionalData.freightCharges.currencyName }} {{ AdditionalData.freightCharges?.rate }}</span>
+        <span>{{ AdditionalData?.freightCharges.currencyName }} {{ AdditionalData?.freightCharges?.rate }}</span>
       </div>
     </div>
 
     <div class="content-wrap">
       <span class="title">ORIGIN CHARGES/起运港费用</span>
-      <ng-container *ngFor="let data of AdditionalData.originLocalUnitCharges">
+      <ng-container *ngFor="let data of AdditionalData?.originLocalUnitCharges">
         <div>
           <span>{{ data?.chargesName }}</span>
           <span>{{ data?.currencyName }} {{ data?.rate }}</span>
@@ -50,7 +50,7 @@
 
     <div class="content-wrap">
       <span class="title">DESTINATION CHARGES/目的港费用</span>
-      <ng-container *ngFor="let data of AdditionalData.deliveryLocalUnitCharges">
+      <ng-container *ngFor="let data of AdditionalData?.deliveryLocalUnitCharges">
         <div>
           <span>{{ data?.chargesName }}</span>
           <span>{{ data?.currencyName }} {{ data?.rate }}</span>
@@ -73,7 +73,7 @@
       </div>
       <div>
         <span>Expiry date/有效期</span>
-        <span>{{getTime(ratesDetail.toDate)}}</span>
+        <span>{{getTime(ratesDetail?.toDate)}}</span>
       </div>
     </div>
   </section>
