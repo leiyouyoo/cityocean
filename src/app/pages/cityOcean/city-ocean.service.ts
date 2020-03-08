@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpService } from '@cityocean/common-library';
 import { Observable } from 'rxjs';
 import { StartupService } from '@core';
-import { createTextMessage, logOut,sendmessage, setMessageRead } from '@cityocean/im-library';
+import { createTextMessage, logOut, sendmessage, setMessageRead } from '@cityocean/im-library';
 import { NavController, ActionSheetController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,11 +29,11 @@ export class CityOceanService {
     private translate: TranslateService,
     private actionSheetController: ActionSheetController,
     private callNumber: CallNumber,
-    @Inject(DA_SERVICE_TOKEN) private tokenSrv: ITokenService, 
+    @Inject(DA_SERVICE_TOKEN) private tokenSrv: ITokenService,
   ) {
     this.getCustomerId().then((res) => {
       if (this.getIsLoginWithTourist()) {
-        this.GetIdByEmail()
+        this.GetIdByEmail();
       } else {
         this.GetCoUserByCustomer({ customerId: res }).subscribe((res) => {
           if (res.id) {
@@ -66,7 +66,7 @@ export class CityOceanService {
         this.globelCustomerName = res.name;
         return res.id;
       }
-    });;
+    });
   }
   getNowTime() {
     if (!this.loginTime) {
@@ -171,7 +171,7 @@ export class CityOceanService {
           icon: 'register',
           handler: () => {
             // window.location.href = '/login';
-            this.loginOut()
+            this.loginOut();
           },
         },
       ],
@@ -200,6 +200,60 @@ export class CityOceanService {
       },
     });
   }
+  /**
+   * 格式化聊天时间
+   *
+   * @param {*} formatType 首页消息时间格式
+   * @param {*} time 消息时间
+   * @returns
+   * @memberof CityOceanService
+   */
+  getImChatTime(time, formatType?) {
+    const replaceAMPM = (e: string) => {
+      return e.replace(/PM/, `${this.translate.instant('PM')}`).replace(/AM/, `${this.translate.instant('AM')}`);
+    };
+    const Date = moment(time);
+    let currentWeek = moment().weekday(moment().weekday()).format();
+    if (Date.isValid()) {
+      const toDay = moment().startOf('day');
+      if (Date.isSameOrAfter(toDay)) {
+        return replaceAMPM(Date.format(formatType || `[${this.translate.instant('Today')}] A hh:mm`));
+      } else if (Date.isSameOrAfter(toDay.subtract(1, 'd')) && Date.isBefore(moment().format())) {
+        return replaceAMPM(Date.format(`[${this.translate.instant('Yesterday')}] A hh:mm`));
+      }
+      if (Date.isBefore(currentWeek)) {
+        return replaceAMPM(Date.format('YYYY/MM/DD A hh:mm'));
+      } else {
+        let week = '';
+        switch (Date.format('d')) {
+          case '1':
+            week = this.translate.instant('Monday');
+            break;
+          case '2':
+            week = this.translate.instant('Tuesday');
+            break;
+          case '3':
+            week = this.translate.instant('Wednesday');
+            break;
+          case '4':
+            week = this.translate.instant('Thursday');
+            break;
+          case '5':
+            week = this.translate.instant('Friday');
+            break;
+          case '6':
+            week = this.translate.instant('Saturday');
+            break;
+          default:
+            week = this.translate.instant('Sunday');
+            break;
+        }
+        return replaceAMPM(Date.format(`[${week}] A hh:mm`));
+      }
+    } else {
+      return '';
+    }
+  }
   // 个人信息
   gotoUserProfile(userId) {
     this.nav.navigateForward(['/cityOcean/home/chat/userProfile'], {
@@ -208,14 +262,12 @@ export class CityOceanService {
       },
     });
   }
-  loginOut(){
+  loginOut() {
     this.tokenSrv.clear();
     abp.session = null;
     try {
       logOut();
-    } catch (error) {
-      
-    }
+    } catch (error) {}
     // window.location.href = '/login';
     this.nav.navigateRoot(['/login']);
   }

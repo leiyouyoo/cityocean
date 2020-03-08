@@ -18,7 +18,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -30,29 +30,32 @@
     ></app-business-type>
   </div>
   <section [ngClass]="{'chat-content-wrap-margin': !isC2C&& conversationType!='Private'}" class="chat-content-wrap">
-    <ion-card *ngFor="let item of chatList" [class]="'card-' + item.flow +'-group'">
-      <img
-        *ngIf="item.flow=='out'"
-        (click)="gotoUserProfile(item.from)"
-        [class]="'anchor-' + item.flow"
-        class="head-anchor"
-        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
-      />
-      <img
-        *ngIf="item.flow=='in'"
-        (click)="gotoUserProfile(item.from)"
-        [class]="'anchor-' + item.flow"
-        class="head-anchor"
-        [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
-      />
-      <ion-card-content>
-        <span *ngIf="item?.type === 'TIMCustomElem'" [innerHTML]="item.msgBody[0].msgContent.Ext"></span>
-        <span *ngIf="item?.type === 'TIMTextElem'" [innerHTML]="item.payload.text"></span>
-        <span *ngIf="item?.type === 'TIMImageElem'">
-          <img [src]="item.msgBody[0].msgContent.ImageInfoArray[0].URL" class="image-element" />
-        </span>
-      </ion-card-content>
-    </ion-card>
+    <ng-container *ngFor="let item of chatList">
+      <div *ngIf="!!item.isTimeShow" class="message-show-time">{{getImChatTime(item.time)}}</div>
+      <ion-card *ngIf="!item.isTimeShow" [class]="'card-' + item.flow +'-group'">
+        <img
+          *ngIf="item.flow=='out'"
+          (click)="gotoUserProfile(item.from)"
+          [class]="'anchor-' + item.flow"
+          class="head-anchor"
+          [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
+        />
+        <img
+          *ngIf="item.flow=='in'"
+          (click)="gotoUserProfile(item.from)"
+          [class]="'anchor-' + item.flow"
+          class="head-anchor"
+          [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
+        />
+        <ion-card-content>
+          <span *ngIf="item?.type === 'TIMCustomElem'" [innerHTML]="item.msgBody[0].msgContent.Ext"></span>
+          <span *ngIf="item?.type === 'TIMTextElem'" [innerHTML]="item.payload.text"></span>
+          <span *ngIf="item?.type === 'TIMImageElem'">
+            <img [src]="item.msgBody[0].msgContent.ImageInfoArray[0].URL" class="image-element" />
+          </span>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
   </section>
 </ion-content>
 

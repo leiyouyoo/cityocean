@@ -148,7 +148,8 @@ export class HomePage implements OnInit {
           ele.name = ele.groupProfile.name;
         }
         const time = ele.lastMessage.lastTime;
-        ele.lastMessage.lastTime = moment(time * 1000).format('HH:mm');
+         // 格式化显示时间
+         ele.lastMessage.lastTime = this.cityOceanService.getImChatTime(time*1000,'HH:mm');
       });
       this.conversationsList = [...list];
       let c2cList = this.conversationsList.filter((e) => {

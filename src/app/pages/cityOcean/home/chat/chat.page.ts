@@ -24,6 +24,8 @@ import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 import { CityOceanService } from '../../city-ocean.service';
 import { Location } from '@angular/common';
 import { Helper } from '@shared/helper';
+import * as moment from 'moment';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-chat',
@@ -54,6 +56,7 @@ export class ChatPage implements OnInit {
   conversationType: any;
   popoverList; // 更多列表数据
   isDisbanded: boolean;
+  nowTime: string;
 
   constructor(
     private nav: NavController,
@@ -82,6 +85,7 @@ export class ChatPage implements OnInit {
     });
   }
   ngOnInit() {
+    this.nowTime = moment(new Date()).format();
     switch (this.bussinessType) {
       case 'booking':
         this.statusType = BookingStatusType; //状态枚举
@@ -168,24 +172,85 @@ export class ChatPage implements OnInit {
     }
   }
   ionRefresherCheck(res, event) {
-    res.items.reverse(); //消息按时间排序
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
       e.type = e.msgBody[0].msgType;
       e['payload'] = { text: e.msgBody[0].msgContent.Text };
+      e.msgTime = moment(e.msgTime).format();
     });
-    this.chatList = res.items.concat(this.chatList);
+    res.items.reverse(); //消息按时间排序
+    let tmpChatLists = res.items.concat(this.chatList);
+    let _chatList = tmpChatLists.filter((e) => {
+      return !e.isTimeShow;
+    });
+
+    // 插入时间显示
+    let chatListWithTime = [];
+    for (let index = _chatList.length - 1; index >= 0; index--) {
+      const element = _chatList[index];
+      const msgTime = moment(element.msgTime).format();
+      let subtract5Min = moment(this.nowTime)
+        .subtract(5, 'minutes')
+        .format();
+      if (
+        !element.isChecked &&
+        !element.isTimeShow &&
+        !moment(this.nowTime).isSame(msgTime) &&
+        !moment(msgTime).isBetween(subtract5Min, this.nowTime)
+      ) {
+        this.nowTime = msgTime;
+        subtract5Min = moment(this.nowTime)
+          .subtract(5, 'minutes')
+          .format();
+        const checkTime = (i) => {
+          let _element = _chatList[i];
+          chatListWithTime.unshift(_element);
+          if (i - 1 >= 0) {
+            const _msgTime = moment(_chatList[i - 1].msgTime).format();
+            if (moment(_msgTime).isBetween(subtract5Min, this.nowTime)) {
+              checkTime(--i);
+              _element.isChecked = true;
+            } else {
+              this.nowTime = _element.msgTime;
+              chatListWithTime.unshift({ isTimeShow: true, time: _element.msgTime });
+              return;
+            }
+          } else {
+            this.nowTime = _element.msgTime;
+            chatListWithTime.unshift({ isTimeShow: true, time: _element.msgTime });
+          }
+        };
+        checkTime(index);
+        console.log(this.nowTime);
+      } else if (
+        !element.isChecked &&
+        !element.isTimeShow &&
+        !moment(this.nowTime).isSame(msgTime) &&
+        moment(msgTime).isBetween(subtract5Min, this.nowTime)
+      ) {
+        chatListWithTime.unshift(element);
+      }
+    }
+
+    this.chatList = chatListWithTime;
     this.pageInfo.skipCount++;
-    if (this.chatList.length >= res.totalCount) {
+    if (
+      this.chatList.filter((e) => {
+        return !e.isTimeShow;
+      }).length >= res.totalCount
+    ) {
       // 已加载全部数据，禁用上拉刷新
       this.ionRefresher.disabled = true;
       this.ionRefresher.complete();
-      if(event){
+      if (event) {
         event.target.disabled = true;
       }
-      
     }
     event && event.target.complete();
+  }
+  // 格式化显示时间
+  getImChatTime(time) {
+   return this.cityOceanService.getImChatTime(time);
   }
   // 上拉刷新
   doRefresh(event) {
@@ -297,11 +362,11 @@ export class ChatPage implements OnInit {
   dataURLtoFile(dataurl: string, filename) {
     const data = atob(dataurl);
     let n = data.length;
-      const u8arr = new Uint8Array(n);
+    const u8arr = new Uint8Array(n);
     while (n--) {
       u8arr[n] = data.charCodeAt(n);
     }
-    return new (((window as any).FileOrigin))([u8arr], filename, );
+    return new (window as any).FileOrigin([u8arr], filename);
   }
   // 拍照
   imgUpload() {
