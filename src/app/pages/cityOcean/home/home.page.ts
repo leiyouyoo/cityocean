@@ -28,18 +28,12 @@ export class HomePage implements OnInit {
   @ViewChild(IonContent, { static: true }) ionContent: IonContent;
   searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
-  conversationsList :any= [{
-    name: this.translate.instant('Welcome'),
-    lastMessage:{
-      messageForShow:this.translate.instant('Welcome to cityocean'),
-      lastTime:this.cityOceanService.loginTime || moment(new Date()).format('HH:mm')
-    },
-    type:'welcome'
-  }]
+  conversationsList :any= []
   orignPort: any = {}; // 启运港
   deliveryPort: any = {}; // 目的港
   totalCount: any;
   scrollList = []; // 系统消息列表
+  deleteWecomeFlag = false;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -155,8 +149,18 @@ export class HomePage implements OnInit {
          // 格式化显示时间
          ele.lastMessage.lastTime = this.cityOceanService.getImChatTime(time*1000,'HH:mm');
       });
+      if(!this.deleteWecomeFlag){
+        list.unshift({
+          name: this.translate.instant('Welcome'),
+          lastMessage:{
+            messageForShow:this.translate.instant('Welcome to cityocean'),
+            lastTime:this.cityOceanService.loginTime || moment(new Date()).format('HH:mm')
+          },
+          type:'welcome'
+        })
+      }
       
-      this.conversationsList = this.conversationsList.concat(list);
+      this.conversationsList = [...list];
       let c2cList = this.conversationsList.filter((e) => {
         return e.type === 'C2C';
       });
@@ -336,7 +340,10 @@ export class HomePage implements OnInit {
   deleteItem(i: any, data, node) {
     this.showDeleteButton = false;
     node.close();
-    if(data.type === 'welcome'){ this.conversationsList.splice(i, 1);return}
+    if(data.type === 'welcome'){ 
+      this.deleteWecomeFlag= true;
+      this.conversationsList.splice(i, 1);
+      return}
     // getMessageList(data.conversationID).then((imRes) => {
     //   console.log(imRes);
     // });
