@@ -18,7 +18,7 @@ export class BillingPage implements OnInit {
   ids: any = []; // 可能为多个id
   billingStatus: any; // 筛选状态
   searchText: any;
-  routeType: any;
+  routeBackType: any;
   constructor(
     private billingServiceService: BillingServiceService,
     private actionSheetController: ActionSheetController,
@@ -32,7 +32,7 @@ export class BillingPage implements OnInit {
           return Number(e);
         });
       }
-      this.routeType = data.routeType
+      this.routeBackType = data.routeBackType
     });
   }
 
@@ -86,7 +86,7 @@ export class BillingPage implements OnInit {
     });
   }
   goback() {
-    this.nav.navigateForward([`/cityOcean/${this.routeType}`]);
+    this.nav.navigateForward([`/cityOcean/${this.routeBackType}`]);
     // window.history.back();
   }
 

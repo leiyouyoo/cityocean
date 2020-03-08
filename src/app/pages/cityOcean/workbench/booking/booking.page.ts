@@ -19,7 +19,7 @@ export class BookingPage implements OnInit {
   BookingStatus: any; // 筛选状态
   currentParams: any = {}; //筛选条件
   ids: any = []; // 可能为多个id
-  routeType: any;
+  routeBackType: any;
   constructor(
     private bookingServiceService: BookingServiceService,
     private actionSheetController: ActionSheetController,
@@ -33,7 +33,7 @@ export class BookingPage implements OnInit {
           return Number(e);
         });
       }
-      this.routeType = data.routeType
+      this.routeBackType = data.routeBackType
     });
   }
 
@@ -77,7 +77,7 @@ export class BookingPage implements OnInit {
     });
   }
   goback() {
-    this.nav.navigateForward([`/cityOcean/${this.routeType}`]);
+    this.nav.navigateForward([`/cityOcean/${this.routeBackType}`]);
     // window.history.back();
   }
 

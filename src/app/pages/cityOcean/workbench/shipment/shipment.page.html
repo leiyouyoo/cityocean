@@ -1,22 +1,19 @@
 <ion-header mode="ios">
   <ion-toolbar>
-    <div>
-      <div class="left-content">
-        <i (click)="goback()" class="go-back"></i>
-        <i class="search-icon" (click)="resetFilter()"></i>
-        <input
-          [(ngModel)]="searchText"
-          (keyup)="($event.which === 13) ? resetFilter() : 0"
-          type="search"
-          name="searh"
-          [placeholder]="'Search' | translate"
-        />
-      </div>
-      <i *ngIf="!isLoginWithTourist" (click)="shipmentFilter($event)" class="filter"></i>
-    </div>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar
+      [placeholder]="'Search' | translate"
+      mode="ios"
+      [(ngModel)]="searchKey"
+      (keyup)="($event.which === 13) ? resetFilter() : 0"
+    ></ion-searchbar>
+    <ion-buttons *ngIf="!isLoginWithTourist" slot="end">
+      <ion-icon name="ellipsis-vertical" (click)="shipmentFilter($event)"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <section>
     <app-shipment-list-panel

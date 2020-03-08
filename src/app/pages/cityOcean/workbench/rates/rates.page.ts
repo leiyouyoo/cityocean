@@ -26,7 +26,7 @@ export class RatesPage implements OnInit {
   };
   deliveryPortName: any;
   orignPortName: any;
-  routeType: any;
+  routeBackType: any;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -38,7 +38,7 @@ export class RatesPage implements OnInit {
       this.currentParam.deliveryPortId = [data.deliveryPortId];
       this.deliveryPortName = data.deliveryPortName;
       this.orignPortName = data.orignPortName;
-      this.routeType = data.routeType
+      this.routeBackType = data.routeBackType
     });
   }
 
@@ -72,7 +72,7 @@ export class RatesPage implements OnInit {
     });
   }
   goback() {
-    this.nav.navigateForward([`/cityOcean/${this.routeType}`]);
+    this.nav.navigateForward([`/cityOcean/${this.routeBackType}`]);
     // window.history.back()
   }
   gotoRatesDetail(item) {

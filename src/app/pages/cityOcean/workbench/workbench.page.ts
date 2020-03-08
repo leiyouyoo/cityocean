@@ -313,7 +313,7 @@ export class WorkbenchPage implements OnInit {
           orignPortName: this.orignPort.name,
           deliveryPortId: this.deliveryPort.id,
           deliveryPortName: this.deliveryPort.name,
-          routeType: "workbench",
+          routeBackType: "workbench",
         },
       });
     } else if (this.searchType === 'seachSailingSchedules') {
@@ -321,7 +321,7 @@ export class WorkbenchPage implements OnInit {
         queryParams: {
           orignPortId: this.orignPort.id,
           deliveryPortId: this.deliveryPort.id,
-          routeType: "workbench",
+          routeBackType: "workbench",
         },
       });
     }
@@ -360,7 +360,7 @@ export class WorkbenchPage implements OnInit {
   goRouter(item) {
     this.nav.navigateForward(['/cityOcean/workbench/' + item.type], {
       queryParams: {
-        routeType: "workbench",
+        routeBackType: "workbench",
       },
     });
   }

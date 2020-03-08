@@ -19,7 +19,7 @@ export class ShipmentPage implements OnInit {
   shipmentsList = [];
   currentParams: any = {};
   isLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
-  routeType: any;
+  routeBackType: any;
   constructor(
     private nav: NavController,
     private myShipmentService: MyShipmentService,
@@ -28,7 +28,7 @@ export class ShipmentPage implements OnInit {
     private activatedRoute:ActivatedRoute
   ) {
     this.activatedRoute.queryParams.subscribe(data => {
-      this.routeType = data.routeType
+      this.routeBackType = data.routeBackType
     });
   }
 
@@ -81,7 +81,7 @@ export class ShipmentPage implements OnInit {
   }
   
   goback() {
-    this.nav.navigateForward([`/cityOcean/${this.routeType}`]);
+    this.nav.navigateForward([`/cityOcean/${this.routeBackType}`]);
     // window.history.back()
   }
   gotoShipmentDetail(item) {
