@@ -111,6 +111,11 @@ export class CityOceanService {
     //   this.helper.toast(this.translate.instant('No customer'));
     //   return;
     // }
+    if (this.getIsLoginWithTourist()) {
+      // 如果为游客登录，找全局客服
+      this.chatWithTourist();
+      return;
+    }
     if (type && id) {
       // 从业务详情联系业务人员入口
       this.nav.navigateForward(['/cityOcean/home/chat'], {
@@ -124,11 +129,7 @@ export class CityOceanService {
       });
       return;
     }
-    if (this.getIsLoginWithTourist()) {
-      // 如果为游客登录，找全局客服
-      this.chatWithTourist();
-      return;
-    }
+    
     if (this.hasHistoryChat.length) {
       // 如果之前有会话记录
       this.gotoChat();

@@ -1,6 +1,6 @@
 <ion-content>
-  <div class="sign-up">
-    <ion-icon (click)="handleButtonClick($event)" name="signup"></ion-icon>
+  <div (click)="handleButtonClick($event)" class="sign-up">
+    <ion-icon  name="signup"></ion-icon>
     <span>Sign Up</span>
   </div>
   <section class="logo-group">
@@ -27,7 +27,7 @@
           <div *ngIf="username.errors.required">
             {{ 'Email Adress' | translate }}
           </div>
-          <div *ngIf="username.errors.email">
+          <div *ngIf="username.errors.pattern">
             {{ 'Check your mail address again' | translate }}
           </div>
         </div>
