@@ -4,6 +4,7 @@ import { RatesFilterComponent } from './rates-filter/rates-filter.component';
 import { RatesService } from './rates.service';
 import { ActivatedRoute } from '@angular/router';
 import { isArray } from 'lodash';
+import { CityOceanService } from '../../city-ocean.service';
 
 @Component({
   selector: 'app-rates',
@@ -26,12 +27,13 @@ export class RatesPage implements OnInit {
   };
   deliveryPortName: any;
   orignPortName: any;
-  routeBackType: any;
+  routeBackType: any; 
   constructor(
     private nav: NavController,
     private modalController: ModalController,
     private ratesService: RatesService,
     private activatedRoute: ActivatedRoute,
+    private cityOceanService: CityOceanService,
   ) {
     this.activatedRoute.queryParams.subscribe((data) => {
       this.currentParam.orignPortId = [data.orignPortId];
@@ -76,7 +78,7 @@ export class RatesPage implements OnInit {
     // window.history.back()
   }
   gotoRatesDetail(item) {
-    this.ratesService.ratesDetail = item;
+    this.cityOceanService.ratesDetail = item;
     this.nav.navigateForward(['/cityOcean/workbench/rates/ratesDetail'], {
       queryParams: {},
     });

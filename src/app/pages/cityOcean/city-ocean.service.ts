@@ -19,8 +19,9 @@ export class CityOceanService {
   globelCustomerPhone = '0755-33958211'; // 客服电话
   customerId: ''; // 当前登录人的id
   hasHistoryChat: any = [];
-  c2cList: any;
-  loginTime = '';
+  c2cList: any; // 单聊列表
+  loginTime = ''; // 登录时间
+  ratesDetail:any; // rates详情页数据
   constructor(
     private httpService: HttpService,
     private startupService: StartupService,

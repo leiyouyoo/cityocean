@@ -20,8 +20,10 @@ export class RatesDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.ratesDetail = this.ratesService.ratesDetail;
-    this.AdditionalData = this.ratesService.ratesDetail.chargesGroups[0];
+    this.ratesDetail = this.cityOceanService.ratesDetail;
+    if(this.cityOceanService.ratesDetail){
+      this.AdditionalData = this.cityOceanService.ratesDetail.chargesGroups[0];
+    }
     console.log(this.ratesDetail);
   }
   goback() {

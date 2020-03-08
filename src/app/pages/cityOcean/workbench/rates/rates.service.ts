@@ -4,11 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "../../../../../../src/environments/environment";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class RatesService {
-  ratesDetail:any;
   constructor(private httpService: HttpService, private http: HttpClient) {}
 
   geFreightRates(params) {
