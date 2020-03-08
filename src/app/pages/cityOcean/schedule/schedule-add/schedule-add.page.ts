@@ -225,7 +225,6 @@ export class ScheduleAddPage implements OnInit {
     if (!this.edit) {
       return;
     }
-    debugger;
     if (this.choosedContacts.length > 0 && this.id) {
       this.presentAlert();
     } else {

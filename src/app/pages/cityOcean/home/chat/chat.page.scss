@@ -7,6 +7,7 @@
 
 ion-header {
   ion-toolbar {
+    padding-top: 0 !important;
     --ion-toolbar-background: #3e8eff;
     --ion-toolbar-color: #fff;
   }
@@ -79,11 +80,11 @@ ion-content {
       }
     }
   }
-  .message-show-time{
+  .message-show-time {
     font-size: 12px;
-    font-family: PingFangSC-Regular,PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
-    color: rgba(var(--ion-color-dark-rgb),0.6);
+    color: rgba(var(--ion-color-dark-rgb), 0.6);
     margin-bottom: px2rem(20px);
     text-align: center;
   }

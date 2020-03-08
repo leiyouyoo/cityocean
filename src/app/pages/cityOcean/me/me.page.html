@@ -7,8 +7,8 @@
         <ion-text (click)="toLogin()" *ngIf="!userLogin" color="danger" style="margin-left: 1em"
           >{{'Login in' | translate}}/{{'Sign in' | translate}}</ion-text
         >
-        <ion-text *ngIf="userLogin">{{userMsg?.name}} </ion-text>
-        <p style="color: #fff;margin-top: 1em;opacity: 0.6;">{{'International Logistics Of CITYOCEAN' | translate}}</p>
+        <ion-text *ngIf="userLogin">{{userMsg?.user.userName}} </ion-text>
+        <p style="color: #fff;margin-top: 1em;opacity: 0.6;">{{userMsg?.tenant.tenancyName}}</p>
       </div>
     </div>
   </div>

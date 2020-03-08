@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { CityOceanService } from '../../city-ocean.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-me-setting',
@@ -18,6 +19,7 @@ export class SettingPage {
     public actionSheetController: ActionSheetController,
     public activeRoute: ActivatedRoute,
     public helper: Helper,
+    public translate: TranslateService,
     private statusBar: StatusBar,
     private cityOceanService: CityOceanService,
   ) {}
@@ -41,7 +43,26 @@ export class SettingPage {
     this.nav.navigateForward(['/cityOcean/me/theme']);
   }
 
-  toLogin() {
-    this.cityOceanService.loginOut();
+  async toLogin() {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: this.translate.instant('Login Out'),
+          icon: 'log-out',
+          handler: () => {
+            this.cityOceanService.loginOut();
+          },
+        },
+        {
+          text: this.translate.instant('Cancel'),
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
   }
 }
