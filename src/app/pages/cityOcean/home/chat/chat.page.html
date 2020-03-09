@@ -25,7 +25,7 @@
   <div *ngIf="!isC2C && conversationType!='Private'" class="type-wrap">
     <app-business-type
       (click)="gotoDetail()"
-      [title]="{title1:bussinessDetail.bookingNo}"
+      [title]="{title1:bussinessDetail.shipmentNo, title2: this.bussinessDetail.soNo}"
       [status]="statusType[bussinessDetail.status]"
     ></app-business-type>
   </div>

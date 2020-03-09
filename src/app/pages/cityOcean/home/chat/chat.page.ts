@@ -26,6 +26,7 @@ import { Location } from '@angular/common';
 import { Helper } from '@shared/helper';
 import * as moment from 'moment';
 import { cloneDeep } from 'lodash';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -97,6 +98,14 @@ export class ChatPage implements OnInit {
         this.statusType = ShipmentStatusType; //状态枚举
         this.myShipmentService.GetShipmentDetail(this.bussinessId).subscribe((res: any) => {
           this.bussinessDetail = res;
+        });
+        forkJoin(
+          this.myShipmentService.GetShipmentDetail(this.bussinessId),
+          this.myShipmentService.GetDetail(this.bussinessId),
+        ).subscribe((res: any) => {
+          console.log(res);
+          this.bussinessDetail = res[0];
+          Object.assign(this.bussinessDetail, res[1]);
         });
         this.homeService.GetRelatedBusiness({ id: this.bussinessId }).subscribe((res: any) => {
           this.popoverList = res;
@@ -250,7 +259,7 @@ export class ChatPage implements OnInit {
   }
   // 格式化显示时间
   getImChatTime(time) {
-   return this.cityOceanService.getImChatTime(time);
+    return this.cityOceanService.getImChatTime(time);
   }
   // 上拉刷新
   doRefresh(event) {
