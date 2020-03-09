@@ -56,7 +56,7 @@
       </div>
       <div class="title">
         <span>{{'All applications' | translate}}</span>
-        <button (click)="isEditing = !isEditing">{{'Add To Home' | translate}}</button>
+        <button *ngIf="!isLoginWithTourist" (click)="isEditing = !isEditing">{{'Add To Home' | translate}}</button>
       </div>
       <div class="all-applications">
         <div *ngFor="let item of typeList">

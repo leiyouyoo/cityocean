@@ -8,6 +8,7 @@
       mode="ios"
       [(ngModel)]="searchKey"
       (keyup)="($event.which === 13) ? filterConfirm(null) : 0"
+      (ionChange)="filterConfirm(null)"
     ></ion-searchbar>
     <ion-buttons slot="end">
       <ion-icon name="funnel" (click)="bookingFilter()"></ion-icon>

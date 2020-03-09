@@ -3,6 +3,7 @@ import { BillingServiceService } from '../../workbench/billing/billing-service.s
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 import { NavController, ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { BookingServiceService } from '../../workbench/booking/booking-service.service';
 
 @Component({
   selector: 'app-globel-search',
@@ -18,10 +19,12 @@ export class GlobelSearchComponent implements OnInit {
     pageIndex: 1,
   };
   searchHistoryList: any = [];
+  bookingData: any;
 
   constructor(
     private billingService: BillingServiceService,
     private shipmentService: MyShipmentService,
+    private bookingServiceService:BookingServiceService,
     private nav: NavController,
     private modalController: ModalController,
   ) {}
@@ -33,6 +36,9 @@ export class GlobelSearchComponent implements OnInit {
     }
   }
   filterConfirm(data?) {
+    if (data) {
+      this.searchKey = data;
+    }
     if (this.searchKey) {
       let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem('globelSearchHistory'));
       if (!searchLocalStorage) {
@@ -51,17 +57,20 @@ export class GlobelSearchComponent implements OnInit {
           localStorage.setItem('globelSearchHistory', JSON.stringify(searchLocalStorage));
         }
       }
+    }else{
+      this.delete();
+      return
     }
-    if (data) {
-      this.searchKey = data;
-    }
+    
     this.searchBilling();
     this.searchShipment();
+    this.searchBooking();
   }
   delete() {
     this.searchKey = '';
     this.billingData = [];
     this.shipmentData = [];
+    this.bookingData = [];
   }
   deleteHistory() {
     localStorage.removeItem('globelSearchHistory');
@@ -78,7 +87,21 @@ export class GlobelSearchComponent implements OnInit {
         this.billingData = data as any;
       });
   }
+  searchBooking() {
+    this.bookingServiceService
+      .GetAllBookingList({ maxResultCount: this.page.pageSize, searchKey: this.searchKey } as any)
+      .subscribe((data) => {
+        this.bookingData = data as any;
+      });
+  }
+  gotoBookingDetail(item) {
+    this.modalController.dismiss();
+    this.nav.navigateForward(['/cityOcean/workbench/booking/bookingDetail'], {
+      queryParams: { id: item.id },
+    });
+  }
   gotoBillingDetail(item) {
+    this.modalController.dismiss();
     this.nav.navigateForward(['/cityOcean/workbench/billing/billiingDetail'], {
       queryParams: { id: item.id },
     });
@@ -91,6 +114,7 @@ export class GlobelSearchComponent implements OnInit {
       });
   }
   gotoShipmentDetail(item) {
+    this.modalController.dismiss();
     this.nav.navigateForward(['/cityOcean/workbench/shipments/shipmentDetail'], {
       queryParams: { id: item.id, agreement: item.agreement },
     });

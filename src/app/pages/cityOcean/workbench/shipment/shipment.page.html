@@ -8,6 +8,7 @@
       mode="ios"
       [(ngModel)]="searchText"
       (keyup)="($event.which === 13) ? resetFilter() : 0"
+      (ionChange)="resetFilter()"
     ></ion-searchbar>
     <ion-buttons *ngIf="!isLoginWithTourist" slot="end">
       <ion-icon name="funnel" (click)="shipmentFilter($event)"></ion-icon>
