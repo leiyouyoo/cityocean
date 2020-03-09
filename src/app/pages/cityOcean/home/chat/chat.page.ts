@@ -54,7 +54,7 @@ export class ChatPage implements OnInit {
   };
   bussinessType; //业务类型
   bussinessId; //业务ID
-  bussinessDetail = { bookingNo: '', status: -1 }; //业务详情
+  bussinessDetail = { bookingNo: '', status: -1 ,shipmentNo:'',soNo:'',}; //业务详情
   conversationType: any;
   popoverList; // 更多列表数据
   isDisbanded: boolean;
