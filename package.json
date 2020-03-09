@@ -76,6 +76,7 @@
     "jpush-phonegap-plugin": "^3.7.3",
     "moment": "^2.24.0",
     "ngx-countdown": "^3.1.0",
+    "ngx-ionic-image-viewer": "^0.7.0",
     "rxjs": "~6.5.1",
     "tim-js-sdk": "^2.4.2",
     "tslib": "^1.9.0",

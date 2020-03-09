@@ -77,6 +77,10 @@ ion-content {
           color: rgba(76, 75, 94, 0.9);
           @include font-dpr(14px);
         }
+        #image-element{
+          width: auto;
+          height: auto;
+        }
       }
     }
   }

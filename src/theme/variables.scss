@@ -121,6 +121,7 @@ $font-base-size: 12px;
 }
 
 [data-dpr='1'] {
+
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -130,6 +131,7 @@ $font-base-size: 12px;
 }
 
 [data-dpr='2'] {
+
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -139,6 +141,7 @@ $font-base-size: 12px;
 }
 
 [data-dpr='3'] {
+
   .email-wrap,
   .password-wrap {
     input::-webkit-input-placeholder {
@@ -188,7 +191,8 @@ $font-base-size: 12px;
 }
 
 // 判断在不同dpr下的显示情况
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
+@media (-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5) {
   .border-1px {
     &::after {
       -webkit-transform: scaleY(0.7);
@@ -197,7 +201,8 @@ $font-base-size: 12px;
   }
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
   .border-1px {
     &::after {
       -webkit-transform: scaleY(0.5);
@@ -274,6 +279,7 @@ $font-base-size: 12px;
 
 //ion-datetime自定义样式
 .ion-datetime-my-class {
+
   .picker-opts-right,
   .picker-opts-left {
     justify-content: center;
@@ -370,6 +376,13 @@ $font-base-size: 12px;
 .ion-select-my-class {
   .action-sheet-cancel {
     color: var(--ion-color-primary);
+  }
+
+  .alert-title {
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(159, 159, 175, 1);
   }
 }
 

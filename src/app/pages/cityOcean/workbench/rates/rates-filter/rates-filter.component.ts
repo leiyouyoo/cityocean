@@ -29,12 +29,13 @@ export class RatesFilterComponent implements OnInit {
     deliveryPortSearchText: '',
     destinationLocationSearchText: '',
     carrierId: 'all',
-    ratesValidDays: '7',
+    ratesValidDays: '',
   };
   @Input() orignPortName;
   @Input() deliveryPortName;
   @Input() orignPortId;
   @Input() deliveryPortId;
+  Ratesvaliddays=this.translate.instant("Rates valid days");
   carrierList = [];
   private searchTerms = new Subject<string>();
 

@@ -15,5 +15,7 @@
   "searchSailingSchedules":"Search Schedule",
   "sailingSchedules":"Schedule",
   "registerCustomer":"Ask for an account Call",
-  "shipments All":"All"
+  "shipments All":"All",
+  "shipmentStatus":"Status",
+  "shipmentMode":"Mode"
 }

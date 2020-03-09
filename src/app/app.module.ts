@@ -27,6 +27,7 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 import { AmapLibraryModule } from '@cityocean/amap-library';
 // #region Http Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -90,6 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       backButtonIcon: 'chevron-back-outline', // 配置返回图标
     }),
     AppRoutingModule,
+    NgxIonicImageViewerModule,
     IonicStorageModule.forRoot(),
     CommonLibraryModule.forRoot({
       // messageService: NzMessageService,

@@ -127,6 +127,7 @@
   "Estimated Arrival": "预计到达时间",
   "Estimated Pick-Up": "预估送货时间",
   "Cargo Ready Date": "货好时间",
+  "Estimated Delivery":"预估送达时间",
   "Select all": "全选",
   "shipments All": "全选",
   "Air": "空运",
@@ -148,7 +149,7 @@
   "All Status": "全选",
   "Submitted": "已提交",
   "Waiting for pricing": "等待报价",
-  "Waiting for buyer": "等待卖家确认",
+  "Waiting for buyer": "等待买家确认",
   "Waiting for seller": "等待卖家确认",
   "Draft": "草稿",
   "Cancelled": "已取消",
@@ -165,5 +166,10 @@
   "Get a quote": "询价",
   "Choose Time": "选中提醒时间",
   "Are you sure you want to delete": "确认要删除吗",
-  "No Resluts": "没有匹配的数据"
+  "No Resluts": "没有匹配的数据",
+  "Rates valid days":"价格有效期",
+  "shipmentStatus":"运输状态",
+  "shipmentMode":"类型",
+  "Freight Method Type":"运输方式",
+  "Sort By":"排序方式"
 }

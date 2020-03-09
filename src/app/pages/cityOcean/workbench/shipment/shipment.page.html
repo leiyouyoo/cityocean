@@ -18,11 +18,12 @@
 <ion-content>
   <section>
     <ng-container *ngIf="shipmentsList.length">
-      <app-shipment-list-panel
+      <ng-container *ngFor="let item of shipmentsList; let i=index">
+        <app-shipment-list-panel
         [shipmentListItem]="item"
         (click)="gotoShipmentDetail(item)"
-        *ngFor="let item of shipmentsList; let i=index"
       ></app-shipment-list-panel>
+      </ng-container>
     </ng-container>
 
     <div class="noResluts" *ngIf="shipmentsList.length == 0">

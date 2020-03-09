@@ -84,13 +84,13 @@
       <!-- 起运地 -->
       <ng-container *ngFor="let shipperInfo of routeDetail?.routeDetails?.shipperInfos; let i=index">
         <ng-container *ngIf="originPortShow || i ===0">
-          <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
+          <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''">
             <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{shipperInfo?.shipperNetWorkInfo?.name}}</span>
           </p>
-          <p [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'">
+          <p class="arrival-location">
             <span>{{shipperInfo.shipperNetWorkInfo?.streetAddress}}</span>
           </p>
-          <p [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
+          <p [class]="routeDetail?.status>=2?'left-line':'left-dashed-line'">
             <span>{{"Container No" | translate}}</span>
             <span>{{shipperInfo.containerNo}}</span>
           </p>
@@ -113,11 +113,11 @@
       <p [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'">
         <span>{{routeDetail?.routeDetails?.originPort?.name}}</span>
       </p>
-      <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
+      <p [class]="routeDetail?.status>=4?'left-line':'left-dashed-line'">
         <span>#/港口编码</span>
         <span>{{routeDetail?.routeDetails?.originPort.code}}</span>
       </p>
-      <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
+      <p [class]="routeDetail?.status>=4?'left-line':'left-dashed-line'">
         <span>{{"Arrived" | translate}}</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualDepatureOrginPortDate)}}</span>
       </p>
@@ -128,18 +128,18 @@
         >
       </p>
       <!-- 目的港 -->
-      <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
+      <p [class]="routeDetail?.status>=5?'arrival-location':'unarrival-location'">
         <span>{{routeDetail?.routeDetails?.destinationPort?.name}}</span>
       </p>
-      <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+      <p [class]="routeDetail?.status>=6?'left-line':'left-dashed-line'">
         <span>#/港口编码</span>
         <span>{{routeDetail?.routeDetails?.destinationPort.code}}</span>
       </p>
-      <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+      <p [class]="routeDetail?.status>=6?'left-line':'left-dashed-line'">
         <span>{{"Estimated Arrival" | translate}}</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualArrivalDestinationPortDate)}}</span>
       </p>
-      <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+      <p [class]="routeDetail?.status>=6?'left-line':'left-dashed-line'">
         <span>{{"Estimated Pick-Up" | translate}}</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualPickUpTruckDestinationDate)}}</span>
       </p>
@@ -156,12 +156,12 @@
           <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
             <span>{{consigneeInfo.consigneeNetWorkInfo?.streetAddress}}</span>
           </p>
-          <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+          <p>
             <span>{{"Container No" | translate}}</span>
             <span>{{consigneeInfo.containerNo}}</span>
           </p>
-          <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
-            <span>{{"Cargo Ready Date" | translate}}</span>
+          <p>
+            <span>{{"Estimated Delivery" | translate}}</span>
             <span>{{getTime(consigneeInfo.actualTruckDeliveryDate)}}</span>
           </p>
         </ng-container>

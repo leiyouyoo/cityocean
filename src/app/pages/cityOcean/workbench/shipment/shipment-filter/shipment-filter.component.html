@@ -12,7 +12,7 @@
     <div>
       <ion-select
         name="process"
-        [interfaceOptions]="{ header: 'All shipments in progress', cssClass: 'ion-select-my-class' }"
+        [interfaceOptions]="processInterfaceOptions"
         multiple="true"
         placeholder="Select One"
         (ionChange)="processChange($event)"
@@ -32,11 +32,13 @@
       ><span *ngIf="processCopy.length > 1">多选</span>
     </div>
     <div>
+      <span *ngIf="modeCopy.length ==0">{{"Freight Method Type" | translate}}</span>
+
       <ion-select
         name="mode"
-        [interfaceOptions]="{ header: 'Select all mode', cssClass: 'ion-select-my-class' }"
+        [interfaceOptions]="modeInterfaceOptions"
         multiple="true"
-        placeholder="Select One"
+        placeholder=""
         [value]="profileForm.mode"
         (ionChange)="modeChange($event)"
       >
@@ -52,15 +54,17 @@
       ><span *ngIf="modeCopy.length > 1">多选</span>
     </div>
     <div>
+      <span *ngIf="!profileForm.date">{{"Sort By" | translate}}</span>
+
       <ion-select
         name="date"
-        [interfaceOptions]="{ header: 'Sort By', cssClass: 'ion-select-my-class' }"
+        [interfaceOptions]="dateInterfaceOptions"
         interface="action-sheet"
-        placeholder="Select One"
+        placeholder=""
         [value]="profileForm.date"
         (ionChange)="dateChange($event)"
       >
-        <ion-select-option selected value="deliveryDate">{{ 'Delivery Date' | translate }}</ion-select-option>
+        <ion-select-option value="deliveryDate">{{ 'Delivery Date' | translate }}</ion-select-option>
         <ion-select-option value="mostRecentEvent">{{ 'Most Recent Event' | translate }}</ion-select-option>
         <ion-select-option value="cargoReadyDate">{{ 'Cargo Ready Date' | translate }}</ion-select-option>
         <ion-select-option value="creationTime">{{ 'Time of Creation' | translate }}</ion-select-option>

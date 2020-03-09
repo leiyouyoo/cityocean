@@ -11,11 +11,14 @@ import { TranslateService } from '@ngx-translate/core';
 export class ShipmentFilterComponent implements OnInit {
   profileForm = {
     process: ['allInProcess'],
-    mode: ['air'],
-    date: 'deliveryDate',
+    mode: [],
+    date: '',
   };
-  modeCopy = ['air'];
+  dateInterfaceOptions = { header: this.translate.instant('Sort By'), cssClass: 'ion-select-my-class' }
+  modeCopy = [];
   modeShowName = this.translate.instant('Air');
+  modeInterfaceOptions = { header: this.translate.instant('shipmentMode'), cssClass: 'ion-select-my-class' }
+  processInterfaceOptions = { header: this.translate.instant('shipmentStatus'), cssClass: 'ion-select-my-class' }
   processCopy = ['allInProcess'];
   processShowName = this.translate.instant('All shipments in progess');
   processOptionList = [

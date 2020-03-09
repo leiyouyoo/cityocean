@@ -50,9 +50,13 @@
         <ion-card-content>
           <span *ngIf="item?.type === 'TIMCustomElem'" [innerHTML]="item.msgBody[0].msgContent.Ext"></span>
           <span *ngIf="item?.type === 'TIMTextElem'" [innerHTML]="item.payload.text"></span>
-          <span *ngIf="item?.type === 'TIMImageElem'">
-            <img [src]="item.msgBody[0].msgContent.ImageInfoArray[0].URL" class="image-element" />
-          </span>
+          <div *ngIf="item?.type === 'TIMImageElem'">
+            <ion-img-viewer
+              scheme="dark"
+              [src]="getImgUrl(item.msgBody[0].msgContent.ImageInfoArray[0].URL)"
+            >
+            </ion-img-viewer>
+          </div>
         </ion-card-content>
       </ion-card>
     </ng-container>

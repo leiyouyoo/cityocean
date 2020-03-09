@@ -3,6 +3,7 @@ import { BookingServiceService } from './booking-service.service';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { numberToChinese } from '@delon/abc';
 
 @Component({
   selector: 'app-booking',
@@ -59,6 +60,8 @@ export class BookingPage implements OnInit {
     this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
     if (this.BookingStatus != null) {
       this.currentParams.BookingStatus = this.BookingStatus;
+    }else{
+      delete this.currentParams.BookingStatus
     }
     this.bookingServiceService.GetAllBookingList(this.currentParams).subscribe((res) => {
       console.log(res);
@@ -87,12 +90,14 @@ export class BookingPage implements OnInit {
       buttons: [
         {
           text: this.translate.instant('All Status'),
+          role: this.BookingStatus == null?'selected':'',
           handler: () => {
             this.filterConfirm(null);
           },
         },
         {
           text: this.translate.instant('Submitted'),
+          role: this.BookingStatus == 2?'selected':'',
           handler: () => {
             console.log('2');
             this.filterConfirm(2);
@@ -100,6 +105,7 @@ export class BookingPage implements OnInit {
         },
         {
           text: this.translate.instant('Booked'),
+          role: this.BookingStatus == 3?'selected':'',
           handler: () => {
             console.log('3');
             this.filterConfirm(3);
@@ -107,6 +113,7 @@ export class BookingPage implements OnInit {
         },
         {
           text: this.translate.instant('Waiting for pricing'),
+          role: this.BookingStatus == 4?'selected':'',
           handler: () => {
             console.log('4');
             this.filterConfirm(4);
@@ -114,6 +121,7 @@ export class BookingPage implements OnInit {
         },
         {
           text: this.translate.instant('Waiting for buyer'),
+          role: this.BookingStatus == 5?'selected':'',
           handler: () => {
             console.log('5');
             this.filterConfirm(5);
@@ -121,20 +129,23 @@ export class BookingPage implements OnInit {
         },
         {
           text: this.translate.instant('Waiting for seller'),
+          role: this.BookingStatus == 6?'selected':'',
           handler: () => {
             this.filterConfirm(6);
           },
         },
         {
           text: this.translate.instant('Draft'),
+          role: this.BookingStatus == 0?'selected':'',
           handler: () => {
             this.filterConfirm(0);
           },
         },
         {
           text: this.translate.instant('Cancelled'),
+          role: this.BookingStatus == 7?'selected':'',
           handler: () => {
-            this.filterConfirm(1);
+            this.filterConfirm(7);
           },
         },
         { text: this.translate.instant('Cancel'), role: 'cancel' },

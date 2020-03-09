@@ -54,7 +54,7 @@ export class ChatPage implements OnInit {
   };
   bussinessType; //业务类型
   bussinessId; //业务ID
-  bussinessDetail = { bookingNo: '', status: -1 ,shipmentNo:'',soNo:'',}; //业务详情
+  bussinessDetail = { bookingNo: '', status: -1, shipmentNo: '', soNo: '' }; //业务详情
   conversationType: any;
   popoverList; // 更多列表数据
   isDisbanded: boolean;
@@ -294,16 +294,22 @@ export class ChatPage implements OnInit {
     this.scrollToBottom(1);
     this.sendingMessage = '';
   }
-  async sendImg(imageData) {
+  async sendImg(imageData, picture) {
     try {
       let fileMessage = createImageMessage(this.groupID, this.isC2C ? 'signle' : 'group', imageData);
       await sendmessage(fileMessage).then((res) => {
         this.chatList.push({
+          type: 'TIMImageElem',
           flow: 'out',
-          payload: {
-            file: res,
-          },
+          msgBody: [
+            {
+              msgContent: {
+                ImageInfoArray: [{ URL: picture }],
+              },
+            },
+          ],
         });
+        this.scrollToBottom(1);
       });
     } catch (error) {
       this.helper.toast(error);
@@ -399,7 +405,8 @@ export class ChatPage implements OnInit {
     this.camera.getPicture(options).then(
       (imageData) => {
         // imageData is either a base64 encoded string or a file URI
-        this.sendImg(this.dataURLtoFile(imageData, 'picture.png'));
+
+        this.sendImg(this.dataURLtoFile(imageData, 'picture.png'), 'data:image/png;base64,' + imageData);
       },
       (err) => {
         // Handle error
@@ -442,7 +449,7 @@ export class ChatPage implements OnInit {
     this.imagePicker.getPictures(options).then(
       (results) => {
         for (var i = 0; i < results.length; i++) {
-          this.sendImg(this.dataURLtoFile(results[i], `picture${i}.png`));
+          this.sendImg(this.dataURLtoFile(results[i], `picture${i}.png`), 'data:image/png;base64,' + results[i]);
         }
       },
       (err) => {},
@@ -453,12 +460,19 @@ export class ChatPage implements OnInit {
   scrollToBottom(int) {
     setTimeout(() => {
       this.ioncontent.scrollToBottom(1);
-    }, int);
+    }, 10);
   }
 
   pressCard(event) {
     console.log(event);
     this.pressStatus = true;
     this.showPopover(event, PressPopoverComponent, 'press-css-class');
+  }
+  getImgUrl(url) {
+    if (url.indexOf('data:image/png;base64') != -1) {
+      return url;
+    } else {
+      return 'http://112.95.173.230:8002' + url;
+    }
   }
 }

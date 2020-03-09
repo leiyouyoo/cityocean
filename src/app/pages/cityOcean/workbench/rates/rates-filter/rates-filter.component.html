@@ -116,11 +116,12 @@
       <div class="my-icon"></div>
     </div>
     <div>
+      <span *ngIf="!profileForm.ratesValidDays">{{"Rates valid days" | translate}}</span>
       <ion-select
         name="ratesValidDays"
-        [interfaceOptions]="{ header: '选择天数', cssClass: 'ion-select-my-class' }"
+        [interfaceOptions]="{ header: Ratesvaliddays, cssClass: 'ion-select-my-class' }"
         interface="action-sheet"
-        placeholder="Select One"
+        placeholder=""
         [value]="profileForm.ratesValidDays"
         (ionChange)="dateChange($event)"
       >
