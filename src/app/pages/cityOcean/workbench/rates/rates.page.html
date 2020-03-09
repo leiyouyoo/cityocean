@@ -14,6 +14,11 @@
 
 <ion-content>
   <section>
-    <app-rates-list-panel [rateListItem] = "item" (click)="gotoRatesDetail(item)" *ngFor="let item of ratesList"></app-rates-list-panel>
+    <ng-container *ngIf="ratesList.length">
+      <app-rates-list-panel [rateListItem] = "item" (click)="gotoRatesDetail(item)" *ngFor="let item of ratesList"></app-rates-list-panel>
+    </ng-container>
+    <div class="noResluts" *ngIf="ratesList.length == 0">
+      {{"No Resluts" | translate}}
+    </div>
   </section>
 </ion-content>

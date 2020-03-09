@@ -157,7 +157,9 @@ export class ShipmentDetailPage implements OnInit {
     let str = '';
     if (data.containerTypes) {
       data.containerTypes.forEach((element) => {
-        str += ' ' + element.value + '*' + element.name;
+        if(element.value !=0){
+          str += ' ' + element.value + '*' + element.name;
+        }
       });
     }
     return str;

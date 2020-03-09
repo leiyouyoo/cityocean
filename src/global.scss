@@ -277,8 +277,8 @@ button.days-btn small {
 ion-searchbar {
   --icon-color: #ffffff !important;
   --placeholder-color: #ffffff !important;
-  --color: #fff;
-  --clear-button-color: #fff;
+  --color: #fff!important;
+  --clear-button-color: #fff!important;
   .searchbar-input{
     border-radius: 20px!important;
   }

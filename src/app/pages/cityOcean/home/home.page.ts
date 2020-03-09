@@ -33,7 +33,8 @@ export class HomePage implements OnInit {
   deliveryPort: any = {}; // 目的港
   totalCount: any;
   scrollList = []; // 系统消息列表
-  deleteWecomeFlag = false;
+  deleteWecomeFlag = JSON.parse(localStorage.getItem('deleteWecomeFlag')); //删除welcome标记
+  
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -166,7 +167,7 @@ export class HomePage implements OnInit {
           name: this.translate.instant('Welcome'),
           lastMessage: {
             messageForShow: this.translate.instant('Welcome to cityocean'),
-            lastTime: this.cityOceanService.loginTime || moment(new Date()).format('HH:mm'),
+            lastTime: this.cityOceanService.getEnterAppTime() || moment(new Date()).format('HH:mm'),
           },
           type: 'welcome',
         });
@@ -276,7 +277,9 @@ export class HomePage implements OnInit {
       this.nav.navigateForward(['/cityOcean/home/rates'], {
         queryParams: {
           orignPortId: this.orignPort.id,
+          orignPortName: this.orignPort.name,
           deliveryPortId: this.deliveryPort.id,
+          deliveryPortName: this.deliveryPort.name,
           routeBackType: 'home',
         },
       });
@@ -354,6 +357,7 @@ export class HomePage implements OnInit {
     node.close();
     if (data.type === 'welcome') {
       this.deleteWecomeFlag = true;
+      localStorage.setItem('deleteWecomeFlag', 'true');
       this.conversationsList.splice(i, 1);
       return;
     }

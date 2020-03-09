@@ -101,8 +101,8 @@ export class RatesPage implements OnInit {
       this.ratesList = [];
       this.currentParam.ratesValidDays = res.data.ratesValidDays;
       this.currentParam.orignLocationId = res.data.orignLocationId;
-      this.currentParam.orignPortId = [res.data.orignPortId];
-      this.currentParam.deliveryPortId = [res.data.deliveryPortId];
+      this.currentParam.orignPortId = isArray(res.data.orignPortId)?res.data.orignPortId:[res.data.orignPortId];
+      this.currentParam.deliveryPortId = isArray(res.data.deliveryPortId)?res.data.deliveryPortId:[res.data.deliveryPortId];
       this.currentParam.deliveryLocationId = res.data.deliveryLocationId;
       this.currentParam.carrierId = res.data.carrierId;
       this.getRatesList();

@@ -14,11 +14,17 @@
 
 <ion-content>
   <section>
-    <app-sailing-schedules-list-panel
-      [sailingSchedulesListItem]="item"
-      (click)="gotoSailingDetail(item)"
-      *ngFor="let item of sailingList; let i=index"
-    ></app-sailing-schedules-list-panel>
+    <ng-container *ngIf="sailingList.length">
+      <app-sailing-schedules-list-panel
+        [sailingSchedulesListItem]="item"
+        (click)="gotoSailingDetail(item)"
+        *ngFor="let item of sailingList; let i=index"
+      ></app-sailing-schedules-list-panel>
+    </ng-container>
+
+    <div class="noResluts" *ngIf="sailingList.length == 0">
+      {{"No Resluts" | translate}}
+    </div>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getSailingList(null,$event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
