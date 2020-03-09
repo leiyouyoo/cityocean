@@ -20,8 +20,8 @@ export class CityOceanService {
   customerId: ''; // 当前登录人的id
   hasHistoryChat: any = [];
   c2cList: any; // 单聊列表
-  loginTime = ''; // 登录时间
-  ratesDetail:any; // rates详情页数据
+  firstEnterAppTime = JSON.parse(localStorage.getItem('firstEnterAppTime')); // 首次进入app时间
+  ratesDetail: any; // rates详情页数据
   constructor(
     private httpService: HttpService,
     private startupService: StartupService,
@@ -69,11 +69,14 @@ export class CityOceanService {
       }
     });
   }
-  getNowTime() {
-    if (!this.loginTime) {
-      this.loginTime = moment(new Date()).format('HH:mm');
+  getEnterAppTime() {
+    if (!this.firstEnterAppTime) {
+      this.firstEnterAppTime = Date.now()
+        .toString()
+        .substr(0, 10);
+      localStorage.setItem('firstEnterAppTime', this.firstEnterAppTime);
     }
-    return this.loginTime;
+    return this.firstEnterAppTime;
   }
   // 根据当前登录客户获取客户所属业务员
   GetCoUserByCustomer(obj = {}): Observable<any> {
@@ -129,7 +132,7 @@ export class CityOceanService {
       });
       return;
     }
-    
+
     if (this.hasHistoryChat.length) {
       // 如果之前有会话记录
       this.gotoChat();
@@ -215,7 +218,9 @@ export class CityOceanService {
       return e.replace(/PM/, `${this.translate.instant('PM')}`).replace(/AM/, `${this.translate.instant('AM')}`);
     };
     const Date = moment(time);
-    let currentWeek = moment().weekday(moment().weekday()).format();
+    let currentWeek = moment()
+      .weekday(moment().weekday())
+      .format();
     if (Date.isValid()) {
       const toDay = moment().startOf('day');
       if (Date.isSameOrAfter(toDay)) {

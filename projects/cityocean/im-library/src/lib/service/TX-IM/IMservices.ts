@@ -4,7 +4,7 @@ import COS from "cos-js-sdk-v5";
 import { Attribute } from "@angular/core";
 
 let options = {
-  SDKAppID: 1400225559 // 接入时需要将0替换为您的即时通信应用的 SDKAppID
+  SDKAppID: 1400329799 // 接入时需要将0替换为您的即时通信应用的 SDKAppID
 };
 // 创建 SDK 实例，TIM.create() 方法对于同一个 SDKAppID 只会返回同一份实例
 let tim = TIM.create(options); // SDK 实例通常用 tim 表示
@@ -55,7 +55,7 @@ export function genTestUserSig(userID) {
    * 进入腾讯云实时音视频[控制台](https://console.cloud.tencent.com/rav ) 创建应用，即可看到 SDKAppId，
    * 它是腾讯云用于区分客户的唯一标识。
    */
-  let SDKAPPID = 1400225559;
+  let SDKAPPID = 1400329799;
 
   /**
    * 签名过期时间，建议不要设置的过短
@@ -76,7 +76,7 @@ export function genTestUserSig(userID) {
    * 文档：https://cloud.tencent.com/document/product/647/17275#Server
    */
   let SECRETKEY =
-    "63298f3f2d995ec210e31850b63197aaafc6374d39654daa058dd35e09684c80";
+    "507234a6ba4adabe83385ef2713fd4027e7dcf1ddd7f9d2f8202d67bd7e142f8";
   let generator = new (window as any).LibGenerateTestUserSig(
     SDKAPPID,
     SECRETKEY,

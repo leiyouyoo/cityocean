@@ -8,6 +8,8 @@ import { CityOceanService } from '../../city-ocean.service';
 })
 export class MassageComponent implements OnInit {
   @Input() detail :any ={typle:''};
+  deleteWecomeFlag = JSON.parse(localStorage.getItem('deleteWecomeFlag')); //删除welcome标记
+
   constructor(private cityOceanService:CityOceanService) { }
 
   ngOnInit() {}
