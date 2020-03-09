@@ -86,7 +86,7 @@ export class HomePage implements OnInit {
   }
   ionViewWillEnter() {
     if (this.cityOceanService.getIsLoginWithTourist()) {
-      this.searchType = 'seachSailingSchedules';
+      this.searchType = 'searchSailingSchedules';
       this.toolsList = [
         // 游客模式业务类型
         {
@@ -280,7 +280,7 @@ export class HomePage implements OnInit {
           routeBackType: 'home',
         },
       });
-    } else if (this.searchType === 'seachSailingSchedules') {
+    } else if (this.searchType === 'searchSailingSchedules') {
       this.nav.navigateForward(['/cityOcean/home/sailingSchedules'], {
         queryParams: {
           orignPortId: this.orignPort.id,
@@ -298,7 +298,7 @@ export class HomePage implements OnInit {
         break;
       case 'sailingSchedules':
         this.transportationCost = true;
-        this.searchType = 'seachSailingSchedules';
+        this.searchType = 'searchSailingSchedules';
         break;
       case 'billing':
         this.router.navigate(['/cityOcean/home/' + item.type], {

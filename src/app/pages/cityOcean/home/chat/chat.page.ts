@@ -17,6 +17,7 @@ import {
   sendmessage,
   createImageMessage,
   getGroupMemberlist,
+  getGroupProfile,
 } from '@cityocean/im-library';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
@@ -125,7 +126,7 @@ export class ChatPage implements OnInit {
     };
     if (!this.isC2C) {
       try {
-        getGroupMemberlist(this.groupID)
+        getGroupProfile(this.groupID)
           .then((res) => {
             console.log(res);
           })
@@ -327,8 +328,8 @@ export class ChatPage implements OnInit {
         return;
       }
       let _bussinessType = this.bussinessType;
-      if(_bussinessType === 'shipment'){
-        _bussinessType = 'shipments'
+      if (_bussinessType === 'shipment') {
+        _bussinessType = 'shipments';
       }
       this.nav.navigateForward([`/cityOcean/workbench/${_bussinessType}/${this.bussinessType}Detail`], {
         queryParams: {

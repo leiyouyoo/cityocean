@@ -19,4 +19,7 @@ export class MassageComponent implements OnInit {
   getImtime(time){
     return this.cityOceanService.getImChatTime(time * 1000, 'HH:mm')
   }
+  justText(str){
+    return str.replace(/<[^>]+>/g,"")
+  }
 }

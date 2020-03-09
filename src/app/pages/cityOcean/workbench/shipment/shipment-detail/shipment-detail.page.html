@@ -84,14 +84,11 @@
       <!-- 起运地 -->
       <ng-container *ngFor="let shipperInfo of routeDetail?.routeDetails?.shipperInfos; let i=index">
         <ng-container *ngIf="originPortShow || i ===0">
-          <p
-            [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'"
-            [id]=" isLoginWithTourist?'isLoginWithTourist':''"
-          >
-            <span>{{shipperInfo.shipperNetWorkInfo.name}}</span>
+          <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
+            <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{shipperInfo?.shipperNetWorkInfo?.name}}</span>
           </p>
           <p [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'">
-            <span>{{shipperInfo.shipperNetWorkInfo.streetAddress}}</span>
+            <span>{{shipperInfo.shipperNetWorkInfo?.streetAddress}}</span>
           </p>
           <p [class]="routeDetail?.status>=3?'left-line':'left-dashed-line'">
             <span>{{"Container No" | translate}}</span>
@@ -114,7 +111,7 @@
 
       <!-- 起运港 -->
       <p [class]="routeDetail?.status>=3?'arrival-location':'unarrival-location'">
-        <span>{{routeDetail?.routeDetails?.originPort.name}}</span>
+        <span>{{routeDetail?.routeDetails?.originPort?.name}}</span>
       </p>
       <p [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
         <span>#/港口编码</span>
@@ -124,16 +121,15 @@
         <span>{{"Arrived" | translate}}</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualDepatureOrginPortDate)}}</span>
       </p>
-      <p
-        [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'"
-        [id]=" isLoginWithTourist?'isLoginWithTourist':''"
-      >
+      <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
         <span>Carrier/承运人</span>
-        <span>{{routeDetail?.routeDetails?.carrierCustomerName}}</span>
+        <span [id]=" isLoginWithTourist?'isLoginWithTourist':''"
+          >{{routeDetail?.routeDetails?.carrierCustomerName}}</span
+        >
       </p>
       <!-- 目的港 -->
       <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
-        <span>{{routeDetail?.routeDetails?.destinationPort.name}}</span>
+        <span>{{routeDetail?.routeDetails?.destinationPort?.name}}</span>
       </p>
       <p [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
         <span>#/港口编码</span>
@@ -147,21 +143,15 @@
         <span>{{"Estimated Pick-Up" | translate}}</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualPickUpTruckDestinationDate)}}</span>
       </p>
-      <p
-        [id]=" isLoginWithTourist?'isLoginWithTourist':''"
-        [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'"
-      >
+      <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
         <span>Carrier/承运人</span>
-        <span>{{routeDetail?.routeDetails?.truckCustomerName}}</span>
+        <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{routeDetail?.routeDetails?.truckCustomerName}}</span>
       </p>
       <!-- 目的地 -->
       <ng-container *ngFor="let consigneeInfo of routeDetail?.routeDetails?.consigneeInfos; let i=index">
         <ng-container *ngIf="consigneeShow || i ===0">
-          <p
-            [id]=" isLoginWithTourist?'isLoginWithTourist':''"
-            [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'"
-          >
-            <span>{{consigneeInfo.consigneeNetWorkInfo.name}}</span>
+          <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+            <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{consigneeInfo.consigneeNetWorkInfo?.name}}</span>
           </p>
           <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
             <span>{{consigneeInfo.consigneeNetWorkInfo?.streetAddress}}</span>

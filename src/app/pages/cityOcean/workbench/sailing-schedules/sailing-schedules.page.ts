@@ -22,6 +22,7 @@ export class SailingSchedulesPage implements OnInit {
     skipCount:0,
   }
   routeBackType: any;
+  currentParams: {};
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -53,7 +54,7 @@ export class SailingSchedulesPage implements OnInit {
       MaxResultCount: this.pageInfo.maxResultCount,
       SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount
     };
-    obj && Object.assign(params, obj);
+    this.currentParams && Object.assign(params, this.currentParams);
     if(params['ETA']){
       params['ETA'] = moment(params['ETA']).utc();
     }
@@ -102,6 +103,7 @@ export class SailingSchedulesPage implements OnInit {
         skipCount:0,
       }
       this.sailingList = [];
+      this.currentParams = params;
       this.getSailingList(params);
     });
     return await modal.present();

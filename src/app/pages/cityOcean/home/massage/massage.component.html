@@ -4,7 +4,7 @@
   <div class="text-group">
     <div *ngIf="detail" class="number-wrap">
       <div>
-        <span [ngClass]="{'welcome-title': detail?.type}" class="number-text font-10">{{ detail.type === 'C2C'? detail.userProfile.nick?detail.userProfile.nick:detail.name:detail?.name}}</span>
+        <span [ngClass]="{'welcome-title': detail?.type=='welcome'}" class="number-text font-10">{{ detail.type === 'C2C'? detail.userProfile.nick?detail.userProfile.nick:detail.name:detail?.name}}</span>
         <span
           *ngIf="showLabel()"
           [ngClass]="{ 'lables': true,'font-10':true}"
@@ -14,7 +14,7 @@
       
       <span class="time font-12">{{ getImtime(detail.lastMessage.lastTime) }}</span>
     </div>
-    <p  *ngIf="detail?.type != 'welcome'" class="state font-14"  [innerHtml] ="detail.lastMessage.messageForShow"></p>
-    <span [ngClass]="{'welcome-span': detail?.type}" class="description font-10" [innerHtml] ="detail.lastMessage.messageForShow"></span>
+    <p  *ngIf="detail?.type != 'welcome'" class="state font-14"  [innerHtml] ="justText(detail.lastMessage.messageForShow)"></p>
+    <span [ngClass]="{'welcome-span': detail?.type =='welcome'}" class="description font-10" [innerHtml] ="detail.lastMessage.messageForShow"></span>
   </div>
 </div>

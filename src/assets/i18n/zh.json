@@ -46,6 +46,7 @@
   "quotes": "报价",
   "rates": "运价",
   "sailingSchedules": "船期",
+  "sailing Schedules":"船期",
   "shipments": "运单",
   "booking": "订单",
   "Calendar": "日程",
@@ -96,7 +97,7 @@
   "Customer Phone": "联系客服",
   "Welcome": "您好",
   "Welcome to cityocean": "欢迎加入CityOcean大家庭，祝您心情愉快",
-  "seachSailingSchedules": "查船期",
+  "searchSailingSchedules": "查船期",
   "registerCustomer": "注册账户请联系客服",
   "Already the latest version": "已经是最新版本",
   "Try Again Exit": "再次点击退出APP",
@@ -127,6 +128,7 @@
   "Estimated Pick-Up": "预估送货时间",
   "Cargo Ready Date": "货好时间",
   "Select all": "全选",
+  "shipments All":"全选",
   "Air": "空运",
   "Ocean LCL": "海运-散货",
   "Ocean FCL": "海运-整柜",
@@ -159,5 +161,6 @@
   "Route Details": "路线信息",
   "Origin": "起运地",
   "POL": "起运港",
-  "POD": "目的港"
+  "POD": "目的港",
+  "Get a quote":"询价"
 }

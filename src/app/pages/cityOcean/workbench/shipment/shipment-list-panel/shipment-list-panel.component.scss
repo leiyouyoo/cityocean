@@ -118,6 +118,7 @@
             border-radius: 100%;
             width: px2rem(10px);
             height: px2rem(10px);
+            flex: none;
         }
     }
 
@@ -169,9 +170,14 @@
             background: #DE6717;
         }
     }
-    .content-group:last-child{
+
+    .content-group:last-child {
         .flag {
-            background: #DE6717!important;
+            background: #DE6717 !important;
         }
+    }
+
+    #isLoginWithTourist-text {
+        filter: blur(4px);
     }
 }

@@ -43,7 +43,8 @@ export class GroupMessagePage implements OnInit {
   ngOnInit() {
     try {
       if (!this.isC2C) {
-        this.homeService.SynchronousUserInfo(this.groupID).subscribe(res=>{
+        //此接口性能有问题，暂不调用
+        // this.homeService.SynchronousUserInfo(this.groupID).subscribe(res=>{
           getGroupMemberlist(this.groupID).then((res) => {
             this.membersList = res.data.memberList;
             let ids = res.data.memberList.map((e) => {
@@ -61,7 +62,7 @@ export class GroupMessagePage implements OnInit {
               }
             });
           });
-        })
+        // })
         
       } else {
         getUserProfile([this.groupID]).then((res) => {

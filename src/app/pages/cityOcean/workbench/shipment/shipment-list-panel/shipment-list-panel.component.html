@@ -17,7 +17,7 @@
       <div class="flag"></div>
       <span>{{"Origin Location" | translate}}</span>
     </div>
-    <span>{{ shipmentListItem?.routeDetails.shipperInfos[0].shipperNetWorkInfo?.name }}</span>
+    <span [id]=" isLoginWithTourist?'isLoginWithTourist-text':''">{{ shipmentListItem?.routeDetails.shipperInfos[0].shipperNetWorkInfo?.streetAddress }}</span>
   </div>
   <div class="start content-group line-class">
     <div>
@@ -50,6 +50,6 @@
       <div class="flag"></div>
       <span>{{"Destination Location" | translate}}</span>
     </div>
-    <span>{{ shipmentListItem?.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.name }}</span>
+    <span [id]=" isLoginWithTourist?'isLoginWithTourist-text':''">{{ shipmentListItem?.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.streetAddress }}</span>
   </div>
 </div>

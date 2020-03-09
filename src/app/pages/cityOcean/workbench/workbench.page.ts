@@ -90,9 +90,9 @@ export class WorkbenchPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.shipmentStatistics();
   }
   ionViewWillEnter() {
+    this.shipmentStatistics();
     this.homeService.getQuickEntrance().subscribe((res) => {
       this.quickEnterList = res.items;
     });
@@ -238,7 +238,7 @@ export class WorkbenchPage implements OnInit {
       this.searchType = 'seachRates';
     } else if (item.type === 'sailingSchedules') {
       this.searchTransportationCost = true;
-      this.searchType = 'seachSailingSchedules';
+      this.searchType = 'searchSailingSchedules';
     } else {
       this.goRouter(item);
     }
@@ -316,7 +316,7 @@ export class WorkbenchPage implements OnInit {
           routeBackType: "workbench",
         },
       });
-    } else if (this.searchType === 'seachSailingSchedules') {
+    } else if (this.searchType === 'searchSailingSchedules') {
       this.nav.navigateForward(['/cityOcean/workbench/sailingSchedules'], {
         queryParams: {
           orignPortId: this.orignPort.id,
