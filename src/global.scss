@@ -282,12 +282,14 @@ button.days-btn small {
   margin: 0 auto;
   width: 5em !important;
   justify-content: left !important;
+}
+
 ion-searchbar {
   --icon-color: #ffffff !important;
   --placeholder-color: #ffffff !important;
-  --color: #fff!important;
-  --clear-button-color: #fff!important;
-  .searchbar-input{
-    border-radius: 20px!important;
+  --color: #fff;
+  --clear-button-color: #fff;
+  .searchbar-input {
+    border-radius: 20px !important;
   }
 }
