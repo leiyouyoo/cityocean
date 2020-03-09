@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { CityOceanService } from '../../city-ocean.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-me-setting',
@@ -14,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingPage {
   ThemeType: any;
+  version: any;
   constructor(
     private nav: NavController,
     public actionSheetController: ActionSheetController,
@@ -22,7 +24,12 @@ export class SettingPage {
     public translate: TranslateService,
     private statusBar: StatusBar,
     private cityOceanService: CityOceanService,
-  ) {}
+    public appVersion: AppVersion,
+  ) {
+    this.appVersion.getVersionNumber().then((version: string) => {
+      this.version = version;
+    });
+  }
 
   /**
    * @title 链接跳转

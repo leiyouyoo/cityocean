@@ -1,12 +1,12 @@
 <ion-header mode="ios">
   <ion-toolbar>
-    <ion-buttons slot="start" class="title-left">
+    <ion-buttons slot="start">
       <ion-icon name="chevron-back-outline" (click)="goback()" style="font-size: 1.5em;"></ion-icon>
     </ion-buttons>
 
     <ion-title>{{groupName}}</ion-title>
 
-    <ion-buttons slot="end" class="title-right">
+    <ion-buttons slot="end">
       <ion-icon
         *ngIf="!isC2C"
         name="people"

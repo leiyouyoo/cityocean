@@ -1,7 +1,7 @@
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start" class="title-left">
-    <ion-icon name="chevron-back-outline" (click)="onBack()" style="font-size: 1.5em;"></ion-icon>
+      <ion-icon name="chevron-back-outline" (click)="onBack()" style="font-size: 1.5em;"></ion-icon>
     </ion-buttons>
     <ion-title>
       <span *ngIf="!id;else detial">{{'Schedule Add' | translate}}</span>
@@ -11,7 +11,7 @@
       {{'Save' | translate}}
     </ion-buttons>
 
-    <ion-buttons slot="end" class="title-right" (click)="setEdit()" *ngIf="id && !edit">
+    <ion-buttons slot="end" class="title-right" (click)="setEdit($event)" *ngIf="id && !edit">
       <ion-icon name="reorder-four-outline" style="font-size: 1.5em;"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
@@ -23,11 +23,11 @@
       <div class="colorblue"></div>
       <ion-input
         placeholder="{{'Enter Schedule Title' | translate}}"
-        formControlName="place"
+        formControlName="remindContent"
         [disabled]="!edit"
       ></ion-input>
     </div>
-    <div *ngIf="data.get('place').dirty && data.get('place').errors" class="form-error">
+    <div *ngIf="data.get('remindContent').dirty && data.get('remindContent').errors" class="form-error">
       {{'Please Enter Title' | translate}}
     </div>
 
@@ -92,11 +92,7 @@
 
     <div class="title">
       <ion-icon name="reader-outline" style="margin-right: 1em;"></ion-icon>
-      <ion-input
-        placeholder="{{'Add Remark' | translate}}"
-        [disabled]="!edit"
-        formControlName="remindContent"
-      ></ion-input>
+      <ion-input placeholder="{{'Add Remark' | translate}}" [disabled]="!edit" formControlName="place"></ion-input>
     </div>
   </form>
 </ion-content>

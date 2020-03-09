@@ -10,6 +10,7 @@ import { EventService } from '@shared/helpers/event.service';
 import { ScheduleEditComponent } from './schedule-edit-component/schedule-edit.component';
 import { ContactsComponent } from 'src/app/components/contacts/contacts.component';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ScheduleAddEditComponent } from './edit/schedule-add-edit.component';
 
 @Component({
   selector: 'app-schedule-add',
@@ -39,13 +40,13 @@ export class ScheduleAddPage implements OnInit {
 
   ngOnInit() {
     this.data = this.formBuilder.group({
-      remindContent: [null],
+      remindContent: [null, [Validators.required]],
       remindPeople: [null],
       advanceTime: [15],
       scheduleType: [0],
       remindStartTime: [null, [Validators.required]],
       remindEndTime: [null, [Validators.required]],
-      place: [null, [Validators.required]],
+      place: [null],
     });
 
     this.activeRoute.queryParams.subscribe((params: Params) => {
@@ -88,7 +89,7 @@ export class ScheduleAddPage implements OnInit {
         {
           text: '15' + this.translate.instant('minutes ago'),
           role: 'destructive',
-
+          cssClass: 'blue',
           handler: () => {
             this.data.patchValue({
               advanceTime: 15,
@@ -98,7 +99,7 @@ export class ScheduleAddPage implements OnInit {
         {
           text: '30' + this.translate.instant('minutes ago'),
           role: 'destructive',
-
+          cssClass: 'blue',
           handler: () => {
             this.data.patchValue({
               advanceTime: 30,
@@ -108,6 +109,7 @@ export class ScheduleAddPage implements OnInit {
         {
           text: '60' + this.translate.instant('minutes ago'),
           role: 'destructive',
+          cssClass: 'blue',
           handler: () => {
             this.data.patchValue({
               advanceTime: 60,
@@ -160,7 +162,8 @@ export class ScheduleAddPage implements OnInit {
       .toString();
     items.remindStartTime = new Date(items.remindStartTime).toISOString();
     items.remindEndTime = new Date(items.remindEndTime).toISOString();
-    this.scheduleService.updateAsync(this.data).subscribe((res: any) => {
+    items.id = this.id;
+    this.scheduleService.updateAsync(items).subscribe((res: any) => {
       this.helper.toast(this.translate.instant('Save Success') + '!');
       this.refresh();
     });
@@ -172,43 +175,47 @@ export class ScheduleAddPage implements OnInit {
   }
 
   // tslint:disable-next-line: adjacent-overload-signatures
-  async setEdit() {
-    const actionSheet = await this.actionSheetController.create({
+  async setEdit(event) {
+    const popover = await this.popoverController.create({
+      component: ScheduleAddEditComponent,
+      showBackdrop: false,
+      backdropDismiss: true,
+      event: event,
+      cssClass: 'chat-popover',
+    });
+    popover.onDidDismiss().then((event) => {
+      if (event.data === 'edit') {
+        this.onEdit();
+      }
+
+      if (event.data === 'delete') {
+        this.onDelete();
+      }
+    });
+    await popover.present();
+  }
+
+  async onDelete() {
+    const alert = await this.alertController.create({
+      message: this.translate.instant('Are you sure you want to delete') + '?',
       buttons: [
         {
-          text: this.translate.instant('Edit'),
-          icon: 'create',
-          handler: () => {
-            this.onEdit();
-          },
-        },
-        {
-          text: this.translate.instant('Delete'),
-          role: 'destructive',
-          icon: 'trash',
-          cssClass: 'danger',
-          handler: () => {
-            this.onDelete();
-          },
-        },
-        {
           text: this.translate.instant('Cancel'),
-          icon: 'close',
           role: 'cancel',
+          handler: (blah) => {},
+        },
+        {
+          text: this.translate.instant('Ok'),
           handler: () => {
-            console.log('Cancel clicked');
+            this.scheduleService.delete(this.id).subscribe((res) => {
+              this.helper.toast(this.translate.instant('Delete Success') + '!');
+              this.refresh();
+            });
           },
         },
       ],
     });
-    await actionSheet.present();
-  }
-
-  onDelete() {
-    this.scheduleService.delete(this.id).subscribe((res) => {
-      this.helper.toast(this.translate.instant('Delete Success') + '!');
-      this.refresh();
-    });
+    await alert.present();
   }
 
   onSetEndTime() {

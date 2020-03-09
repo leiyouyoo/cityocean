@@ -10,8 +10,9 @@ import { ScheduleAddPage } from './schedule-add/schedule-add.page';
 import { SchedulePageRoutingModule } from './schedule-routing.module';
 import { CalendarModule } from 'ion2-calendar';
 import { ScheduleEditComponent } from './schedule-add/schedule-edit-component/schedule-edit.component';
+import { ScheduleAddEditComponent } from './schedule-add/edit/schedule-add-edit.component';
 
-const COMPONENTS = [ScheduleAddPage, ScheduleDetialPage, ScheduleEditComponent];
+const COMPONENTS = [ScheduleAddPage, ScheduleDetialPage, ScheduleEditComponent, ScheduleAddEditComponent];
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ const COMPONENTS = [ScheduleAddPage, ScheduleDetialPage, ScheduleEditComponent];
     SchedulePageRoutingModule,
     RouterModule.forChild([{ path: '', component: SchedulePage }]),
   ],
-  entryComponents: [ScheduleEditComponent],
+  entryComponents: [ScheduleEditComponent, ScheduleAddEditComponent],
   declarations: [SchedulePage, ...COMPONENTS],
   exports: [...COMPONENTS],
 })
