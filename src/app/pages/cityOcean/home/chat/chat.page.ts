@@ -326,7 +326,11 @@ export class ChatPage implements OnInit {
       if (this.bussinessType !== 'booking' && this.bussinessType !== 'shipment') {
         return;
       }
-      this.nav.navigateForward([`/cityOcean/workbench/${this.bussinessType}/${this.bussinessType}Detail`], {
+      let _bussinessType = this.bussinessType;
+      if(_bussinessType === 'shipment'){
+        _bussinessType = 'shipments'
+      }
+      this.nav.navigateForward([`/cityOcean/workbench/${_bussinessType}/${this.bussinessType}Detail`], {
         queryParams: {
           id: this.bussinessId,
         },

@@ -28,7 +28,7 @@ export class HomePage implements OnInit {
   @ViewChild(IonContent, { static: true }) ionContent: IonContent;
   searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
-  conversationsList :any= []
+  conversationsList: any = [];
   orignPort: any = {}; // 启运港
   deliveryPort: any = {}; // 目的港
   totalCount: any;
@@ -67,19 +67,20 @@ export class HomePage implements OnInit {
       searchetail.clientHeight &&
       searchetail.clientHeight + toolsGroupElement.clientHeight <= event.detail.scrollTop
     ) {
-      toolsGroupElement.style.display = 'none';
-      searchetail.style.display = 'none';
-      this.renderer2.addClass(contentGroup, 'overFlow-hide-header');
+      // toolsGroupElement.style.display = 'none';
+      // searchetail.style.display = 'none';
+      // this.renderer2.addClass(contentGroup, 'overFlow-hide-header');
       inputForSearch.style.display = 'none';
       searchIicon.style.display = 'inline-block';
-      this.ionContent.scrollToPoint(null, 1);
+      // this.ionContent.scrollToPoint(null, 1);
     }
-    if (event.detail.scrollTop === 0 && searchetail.style.display == 'none') {
-      toolsGroupElement.style.display = 'flex';
-      inputForSearch.style.display = 'flex';
+    // if (event.detail.scrollTop === 0 && searchetail.style.display == 'none') {
+    if (event.detail.scrollTop === 0) {
+      // toolsGroupElement.style.display = 'flex';
       searchetail.style.display = 'block';
+      inputForSearch.style.display = 'flex';
       searchIicon.style.display = 'none';
-      this.ionContent.scrollToPoint(null, searchetail.clientHeight + toolsGroupElement.clientHeight - 1);
+      // this.ionContent.scrollToPoint(null, searchetail.clientHeight + toolsGroupElement.clientHeight - 1);
       this.renderer2.removeClass(contentGroup, 'overFlow-hide-header');
     }
   }
@@ -107,12 +108,26 @@ export class HomePage implements OnInit {
         const hasRatesOrSailing = this.toolsList.some((e) => {
           return e.type === 'rates' || e.type === 'sailingSchedules';
         });
+        let _order = 1;
+        this.toolsList.forEach((e) => {
+          _order++;
+          if (e.type === 'rates') {
+            e.order = 1;
+          } else if (e.type === 'sailingSchedules') {
+            e.order = 2;
+          } else if (e.type === 'shipments') {
+            e.order = 3;
+          } else {
+            e.order = _order;
+          }
+        });
         if (!hasRatesOrSailing) {
           this.transportationCost = false;
         }
         this.toolsList.push({
           name: 'More',
           type: 'More',
+          order:100
         });
       });
     }
@@ -145,21 +160,18 @@ export class HomePage implements OnInit {
           ele.type = ele.groupProfile.groupID.replace(/\d/g, '').toLowerCase();
           ele.name = ele.groupProfile.name;
         }
-        const time = ele.lastMessage.lastTime;
-         // 格式化显示时间
-         ele.lastMessage.lastTime = this.cityOceanService.getImChatTime(time*1000,'HH:mm');
       });
-      if(!this.deleteWecomeFlag){
+      if (!this.deleteWecomeFlag) {
         list.unshift({
           name: this.translate.instant('Welcome'),
-          lastMessage:{
-            messageForShow:this.translate.instant('Welcome to cityocean'),
-            lastTime:this.cityOceanService.loginTime || moment(new Date()).format('HH:mm')
+          lastMessage: {
+            messageForShow: this.translate.instant('Welcome to cityocean'),
+            lastTime: this.cityOceanService.loginTime || moment(new Date()).format('HH:mm'),
           },
-          type:'welcome'
-        })
+          type: 'welcome',
+        });
       }
-      
+
       this.conversationsList = [...list];
       let c2cList = this.conversationsList.filter((e) => {
         return e.type === 'C2C';
@@ -221,10 +233,10 @@ export class HomePage implements OnInit {
   }
 
   gotoChat(item) {
-    if(item.type === 'welcome'){
-      return
+    if (item.type === 'welcome') {
+      return;
     }
-    if (item.type){
+    if (item.type) {
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: item.conversationID,
@@ -340,10 +352,11 @@ export class HomePage implements OnInit {
   deleteItem(i: any, data, node) {
     this.showDeleteButton = false;
     node.close();
-    if(data.type === 'welcome'){ 
-      this.deleteWecomeFlag= true;
+    if (data.type === 'welcome') {
+      this.deleteWecomeFlag = true;
       this.conversationsList.splice(i, 1);
-      return}
+      return;
+    }
     // getMessageList(data.conversationID).then((imRes) => {
     //   console.log(imRes);
     // });

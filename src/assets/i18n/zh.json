@@ -61,6 +61,8 @@
   "Email Address": "邮箱地址",
   "Check your mail address again": "请再次检查您的邮箱地址",
   "Password": "密码",
+  "Please Enter Password":"请输入密码",
+  "Please Enter Email Address":"请输入邮箱地址",
   "Enter Schedule Title": "输入日程标题",
   "Start Time": "开始时间",
   "End Time": "结束时间",

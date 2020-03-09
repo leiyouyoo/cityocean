@@ -43,25 +43,26 @@ export class GroupMessagePage implements OnInit {
   ngOnInit() {
     try {
       if (!this.isC2C) {
-        getGroupMemberlist(this.groupID).then((res) => {
-          console.log(res);
-          this.membersList = res.data.memberList;
-          let ids = this.membersList.map((e) => {
-            return e.userID;
-          });
-          this.homeService.GetBatchUserPositions(ids).subscribe((res: any) => {
-            console.log(res);
-            if (res) {
-              res.forEach((element) => {
-                this.membersList.forEach((e) => {
-                  if (element.id == e.userID) {
-                    e.positionName = element.positionName;
-                  }
+        this.homeService.SynchronousUserInfo(this.groupID).subscribe(res=>{
+          getGroupMemberlist(this.groupID).then((res) => {
+            this.membersList = res.data.memberList;
+            let ids = res.data.memberList.map((e) => {
+              return e.userID;
+            });
+            this.homeService.GetBatchUserPositions(ids).subscribe((res: any) => {
+              if (res) {
+                res.forEach((element) => {
+                  this.membersList.forEach((e) => {
+                    if (element.id == e.userID) {
+                      e.positionName = element.positionName;
+                    }
+                  });
                 });
-              });
-            }
+              }
+            });
           });
-        });
+        })
+        
       } else {
         getUserProfile([this.groupID]).then((res) => {
           this.membersList = res.data;

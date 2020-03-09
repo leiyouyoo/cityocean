@@ -25,7 +25,7 @@
       </div>
     </section>
     <div (swipeup)="swipeup()" (swipedown)="swipedown()"  class="tools-group">
-      <div *ngFor="let item of toolsList">
+      <div [style.order] = "item.order" *ngFor="let item of toolsList">
         <i (click)="toolTypeClick(item)" [class]="item.type"></i>
         <span (click)="toolTypeClick(item)" class="font-14">{{item.type | translate}}</span>
       </div>
