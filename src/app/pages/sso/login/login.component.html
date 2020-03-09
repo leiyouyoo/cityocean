@@ -25,7 +25,7 @@
         <i *ngIf="!username.invalid && (username.dirty || username.touched)" class="input-success"></i>
         <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-error font-9">
           <div *ngIf="username.errors.required">
-            {{ 'Email Address' | translate }}
+            {{ 'Please Enter Email Address' | translate }}
           </div>
           <div *ngIf="username.errors.pattern">
             {{ 'Check your mail address again' | translate }}
@@ -59,7 +59,7 @@
         ></i>
         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-error font-9">
           <div *ngIf="password.errors.required">
-            {{ 'Password' | translate }}
+            {{ 'Please Enter Password' | translate }}
           </div>
         </div>
       </div>

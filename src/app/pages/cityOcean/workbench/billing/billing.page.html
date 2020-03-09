@@ -7,6 +7,7 @@
       [placeholder]="'Search' | translate"
       mode="ios"
       [(ngModel)]="searchText"
+      (keyup)="($event.which === 13) ? resetFilter() : 0"
       (ionChange)="resetFilter()"
     ></ion-searchbar>
     <ion-buttons slot="end">

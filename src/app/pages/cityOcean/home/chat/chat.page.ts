@@ -17,6 +17,7 @@ import {
   sendmessage,
   createImageMessage,
   getGroupMemberlist,
+  getGroupProfile,
 } from '@cityocean/im-library';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
@@ -26,6 +27,7 @@ import { Location } from '@angular/common';
 import { Helper } from '@shared/helper';
 import * as moment from 'moment';
 import { cloneDeep } from 'lodash';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -98,6 +100,14 @@ export class ChatPage implements OnInit {
         this.myShipmentService.GetShipmentDetail(this.bussinessId).subscribe((res: any) => {
           this.bussinessDetail = res;
         });
+        forkJoin(
+          this.myShipmentService.GetShipmentDetail(this.bussinessId),
+          this.myShipmentService.GetDetail(this.bussinessId),
+        ).subscribe((res: any) => {
+          console.log(res);
+          this.bussinessDetail = res[0];
+          Object.assign(this.bussinessDetail, res[1]);
+        });
         this.homeService.GetRelatedBusiness({ id: this.bussinessId }).subscribe((res: any) => {
           this.popoverList = res;
         });
@@ -116,7 +126,7 @@ export class ChatPage implements OnInit {
     };
     if (!this.isC2C) {
       try {
-        getGroupMemberlist(this.groupID)
+        getGroupProfile(this.groupID)
           .then((res) => {
             console.log(res);
           })
@@ -250,7 +260,7 @@ export class ChatPage implements OnInit {
   }
   // 格式化显示时间
   getImChatTime(time) {
-   return this.cityOceanService.getImChatTime(time);
+    return this.cityOceanService.getImChatTime(time);
   }
   // 上拉刷新
   doRefresh(event) {
@@ -317,7 +327,11 @@ export class ChatPage implements OnInit {
       if (this.bussinessType !== 'booking' && this.bussinessType !== 'shipment') {
         return;
       }
-      this.nav.navigateForward([`/cityOcean/workbench/${this.bussinessType}/${this.bussinessType}Detail`], {
+      let _bussinessType = this.bussinessType;
+      if (_bussinessType === 'shipment') {
+        _bussinessType = 'shipments';
+      }
+      this.nav.navigateForward([`/cityOcean/workbench/${_bussinessType}/${this.bussinessType}Detail`], {
         queryParams: {
           id: this.bussinessId,
         },

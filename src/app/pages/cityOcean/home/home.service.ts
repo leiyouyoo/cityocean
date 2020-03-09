@@ -47,6 +47,11 @@ export class HomeService {
     let params = obj;
     return this.httpService.postJson('/CSP/QuickEntrance/CreateAsync', params);
   }
+  // 同步SSO资料 undo：暂时使用
+  SynchronousUserInfo(GroupId): Observable<any> {
+    return this.httpService.postJson('/IM/AccountManage/SynchronousUserInfo?GroupId='+GroupId, {});
+  }
+  
  
   //获取可邀请加入群聊的用户列表
   getMayInviteUserList(obj = {}): Observable<any> {

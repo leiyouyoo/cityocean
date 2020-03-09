@@ -15,9 +15,9 @@ export class ShipmentFilterComponent implements OnInit {
     date: 'deliveryDate',
   };
   modeCopy = ['air'];
-  modeShowName = 'air';
+  modeShowName = this.translate.instant('Air');
   processCopy = ['allInProcess'];
-  processShowName = 'All shipments in progess';
+  processShowName = this.translate.instant('All shipments in progess');
   processOptionList = [
     {
       name: this.translate.instant('Select all'),
@@ -114,16 +114,16 @@ export class ShipmentFilterComponent implements OnInit {
     this.modeCopy = cloneDeep(event.detail.value);
     switch (this.modeCopy[0]) {
       case 'all':
-        this.modeShowName = 'this.modeCopy[0]';
+        this.modeShowName = this.translate.instant('shipments All');
         break;
       case 'air':
-        this.modeShowName = 'Air';
+        this.modeShowName = this.translate.instant('Air');
         break;
       case 'LCL':
-        this.modeShowName = 'Ocean LCL';
+        this.modeShowName = this.translate.instant('Ocean LCL');
         break;
       case 'FCL':
-        this.modeShowName = 'Ocean FCL';
+        this.modeShowName = this.translate.instant('Ocean FCL');
         break;
       default:
         break;

@@ -194,14 +194,18 @@ ion-content {
       border-left: px2rem(1px) dashed var(--ion-color-medium);
     }
   }
+
   .left-dashed-line:first-child::before {
     content: unset !important;
   }
 
   #isLoginWithTourist {
+    filter: blur(4px);
+  }
+
+  #isLoginWithTourist-bg {
     background: rgba(64, 156, 255, 0.2);
-    box-shadow: 0px px2rem(4px) px2rem(10px) 0px rgba(0, 0, 0, 0.1);
-    filter: blur(2px);
+
   }
 }
 
