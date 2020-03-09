@@ -7,39 +7,52 @@
       [placeholder]="'Search' | translate"
       mode="ios"
       [(ngModel)]="searchKey"
-      (keyup)="($event.which === 13) ? filterConfirm() : 0"
+      (keyup)="$event.which === 13 ? filterConfirm() : 0"
+      (ionChange)="filterConfirm()"
     ></ion-searchbar>
-    <ion-buttons *ngIf="searchKey" slot="end">
-      <ion-icon name="ellipsis-vertical" (click)="delete()"></ion-icon>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <section *ngIf="!shipmentData?.totalCount && !billingData?.totalCount">
-    <div class="search-history">
-      <span>{{ 'Search history' | translate }}</span>
-      <i (click)="deleteHistory()"></i>
-    </div>
-    <div *ngIf="searchHistoryList.length" class="search-content">
-      <span *ngFor="let item of searchHistoryList" (click)="filterConfirm(item)"
-        >{{ item }}</span
-      >
-    </div>
+  <section *ngIf="!shipmentData?.totalCount && !billingData?.totalCount && !bookingData?.totalCount">
+    <ng-container *ngIf="!searchKey">
+      <div class="search-history">
+        <span>{{ 'Search history' | translate }}</span>
+        <i (click)="deleteHistory()"></i>
+      </div>
+      <div *ngIf="searchHistoryList.length" class="search-content">
+        <span *ngFor="let item of searchHistoryList" (click)="filterConfirm(item)">{{ item }}</span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!!searchKey">
+      <div class="search-history">
+        <span>{{ 'No Resluts' | translate }}</span>
+      </div>
+    </ng-container>
+    
+    
   </section>
   <section *ngIf="shipmentData?.totalCount">
-    <p>{{"shipment" | translate}}</p>
+    <p>{{ 'Shipments' | translate }}</p>
     <app-shipment-list-panel
       [shipmentListItem]="item"
       (click)="gotoShipmentDetail(item)"
-      *ngFor="let item of shipmentData?.items; let i=index"
+      *ngFor="let item of shipmentData?.items; let i = index"
     ></app-shipment-list-panel>
   </section>
   <section *ngIf="billingData?.totalCount">
-    <p>{{"billing" | translate}}</p>
+    <p>{{ 'Billings' | translate }}</p>
     <app-billing-list-panel
-    [billingListItem]="item"
-    (click)="gotoBillingDetail(item)"
-    *ngFor="let item of billingData?.items; let i=index"
-  ></app-billing-list-panel>
+      [billingListItem]="item"
+      (click)="gotoBillingDetail(item)"
+      *ngFor="let item of billingData?.items; let i = index"
+    ></app-billing-list-panel>
+  </section>
+  <section *ngIf="bookingData?.totalCount">
+    <p>{{ 'Bookings' | translate }}</p>
+    <app-booking-list-panel
+      [bookingListItem]="item"
+      (click)="gotoBookingDetail(item)"
+      *ngFor="let item of bookingData?.items; let i = index"
+    ></app-booking-list-panel>
   </section>
 </ion-content>

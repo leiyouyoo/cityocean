@@ -8,6 +8,7 @@
         <input
           [(ngModel)]="searchText"
           (keyup)="$event.which === 13 ? getChatList() : 0"
+          (ionChange)="getChatList()"
           type="search"
           name="searh"
           [placeholder]="'Search'"

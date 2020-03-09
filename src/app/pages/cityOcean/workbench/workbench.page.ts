@@ -19,6 +19,7 @@ export class WorkbenchPage implements OnInit {
   title: any;
   titleStatisticsList: any;
   @ViewChild('quickEnter', {static: false}) quickEnter:QuickEnterComponent
+  isLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
   orignPort: any = {}; //启运港

@@ -35,7 +35,7 @@
             (click)="searchLocaltion('start')"
             [(ngModel)]="orignPort.name"
             type="text"
-            placeholder="{{'Please enter port of shipment' | translate}}"
+            placeholder="{{'Port of loading' | translate}}"
           />
         </div>
         <div style="text-align: center;height: 2em;display: inline-block;margin-left: 0.45em;">
@@ -47,7 +47,7 @@
             type="text"
             (click)="searchLocaltion('destination')"
             [(ngModel)]="deliveryPort.name"
-            placeholder="{{'Please enter the port of destination' | translate}}"
+            placeholder="{{'Port of discharge' | translate}}"
           />
         </div>
         <div style="text-align: center;">
@@ -56,7 +56,7 @@
       </div>
       <div class="title">
         <span>{{'All applications' | translate}}</span>
-        <button (click)="isEditing = !isEditing">{{'Add To Home' | translate}}</button>
+        <button *ngIf="!isLoginWithTourist" (click)="isEditing = !isEditing">{{'Add To Home' | translate}}</button>
       </div>
       <div class="all-applications">
         <div *ngFor="let item of typeList">
