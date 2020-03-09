@@ -273,3 +273,13 @@ button.days-btn small {
   color: var(--ion-color-danger);
   margin: 1em 0 1em 1em;
 }
+
+ion-searchbar {
+  --icon-color: #ffffff !important;
+  --placeholder-color: #ffffff !important;
+  --color: #fff;
+  --clear-button-color: #fff;
+  .searchbar-input{
+    border-radius: 20px!important;
+  }
+}
