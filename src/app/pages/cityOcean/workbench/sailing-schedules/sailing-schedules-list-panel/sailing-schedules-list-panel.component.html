@@ -1,16 +1,17 @@
-<div class="content-wrap" >
+<div class="content-wrap">
   <div class="content-group no-group-wrap">
     <div class="sailing-message">
       <!-- <i class="ship-icon"></i> -->
       <img [src]="sailingSchedulesListItem.imageUrl" />
-      <div >
-        <span>{{sailingSchedulesListItem['Vessel/Voyage']}}</span>
-        <span>{{sailingSchedulesListItem.carrierCode}}</span>
+      <div>
+        <span>{{ sailingSchedulesListItem['Vessel/Voyage'] }}</span>
+        <span>{{ sailingSchedulesListItem.carrierCode }}</span>
       </div>
     </div>
     <p class="day-group">
-      <i [class] = "sailingSchedulesListItem.type"></i>
-      <span class="day-bg">{{sailingSchedulesListItem['T/T']}}</span>Days
+      <i [class]="sailingSchedulesListItem.type"></i>
+      <span class="day-bg">{{ sailingSchedulesListItem['T/T'] }}</span
+      >Days
     </p>
   </div>
   <!-- <div class="first content-group line-class">
@@ -20,18 +21,31 @@
     </div>
       <span>{{sailingSchedulesListItem.first}}</span>
   </div> -->
-  <div class="start content-group line-class">
+  <section>
     <div>
-      <div class="flag"></div>
-      <span>{{"Port of Loading" | translate}}</span>
-    </div>
-      <span>{{sailingSchedulesListItem['Port of Loading']}}
+      <div class="start content-group line-class">
         <div>
-          <span>ETD</span>
-          <span>{{getTime(sailingSchedulesListItem.etd)}}</span>
+          <div class="flag"></div>
+          <span class="port-type">{{ sailingSchedulesListItem['Port of Loading'] }}</span>
         </div>
-      </span>
-  </div>
+        <span class="etd-eta">
+          <span>ETD</span>
+          <span>{{ getTime(sailingSchedulesListItem.etd) }}</span>
+        </span>
+      </div>
+      <div class="end content-group line-class">
+        <div>
+          <div class="flag"></div>
+          <span class="port-type">{{ sailingSchedulesListItem['Port of Discharge'] }}</span>
+        </div>
+        <span class="etd-eta">
+          <span>ETA</span>
+          <span>{{ getTime(sailingSchedulesListItem.eta) }}</span>
+        </span>
+      </div>
+    </div>
+    <div (click)="chatWithCustomer($event)" class="chat-bg"></div>
+  </section>
   <!-- <div class="transit content-group line-class">
     <div>
       <div class="flag"></div>
@@ -39,23 +53,12 @@
     </div>
       <span>Transit</span>
   </div> -->
-  <div class="end content-group line-class">
-    <div>
-      <div class="flag"></div>
-      <span>{{"Port of Discharge" | translate}}</span>
-    </div>
-      <span>{{sailingSchedulesListItem['Port of Discharge']}}
-        <div>
-          <span>ETA</span>
-          <span>{{getTime(sailingSchedulesListItem.eta)}}</span>
-        </div>
-      </span>
-  </div>
+
   <div *ngIf="sailingSchedulesListItem.finally" class="finally content-group line-class">
     <div>
       <div class="flag"></div>
-      <span>{{"Destination loaction" | translate}}</span>
+      <span>{{ 'Destination loaction' | translate }}</span>
     </div>
-      <span>{{sailingSchedulesListItem.finally}}</span>
+    <span>{{ sailingSchedulesListItem.finally }}</span>
   </div>
 </div>
