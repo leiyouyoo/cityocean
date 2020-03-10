@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { environment } from '@env/environment';
+import { FileEntry } from '@ionic-native/file/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { ActivatedRoute } from '@angular/router';
@@ -81,8 +81,7 @@ export class ChatPage implements OnInit {
       this.conversationID = data.conversationID;
       this.isC2C = data.C2C == 'true' ? true : false;
       this.groupID = data.id;
-      this.conversationType = data.conversationType;
-      this.groupName = data.groupName;
+      (this.conversationType = data.conversationType), (this.groupName = data.groupName);
       this.bussinessType = this.groupID.replace(/\d/gi, '').toLowerCase();
       this.bussinessId = this.groupID.replace(/[^\d]/g, '');
     });
@@ -119,12 +118,7 @@ export class ChatPage implements OnInit {
     }
     this.getChatList();
     onMessage((imRes) => {
-      if (imRes.data[0].type == 'TIMImageElem') {
-        let url = imRes.data[0].payload.imageInfoArray[0].imageUrl;
-        imRes.data[0]['msgBody'] = [{ msgContent: { ImageInfoArray: [{ URL: url }] } }];
-      }
-
-      this.chatList = this.chatList.concat(imRes.data[0]);
+      this.chatList = this.chatList.concat(imRes.data);
       this.scrollToBottom(1);
     });
     window.onresize = () => {
@@ -288,6 +282,7 @@ export class ChatPage implements OnInit {
     await sendmessage(textMessage).then((imRes) => {
       console.log(imRes);
     });
+    this.insertCurrentTime();
     this.chatList.push({
       flow: 'out',
       from: this.userId,
@@ -304,6 +299,7 @@ export class ChatPage implements OnInit {
     try {
       let fileMessage = createImageMessage(this.groupID, this.isC2C ? 'signle' : 'group', imageData);
       await sendmessage(fileMessage).then((res) => {
+        this.insertCurrentTime();
         this.chatList.push({
           type: 'TIMImageElem',
           flow: 'out',
@@ -319,6 +315,25 @@ export class ChatPage implements OnInit {
       });
     } catch (error) {
       this.helper.toast(error);
+    }
+  }
+
+  /**
+   * 与最后一条消息比较时间，如果超出5分钟，插入最新时间
+   *
+   * @memberof ChatPage
+   */
+  insertCurrentTime(){
+    const element = this.chatList[this.chatList.length - 1];
+    const time = moment(element.msgTime).format();
+    const now = moment(new Date()).format();
+    const add5Min = moment(time).add(5, 'minutes').format();
+    if (
+      !element.isTimeShow &&
+      !moment(time).isSame(now) &&
+      moment(now).isAfter(add5Min)
+    ) {
+      this.chatList.push({ isTimeShow: true, time: now });
     }
   }
   /**
@@ -475,10 +490,10 @@ export class ChatPage implements OnInit {
     this.showPopover(event, PressPopoverComponent, 'press-css-class');
   }
   getImgUrl(url) {
-    if (url.indexOf('data:image/png;base64') != -1 || url.indexOf('http') != -1) {
+    if (url.indexOf('data:image/png;base64') != -1) {
       return url;
     } else {
-      return environment.ImImageUrl + url;
+      return 'http://112.95.173.230:8002' + url;
     }
   }
 }

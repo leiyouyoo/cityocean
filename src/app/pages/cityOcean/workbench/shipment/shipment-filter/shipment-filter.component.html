@@ -16,6 +16,8 @@
         name="process"
         [interfaceOptions]="processInterfaceOptions"
         multiple="true"
+        cancelText="Cancel"
+        okText="OK"
         placeholder=""
         (ionChange)="processChange($event)"
         [value]="profileForm.process"
@@ -41,6 +43,8 @@
         [interfaceOptions]="modeInterfaceOptions"
         multiple="true"
         placeholder=""
+        cancelText="Cancel"
+        okText="OK"
         [value]="profileForm.mode"
         (ionChange)="modeChange($event)"
       >
@@ -60,8 +64,9 @@
 
       <ion-select
         name="date"
+        cancelText="Cancel"
+        okText="OK"
         [interfaceOptions]="dateInterfaceOptions"
-        interface="action-sheet"
         placeholder=""
         [value]="profileForm.date"
         (ionChange)="dateChange($event)"
