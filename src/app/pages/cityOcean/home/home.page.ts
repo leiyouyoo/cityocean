@@ -109,27 +109,15 @@ export class HomePage implements OnInit {
         const hasRatesOrSailing = this.toolsList.some((e) => {
           return e.type === 'rates' || e.type === 'sailingSchedules';
         });
-        let _order = 1;
-        this.toolsList.forEach((e) => {
-          _order++;
-          if (e.type === 'rates') {
-            e.order = 1;
-          } else if (e.type === 'sailingSchedules') {
-            e.order = 2;
-          } else if (e.type === 'shipments') {
-            e.order = 3;
-          } else {
-            e.order = _order;
-          }
-        });
+        
         if (!hasRatesOrSailing) {
           this.transportationCost = false;
         }
         this.toolsList.push({
           name: 'More',
           type: 'More',
-          order:100
         });
+        this.setToolListOrder();
       });
     }
     this.getConversationsList();
@@ -329,9 +317,27 @@ export class HomePage implements OnInit {
           name: 'More',
           type: 'More',
         });
+        this.setToolListOrder();
       }
     });
     return await modal.present();
+  }
+  setToolListOrder(){
+    let _order = 1;
+    this.toolsList.forEach((e) => {
+      _order++;
+      if (e.type === 'rates') {
+        e.order = 1;
+      } else if (e.type === 'sailingSchedules') {
+        e.order = 2;
+      } else if (e.type === 'shipments') {
+        e.order = 3;
+      }else if(e.type === 'More'){
+        e.order = 100;
+      } else {
+        e.order = _order;
+      }
+    });
   }
   deleteItem(i: any, data, node) {
     this.showDeleteButton = false;
