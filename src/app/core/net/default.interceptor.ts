@@ -64,7 +64,6 @@ export class DefaultInterceptor implements HttpInterceptor {
       this.injector.get(_HttpClient).end();
     }
     this.checkStatus(ev);
-    debugger;
     // 业务处理：一些通用操作
     switch (ev.status) {
       case 200:
@@ -100,7 +99,6 @@ export class DefaultInterceptor implements HttpInterceptor {
         break;
       default:
         if (ev instanceof HttpErrorResponse) {
-          debugger;
           this.helper.toast('登录已超时，请您重新登录');
           console.warn('未可知错误，大部分是由于后端不支持CORS或无效配置引起', ev);
           return throwError(ev);
@@ -112,7 +110,6 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 统一加上服务端前缀
-    debugger;
     let url = req.url;
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
       ///url = environment.SERVER_URL + url;

@@ -25,7 +25,6 @@ export class MePage {
 
   ionViewWillEnter() {
     this.userMsg = abp.session;
-    debugger;
     if (this.cityOceanService.getIsLoginWithTourist()) {
       this.userLogin = false;
     }

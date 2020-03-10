@@ -223,7 +223,6 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onSetEndTime() {
-    debugger;
     if (this.data.value.remindStartTime && this.data.value.remindEndTime) {
       if (new Date(this.data.value.remindStartTime) > new Date(this.data.value.remindEndTime)) {
         this.data.patchValue({

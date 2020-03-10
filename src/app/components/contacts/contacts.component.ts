@@ -24,7 +24,6 @@ export class ContactsComponent implements OnInit {
   ngOnInit() {
     this.scheduleService.getCRMContacts(abp.session.user.customerId).subscribe((res: any) => {
       this.list = res.items;
-      debugger;
       if (this.ids) {
         this.ids.split(',').forEach((e) => {
           this.list.forEach((element) => {
