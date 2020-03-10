@@ -4,7 +4,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import 'hammerjs';
 import { SearchlocaltionComponent } from './search-localtion/search-localtion.component';
 import { HomeService } from './home.service';
-import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady } from '@cityocean/im-library';
+import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady, onKickedOut } from '@cityocean/im-library';
 import { CityOceanService } from '../city-ocean.service';
 import { TranslateService } from '@ngx-translate/core';
 import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.component';
@@ -119,6 +119,10 @@ export class HomePage implements OnInit {
   }
 
   getConversationsList() {
+    onKickedOut(()=>{
+      this.helper.toast("被踢出，请重新登录。")
+      this.cityOceanService.loginOut();
+    })
     onSDKReady(async () => {
       let imRes = await getConversationList();
       if (!imRes) {
