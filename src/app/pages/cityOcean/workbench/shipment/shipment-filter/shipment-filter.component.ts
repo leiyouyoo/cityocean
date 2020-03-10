@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ShipmentFilterComponent implements OnInit {
   profileForm = {
-    process: ['allInProcess'],
+    process: [],
     mode: [],
     date: '',
   };
@@ -19,7 +19,7 @@ export class ShipmentFilterComponent implements OnInit {
   modeShowName = this.translate.instant('Air');
   modeInterfaceOptions = { header: this.translate.instant('shipmentMode'), cssClass: 'ion-select-my-class' }
   processInterfaceOptions = { header: this.translate.instant('shipmentStatus'), cssClass: 'ion-select-my-class' }
-  processCopy = ['allInProcess'];
+  processCopy = [];
   processShowName = this.translate.instant('All shipments in progess');
   processOptionList = [
     {
@@ -148,15 +148,22 @@ export class ShipmentFilterComponent implements OnInit {
       freightMethodType: [],
       shipmentType: [],
     };
-    let hasAllInProcess = this.processCopy.some((e) => {
+    const hasAllInProcess = this.processCopy.some((e) => {
       return e === 'allInProcess';
     });
-    this.processCopy = this.processCopy.filter((e) => {
-      return e !== 'allInProcess';
+    const hasAll = this.processCopy.some((e) => {
+      return e === 'all';
     });
+    this.processCopy = this.processCopy.filter((e) => {
+      return e !== 'allInProcess' && e !== 'all';
+    });
+    if (hasAll) {
+      this.processCopy = this.processCopy.concat(['0', '1', '2', '3', '4', '5', '6', '7','8']);
+    }
     if (hasAllInProcess) {
       this.processCopy = this.processCopy.concat(['0', '1', '2', '3', '4', '5', '6', '7']);
     }
+    
     params['status'] = Array.from(new Set(this.processCopy));
 
     this.profileForm.mode.forEach((e) => {

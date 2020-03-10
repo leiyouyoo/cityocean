@@ -10,11 +10,13 @@
 <ion-content fullscreen>
   <section>
     <div>
+      <span *ngIf="processCopy.length ==0">{{"shipmentStatus" | translate}}</span>
+
       <ion-select
         name="process"
         [interfaceOptions]="processInterfaceOptions"
         multiple="true"
-        placeholder="Select One"
+        placeholder=""
         (ionChange)="processChange($event)"
         [value]="profileForm.process"
       >

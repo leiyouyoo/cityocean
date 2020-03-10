@@ -50,12 +50,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
-    this.cityOceanService.getCustomerId().then((res) => {
-      this.cityOceanService.customerId = res;
-      if (res) {
-        this.imLogin(res);
-      }
-    });
+    this.imLogin();
   }
   ionScroll(event) {
     const inputForSearch = this.el.nativeElement.querySelector('#inputForSearch');
@@ -109,7 +104,7 @@ export class HomePage implements OnInit {
         const hasRatesOrSailing = this.toolsList.some((e) => {
           return e.type === 'rates' || e.type === 'sailingSchedules';
         });
-        
+
         if (!hasRatesOrSailing) {
           this.transportationCost = false;
         }
@@ -173,10 +168,12 @@ export class HomePage implements OnInit {
    * 初始化并登陆 IM
    */
   async imLogin(userId: number) {
-    let Id = '' + abp.session.user.id;
-    let sigReturn = genTestUserSig(Id);
-    let userSig = sigReturn.userSig;
-    login(Id, userSig);
+    this.cityOceanService.getCustomerId().then((res) => {
+      let Id = '' + res;
+      let sigReturn = genTestUserSig(Id);
+      let userSig = sigReturn.userSig;
+      login(Id, userSig);
+    });
   }
   // 客服
   chatWithCustomer() {
@@ -231,7 +228,7 @@ export class HomePage implements OnInit {
           conversationID: item.conversationID,
           C2C: item.type == 'C2C' ? true : false,
           id: item.type == 'C2C' ? item.userProfile.userID : item.groupProfile.groupID,
-          groupName: item.type === 'C2C'? item.userProfile.nick?item.userProfile.nick:item.name:item.name,
+          groupName: item.type === 'C2C' ? (item.userProfile.nick ? item.userProfile.nick : item.name) : item.name,
           conversationType: item.type,
         },
       });
@@ -241,7 +238,7 @@ export class HomePage implements OnInit {
     if (!this.orignPort.id || !this.deliveryPort.id) {
       return;
     }
-    this.cityOceanService.setRatesOrSailSearchHistory(this.searchType,this.orignPort,this.deliveryPort);
+    this.cityOceanService.setRatesOrSailSearchHistory(this.searchType, this.orignPort, this.deliveryPort);
     if (this.searchType === 'seachRates') {
       this.nav.navigateForward(['/cityOcean/home/rates'], {
         queryParams: {
@@ -322,7 +319,7 @@ export class HomePage implements OnInit {
     });
     return await modal.present();
   }
-  setToolListOrder(){
+  setToolListOrder() {
     let _order = 1;
     this.toolsList.forEach((e) => {
       _order++;
@@ -332,7 +329,7 @@ export class HomePage implements OnInit {
         e.order = 2;
       } else if (e.type === 'shipments') {
         e.order = 3;
-      }else if(e.type === 'More'){
+      } else if (e.type === 'More') {
         e.order = 100;
       } else {
         e.order = _order;
