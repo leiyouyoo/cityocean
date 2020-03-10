@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { FileEntry } from '@ionic-native/file/ngx';
+import { environment } from '@env/environment';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { ActivatedRoute } from '@angular/router';
@@ -81,7 +81,8 @@ export class ChatPage implements OnInit {
       this.conversationID = data.conversationID;
       this.isC2C = data.C2C == 'true' ? true : false;
       this.groupID = data.id;
-      (this.conversationType = data.conversationType), (this.groupName = data.groupName);
+      this.conversationType = data.conversationType;
+      this.groupName = data.groupName;
       this.bussinessType = this.groupID.replace(/\d/gi, '').toLowerCase();
       this.bussinessId = this.groupID.replace(/[^\d]/g, '');
     });
@@ -118,7 +119,12 @@ export class ChatPage implements OnInit {
     }
     this.getChatList();
     onMessage((imRes) => {
-      this.chatList = this.chatList.concat(imRes.data);
+      if (imRes.data[0].type == 'TIMImageElem') {
+        let url = imRes.data[0].payload.imageInfoArray[0].imageUrl;
+        imRes.data[0]['msgBody'] = [{ msgContent: { ImageInfoArray: [{ URL: url }] } }];
+      }
+
+      this.chatList = this.chatList.concat(imRes.data[0]);
       this.scrollToBottom(1);
     });
     window.onresize = () => {
@@ -469,10 +475,10 @@ export class ChatPage implements OnInit {
     this.showPopover(event, PressPopoverComponent, 'press-css-class');
   }
   getImgUrl(url) {
-    if (url.indexOf('data:image/png;base64') != -1) {
+    if (url.indexOf('data:image/png;base64') != -1 || url.indexOf('http') != -1) {
       return url;
     } else {
-      return 'http://112.95.173.230:8002' + url;
+      return environment.ImImageUrl + url;
     }
   }
 }

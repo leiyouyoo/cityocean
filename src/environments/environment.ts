@@ -16,7 +16,7 @@ export const environment = {
   //appBaseUrl: `http://csp.cityocean.com`, // APP 地址
   StoreUrl: 'http://192.168.1.6:8000',
   uploadUrl: `http://192.168.1.6:8000/Storage/File/Upload`,
-
+  ImImageUrl: `http://192.168.1.6:8000`,
   cityoceanId: 2,
   production: false,
   useHash: true,

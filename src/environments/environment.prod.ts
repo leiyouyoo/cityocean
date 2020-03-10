@@ -9,7 +9,7 @@ export const environment = {
   MOCK_URL: '',
   StoreUrl: 'http://112.95.173.231:8000',
   uploadUrl: `http://192.168.1.5:8000/Storage/File/Upload`,
-
+  ImImageUrl: `http://112.95.173.230:8002`,
   // activity cityoceanId
   cityoceanId: 2,
 

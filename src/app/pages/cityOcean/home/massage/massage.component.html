@@ -4,7 +4,7 @@
   <div class="text-group">
     <div *ngIf="detail" class="number-wrap">
       <div>
-        <span [ngClass]="{'welcome-title': detail?.type=='welcome'}" class="number-text font-10">{{ detail.type === 'C2C'? detail.userProfile.nick?detail.userProfile.nick:detail.name:detail?.name}}</span>
+        <span [ngClass]="{'welcome-title': detail?.type=='welcome'}" class="number-text font-10">{{ detail.type === 'C2C'? detail.userProfile.nick?detail.userProfile.nick:detail.name:detail.name}}</span>
         <span
           *ngIf="showLabel()"
           [ngClass]="{ 'lables': true,'font-10':true}"
