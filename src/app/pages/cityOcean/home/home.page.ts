@@ -320,7 +320,7 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
   setToolListOrder() {
-    let _order = 1;
+    let _order = 3;
     this.toolsList.forEach((e) => {
       _order++;
       if (e.type === 'rates') {
