@@ -34,7 +34,7 @@ export class HomePage implements OnInit {
   totalCount: any;
   scrollList = []; // 系统消息列表
   deleteWecomeFlag = JSON.parse(localStorage.getItem('deleteWecomeFlag')); //删除welcome标记
-  
+
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -253,26 +253,7 @@ export class HomePage implements OnInit {
     if (!this.orignPort.id || !this.deliveryPort.id) {
       return;
     }
-    let local = { orignPortHistory: this.orignPort, deliveryPortHistory: this.deliveryPort };
-    let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem(this.searchType));
-    if (!searchLocalStorage) {
-      let tmp = [];
-      tmp.push(local);
-      localStorage.setItem(this.searchType, JSON.stringify(tmp));
-    } else {
-      const hasExit = searchLocalStorage.some((e) => {
-        return (
-          e.orignPortHistory.id == local.orignPortHistory.id && e.deliveryPortHistory.id == local.deliveryPortHistory.id
-        );
-      });
-      if (!hasExit) {
-        if (searchLocalStorage.length >= 10) {
-          searchLocalStorage.shift();
-        }
-        searchLocalStorage.push(local);
-        localStorage.setItem(this.searchType, JSON.stringify(searchLocalStorage));
-      }
-    }
+    this.cityOceanService.setRatesOrSailSearchHistory(this.searchType,this.orignPort,this.deliveryPort);
     if (this.searchType === 'seachRates') {
       this.nav.navigateForward(['/cityOcean/home/rates'], {
         queryParams: {

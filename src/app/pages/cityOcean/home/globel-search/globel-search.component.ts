@@ -4,6 +4,7 @@ import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 import { NavController, ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
+import { CityOceanService } from '../../city-ocean.service';
 
 @Component({
   selector: 'app-globel-search',
@@ -20,17 +21,24 @@ export class GlobelSearchComponent implements OnInit {
   };
   searchHistoryList: any = [];
   bookingData: any;
-
+  isLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
+  globelSearchHistoryKey = '';
   constructor(
     private billingService: BillingServiceService,
     private shipmentService: MyShipmentService,
-    private bookingServiceService:BookingServiceService,
+    private bookingServiceService: BookingServiceService,
     private nav: NavController,
     private modalController: ModalController,
+    private cityOceanService: CityOceanService,
   ) {}
 
   ngOnInit() {
-    let searchHistory = JSON.parse(localStorage.getItem('globelSearchHistory'));
+    if (this.isLoginWithTourist) {
+      this.globelSearchHistoryKey = 'visitorGlobelSearchHistory';
+    } else {
+      this.globelSearchHistoryKey = 'globelSearchHistory';
+    }
+    let searchHistory = JSON.parse(localStorage.getItem(this.globelSearchHistoryKey));
     if (searchHistory) {
       this.searchHistoryList = searchHistory;
     }
@@ -40,11 +48,11 @@ export class GlobelSearchComponent implements OnInit {
       this.searchKey = data;
     }
     if (this.searchKey) {
-      let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem('globelSearchHistory'));
+      let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem(this.globelSearchHistoryKey));
       if (!searchLocalStorage) {
         let tmp = [];
         tmp.push(this.searchKey);
-        localStorage.setItem('globelSearchHistory', JSON.stringify(tmp));
+        localStorage.setItem(this.globelSearchHistoryKey, JSON.stringify(tmp));
       } else {
         const hasExit = searchLocalStorage.some((e) => {
           return e == this.searchKey;
@@ -54,14 +62,14 @@ export class GlobelSearchComponent implements OnInit {
             searchLocalStorage.shift();
           }
           searchLocalStorage.push(this.searchKey);
-          localStorage.setItem('globelSearchHistory', JSON.stringify(searchLocalStorage));
+          localStorage.setItem(this.globelSearchHistoryKey, JSON.stringify(searchLocalStorage));
         }
       }
-    }else{
+    } else {
       this.delete();
-      return
+      return;
     }
-    
+
     this.searchBilling();
     this.searchShipment();
     this.searchBooking();
@@ -73,7 +81,7 @@ export class GlobelSearchComponent implements OnInit {
     this.bookingData = [];
   }
   deleteHistory() {
-    localStorage.removeItem('globelSearchHistory');
+    localStorage.removeItem(this.globelSearchHistoryKey);
     this.searchHistoryList = [];
   }
   goback() {

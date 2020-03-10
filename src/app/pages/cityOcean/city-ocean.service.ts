@@ -69,6 +69,12 @@ export class CityOceanService {
       }
     });
   }
+  /**
+   * 第一个登录app的时间
+   *
+   * @returns
+   * @memberof CityOceanService
+   */
   getEnterAppTime() {
     if (!this.firstEnterAppTime) {
       this.firstEnterAppTime = Date.now()
@@ -277,5 +283,30 @@ export class CityOceanService {
     } catch (error) {}
     // window.location.href = '/login';
     this.nav.navigateRoot(['/login']);
+  }
+  setRatesOrSailSearchHistory(searchType, orignPort, deliveryPort) {
+    if (!this.getIsLoginWithTourist()) {
+      let local = { orignPortHistory: orignPort, deliveryPortHistory: deliveryPort };
+      let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem(searchType));
+      if (!searchLocalStorage) {
+        let tmp = [];
+        tmp.push(local);
+        localStorage.setItem(searchType, JSON.stringify(tmp));
+      } else {
+        const hasExit = searchLocalStorage.some((e) => {
+          return (
+            e.orignPortHistory.id == local.orignPortHistory.id &&
+            e.deliveryPortHistory.id == local.deliveryPortHistory.id
+          );
+        });
+        if (!hasExit) {
+          if (searchLocalStorage.length >= 10) {
+            searchLocalStorage.shift();
+          }
+          searchLocalStorage.push(local);
+          localStorage.setItem(searchType, JSON.stringify(searchLocalStorage));
+        }
+      }
+    }
   }
 }

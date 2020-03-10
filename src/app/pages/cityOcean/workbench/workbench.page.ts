@@ -287,26 +287,7 @@ export class WorkbenchPage implements OnInit {
     if (!this.orignPort.id || !this.deliveryPort.id) {
       return;
     }
-    let local = { orignPortHistory: this.orignPort, deliveryPortHistory: this.deliveryPort };
-    let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem(this.searchType));
-    if (!searchLocalStorage) {
-      let tmp = [];
-      tmp.push(local);
-      localStorage.setItem(this.searchType, JSON.stringify(tmp));
-    } else {
-      const hasExit = searchLocalStorage.some((e) => {
-        return (
-          e.orignPortHistory.id == local.orignPortHistory.id && e.deliveryPortHistory.id == local.deliveryPortHistory.id
-        );
-      });
-      if (!hasExit) {
-        if (searchLocalStorage.length >= 10) {
-          searchLocalStorage.shift();
-        }
-        searchLocalStorage.push(local);
-        localStorage.setItem(this.searchType, JSON.stringify(searchLocalStorage));
-      }
-    }
+    this.cityOceanService.setRatesOrSailSearchHistory(this.searchType,this.orignPort,this.deliveryPort);
     if (this.searchType === 'seachRates') {
       this.nav.navigateForward(['/cityOcean/workbench/rates'], {
         queryParams: {
