@@ -47,25 +47,7 @@ export class GlobelSearchComponent implements OnInit {
     if (data) {
       this.searchKey = data;
     }
-    if (this.searchKey) {
-      let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem(this.globelSearchHistoryKey));
-      if (!searchLocalStorage) {
-        let tmp = [];
-        tmp.push(this.searchKey);
-        localStorage.setItem(this.globelSearchHistoryKey, JSON.stringify(tmp));
-      } else {
-        const hasExit = searchLocalStorage.some((e) => {
-          return e == this.searchKey;
-        });
-        if (!hasExit) {
-          if (searchLocalStorage.length >= 10) {
-            searchLocalStorage.shift();
-          }
-          searchLocalStorage.push(this.searchKey);
-          localStorage.setItem(this.globelSearchHistoryKey, JSON.stringify(searchLocalStorage));
-        }
-      }
-    } else {
+    if (!this.searchKey) {
       this.delete();
       return;
     }
@@ -103,12 +85,14 @@ export class GlobelSearchComponent implements OnInit {
       });
   }
   gotoBookingDetail(item) {
+    this.setHistory();
     this.modalController.dismiss();
     this.nav.navigateForward(['/cityOcean/workbench/booking/bookingDetail'], {
       queryParams: { id: item.id },
     });
   }
   gotoBillingDetail(item) {
+    this.setHistory();
     this.modalController.dismiss();
     this.nav.navigateForward(['/cityOcean/workbench/billing/billiingDetail'], {
       queryParams: { id: item.id },
@@ -122,9 +106,31 @@ export class GlobelSearchComponent implements OnInit {
       });
   }
   gotoShipmentDetail(item) {
+    this.setHistory();
     this.modalController.dismiss();
     this.nav.navigateForward(['/cityOcean/workbench/shipments/shipmentDetail'], {
       queryParams: { id: item.id, agreement: item.agreement },
     });
+  }
+  setHistory(){
+    if (this.searchKey) {
+      let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem(this.globelSearchHistoryKey));
+      if (!searchLocalStorage) {
+        let tmp = [];
+        tmp.push(this.searchKey);
+        localStorage.setItem(this.globelSearchHistoryKey, JSON.stringify(tmp));
+      } else {
+        const hasExit = searchLocalStorage.some((e) => {
+          return e == this.searchKey;
+        });
+        if (!hasExit) {
+          if (searchLocalStorage.length >= 10) {
+            searchLocalStorage.shift();
+          }
+          searchLocalStorage.push(this.searchKey);
+          localStorage.setItem(this.globelSearchHistoryKey, JSON.stringify(searchLocalStorage));
+        }
+      }
+    }
   }
 }

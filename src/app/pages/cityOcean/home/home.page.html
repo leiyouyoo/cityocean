@@ -27,7 +27,7 @@
     <div (swipeup)="swipeup()" (swipedown)="swipedown()"  class="tools-group">
       <div [style.order] = "item.order" *ngFor="let item of toolsList">
         <i (click)="toolTypeClick(item)" [class]="item.type"></i>
-        <span (click)="toolTypeClick(item)" class="font-14">{{item.type | translate}}</span>
+        <span (click)="toolTypeClick(item)" class="font-14">{{item.name | translate}}</span>
       </div>
     </div>
     <div *ngIf="transportationCost" class="search-detail">

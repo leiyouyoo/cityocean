@@ -167,7 +167,7 @@ export class RatesFilterComponent implements OnInit {
       event: event,
       keyboardClose: false,
       backdropDismiss: true,
-      cssClass: 'my-popover-input-search billing-popover',
+      cssClass: 'my-popover-input-search my-rates-popover-input-search billing-popover',
       componentProps: { dataList: [] },
     });
     popover.onDidDismiss().then((event) => {

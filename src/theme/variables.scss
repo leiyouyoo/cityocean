@@ -222,9 +222,13 @@ $font-base-size: 12px;
   font-weight: 400 !important;
   color: rgba(0, 122, 255, 1) !important;
 }
-
+.select-alert{
+  .alert-button{
+    text-transform: none!important;
+  }
+}
 //ion-select自定义样式
-.ion-select-my-class {
+.ion-select-my-class.ios {
   --max-height: 50% !important;
 
   .action-sheet-group {
@@ -371,7 +375,11 @@ $font-base-size: 12px;
 .my-popover-input-search {
   --min-width: 80%;
 }
-
+.my-rates-popover-input-search{
+  .popover-arrow{
+    left: px2rem(60px)!important;
+  }
+}
 .my-action-sheet-booking,
 .ion-select-my-class {
   .action-sheet-cancel {
