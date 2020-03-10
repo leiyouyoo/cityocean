@@ -38,6 +38,7 @@
         <ion-datetime
           style="flex:1"
           [disabled]="!edit"
+          [min]="timeNow"
           formControlName="remindStartTime"
           displayFormat="YYYY-MM-DD HH:mm"
           cancelText="{{'Cancel' | translate}}"

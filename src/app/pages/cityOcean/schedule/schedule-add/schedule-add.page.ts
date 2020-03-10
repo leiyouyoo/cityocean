@@ -22,6 +22,7 @@ export class ScheduleAddPage implements OnInit {
   edit = false;
   choosedContacts: any = [];
   data: FormGroup;
+  timeNow: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,6 +40,9 @@ export class ScheduleAddPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    let d = new Date();
+    d.setHours(d.getHours(), d.getMinutes() - d.getTimezoneOffset());
+    this.timeNow = d.toISOString();
     this.data = this.formBuilder.group({
       remindContent: [null, [Validators.required]],
       remindPeople: [null],
@@ -219,6 +223,7 @@ export class ScheduleAddPage implements OnInit {
   }
 
   onSetEndTime() {
+    debugger;
     if (this.data.value.remindStartTime && this.data.value.remindEndTime) {
       if (new Date(this.data.value.remindStartTime) > new Date(this.data.value.remindEndTime)) {
         this.data.patchValue({
@@ -318,5 +323,33 @@ export class ScheduleAddPage implements OnInit {
     } else {
       this.router.navigate(['/cityOcean/schedule']);
     }
+  }
+
+  doHandleYear(myDate) {
+    const tYear = myDate.getFullYear();
+    return tYear;
+  }
+
+  doHandleMonth(myDate) {
+    const tMonth = myDate.getMonth();
+    const mon = tMonth + 1;
+    let m;
+    if (mon.toString().length === 1) {
+      m = '0' + mon;
+    } else {
+      m = mon;
+    }
+    return m;
+  }
+
+  doHandleDay(myDate) {
+    const tDay = myDate.getDate();
+    let d;
+    if (tDay.toString().length === 1) {
+      d = '0' + tDay;
+    } else {
+      d = tDay;
+    }
+    return d;
   }
 }
