@@ -371,7 +371,11 @@ $font-base-size: 12px;
 .my-popover-input-search {
   --min-width: 80%;
 }
-
+.my-rates-popover-input-search{
+  .popover-arrow{
+    left: px2rem(60px)!important;
+  }
+}
 .my-action-sheet-booking,
 .ion-select-my-class {
   .action-sheet-cancel {

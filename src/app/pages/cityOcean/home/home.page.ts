@@ -119,8 +119,8 @@ export class HomePage implements OnInit {
   }
 
   getConversationsList() {
-    onKickedOut(()=>{
-      this.helper.toast("被踢出，请重新登录。")
+    onKickedOut(function kickedOut(){
+      this.helper.toast("账号在其他地方登录，请确认并重新登录。")
       this.cityOceanService.loginOut();
     })
     onSDKReady(async () => {
