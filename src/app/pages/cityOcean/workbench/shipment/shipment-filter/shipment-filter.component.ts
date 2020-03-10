@@ -165,7 +165,9 @@ export class ShipmentFilterComponent implements OnInit {
     }
     
     params['status'] = Array.from(new Set(this.processCopy));
-
+    if(params['status'].length==0){
+      delete params['status']
+    }
     this.profileForm.mode.forEach((e) => {
       switch (e) {
         case 'air':

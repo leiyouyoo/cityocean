@@ -167,7 +167,7 @@ export class HomePage implements OnInit {
   /**
    * 初始化并登陆 IM
    */
-  async imLogin(userId: number) {
+  async imLogin() {
     this.cityOceanService.getCustomerId().then((res) => {
       let Id = '' + res;
       let sigReturn = genTestUserSig(Id);
