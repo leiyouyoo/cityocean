@@ -89,7 +89,10 @@ export class CityOceanService {
     let params = obj;
     return this.httpService.get('/CRM/CustomerExternal/GetCoUserByCustomer', params);
   }
-
+  // 根据shipmentNo获取列表
+  GetRouteDetailsByShipmentNo(id: any) {
+    return this.httpService.get('/CSP/Shipment/GetRouteDetailsByShipmentNo', { shipmentNo:id });
+  }
   /**
    *获取当前登录人的id
    *
