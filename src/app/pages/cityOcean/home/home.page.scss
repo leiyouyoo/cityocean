@@ -352,7 +352,8 @@ ion-content {
 
     ion-segment {
         margin-bottom: px2rem(16px);
-
+        --color: var(--ion-color-dark);
+        --color-checked: var(--ion-color-primary);
         ion-segment-button {
             text-transform: unset !important;
             font-size: 12px;
