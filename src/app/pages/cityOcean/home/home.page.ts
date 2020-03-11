@@ -61,9 +61,6 @@ export class HomePage implements OnInit {
     if (!this.checkIsLoginWithTourist) {
       this.imLogin();
     }
-    if(this.checkIsLoginWithTourist){
-      this.el.nativeElement.querySelectorAll('ion-segment')[0].style.display = 'none';
-    }
   }
   ionScroll(event) {
     const inputForSearch = this.el.nativeElement.querySelector('#inputForSearch');

@@ -22,12 +22,12 @@
     </div>
 
     <div [ngClass]="{'search-detail-padding': checkIsLoginWithTourist}" class="search-detail">
-      <ion-segment (ionChange)="segmentChanged($event)" mode="md" [value]="searchType">
+      <ion-segment *ngIf="!checkIsLoginWithTourist" (ionChange)="segmentChanged($event)" mode="md" [value]="searchType">
         <ion-segment-button value="seachRates">
           <ion-label>{{"Rates" | translate}}</ion-label>
         </ion-segment-button>
 
-
+        
         <ion-segment-button value="searchSailingSchedules">
           <ion-label>{{"Schedules" | translate}}</ion-label>
         </ion-segment-button>
