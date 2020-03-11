@@ -59,7 +59,7 @@ export class HomeService {
     return this.httpService.get('/CSP/IM/GetMayInviteUserList', params);
   }
   //获取客户下的联系人（包含合作伙伴的）,以及客户绑定的业务员
-  getMayInviteUserC2CList(params = {customerId:0}): Observable<any> {
+  getMayInviteUserC2CList(params = {customerId:''}): Observable<any> {
     return this.httpService.get('/CRM/ContactExternal/GetContactAndSaleByCustomerId', params);
   }
 // 添加群成员

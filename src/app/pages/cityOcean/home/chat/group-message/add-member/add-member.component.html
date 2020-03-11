@@ -25,8 +25,8 @@
       ></div>
       <img [src]="item.avatar ? item.avatar : '../../../../../../assets/icon/avatar-2.png'" alt="头像" />
       <div class="role-wrap">
-        <span class="member-name font-16">{{ item.userFullName ? item.userFullName : item.userID }}</span>
-        <span class="member-type font-14">{{ item.role ? item.role : '角色未设置' }}</span>
+        <span class="member-name font-16">{{ item.surname ? item.surname + ' ' : '' }}{{ item.name ? item.name : '' }}</span>
+        <span class="member-type font-14">{{ item.position ? item.position : '角色未设置' }}</span>
       </div>
     </div>
   </section>

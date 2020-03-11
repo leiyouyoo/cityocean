@@ -22,14 +22,14 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div *ngIf="!isC2C && conversationType!='Private'" class="type-wrap">
+  <div *ngIf="getCardShow()" class="type-wrap">
     <app-business-type
       (click)="gotoDetail()"
       [title]="{title1:bussinessDetail.shipmentNo, title2: this.bussinessDetail.soNo}"
       [status]="statusType[bussinessDetail.status]"
     ></app-business-type>
   </div>
-  <section [ngClass]="{'chat-content-wrap-margin': !isC2C&& conversationType!='Private'}" class="chat-content-wrap">
+  <section [ngClass]="{'chat-content-wrap-margin': getCardShow()}" class="chat-content-wrap">
     <ng-container *ngFor="let item of chatList">
       <div *ngIf="!!item.isTimeShow" class="message-show-time">{{getImChatTime(item.time)}}</div>
       <ion-card *ngIf="!item.isTimeShow" [class]="'card-' + item.flow +'-group'">
@@ -64,7 +64,7 @@
 </ion-content>
 
 <ion-footer id="keyboard-flex">
-  <div class="foot-wrap">
+  <div *ngIf="!isDisbanded" class="foot-wrap">
     <i class="yuyin"></i>
     <input
       type="text"
@@ -72,7 +72,6 @@
       (click)="showTools = false"
       placeholder="Type a message"
       name=""
-      [readonly]="isDisbanded"
       id="inputElement"
     />
     <i *ngIf="!sendingMessage && !showTools" (click)="showTools = true" class="change"></i>

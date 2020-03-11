@@ -3,6 +3,7 @@ import { NavController, ActionSheetController } from '@ionic/angular';
 import { BillingServiceService } from './billing-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Helper } from '@shared/helper';
 
 @Component({
   selector: 'app-billing',
@@ -24,7 +25,8 @@ export class BillingPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private nav: NavController,
     private activatedRoute: ActivatedRoute,
-    private translate:TranslateService
+    private translate:TranslateService,
+    private helper:Helper
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       if(data.ids){
@@ -59,8 +61,10 @@ export class BillingPage implements OnInit {
       params.status = this.billingStatus;
     }
     this.searchText ? params.SearchKey = this.searchText:delete params.SearchKey;
+    this.helper.showLoading('Loading...');
     this.billingServiceService.getAllBilling(params).subscribe((res: any) => {
       console.log(res);
+      this.helper.hideLoading();
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.billingList = this.billingList.concat(res.items);
       this.pageInfo.skipCount++;

@@ -4,6 +4,7 @@ import { ActionSheetController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { numberToChinese } from '@delon/abc';
+import { Helper } from '@shared/helper';
 
 @Component({
   selector: 'app-booking',
@@ -26,7 +27,8 @@ export class BookingPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private nav: NavController,
     private activatedRoute: ActivatedRoute,
-    private translate:TranslateService
+    private translate:TranslateService,
+    private helper:Helper
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       if(data.ids){
@@ -63,8 +65,10 @@ export class BookingPage implements OnInit {
     }else{
       delete this.currentParams.BookingStatus
     }
+    this.helper.showLoading('Loading...');
     this.bookingServiceService.GetAllBookingList(this.currentParams).subscribe((res) => {
       console.log(res);
+      this.helper.hideLoading();
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.bookingList = this.bookingList.concat(res.items);
       this.pageInfo.skipCount++;

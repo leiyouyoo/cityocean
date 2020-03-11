@@ -5,6 +5,7 @@ import { RatesService } from './rates.service';
 import { ActivatedRoute } from '@angular/router';
 import { isArray } from 'lodash';
 import { CityOceanService } from '../../city-ocean.service';
+import { Helper } from '@shared/helper';
 
 @Component({
   selector: 'app-rates',
@@ -34,6 +35,7 @@ export class RatesPage implements OnInit {
     private ratesService: RatesService,
     private activatedRoute: ActivatedRoute,
     private cityOceanService: CityOceanService,
+    private helper:Helper
   ) {
     this.activatedRoute.queryParams.subscribe((data) => {
       this.currentParam.orignPortId = [data.orignPortId];
@@ -62,7 +64,9 @@ export class RatesPage implements OnInit {
       }
     }
     Object.assign(param, this.currentParam);
+    this.helper.showLoading('Loading...');
     this.ratesService.geFreightRates(param).subscribe((res: any) => {
+      this.helper.hideLoading();
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.ratesList = this.ratesList.concat(res.items);

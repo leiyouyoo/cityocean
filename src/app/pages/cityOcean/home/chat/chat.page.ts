@@ -500,4 +500,10 @@ export class ChatPage implements OnInit {
       return environment.ImImageUrl + url;
     }
   }
+  getCardShow():boolean{
+    if(this.conversationType == 'shipment' || this.conversationType == 'booking'){
+      return true
+    }
+    return false
+  }
 }

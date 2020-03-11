@@ -37,7 +37,7 @@ export class AddMemberComponent implements OnInit {
           });
     } else {
       abp.session.user.id &&
-        this.homeService.getMayInviteUserC2CList({ customerId: abp.session.user.id }).subscribe((res) => {
+        this.homeService.getMayInviteUserC2CList({ customerId: abp.session.user.customerId }).subscribe((res) => {
           console.log(res);
           let ids = res.items.map((e) => {
             return e.id;
@@ -61,8 +61,9 @@ export class AddMemberComponent implements OnInit {
           return e.checked;
         })
         .map((e) => {
-          return { userID: e.userId };
+          return { userID: ''+e.id };
         });
+
       createGroup({
         type: 'private',
         name: 'WebSDK',
