@@ -480,12 +480,18 @@ export function onMessage(fun: Function) {
   // event.name - TIM.EVENT.MESSAGE_RECEIVED
   // event.data - 存储 Message 对象的数组 - [Message]
   // });
-  tim.on(TIM.EVENT.MESSAGE_RECEIVED, function lalala(e) {
-    fun(e);
-  });
+  tim.on(TIM.EVENT.MESSAGE_RECEIVED, fun);
 }
 
 
+export function onConversationUpdate(fun: Function) {
+  // function(fun) {
+  // 收到会话列表更新通知，可通过遍历 event.data 获取会话列表数据并渲染到页面
+  // event.name - TIM.EVENT.CONVERSATION_LIST_UPDATED
+  // event.data - 存储 Conversation 对象的数组 - [Conversation]
+  tim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, fun);
+}
+ 
 export function onEventError(fun: Function) {
   // 收到 SDK 发生错误通知，可以获取错误码和错误信息
   // event.name - TIM.EVENT.ERROR

@@ -4,7 +4,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import 'hammerjs';
 import { SearchlocaltionComponent } from './search-localtion/search-localtion.component';
 import { HomeService } from './home.service';
-import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady, onKickedOut } from '@cityocean/im-library';
+import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady, onKickedOut, onConversationUpdate } from '@cityocean/im-library';
 import { CityOceanService } from '../city-ocean.service';
 import { TranslateService } from '@ngx-translate/core';
 import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.component';
@@ -119,28 +119,14 @@ export class HomePage implements OnInit {
   }
 
   getConversationsList() {
-    const that = this;
-    onKickedOut(function kickedOut(){
-      that.helper.toast("账号在其他地方登录，请确认并重新登录。")
-      that.cityOceanService.loginOut();
-    })
-    onSDKReady(async () => {
-      let imRes = await getConversationList();
-      if (!imRes) {
-        return;
-      }
-      // this.totalCount = imRes.totalCount;
-      // if (this.totalCount == imRes.items.length) {
-      //   this.infiniteScroll.disabled = true;
-      // }
-      let list = imRes.data.conversationList;
+    const initConversationList = (list)=>{
       list = list.filter((e) => {
         return e.type.indexOf('TIM') == -1 && e.type.indexOf('SYSTEM') == -1;
       });
-      this.scrollList = imRes.data.conversationList.filter((e) => {
+      this.scrollList = list.filter((e) => {
         return e.type.indexOf('SYSTEM') != -1;
       });
-
+  
       list.forEach((ele) => {
         if (ele.type == 'C2C') {
           ele.type = ele.type;
@@ -160,14 +146,32 @@ export class HomePage implements OnInit {
           type: 'welcome',
         });
       }
-
       this.conversationsList = [...list];
-      let c2cList = this.conversationsList.filter((e) => {
-        return e.type === 'C2C';
-      });
+    }
+    const that = this;
+    onKickedOut(function kickedOut(){
+      that.helper.toast("账号在其他地方登录，请确认并重新登录。")
+      that.cityOceanService.loginOut();
+    })
+    onConversationUpdate(function updateConversationList(event){
+      console.log(event)
+      initConversationList(event.data);
+    })
+    onSDKReady(async () => {
+      let imRes = await getConversationList();
+      if (!imRes) {
+        return;
+      }
+      
+      // this.totalCount = imRes.totalCount;
+      // if (this.totalCount == imRes.items.length) {
+      //   this.infiniteScroll.disabled = true;
+      // }
+      initConversationList(imRes.data.conversationList);
       console.log(this.conversationsList);
     });
   }
+
   /**
    * 初始化并登陆 IM
    */
