@@ -21,7 +21,7 @@ export class RatesDetailPage implements OnInit {
 
   ngOnInit() {
     this.ratesDetail = this.cityOceanService.ratesDetail;
-    if(this.cityOceanService.ratesDetail){
+    if (this.cityOceanService.ratesDetail) {
       this.AdditionalData = this.cityOceanService.ratesDetail.chargesGroups[0];
     }
     console.log(this.ratesDetail);
@@ -31,7 +31,9 @@ export class RatesDetailPage implements OnInit {
     window.history.back();
   }
   getTime(time) {
-    if(!time){return ''}
+    if (!time) {
+      return '';
+    }
     return moment(time).format('YYYY/MM/DD');
   }
   segmentChanged($event) {
@@ -50,17 +52,19 @@ export class RatesDetailPage implements OnInit {
     let currencyName = '';
     if (this.ratesDetail && this.ratesDetail.chargesGroups) {
       this.ratesDetail.chargesGroups.forEach((element) => {
-        total += element.freightCharges.rate;
-        currencyName = element.freightCharges.currencyName;
-        if (element.originLocalUnitCharges) {
-          element.originLocalUnitCharges.forEach((e) => {
-            total += e.rate;
-          });
-        }
-        if (element.deliveryLocalUnitCharges) {
-          element.deliveryLocalUnitCharges.forEach((e) => {
-            total += e.rate;
-          });
+        if (element.freightCharges.containerCode == this.AdditionalData.freightCharges.containerCode) {
+          total += element.freightCharges.rate;
+          currencyName = element.freightCharges.currencyName;
+          if (element.originLocalUnitCharges) {
+            element.originLocalUnitCharges.forEach((e) => {
+              total += e.rate;
+            });
+          }
+          if (element.deliveryLocalUnitCharges) {
+            element.deliveryLocalUnitCharges.forEach((e) => {
+              total += e.rate;
+            });
+          }
         }
       });
     }

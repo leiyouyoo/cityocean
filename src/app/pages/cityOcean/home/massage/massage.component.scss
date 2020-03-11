@@ -21,6 +21,29 @@
         background-image: url("../../../../../assets/icon/avatar-2.png");
     }
 
+    .avatar-unread {
+        position: relative;
+        height: px2rem(48px);
+        width: px2rem(48px);
+
+        .unread-count {
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+            background: linear-gradient(135deg, rgba(255, 151, 175, 1) 0%, rgba(255, 89, 110, 1) 100%);
+            font-size: 8px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #ffffff;
+            border-radius: 7px;
+            text-align: center;
+            position: absolute;
+            right: px2rem(3px);
+            bottom: 0;
+            padding: 0;
+        }
+    }
+
     #welcome {
         @extend .icon-size;
         @include bg-image("../../../../../assets/icon/home/welcome-icon");

@@ -228,8 +228,10 @@ $font-base-size: 12px;
   }
 }
 //ion-select自定义样式
-.ion-select-my-class.ios {
+.ion-select-my-class{
   --max-height: 50% !important;
+}
+.ion-select-my-class.ios {
 
   .action-sheet-group {
     overflow: auto;

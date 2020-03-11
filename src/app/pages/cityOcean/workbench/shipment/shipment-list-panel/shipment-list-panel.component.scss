@@ -117,9 +117,9 @@
         }
 
         .flag {
-            border-radius: 100%;
-            width: px2rem(10px);
-            height: px2rem(10px);
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
             flex: none;
         }
     }

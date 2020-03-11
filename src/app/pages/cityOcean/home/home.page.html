@@ -1,36 +1,37 @@
-
-  
-  <!-- <div (swipeup)="swipeup()" (swipedown)="swipedown()" *ngIf="transportationCost" class="control-search-detail">
-    <div></div>
-  </div> -->
-
-
-
-<ion-content  [scrollEvents]="true" (ionScroll) = "ionScroll($event)" fullscreen [ngClass]="{'content-background': !transportationCost}">
+<ion-content
+  [scrollEvents]="true"
+  (ionScroll)="ionScroll($event)"
+  fullscreen
+>
   <header>
     <section class="search-group clearfix">
       <div class="search-box">
         <div id="inputForSearch">
-          <input
-            type="search"
-            name="searh"
-            readonly
-            (click)="onInputChange()"
-            [placeholder]="'Search' | translate"
-          />
+          <input type="search" name="searh" readonly (click)="onInputChange()" [placeholder]="'Search' | translate" />
           <i (click)="onInputChange()" class="search-icon"></i>
         </div>
         <i (click)="onInputChange()" class="search-right-icon"></i>
         <i (click)="chatWithCustomer()" class="customer-service"></i>
       </div>
     </section>
-    <div (swipeup)="swipeup()" (swipedown)="swipedown()"  class="tools-group">
-      <div [style.order] = "item.order" *ngFor="let item of toolsList">
+    <div class="tools-group">
+      <div [style.order]="item.order" *ngFor="let item of toolsList">
         <i (click)="toolTypeClick(item)" [class]="item.type"></i>
         <span (click)="toolTypeClick(item)" class="font-14">{{item.name | translate}}</span>
       </div>
     </div>
-    <div *ngIf="transportationCost" class="search-detail">
+
+    <div [ngClass]="{'search-detail-padding': checkIsLoginWithTourist}" class="search-detail">
+      <ion-segment (ionChange)="segmentChanged($event)" mode="md" [value]="searchType">
+        <ion-segment-button value="seachRates">
+          <ion-label>{{"Rates" | translate}}</ion-label>
+        </ion-segment-button>
+
+
+        <ion-segment-button value="searchSailingSchedules">
+          <ion-label>{{"Schedules" | translate}}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
       <div class="qiyungang">
         <i></i>
         <input
@@ -60,28 +61,26 @@
     </div>
   </header>
 
-    <section class="content-group">
-      <app-message-rolling *ngIf="scrollList.length>0" [massgeList]="scrollList"></app-message-rolling>
-      <div class="massge-group-wrap">
-        <ion-item-sliding *ngFor="let msg of conversationsList; let i = index" #slide>
-          <ion-item lines="none" class="app-massage-wrap" (click)="gotoChat(msg)">
-            <app-massage [detail]="msg"></app-massage>
-          </ion-item>
-          <ion-item-options>
-            <i class="delete-icon" *ngIf="!showDeleteButton" (click)="showDeleteButtonFn(slide)"></i>
-            <ng-container *ngIf="showDeleteButton">
-              <span class="cancel-delete-icon" (click)="canceDelete(slide)">取消</span>
-              <i class="confirm-delete-icon" (click)="deleteItem(i,msg,slide)"></i>
-            </ng-container>
-          </ion-item-options>
-        </ion-item-sliding>
-      </div>
-    </section>
+  <section class="content-group">
+    <app-message-rolling *ngIf="scrollList.length>0" [massgeList]="scrollList"></app-message-rolling>
+    <div class="massge-group-wrap">
+      <ion-item-sliding *ngFor="let msg of conversationsList; let i = index" #slide>
+        <ion-item lines="none" class="app-massage-wrap" (click)="gotoChat(msg)">
+          <app-massage [detail]="msg"></app-massage>
+        </ion-item>
+        <ion-item-options>
+          <i class="delete-icon" *ngIf="!showDeleteButton" (click)="showDeleteButtonFn(slide)"></i>
+          <ng-container *ngIf="showDeleteButton">
+            <span class="cancel-delete-icon" (click)="canceDelete(slide)">取消</span>
+            <i class="confirm-delete-icon" (click)="deleteItem(i,msg,slide)"></i>
+          </ng-container>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+  </section>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
-
-

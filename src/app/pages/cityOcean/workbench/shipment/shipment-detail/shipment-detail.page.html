@@ -38,15 +38,18 @@
         <span>{{getContainerType(basicDetail)}}</span>
       </p>
       <div *ngIf="baseShow">
-        <label class="title">{{"Reference Numbers" | translate}}</label>
-        <p>
-          <span>{{"House Bill Number" | translate}}</span>
-          <span>{{basicDetail?.billOfLadingNo}}</span>
-        </p>
-        <p>
-          <span>{{"Container No" | translate}}</span>
-          <span>{{basicDetail?.containerNos}}</span>
-        </p>
+        <ng-container *ngIf="!isLoginWithTourist">
+          <label class="title">{{"Reference Numbers" | translate}}</label>
+          <p>
+            <span>{{"House Bill Number" | translate}}</span>
+            <span>{{basicDetail?.billOfLadingNo}}</span>
+          </p>
+          <p>
+            <span>{{"Container No" | translate}}</span>
+            <span>{{basicDetail?.containerNos}}</span>
+          </p>
+        </ng-container>
+        
         <ng-container *ngIf="basicDetail?.quantityString>0">
           <label class="title">{{"Cargo" | translate}}</label>
           <p>
@@ -88,7 +91,7 @@
             <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{shipperInfo?.shipperNetWorkInfo?.name}}</span>
           </p>
           <p class="arrival-location">
-            <span>{{shipperInfo.shipperNetWorkInfo?.streetAddress}}</span>
+            <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{shipperInfo.shipperNetWorkInfo?.streetAddress}}</span>
           </p>
           <p [class]="routeDetail?.status>=2?'left-line':'left-dashed-line'">
             <span>{{"Container No" | translate}}</span>
@@ -114,7 +117,7 @@
         <span>{{routeDetail?.routeDetails?.originPort?.name}}</span>
       </p>
       <p [class]="routeDetail?.status>=4?'left-line':'left-dashed-line'">
-        <span>#/港口编码</span>
+        <span>#/Port code</span>
         <span>{{routeDetail?.routeDetails?.originPort.code}}</span>
       </p>
       <p [class]="routeDetail?.status>=4?'left-line':'left-dashed-line'">
@@ -122,7 +125,7 @@
         <span>{{getTime(routeDetail?.routeDetails?.actualDepatureOrginPortDate)}}</span>
       </p>
       <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
-        <span>Carrier/承运人</span>
+        <span>Carrier</span>
         <span [id]=" isLoginWithTourist?'isLoginWithTourist':''"
           >{{routeDetail?.routeDetails?.carrierCustomerName}}</span
         >
@@ -132,7 +135,7 @@
         <span>{{routeDetail?.routeDetails?.destinationPort?.name}}</span>
       </p>
       <p [class]="routeDetail?.status>=6?'left-line':'left-dashed-line'">
-        <span>#/港口编码</span>
+        <span>#/Port code</span>
         <span>{{routeDetail?.routeDetails?.destinationPort.code}}</span>
       </p>
       <p [class]="routeDetail?.status>=6?'left-line':'left-dashed-line'">
@@ -144,7 +147,7 @@
         <span>{{getTime(routeDetail?.routeDetails?.actualPickUpTruckDestinationDate)}}</span>
       </p>
       <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
-        <span>Carrier/承运人</span>
+        <span>Carrier</span>
         <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{routeDetail?.routeDetails?.truckCustomerName}}</span>
       </p>
       <!-- 目的地 -->
@@ -154,7 +157,7 @@
             <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{consigneeInfo.consigneeNetWorkInfo?.name}}</span>
           </p>
           <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
-            <span>{{consigneeInfo.consigneeNetWorkInfo?.streetAddress}}</span>
+            <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{consigneeInfo.consigneeNetWorkInfo?.streetAddress}}</span>
           </p>
           <p>
             <span>{{"Container No" | translate}}</span>

@@ -4,7 +4,16 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import 'hammerjs';
 import { SearchlocaltionComponent } from './search-localtion/search-localtion.component';
 import { HomeService } from './home.service';
-import { getConversationList, genTestUserSig, login, deleteConversation, onSDKReady, onKickedOut, onConversationUpdate } from '@cityocean/im-library';
+import {
+  getConversationList,
+  setMessageRead,
+  genTestUserSig,
+  login,
+  deleteConversation,
+  onSDKReady,
+  onKickedOut,
+  onConversationUpdate,
+} from '@cityocean/im-library';
 import { CityOceanService } from '../city-ocean.service';
 import { TranslateService } from '@ngx-translate/core';
 import { QuickEnterComponent } from '../workbench/quick-enter/quick-enter.component';
@@ -22,7 +31,6 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
   showDeleteButton = false;
-  transportationCost = true; //运价或船期查询
   @ViewChild(IonInfiniteScroll, { static: true })
   infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonContent, { static: true }) ionContent: IonContent;
@@ -34,7 +42,7 @@ export class HomePage implements OnInit {
   totalCount: any;
   scrollList = []; // 系统消息列表
   deleteWecomeFlag = JSON.parse(localStorage.getItem('deleteWecomeFlag')); //删除welcome标记
-
+  checkIsLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -50,7 +58,12 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
-    this.imLogin();
+    if (!this.checkIsLoginWithTourist) {
+      this.imLogin();
+    }
+    if(this.checkIsLoginWithTourist){
+      this.el.nativeElement.querySelectorAll('ion-segment')[0].style.display = 'none';
+    }
   }
   ionScroll(event) {
     const inputForSearch = this.el.nativeElement.querySelector('#inputForSearch');
@@ -81,7 +94,7 @@ export class HomePage implements OnInit {
     }
   }
   ionViewWillEnter() {
-    if (this.cityOceanService.getIsLoginWithTourist()) {
+    if (this.checkIsLoginWithTourist) {
       this.searchType = 'searchSailingSchedules';
       this.toolsList = [
         // 游客模式业务类型
@@ -101,13 +114,6 @@ export class HomePage implements OnInit {
     } else {
       this.homeService.getQuickEntrance().subscribe((res) => {
         this.toolsList = res.items;
-        const hasRatesOrSailing = this.toolsList.some((e) => {
-          return e.type === 'rates' || e.type === 'sailingSchedules';
-        });
-
-        if (!hasRatesOrSailing) {
-          this.transportationCost = false;
-        }
         this.toolsList.push({
           name: 'More',
           type: 'More',
@@ -119,14 +125,14 @@ export class HomePage implements OnInit {
   }
 
   getConversationsList() {
-    const initConversationList = (list)=>{
+    const initConversationList = (list) => {
       list = list.filter((e) => {
         return e.type.indexOf('TIM') == -1 && e.type.indexOf('SYSTEM') == -1;
       });
       this.scrollList = list.filter((e) => {
         return e.type.indexOf('SYSTEM') != -1;
       });
-  
+
       list.forEach((ele) => {
         if (ele.type == 'C2C') {
           ele.type = ele.type;
@@ -147,22 +153,22 @@ export class HomePage implements OnInit {
         });
       }
       this.conversationsList = [...list];
-    }
+    };
     const that = this;
-    onKickedOut(function kickedOut(){
-      that.helper.toast("账号在其他地方登录，请确认并重新登录。")
+    onKickedOut(function kickedOut() {
+      that.helper.toast('账号在其他地方登录，请确认并重新登录。');
       that.cityOceanService.loginOut();
-    })
-    onConversationUpdate(function updateConversationList(event){
-      console.log(event)
+    });
+    onConversationUpdate(function updateConversationList(event) {
+      console.log(event);
       initConversationList(event.data);
-    })
+    });
     onSDKReady(async () => {
       let imRes = await getConversationList();
       if (!imRes) {
         return;
       }
-      
+
       // this.totalCount = imRes.totalCount;
       // if (this.totalCount == imRes.items.length) {
       //   this.infiniteScroll.disabled = true;
@@ -170,6 +176,18 @@ export class HomePage implements OnInit {
       initConversationList(imRes.data.conversationList);
       console.log(this.conversationsList);
     });
+    if (this.checkIsLoginWithTourist) {
+      this.conversationsList = [
+        {
+          name: this.translate.instant('Welcome'),
+          lastMessage: {
+            messageForShow: this.translate.instant('Welcome to cityocean'),
+            lastTime: this.cityOceanService.getEnterAppTime() || moment(new Date()).format('HH:mm'),
+          },
+          type: 'welcome',
+        },
+      ];
+    }
   }
 
   /**
@@ -187,12 +205,7 @@ export class HomePage implements OnInit {
   chatWithCustomer() {
     this.cityOceanService.chatWithCustomerService();
   }
-  swipeup() {
-    this.transportationCost = false;
-  }
-  swipedown() {
-    this.transportationCost = true;
-  }
+
   async onInputChange() {
     const modal = await this.modalController.create({
       component: GlobelSearchComponent,
@@ -231,6 +244,7 @@ export class HomePage implements OnInit {
       return;
     }
     if (item.type) {
+      setMessageRead(item.conversationID);
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: item.conversationID,
@@ -270,11 +284,9 @@ export class HomePage implements OnInit {
   toolTypeClick(item) {
     switch (item.type) {
       case 'rates':
-        this.transportationCost = true;
         this.searchType = 'seachRates';
         break;
       case 'sailingSchedules':
-        this.transportationCost = true;
         this.searchType = 'searchSailingSchedules';
         break;
       case 'billing':
@@ -326,6 +338,27 @@ export class HomePage implements OnInit {
       }
     });
     return await modal.present();
+  }
+  segmentChanged(event) {
+    this.searchType = event.detail.value;
+  }
+  ionViewDidEnter() {
+    let select_elements = this.el.nativeElement.querySelectorAll('ion-segment-button');
+    const styles = `
+    .segment-button-indicator{
+      width: 22vw;
+      transform: translateX(50%);
+    }
+    `;
+    select_elements.forEach((element) => {
+      this.injectStyles(element, '.segment-button-indicator', styles);
+    });
+  }
+  injectStyles(shadowRootElement: HTMLElement, insertBeforeSelector: string, styles: string) {
+    const root = shadowRootElement.shadowRoot;
+    const newStyleTag = document.createElement('style');
+    newStyleTag.innerHTML = styles;
+    root.insertBefore(newStyleTag, root.querySelector(insertBeforeSelector));
   }
   setToolListOrder() {
     let _order = 3;

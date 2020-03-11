@@ -17,5 +17,7 @@
   "registerCustomer":"Ask for an account Call",
   "shipments All":"All",
   "shipmentStatus":"Status",
-  "shipmentMode":"Mode"
+  "shipmentMode":"Mode",
+  "payStatus":"Status"
+  
 }

@@ -14,18 +14,18 @@ export class QuickEnterComponent implements OnInit {
    moreTypeList=[];
   typeList = [
     // 所有业务类型
-    {
-      name: this.translate.instant('Rates'),
-      type: 'rates',
-      marker: false,
-      id: 0,
-    },
-    {
-      name: this.translate.instant('Schedules'),
-      type: 'sailingSchedules',
-      marker: false,
-      id: 0,
-    },
+    // {
+    //   name: this.translate.instant('Rates'),
+    //   type: 'rates',
+    //   marker: false,
+    //   id: 0,
+    // },
+    // {
+    //   name: this.translate.instant('Schedules'),
+    //   type: 'sailingSchedules',
+    //   marker: false,
+    //   id: 0,
+    // },
     {
       name: this.translate.instant('Shipments'),
       type: 'shipments',

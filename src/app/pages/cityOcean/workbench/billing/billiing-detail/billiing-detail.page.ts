@@ -189,7 +189,7 @@ export class BilliingDetailPage implements OnInit {
   }
   // 客服
   chatWithCustomer() {
-    this.cityOceanService.chatWithCustomerService('Billing',this.id,this.billingDetail.billNo);
+    this.cityOceanService.chatWithCustomerService();
   }
   goback() {
     // this.nav.navigateForward(['/cityOcean/workbench/billing']);

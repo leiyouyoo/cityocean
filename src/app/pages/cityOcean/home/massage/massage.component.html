@@ -1,20 +1,37 @@
 <div *ngIf="detail" class="massage-group">
-  <i *ngIf="!detail?.groupProfile?.avatar" [class]="!detail?.groupProfile?.avatar?'default-avatar':''" [id]="detail.type"></i>
+  <div class="avatar-unread">
+    <span class="unread-count" *ngIf="detail.unreadCount > 0">
+      {{ detail.unreadCount <= 99 ? detail.unreadCount : 99 }}
+    </span>
+    <i
+      *ngIf="!detail?.groupProfile?.avatar"
+      [class]="!detail?.groupProfile?.avatar ? 'default-avatar' : ''"
+      [id]="detail.type"
+    ></i>
+  </div>
   <img *ngIf="detail?.groupProfile?.avatar" [src]="detail?.groupProfile?.avatar" class="image-element" />
   <div class="text-group">
     <div *ngIf="detail" class="number-wrap">
       <div>
-        <span [ngClass]="{'welcome-title': detail?.type=='welcome'}" class="number-text font-10">{{ detail.type === 'C2C'? detail.userProfile.nick?detail.userProfile.nick:detail.name:detail.name}}</span>
-        <span
-          *ngIf="showLabel()"
-          [ngClass]="{ 'lables': true,'font-10':true}"
-          [class]="'lable-' + detail?.type"
-          >{{ detail?.type }}</span>
+        <span [ngClass]="{ 'welcome-title': detail?.type == 'welcome' }" class="number-text font-10">{{
+          detail.type === 'C2C' ? (detail.userProfile.nick ? detail.userProfile.nick : detail.name) : detail.name
+        }}</span>
+        <span *ngIf="showLabel()" [ngClass]="{ lables: true, 'font-10': true }" [class]="'lable-' + detail?.type">{{
+          detail?.type
+        }}</span>
       </div>
-      
+
       <span class="time font-12">{{ getImtime(detail.lastMessage.lastTime) }}</span>
     </div>
-    <p  *ngIf="detail?.type != 'welcome'" class="state font-14"  [innerHtml] ="justText(detail.lastMessage.messageForShow)"></p>
-    <span [ngClass]="{'welcome-span': detail?.type =='welcome'}" class="description font-10" [innerHtml] ="detail.lastMessage.messageForShow"></span>
+    <p
+      *ngIf="detail?.type != 'welcome'"
+      class="state font-14"
+      [innerHtml]="justText(detail.lastMessage.messageForShow)"
+    ></p>
+    <span
+      [ngClass]="{ 'welcome-span': detail?.type == 'welcome' }"
+      class="description font-10"
+      [innerHtml]="detail.lastMessage.messageForShow"
+    ></span>
   </div>
 </div>

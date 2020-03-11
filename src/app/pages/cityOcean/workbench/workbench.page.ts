@@ -38,18 +38,18 @@ export class WorkbenchPage implements OnInit {
   ionViewDidEnter() {
     this.typeList = [
       // 所有业务类型
-      {
-        name: this.translate.instant('Rates'),
-        type: 'rates',
-        marker: false,
-        id: 0,
-      },
-      {
-        name: this.translate.instant('Schedules'),
-        type: 'sailingSchedules',
-        marker: false,
-        id: 0,
-      },
+      // {
+      //   name: this.translate.instant('Rates'),
+      //   type: 'rates',
+      //   marker: false,
+      //   id: 0,
+      // },
+      // {
+      //   name: this.translate.instant('Schedules'),
+      //   type: 'sailingSchedules',
+      //   marker: false,
+      //   id: 0,
+      // },
       {
         name: this.translate.instant('Shipments'),
         type: 'shipments',
@@ -140,7 +140,7 @@ export class WorkbenchPage implements OnInit {
           text: this.translate.instant('Shipments'),
           icon: 'shipment',
           handler: () => {
-            this.title = 'shipment';
+            this.title = this.translate.instant('Shipments');
             this.shipmentStatistics();
           },
         },

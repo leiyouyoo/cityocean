@@ -4,9 +4,10 @@ ion-header {
   --ion-toolbar-background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
   --ion-toolbar-color: #fff;
 }
+
 .edit-wrap {
   margin-top: 2em;
-    // height: px2rem(64px);
+  // height: px2rem(64px);
   line-height: px2rem(64px);
 
   .title {
@@ -70,7 +71,7 @@ ion-header {
     display: flex;
     margin-left: px2rem(26px);
 
-    & > div {
+    &>div {
       display: flex;
       align-items: center;
       flex: auto;
@@ -93,7 +94,7 @@ ion-header {
         @include bg-image('../../.././../assets/icon/workbench/hong');
       }
 
-      & > p {
+      &>p {
         display: flex;
         flex-direction: column;
         margin-left: px2rem(15px);
@@ -119,6 +120,7 @@ ion-header {
     }
   }
 }
+
 ion-content {
   --background: linear-gradient(110deg, rgba(97, 173, 255, 1) 0%, rgba(0, 122, 255, 1) 100%);
 
@@ -153,9 +155,9 @@ ion-content {
       .qiyungang {
         i {
           display: inline-block;
-          width: px2rem(10px);
-          height: px2rem(10px);
-          border-radius: 100%;
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
           background: rgba(5, 192, 153, 1);
         }
       }
@@ -173,9 +175,9 @@ ion-content {
 
         i {
           display: inline-block;
-          width: px2rem(10px);
-          height: px2rem(10px);
-          border-radius: 50%;
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
           background: rgba(222, 103, 23, 1);
         }
       }
@@ -263,7 +265,7 @@ ion-content {
       display: flex;
       flex-wrap: wrap;
 
-      & > div {
+      &>div {
         width: 25vw;
         height: px2rem(80px);
 
@@ -273,14 +275,14 @@ ion-content {
           align-items: center;
           justify-content: center;
 
-          & > i {
+          &>i {
             width: px2rem(30px);
             height: px2rem(30px);
             position: relative;
             margin-bottom: px2rem(5px);
           }
 
-          & > span {
+          &>span {
             height: px2rem(13px);
             font-size: 14px;
             font-family: PingFangSC-Regular, PingFang SC;
@@ -320,6 +322,7 @@ ion-content {
   footer {
     flex: auto;
     height: 100%;
+
     app-quick-enter {
       height: 100%;
       display: flex;

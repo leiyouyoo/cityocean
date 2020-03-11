@@ -484,7 +484,7 @@ export function onMessage(fun: Function) {
 }
 
 
-export function onConversationUpdate(fun: Function) {
+export async function onConversationUpdate(fun: Function) {
   // function(fun) {
   // 收到会话列表更新通知，可通过遍历 event.data 获取会话列表数据并渲染到页面
   // event.name - TIM.EVENT.CONVERSATION_LIST_UPDATED
