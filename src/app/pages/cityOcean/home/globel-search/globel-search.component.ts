@@ -12,15 +12,15 @@ import { CityOceanService } from '../../city-ocean.service';
   styleUrls: ['./globel-search.component.scss'],
 })
 export class GlobelSearchComponent implements OnInit {
-  billingData: any;
-  shipmentData: any;
+  billingData: any = {};
+  shipmentData: any= {};
   searchKey = '';
   page = {
     pageSize: 5,
     pageIndex: 1,
   };
   searchHistoryList: any = [];
-  bookingData: any;
+  bookingData: any= {};
   isLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
   globelSearchHistoryKey = '';
   constructor(
@@ -71,18 +71,22 @@ export class GlobelSearchComponent implements OnInit {
     this.modalController.dismiss();
   }
   searchBilling() {
-    this.billingService
-      .getAllBilling({ maxResultCount: this.page.pageSize, ShipmentId: this.searchKey } as any)
-      .subscribe((data) => {
-        this.billingData = data as any;
-      });
+    if (!this.isLoginWithTourist) {
+      this.billingService
+        .getAllBilling({ maxResultCount: this.page.pageSize, ShipmentId: this.searchKey } as any)
+        .subscribe((data) => {
+          this.billingData = data as any;
+        });
+    }
   }
   searchBooking() {
-    this.bookingServiceService
-      .GetAllBookingList({ maxResultCount: this.page.pageSize, searchKey: this.searchKey } as any)
-      .subscribe((data) => {
-        this.bookingData = data as any;
-      });
+    if (!this.isLoginWithTourist) {
+      this.bookingServiceService
+        .GetAllBookingList({ maxResultCount: this.page.pageSize, searchKey: this.searchKey } as any)
+        .subscribe((data) => {
+          this.bookingData = data as any;
+        });
+    }
   }
   gotoBookingDetail(item) {
     this.setHistory();
@@ -99,11 +103,18 @@ export class GlobelSearchComponent implements OnInit {
     });
   }
   searchShipment() {
-    this.shipmentService
-      .GetAll({ MaxResultCount: this.page.pageSize, searchText: this.searchKey })
-      .subscribe((data: any) => {
-        this.shipmentData = data;
+    if (!this.isLoginWithTourist) {
+      this.shipmentService
+        .GetAll({ MaxResultCount: this.page.pageSize, searchText: this.searchKey })
+        .subscribe((data: any) => {
+          this.shipmentData = data;
+        });
+    } else {
+      this.cityOceanService.GetRouteDetailsByShipmentNo(String(this.searchKey)).subscribe((res: any) => {
+        this.shipmentData['items'] = [res];
+        this.shipmentData.totalCount = 1;
       });
+    }
   }
   gotoShipmentDetail(item) {
     this.setHistory();
@@ -112,7 +123,7 @@ export class GlobelSearchComponent implements OnInit {
       queryParams: { id: item.id, agreement: item.agreement },
     });
   }
-  setHistory(){
+  setHistory() {
     if (this.searchKey) {
       let searchLocalStorage: Array<any> = JSON.parse(localStorage.getItem(this.globelSearchHistoryKey));
       if (!searchLocalStorage) {

@@ -36,7 +36,7 @@ export class CityOceanService {
       if (this.getIsLoginWithTourist()) {
         this.GetIdByEmail();
       } else {
-        this.GetCoUserByCustomer({ customerId: res }).subscribe((res) => {
+        this.GetCoUserByCustomer({ customerId: abp.session.user.customerId }).subscribe((res) => {
           if (res.id) {
             this.globelCustomerId = res.id;
             this.globelCustomerName = res.name;
@@ -89,7 +89,10 @@ export class CityOceanService {
     let params = obj;
     return this.httpService.get('/CRM/CustomerExternal/GetCoUserByCustomer', params);
   }
-
+  // 根据shipmentNo获取列表
+  GetRouteDetailsByShipmentNo(id: any) {
+    return this.httpService.get('/CSP/Shipment/GetRouteDetailsByShipmentNo', { shipmentNo:id });
+  }
   /**
    *获取当前登录人的id
    *
@@ -144,7 +147,7 @@ export class CityOceanService {
       this.gotoChat();
       return;
     }
-    this.sendMessage(this.customerId, this.globelCustomerName); // 发送消息，建立会话
+    this.sendMessage(this.globelCustomerId, this.globelCustomerName); // 发送消息，建立会话
   }
   async sendMessage(userId, name) {
     try {

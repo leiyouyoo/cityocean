@@ -1,20 +1,24 @@
 @import "../../../../../../theme/variables";
+
 .content-wrap {
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px px2rem(4px) 0px rgba(0, 0, 0, 0.08), 0px px2rem(2px) px2rem(10px) 0px rgba(0, 0, 0, 0.1);
     border-radius: px2rem(8px);
-    padding:px2rem(19px) px2rem(16px) px2rem(16px);
+    padding: px2rem(19px) px2rem(16px) px2rem(16px);
     margin-bottom: px2rem(16px);
+
     i {
         display: inline-block;
     }
+
     .no-group-wrap {
         margin-bottom: px2rem(12px);
         margin-top: 0 !important;
     }
 
     .sailing-message {
-        height: auto!important;
+        height: auto !important;
+
         img {
             width: px2rem(36px);
         }
@@ -68,6 +72,11 @@
         }
     }
 
+    section {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .content-group {
         display: flex;
         align-items: flex-start;
@@ -80,36 +89,25 @@
             display: flex;
             align-items: center;
 
-            &>span:nth-child(2) {
+            .port-type {
                 height: px2rem(17px);
                 font-size: 12px;
                 font-family: PingFangSC-Regular, PingFang SC;
                 font-weight: 400;
                 line-height: px2rem(17px);
-                color: rgba(159, 159, 175, 1);
+                color: var(--ion-color-dark);
                 margin: 0 px2rem(11px);
             }
         }
 
-        &>span {
-            font-size: 12px;
+        span.etd-eta {
+            font-size: 10px;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
-            color: rgba(76, 75, 94, 1);
+            color: var(--ion-color-medium);
             text-align: right;
-
-            &>div {
-                height: px2rem(14px);
-                font-size: 10px;
-                font-family: PingFangSC-Regular, PingFang SC;
-                font-weight: 400;
-                color: rgba(159, 159, 175, 1);
-                line-height: px2rem(14px);
-                margin-top: px2rem(5px);
-
-                span:nth-child(1) {
-                    margin-right: px2rem(12px);
-                }
+            &>span:first-child{
+                margin-right: px2rem(12px);
             }
         }
 
@@ -118,8 +116,6 @@
             width: px2rem(10px);
             height: px2rem(10px);
         }
-
-
     }
 
     .content-group:nth-last-child(1) {
@@ -166,7 +162,6 @@
         }
 
         margin-bottom: px2rem(10px);
-        height: px2rem(36px);
 
         .flag {
             background: rgba(222, 103, 23, 1);
@@ -183,5 +178,12 @@
         .flag {
             background: rgba(255, 121, 152, 1);
         }
+    }
+
+    .chat-bg {
+        align-self: flex-end;
+        width: px2rem(40px);
+        height: px2rem(40px);
+        @include bg-image("../../../../../../assets/icon/home/chat/icon_chat");
     }
 }

@@ -63,7 +63,7 @@ export class ShipmentPage implements OnInit {
   }
   getShipmentListByVisitor(event?){
     if(this.searchText){
-      this.myShipmentService.GetRouteDetailsByShipmentNo(String(this.searchText)).subscribe((res:any)=>{
+      this.cityOceanService.GetRouteDetailsByShipmentNo(String(this.searchText)).subscribe((res:any)=>{
         console.log(res);
         this.shipmentsList = this.shipmentsList.concat([res]);
         if (event) {
