@@ -32,7 +32,7 @@
               },
               {
                 "glob": "**/*.svg",
-                "input": "assets/svg",
+                "input": "src/assets/svg",
                 "output": "./svg"
               },
               {
