@@ -165,7 +165,6 @@ export class HomePage implements OnInit {
       let c2cList = this.conversationsList.filter((e) => {
         return e.type === 'C2C';
       });
-      this.cityOceanService.filterHistoryCustomerId(c2cList);
       console.log(this.conversationsList);
     });
   }

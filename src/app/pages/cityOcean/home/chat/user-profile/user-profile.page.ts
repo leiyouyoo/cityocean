@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { getUserProfile, updateMyProfile } from '@cityocean/im-library';
+import { getUserProfile, updateMyProfile, setMessageRead } from '@cityocean/im-library';
 import { ModalController, AlertController, NavController } from '@ionic/angular';
 import { RemarksComponent } from './remarks/remarks.component';
 import { CityOceanService } from '../../../city-ocean.service';
@@ -80,21 +80,6 @@ export class UserProfilePage implements OnInit {
     return await modal.present();
   }
   sendMessage(){
-    let chatedFlag = this.cityOceanService.c2cList.filter((e) => {
-      return e.userProfile.userID == this.userId;
-    });
-    if(chatedFlag.lenght){
-      this.nav.navigateForward(['/cityOcean/home/chat'], {
-        queryParams: {
-          conversationID: chatedFlag[0].conversationID,
-          C2C: true,
-          id: chatedFlag[0].userProfile.userID,
-          groupName: chatedFlag[0].userProfile.nick,
-          conversationType: 'c2c',
-        },
-      });
-    }else{
-      this.cityOceanService.sendMessage(this.userId,this.userProfile[0].nick)
-    }
+    this.cityOceanService.sendMessage(this.userId,this.userProfile[0].nick)
   }
 }

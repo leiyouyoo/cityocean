@@ -18,8 +18,6 @@ export class CityOceanService {
   globelCustomerName = ''; // 客服名称
   globelCustomerPhone = '0755-33958211'; // 客服电话
   customerId: ''; // 当前登录人的id
-  hasHistoryChat: any = [];
-  c2cList: any; // 单聊列表
   firstEnterAppTime = JSON.parse(localStorage.getItem('firstEnterAppTime')); // 首次进入app时间
   ratesDetail: any; // rates详情页数据
   constructor(
@@ -141,12 +139,6 @@ export class CityOceanService {
       });
       return;
     }
-
-    if (this.hasHistoryChat.length) {
-      // 如果之前有会话记录
-      this.gotoChat();
-      return;
-    }
     this.sendMessage(this.globelCustomerId, this.globelCustomerName); // 发送消息，建立会话
   }
   async sendMessage(userId, name) {
@@ -196,24 +188,7 @@ export class CityOceanService {
 
     // });
   }
-  filterHistoryCustomerId(list) {
-    // 匹配是否有历史会话记录
-    this.c2cList = list;
-    this.hasHistoryChat = this.c2cList.filter((e) => {
-      return e.userProfile.userID == this.globelCustomerId;
-    });
-  }
-  gotoChat() {
-    this.nav.navigateForward(['/cityOcean/home/chat'], {
-      queryParams: {
-        conversationID: this.hasHistoryChat[0].conversationID,
-        C2C: true,
-        id: this.hasHistoryChat[0].userProfile.userID,
-        groupName: this.hasHistoryChat[0].userProfile.nick,
-        conversationType: 'c2c',
-      },
-    });
-  }
+
   /**
    * 格式化聊天时间
    *
