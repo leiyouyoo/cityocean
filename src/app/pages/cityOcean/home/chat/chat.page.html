@@ -13,7 +13,7 @@
         (click)="gotoGroup()"
         style="font-size: 1.5em;margin-right: 0.5em;"
       ></ion-icon>
-      <ion-icon name="ellipsis-vertical" (click)="chooseMoreType($event)" style="font-size: 1.5em;"></ion-icon>
+      <ion-icon  [name]="!isC2C?'ellipsis-vertical':'person'" (click)="chooseMoreType($event)" style="font-size: 1.5em;"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
