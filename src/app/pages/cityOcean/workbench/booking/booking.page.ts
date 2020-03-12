@@ -65,7 +65,7 @@ export class BookingPage implements OnInit {
     } else {
       delete this.currentParams.BookingStatus;
     }
-    if (!event) {
+    if (!event && !this.searchKey) {
       // 如果为下拉加载，不展示loading
       this.helper.showLoading('Loading...');
     }
