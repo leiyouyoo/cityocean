@@ -25,16 +25,16 @@ export class BillingPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private nav: NavController,
     private activatedRoute: ActivatedRoute,
-    private translate:TranslateService,
-    private helper:Helper
+    private translate: TranslateService,
+    private helper: Helper,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
-      if(data.ids){
+      if (data.ids) {
         this.ids = data.ids.split(',').map((e) => {
           return Number(e);
         });
       }
-      this.routeBackType = data.routeBackType
+      this.routeBackType = data.routeBackType;
     });
   }
 
@@ -60,8 +60,11 @@ export class BillingPage implements OnInit {
     if (this.billingStatus != null) {
       params.status = this.billingStatus;
     }
-    this.searchText ? params.SearchKey = this.searchText:delete params.SearchKey;
-    this.helper.showLoading('Loading...');
+    this.searchText ? (params.SearchKey = this.searchText) : delete params.SearchKey;
+    if (!event) {
+      // 如果为下拉加载，不展示loading
+      this.helper.showLoading('Loading...');
+    }
     this.billingServiceService.getAllBilling(params).subscribe((res: any) => {
       console.log(res);
       this.helper.hideLoading();
@@ -74,14 +77,14 @@ export class BillingPage implements OnInit {
       }
     });
   }
-  resetFilter(){
+  resetFilter() {
     this.billingList = [];
     this.billingStatus = null;
     this.pageInfo = {
       maxResultCount: 5,
       skipCount: 0,
     };
-    this.getBillingList({})
+    this.getBillingList({});
   }
   gotoBillingDetail(item) {
     this.nav.navigateForward(['/cityOcean/workbench/billing/billiingDetail'], {

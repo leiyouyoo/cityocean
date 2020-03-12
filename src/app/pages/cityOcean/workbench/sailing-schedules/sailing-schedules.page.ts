@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { NavController, ModalController, IonInfiniteScroll } from "@ionic/angular";
-import { SailingFilterComponent } from "./sailing-filter/sailing-filter.component";
-import { SailService } from "@cityocean/basicdata-library/region/service/sail.service";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, ModalController, IonInfiniteScroll } from '@ionic/angular';
+import { SailingFilterComponent } from './sailing-filter/sailing-filter.component';
+import { SailService } from '@cityocean/basicdata-library/region/service/sail.service';
+import { ActivatedRoute } from '@angular/router';
 import { CityOceanService } from '../../city-ocean.service';
 import * as moment from 'moment';
 import { Helper } from '@shared/helper';
 
 @Component({
-  selector: "app-sailing-schedules",
-  templateUrl: "./sailing-schedules.page.html",
-  styleUrls: ["./sailing-schedules.page.scss"]
+  selector: 'app-sailing-schedules',
+  templateUrl: './sailing-schedules.page.html',
+  styleUrls: ['./sailing-schedules.page.scss'],
 })
 export class SailingSchedulesPage implements OnInit {
   sailingList = [];
@@ -19,9 +19,9 @@ export class SailingSchedulesPage implements OnInit {
   orignPortId: any;
   deliveryPortId: any;
   pageInfo = {
-    maxResultCount : 5,
-    skipCount:0,
-  }
+    maxResultCount: 5,
+    skipCount: 0,
+  };
   routeBackType: any;
   currentParams: {};
   constructor(
@@ -29,13 +29,13 @@ export class SailingSchedulesPage implements OnInit {
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
     private sailService: SailService,
-    private cityOceanService:CityOceanService,
-    private helper:Helper
+    private cityOceanService: CityOceanService,
+    private helper: Helper,
   ) {
-    this.activatedRoute.queryParams.subscribe(data => {
+    this.activatedRoute.queryParams.subscribe((data) => {
       this.orignPortId = data.orignPortId;
       this.deliveryPortId = data.deliveryPortId;
-      this.routeBackType = data.routeBackType
+      this.routeBackType = data.routeBackType;
     });
   }
 
@@ -46,7 +46,7 @@ export class SailingSchedulesPage implements OnInit {
     this.nav.navigateForward([`/cityOcean/${this.routeBackType}`]);
     // window.history.back()
   }
-  getSailingList(obj?,event?) {
+  getSailingList(obj?, event?) {
     let params = {
       OrigPortId: this.orignPortId,
       DestPortId: this.deliveryPortId,
@@ -54,66 +54,66 @@ export class SailingSchedulesPage implements OnInit {
       // ETA: "2020-02-20T07:22:41.881Z",
       // ETD: "2020-02-20T07:22:41.881Z",
       MaxResultCount: this.pageInfo.maxResultCount,
-      SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount
+      SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
     };
     this.currentParams && Object.assign(params, this.currentParams);
-    if(params['ETA']){
+    if (params['ETA']) {
       params['ETA'] = moment(params['ETA']).utc();
     }
-    if(params['ETD']){
+    if (params['ETD']) {
       params['ETD'] = moment(params['ETD']).utc();
     }
     params['sorting'] = 'DepartureDate desc';
-    this.helper.showLoading('Loading...');
+    if (!event) {
+      // 如果为下拉加载，不展示loading
+      this.helper.showLoading('Loading...');
+    }
     this.sailService.getSailingSchedules(params).subscribe((res: any) => {
       console.log(res);
       this.helper.hideLoading();
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.sailingList = this.sailingList.concat(res.items);
       this.pageInfo.skipCount++;
-        if(this.sailingList.length >= res.totalCount && event){
-          // 已加载全部数据，禁用上拉刷新
-          event.target.disabled = true;
-        }
+      if (this.sailingList.length >= res.totalCount && event) {
+        // 已加载全部数据，禁用上拉刷新
+        event.target.disabled = true;
+      }
     });
   }
- 
+
   gotoSailingDetail(item) {
-    return
-    this.nav.navigateForward(
-      ["/cityOcean/workbench/sailingSchedules/sailingDetail"],
-      {
-        queryParams: {}
-      }
-    );
+    return;
+    this.nav.navigateForward(['/cityOcean/workbench/sailingSchedules/sailingDetail'], {
+      queryParams: {},
+    });
   }
   async sailingFilter(type) {
     const modal = await this.modalController.create({
-      component: SailingFilterComponent
+      component: SailingFilterComponent,
     });
     modal.onWillDismiss().then((res: any) => {
       let params = {};
-      if(!res.data){
-        return
+      if (!res.data) {
+        return;
       }
       if (res.data.etaetd && res.data.date) {
         params[res.data.etaetd] = res.data.date;
       }
       if (res.data.week) {
-        params["week"] = res.data.week;
+        params['week'] = res.data.week;
       }
       this.pageInfo = {
-        maxResultCount : 5,
-        skipCount:0,
-      }
+        maxResultCount: 5,
+        skipCount: 0,
+      };
       this.sailingList = [];
       this.currentParams = params;
       this.getSailingList(params);
     });
     return await modal.present();
   }
-   // 客服
-   chatWithCustomer() {
+  // 客服
+  chatWithCustomer() {
     this.cityOceanService.chatWithCustomerService();
   }
 }

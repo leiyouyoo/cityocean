@@ -28,21 +28,21 @@ export class RatesPage implements OnInit {
   };
   deliveryPortName: any;
   orignPortName: any;
-  routeBackType: any; 
+  routeBackType: any;
   constructor(
     private nav: NavController,
     private modalController: ModalController,
     private ratesService: RatesService,
     private activatedRoute: ActivatedRoute,
     private cityOceanService: CityOceanService,
-    private helper:Helper
+    private helper: Helper,
   ) {
     this.activatedRoute.queryParams.subscribe((data) => {
       this.currentParam.orignPortId = [data.orignPortId];
       this.currentParam.deliveryPortId = [data.deliveryPortId];
       this.deliveryPortName = data.deliveryPortName;
       this.orignPortName = data.orignPortName;
-      this.routeBackType = data.routeBackType
+      this.routeBackType = data.routeBackType;
     });
   }
 
@@ -64,7 +64,10 @@ export class RatesPage implements OnInit {
       }
     }
     Object.assign(param, this.currentParam);
-    this.helper.showLoading('Loading...');
+    if (!event) {
+      // 如果为下拉加载，不展示loading
+      this.helper.showLoading('Loading...');
+    }
     this.ratesService.geFreightRates(param).subscribe((res: any) => {
       this.helper.hideLoading();
       console.log(res);
@@ -87,12 +90,16 @@ export class RatesPage implements OnInit {
       queryParams: {},
     });
   }
- 
- 
+
   async ratesFilter(type) {
     const modal = await this.modalController.create({
       component: RatesFilterComponent,
-      componentProps: {deliveryPortId:this.currentParam.deliveryPortId,orignPortId:this.currentParam.orignPortId,deliveryPortName:this.deliveryPortName,orignPortName:this.orignPortName},
+      componentProps: {
+        deliveryPortId: this.currentParam.deliveryPortId,
+        orignPortId: this.currentParam.orignPortId,
+        deliveryPortName: this.deliveryPortName,
+        orignPortName: this.orignPortName,
+      },
     });
     modal.onWillDismiss().then((res) => {
       if (!res.data) {
@@ -105,8 +112,10 @@ export class RatesPage implements OnInit {
       this.ratesList = [];
       this.currentParam.ratesValidDays = res.data.ratesValidDays;
       this.currentParam.orignLocationId = res.data.orignLocationId;
-      this.currentParam.orignPortId = isArray(res.data.orignPortId)?res.data.orignPortId:[res.data.orignPortId];
-      this.currentParam.deliveryPortId = isArray(res.data.deliveryPortId)?res.data.deliveryPortId:[res.data.deliveryPortId];
+      this.currentParam.orignPortId = isArray(res.data.orignPortId) ? res.data.orignPortId : [res.data.orignPortId];
+      this.currentParam.deliveryPortId = isArray(res.data.deliveryPortId)
+        ? res.data.deliveryPortId
+        : [res.data.deliveryPortId];
       this.currentParam.deliveryLocationId = res.data.deliveryLocationId;
       this.currentParam.carrierId = res.data.carrierId;
       this.getRatesList();

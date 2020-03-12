@@ -197,7 +197,7 @@ export class ChatPage implements OnInit {
     let _chatList = tmpChatLists.filter((e) => {
       return !e.isTimeShow;
     });
-
+    let has5MinInclude = false;
     // 插入时间显示
     let chatListWithTime = [];
     for (let index = _chatList.length - 1; index >= 0; index--) {
@@ -218,6 +218,10 @@ export class ChatPage implements OnInit {
           .format();
         const checkTime = (i) => {
           let _element = _chatList[i];
+          if(has5MinInclude){ // 如果消息包含当前时间5分以内的，插入5分钟内最前面的消息时间
+            chatListWithTime.unshift({ isTimeShow: true, time: _chatList[i+1].msgTime });
+            has5MinInclude = false;
+          }
           chatListWithTime.unshift(_element);
           if (i - 1 >= 0) {
             const _msgTime = moment(_chatList[i - 1].msgTime).format();
@@ -226,12 +230,12 @@ export class ChatPage implements OnInit {
               _element.isChecked = true;
             } else {
               this.nowTime = _element.msgTime;
-              chatListWithTime.unshift({ isTimeShow: true, time: _element.msgTime });
+              chatListWithTime.unshift({ isTimeShow: true, time: _element.msgTime });  // 如果消息时间差超过5分钟，插入时间
               return;
             }
           } else {
             this.nowTime = _element.msgTime;
-            chatListWithTime.unshift({ isTimeShow: true, time: _element.msgTime });
+            chatListWithTime.unshift({ isTimeShow: true, time: _element.msgTime }); // 最前面一条消息的时间
           }
         };
         checkTime(index);
@@ -242,6 +246,7 @@ export class ChatPage implements OnInit {
         !moment(this.nowTime).isSame(msgTime) &&
         moment(msgTime).isBetween(subtract5Min, this.nowTime)
       ) {
+        has5MinInclude = true;
         chatListWithTime.unshift(element);
       }
     }

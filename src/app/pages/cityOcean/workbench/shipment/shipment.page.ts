@@ -26,11 +26,11 @@ export class ShipmentPage implements OnInit {
     private myShipmentService: MyShipmentService,
     private modalController: ModalController,
     private cityOceanService: CityOceanService,
-    private activatedRoute:ActivatedRoute,
-    private helper:Helper
+    private activatedRoute: ActivatedRoute,
+    private helper: Helper,
   ) {
-    this.activatedRoute.queryParams.subscribe(data => {
-      this.routeBackType = data.routeBackType
+    this.activatedRoute.queryParams.subscribe((data) => {
+      this.routeBackType = data.routeBackType;
     });
   }
 
@@ -45,14 +45,17 @@ export class ShipmentPage implements OnInit {
    * @memberof ShipmentPage
    */
   getShipmentList(event?) {
-    if(this.cityOceanService.getIsLoginWithTourist()){
+    if (this.cityOceanService.getIsLoginWithTourist()) {
       this.getShipmentListByVisitor(event);
-      return
+      return;
     }
-    this.searchText ? this.currentParams.searchText = this.searchText:delete this.currentParams.searchText;
+    this.searchText ? (this.currentParams.searchText = this.searchText) : delete this.currentParams.searchText;
     this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
     this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
-    this.helper.showLoading('Loading...');
+    if (!event) {
+      // 如果为下拉加载，不展示loading
+      this.helper.showLoading('Loading...');
+    }
     this.myShipmentService.GetAll(this.currentParams).subscribe((res) => {
       console.log(res);
       this.helper.hideLoading();
@@ -65,10 +68,10 @@ export class ShipmentPage implements OnInit {
       }
     });
   }
-  getShipmentListByVisitor(event?){
-    if(this.searchText){
+  getShipmentListByVisitor(event?) {
+    if (this.searchText) {
       this.helper.showLoading('Loading...');
-      this.cityOceanService.GetRouteDetailsByShipmentNo(String(this.searchText)).subscribe((res:any)=>{
+      this.cityOceanService.GetRouteDetailsByShipmentNo(String(this.searchText)).subscribe((res: any) => {
         console.log(res);
         this.helper.hideLoading();
         this.shipmentsList = this.shipmentsList.concat([res]);
@@ -77,22 +80,22 @@ export class ShipmentPage implements OnInit {
           event.target.disabled = true;
           event.target.complete();
         }
-      })
+      });
     }
   }
-  resetFilter(){
+  resetFilter() {
     this.shipmentsList = [];
     this.pageInfo.skipCount = 0;
-    this.getShipmentList()
+    this.getShipmentList();
   }
-  
+
   goback() {
     this.nav.navigateForward([`/cityOcean/${this.routeBackType}`]);
     // window.history.back()
   }
   gotoShipmentDetail(item) {
     this.nav.navigateForward(['/cityOcean/workbench/shipments/shipmentDetail'], {
-      queryParams: { id: item.id},
+      queryParams: { id: item.id },
     });
   }
   async shipmentFilter(type) {
@@ -105,10 +108,10 @@ export class ShipmentPage implements OnInit {
         maxResultCount: 5,
         skipCount: 0,
       };
-      this.currentParams  = {};
+      this.currentParams = {};
       if (res.data) {
         this.currentParams = res.data;
-        this.resetFilter()
+        this.resetFilter();
       }
     });
     return await modal.present();
