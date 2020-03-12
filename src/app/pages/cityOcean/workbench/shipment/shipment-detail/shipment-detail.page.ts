@@ -9,6 +9,7 @@ import { CityOceanService } from '../../../city-ocean.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Helper } from '@shared/helper';
+import { PopoverComponent } from '../../../share-components/my-popover/popover.component';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -58,6 +59,8 @@ export class ShipmentDetailPage implements OnInit {
   lines: any[];
   dashedLines: any[];
   isLoginWithTourist: boolean;
+  popoverList: any;
+  isfromChat: boolean;
   constructor(
     private activatedRoute: ActivatedRoute,
     private myShipmentService: MyShipmentService,
@@ -70,6 +73,7 @@ export class ShipmentDetailPage implements OnInit {
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
+      this.isfromChat = Boolean(data.fromChat);
     });
   }
 
@@ -77,6 +81,9 @@ export class ShipmentDetailPage implements OnInit {
     if (this.cityOceanService.getIsLoginWithTourist()){
       this.isLoginWithTourist = true
     }
+    this.cityOceanService.GetRelatedBusiness({ id: this.id }).subscribe((res: any) => {
+      this.popoverList = res;
+    });
   }
   ionViewWillEnter(){
     forkJoin(this.myShipmentService.GetShipmentDetail(this.id), this.myShipmentService.GetDetail(this.id)).subscribe(
@@ -163,5 +170,8 @@ export class ShipmentDetailPage implements OnInit {
       });
     }
     return str;
+  }
+  showRelatedBusinessPopover(event) {
+    this.cityOceanService.showRelatedBusinessPopover(event,this.popoverList,PopoverComponent,'shipment');
   }
 }

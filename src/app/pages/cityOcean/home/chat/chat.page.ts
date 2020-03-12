@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
-import { PopoverComponent } from './my-popover/popover.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { environment } from '@env/environment';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
@@ -54,7 +53,7 @@ export class ChatPage implements OnInit {
   };
   bussinessType; //业务类型
   bussinessId; //业务ID
-  bussinessDetail = { bookingNo: '', status: -1, shipmentNo: '', soNo: '' }; //业务详情
+  bussinessDetail = { No: '', status: -1, soNo: '',shipmentNo:'' }; //业务详情
   conversationType: any;
   popoverList; // 更多列表数据
   isDisbanded: boolean;
@@ -94,6 +93,7 @@ export class ChatPage implements OnInit {
         this.statusType = BookingStatusType; //状态枚举
         this.bookingServiceService.GetDetail(this.bussinessId).subscribe((res: any) => {
           this.bussinessDetail = res;
+          this.bussinessDetail.No = this.groupName;
         });
         break;
       case 'shipment':
@@ -108,9 +108,7 @@ export class ChatPage implements OnInit {
           console.log(res);
           this.bussinessDetail = res[0];
           Object.assign(this.bussinessDetail, res[1]);
-        });
-        this.homeService.GetRelatedBusiness({ id: this.bussinessId }).subscribe((res: any) => {
-          this.popoverList = res;
+          this.bussinessDetail.No = this.bussinessDetail.shipmentNo;
         });
         break;
 
@@ -340,19 +338,6 @@ export class ChatPage implements OnInit {
       this.chatList.push({ isTimeShow: true, time: now });
     }
   }
-  /**
-   *更多按钮，区分群聊还是单聊
-   *
-   * @param {*} event
-   * @memberof ChatPage
-   */
-  chooseMoreType(event) {
-    if (!this.isC2C) {
-      this.showPopover(event, PopoverComponent, 'chat-popover');
-    } else {
-      this.gotoGroup();
-    }
-  }
   gotoDetail() {
     if (!this.isC2C) {
       if (this.bussinessType !== 'booking' && this.bussinessType !== 'shipment') {
@@ -365,25 +350,13 @@ export class ChatPage implements OnInit {
       this.nav.navigateForward([`/cityOcean/workbench/${_bussinessType}/${this.bussinessType}Detail`], {
         queryParams: {
           id: this.bussinessId,
+          fromChat:true
         },
       });
     }
   }
 
-  async showPopover(event, component, cssClass?) {
-    const popover = await this.popoverController.create({
-      component: component,
-      showBackdrop: false,
-      event: event,
-      backdropDismiss: true,
-      cssClass: cssClass,
-      componentProps: { popoverList: this.popoverList, type: this.bussinessType },
-    });
-    popover.onDidDismiss().then((event) => {
-      this.currentPopover = event.data;
-    });
-    await popover.present();
-  }
+  
   goback() {
     this.location.back();
   }
@@ -491,7 +464,7 @@ export class ChatPage implements OnInit {
   pressCard(event) {
     console.log(event);
     this.pressStatus = true;
-    this.showPopover(event, PressPopoverComponent, 'press-css-class');
+    // this.showPopover(event, PressPopoverComponent, 'press-css-class');
   }
   getImgUrl(url) {
     if (url.indexOf('data:image/png;base64') != -1 || url.indexOf('http') != -1) {

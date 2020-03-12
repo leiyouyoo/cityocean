@@ -3,7 +3,7 @@ import { HttpService } from '@cityocean/common-library';
 import { Observable } from 'rxjs';
 import { StartupService } from '@core';
 import { createTextMessage, logOut, sendmessage, setMessageRead } from '@cityocean/im-library';
-import { NavController, ActionSheetController } from '@ionic/angular';
+import { NavController, ActionSheetController, PopoverController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { CallNumber } from '@ionic-native/call-number/ngx';
@@ -29,6 +29,7 @@ export class CityOceanService {
     private actionSheetController: ActionSheetController,
     private callNumber: CallNumber,
     @Inject(DA_SERVICE_TOKEN) private tokenSrv: ITokenService,
+    private popoverController:PopoverController
   ) {
     this.getCustomerId().then((res) => {
       if (this.getIsLoginWithTourist()) {
@@ -81,6 +82,11 @@ export class CityOceanService {
       localStorage.setItem('firstEnterAppTime', this.firstEnterAppTime);
     }
     return this.firstEnterAppTime;
+  }
+  
+// shipment业务对话获取相关的业务id（app端）
+  GetRelatedBusiness(params: { id: number }) {
+    return this.httpService.get('/CSP/Shipment/GetRelatedBusiness', params);
   }
   // 根据当前登录客户获取客户所属业务员
   GetCoUserByCustomer(obj = {}): Observable<any> {
@@ -286,5 +292,19 @@ export class CityOceanService {
         }
       }
     }
+  }
+
+  async showRelatedBusinessPopover(event,popoverList,component,bussinessType, cssClass?) {
+    const popover = await this.popoverController.create({
+      component: component,
+      showBackdrop: false,
+      event: event,
+      backdropDismiss: true,
+      cssClass: cssClass,
+      componentProps: { popoverList: popoverList, type: bussinessType },
+    });
+    popover.onDidDismiss().then((event) => {
+    });
+    await popover.present();
   }
 }

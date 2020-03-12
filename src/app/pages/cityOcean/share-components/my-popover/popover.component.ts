@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PopoverController, NavController } from '@ionic/angular';
-import { CityOceanService } from '../../../city-ocean.service';
+import { CityOceanService } from '../../city-ocean.service';
 @Component({
   selector: 'app-popover',
   templateUrl: './popover.component.html',

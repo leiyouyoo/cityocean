@@ -9,6 +9,7 @@ import { CityOceanPage } from './cityOcean.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchlocaltionComponent } from './home/search-localtion/search-localtion.component';
 import { CityOceanService } from './city-ocean.service';
+import { PopoverComponent } from './share-components/my-popover/popover.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,8 @@ import { CityOceanService } from './city-ocean.service';
     TranslateModule,
     CityOceanPageRoutingModule
   ],
-  declarations: [CityOceanPage,SearchlocaltionComponent],
-  entryComponents:[SearchlocaltionComponent],
+  declarations: [PopoverComponent,CityOceanPage,SearchlocaltionComponent],
+  entryComponents:[SearchlocaltionComponent,PopoverComponent],
   providers:[CityOceanService]
 })
 export class CityOceanPageModule {}

@@ -7,7 +7,8 @@
     <ion-title>{{routeDetail?.shipmentNo}}</ion-title>
 
     <ion-buttons slot="end" class="title-right">
-      <ion-icon name="people" (click)="chatWithCustomer()" style="font-size: 1.5em;margin-right: 0.5em;"></ion-icon>
+      <ion-icon *ngIf="!isfromChat" name="chatbubble-ellipses" (click)="chatWithCustomer()" style="font-size: 1.5em;margin-right: 0.5em;"></ion-icon>
+      <ion-icon  name="ellipsis-vertical" (click)="showRelatedBusinessPopover($event)" style="font-size: 1.5em;"></ion-icon>    
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

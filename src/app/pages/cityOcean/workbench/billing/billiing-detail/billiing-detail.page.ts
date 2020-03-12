@@ -5,6 +5,7 @@ import { BillingServiceService } from '../billing-service.service';
 import * as moment from 'moment';
 import { CityOceanService } from '../../../city-ocean.service';
 import { NavController } from '@ionic/angular';
+import { PopoverComponent } from '../../../share-components/my-popover/popover.component';
 
 @Component({
   selector: 'app-billiing-detail',
@@ -165,6 +166,7 @@ export class BilliingDetailPage implements OnInit {
   ];
 
   businessTypeTitle: any;
+  isfromChat: boolean;
   constructor(
     private activatedRoute: ActivatedRoute,
     private billingServiceService: BillingServiceService,
@@ -173,6 +175,7 @@ export class BilliingDetailPage implements OnInit {
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
+      this.isfromChat = Boolean(data.fromChat);
     });
   }
 
@@ -200,7 +203,9 @@ export class BilliingDetailPage implements OnInit {
       return acc + cur.payAmount;
     }, 0);
   }
-  moreClick() {}
+  showRelatedBusinessPopover(event) {
+    this.cityOceanService.showRelatedBusinessPopover(event,{},PopoverComponent,'billing');
+  }
   getContainerType(data) {
     let str = '';
     try {

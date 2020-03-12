@@ -8,8 +8,7 @@
 
     <ion-buttons slot="end">
       <ion-icon
-        *ngIf="!isC2C"
-        name="people"
+        [name]="!isC2C?'people':'person'"
         (click)="gotoGroup()"
         style="font-size: 1.5em;margin-right: 0.5em;"
       ></ion-icon>
@@ -25,7 +24,7 @@
   <div *ngIf="getCardShow()" class="type-wrap">
     <app-business-type
       (click)="gotoDetail()"
-      [title]="{title1:bussinessDetail.shipmentNo, title2: this.bussinessDetail.soNo}"
+      [title]="{title1:bussinessDetail.No, title2: this.bussinessDetail.soNo}"
       [status]="statusType[bussinessDetail.status]"
     ></app-business-type>
   </div>

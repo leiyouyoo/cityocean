@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
-import { PopoverComponent } from './chat/my-popover/popover.component';
 import { HomeService } from './home.service';
 import { PressPopoverComponent } from './chat/press-popover/press-popover.component';
 import { MessageRollingComponent } from 'src/app/components/message-rolling/message-rolling.component';
@@ -16,8 +15,8 @@ import { GlobelSearchComponent } from './globel-search/globel-search.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule, SharedModule],
-  declarations: [HomePage, PopoverComponent, MessageRollingComponent, PressPopoverComponent,MassageComponent,GlobelSearchComponent],
-  entryComponents: [PopoverComponent, PressPopoverComponent,GlobelSearchComponent],
+  declarations: [HomePage, MessageRollingComponent, PressPopoverComponent,MassageComponent,GlobelSearchComponent],
+  entryComponents: [PressPopoverComponent,GlobelSearchComponent],
   providers: [HomeService],
 })
 export class HomePageModule {}

@@ -7,6 +7,7 @@ import { BookingServiceService } from '../booking-service.service';
 import { bookingStatus } from '../class/bookingStatus';
 import { CityOceanService } from '../../../city-ocean.service';
 import { NavController } from '@ionic/angular';
+import { PopoverComponent } from '../../../share-components/my-popover/popover.component';
 
 @Component({
   selector: 'app-booking-detail',
@@ -289,6 +290,7 @@ export class BookingDetailPage implements OnInit {
     isDeleted: true,
   };
   statusStep: number;
+  isfromChat: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, 
     private bookingServiceService: BookingServiceService,
@@ -296,6 +298,7 @@ export class BookingDetailPage implements OnInit {
     private nav:NavController) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
+      this.isfromChat = Boolean(data.fromChat);
     });
   }
   setRequestProcess() {
@@ -431,6 +434,9 @@ export class BookingDetailPage implements OnInit {
   goback() {
     // this.nav.navigateForward(['/cityOcean/workbench/booking']);
     window.history.back();
+  }
+  showRelatedBusinessPopover(event) {
+    this.cityOceanService.showRelatedBusinessPopover(event,{},PopoverComponent,'booking');
   }
   // 客服
   chatWithCustomer() {
