@@ -48,13 +48,20 @@
           placeholder="{{'Port of discharge' | translate}}"
         />
       </div>
-      <button
+      <button *ngIf="searchType == 'searchSailingSchedules'"
         (click)="go4search()"
         [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
         class="search-yunjia font-12"
       >
-        {{ searchType }}
+        {{ "searchSailingSchedules" | translate }}
       </button>
+      <button *ngIf="searchType == 'seachRates'"
+      (click)="go4search()"
+      [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
+      class="search-yunjia font-12"
+    >
+      {{ "seachRates" | translate }}
+    </button>
     </div>
   </header>
 

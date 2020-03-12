@@ -34,7 +34,7 @@ export class HomePage implements OnInit {
   @ViewChild(IonInfiniteScroll, { static: true })
   infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonContent, { static: true }) ionContent: IonContent;
-  searchType = this.translate.instant('seachRates'); //  当前查询类别
+  searchType = 'seachRates'; //  当前查询类别
   toolsList: any;
   conversationsList: any = [];
   orignPort: any = {}; // 启运港
