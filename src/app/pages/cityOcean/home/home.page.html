@@ -1,8 +1,4 @@
-<ion-content
-  [scrollEvents]="true"
-  (ionScroll)="ionScroll($event)"
-  fullscreen
->
+<ion-content [scrollEvents]="true" (ionScroll)="ionScroll($event)" fullscreen>
   <header>
     <section class="search-group clearfix">
       <div class="search-box">
@@ -23,8 +19,15 @@
 
     <div [ngClass]="{'search-detail-padding': checkIsLoginWithTourist}" class="search-detail">
       <div class="my-tabs" *ngIf="!checkIsLoginWithTourist">
-        <div [ngClass]="{'tabs-rates': searchType =='seachRates'}"  (click)="typeChoosed('seachRates')">{{"Rates" | translate}}</div>
-        <div [ngClass]="{'tabs-rates': searchType =='searchSailingSchedules'}" (click)="typeChoosed('searchSailingSchedules')">{{"Schedules" | translate}}</div>
+        <div [ngClass]="{'tabs-rates': searchType =='seachRates'}" (click)="typeChoosed('seachRates')">
+          {{"Rates" | translate}}
+        </div>
+        <div
+          [ngClass]="{'tabs-rates': searchType =='searchSailingSchedules'}"
+          (click)="typeChoosed('searchSailingSchedules')"
+        >
+          {{"Schedules" | translate}}
+        </div>
       </div>
       <div class="qiyungang">
         <i></i>
@@ -50,7 +53,7 @@
         [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
         class="search-yunjia font-12"
       >
-        {{searchType | translate}}
+        {{ searchType }}
       </button>
     </div>
   </header>
