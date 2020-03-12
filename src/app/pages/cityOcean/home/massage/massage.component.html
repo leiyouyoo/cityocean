@@ -31,7 +31,7 @@
     <span
       [ngClass]="{ 'welcome-span': detail?.type == 'welcome' }"
       class="description font-10"
-      [innerHtml]="detail.lastMessage.messageForShow"
+      [innerHtml]="justText(detail.lastMessage.messageForShow)"
     ></span>
   </div>
 </div>
