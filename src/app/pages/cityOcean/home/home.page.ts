@@ -115,9 +115,6 @@ export class HomePage implements OnInit {
           name: 'More',
           type: 'More',
         });
-        this.toolsList.forEach(element => {
-          element.name = this.translate.instant(element.name);
-        });
         this.setToolListOrder();
       });
     }
@@ -336,9 +333,6 @@ export class HomePage implements OnInit {
         this.toolsList.push({
           name: 'More',
           type: 'More',
-        });
-        this.toolsList.forEach(element => {
-          element.name = this.translate.instant(element.name);
         });
         this.setToolListOrder();
       }
