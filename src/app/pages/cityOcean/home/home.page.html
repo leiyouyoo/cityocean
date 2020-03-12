@@ -17,7 +17,7 @@
     <div class="tools-group">
       <div [style.order]="item.order" *ngFor="let item of toolsList">
         <i (click)="toolTypeClick(item)" [class]="item.type"></i>
-        <span (click)="toolTypeClick(item)" class="font-14">{{item.name | translate}}</span>
+        <span (click)="toolTypeClick(item)" class="font-14">{{item.name}}</span>
       </div>
     </div>
 
