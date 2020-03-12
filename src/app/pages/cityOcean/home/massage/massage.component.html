@@ -21,7 +21,7 @@
         }}</span>
       </div>
 
-      <span class="time font-12">{{ getImtime(detail.lastMessage.lastTime) }}</span>
+      <span class="time font-12">{{ getImtime(detail?.lastMessage?.lastTime) }}</span>
     </div>
     <p
       *ngIf="detail?.type != 'welcome'"

@@ -61,7 +61,7 @@ export class BillingPage implements OnInit {
       params.status = this.billingStatus;
     }
     this.searchText ? (params.SearchKey = this.searchText) : delete params.SearchKey;
-    if (!event) {
+    if (!event && !this.searchText) {
       // 如果为下拉加载，不展示loading
       this.helper.showLoading('Loading...');
     }

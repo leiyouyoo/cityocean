@@ -18,7 +18,7 @@ export class AddMemberComponent implements OnInit {
   membersList: Array<any> = [];
 
   ngOnInit() {
-    if (!this.isC2C && this.conversationType != 'Private') {
+    if (this.isBusinessType()) {
       const map = {
         quote: 0,
         booking: 1,
@@ -54,6 +54,13 @@ export class AddMemberComponent implements OnInit {
   dismissModal(data?) {
     this.modalController.dismiss(data);
   }
+  isBusinessType(){
+    if (this.conversationType == 'shipment' || this.conversationType == 'booking'|| this.conversationType == 'billing'|| this.conversationType == 'rates'){
+      return true
+    }else{
+      return false
+    }
+  }
   save() {
     if (this.isC2C) {
       let list = this.membersList
@@ -66,7 +73,7 @@ export class AddMemberComponent implements OnInit {
 
       createGroup({
         type: 'private',
-        name: 'WebSDK',
+        name: this.membersList.map(e=>{return e.surname?e.surname + ' '+ e.name: e.name}).join(','),
         memberList: list, // 如果填写了 memberList，则必须填写 userID
       }).then((res) => {
         console.log(res);

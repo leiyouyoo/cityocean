@@ -313,6 +313,9 @@ export class HomePage implements OnInit {
         break;
     }
   }
+  typeChoosed(type){
+    this.searchType = type
+  }
   async moreClick() {
     const modal = await this.modalController.create({
       cssClass: 'home-quick-enter',
@@ -338,24 +341,6 @@ export class HomePage implements OnInit {
   }
   segmentChanged(event) {
     this.searchType = event.detail.value;
-  }
-  ionViewDidEnter() {
-    let select_elements = this.el.nativeElement.querySelectorAll('ion-segment-button');
-    const styles = `
-    .segment-button-indicator{
-      width: 22vw;
-      transform: translateX(50%);
-    }
-    `;
-    select_elements.forEach((element) => {
-      this.injectStyles(element, '.segment-button-indicator', styles);
-    });
-  }
-  injectStyles(shadowRootElement: HTMLElement, insertBeforeSelector: string, styles: string) {
-    const root = shadowRootElement.shadowRoot;
-    const newStyleTag = document.createElement('style');
-    newStyleTag.innerHTML = styles;
-    root.insertBefore(newStyleTag, root.querySelector(insertBeforeSelector));
   }
   setToolListOrder() {
     let _order = 3;

@@ -52,7 +52,7 @@ export class ShipmentPage implements OnInit {
     this.searchText ? (this.currentParams.searchText = this.searchText) : delete this.currentParams.searchText;
     this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
     this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
-    if (!event) {
+    if (!event && !this.searchText) {
       // 如果为下拉加载，不展示loading
       this.helper.showLoading('Loading...');
     }

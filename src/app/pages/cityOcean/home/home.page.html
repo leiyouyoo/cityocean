@@ -22,16 +22,10 @@
     </div>
 
     <div [ngClass]="{'search-detail-padding': checkIsLoginWithTourist}" class="search-detail">
-      <ion-segment *ngIf="!checkIsLoginWithTourist" (ionChange)="segmentChanged($event)" mode="md" [value]="searchType">
-        <ion-segment-button value="seachRates">
-          <ion-label>{{"Rates" | translate}}</ion-label>
-        </ion-segment-button>
-
-        
-        <ion-segment-button value="searchSailingSchedules">
-          <ion-label>{{"Schedules" | translate}}</ion-label>
-        </ion-segment-button>
-      </ion-segment>
+      <div class="my-tabs" *ngIf="!checkIsLoginWithTourist">
+        <div [ngClass]="{'tabs-rates': searchType =='seachRates'}"  (click)="typeChoosed('seachRates')">{{"Rates" | translate}}</div>
+        <div [ngClass]="{'tabs-rates': searchType =='searchSailingSchedules'}" (click)="typeChoosed('searchSailingSchedules')">{{"Schedules" | translate}}</div>
+      </div>
       <div class="qiyungang">
         <i></i>
         <input
