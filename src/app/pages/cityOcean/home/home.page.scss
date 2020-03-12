@@ -21,9 +21,11 @@
         border-style: solid none;
     }
 }
-.search-detail-padding{
-    padding:  px2rem(32px) px2rem(24px) px2rem(27px) px2rem(24px)!important; 
+
+.search-detail-padding {
+    padding: px2rem(32px) px2rem(24px) px2rem(27px) px2rem(24px) !important;
 }
+
 .search-detail {
     padding: 0 px2rem(24px) px2rem(27px) px2rem(24px);
     box-shadow: 0px -12px 12px 0px rgba(71, 135, 254, 1);
@@ -349,15 +351,25 @@ ion-content {
     ion-infinite-scroll {
         background: #fff;
     }
-
-    ion-segment {
+    .my-tabs {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #D6D6D6;
         margin-bottom: px2rem(16px);
-        --color: var(--ion-color-dark);
-        --color-checked: var(--ion-color-primary);
-        ion-segment-button {
-            text-transform: unset !important;
-            font-size: 12px;
-            font-family: PingFangSC-Regular, PingFang SC;
+        div {
+            padding: px2rem(10px) 0;
+            width: 22vw;
+            text-align: center;
+        }
+
+        .tabs-rates {
+            color: #007AFF;
+            border-bottom: 2px solid #007Aff;
+           
         }
     }
 }
