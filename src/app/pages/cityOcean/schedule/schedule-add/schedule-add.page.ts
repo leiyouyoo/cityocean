@@ -22,7 +22,6 @@ export class ScheduleAddPage implements OnInit {
   edit = false;
   choosedContacts: any = [];
   data: FormGroup;
-  timeNow: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,9 +39,6 @@ export class ScheduleAddPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    let d = new Date();
-    d.setHours(d.getHours(), d.getMinutes() - d.getTimezoneOffset());
-    this.timeNow = d.toISOString();
     this.data = this.formBuilder.group({
       remindContent: [null, [Validators.required]],
       remindPeople: [null],
