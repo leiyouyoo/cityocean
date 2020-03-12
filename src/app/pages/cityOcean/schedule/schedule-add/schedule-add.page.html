@@ -38,7 +38,6 @@
         <ion-datetime
           style="flex:1"
           [disabled]="!edit"
-          [min]="timeNow"
           formControlName="remindStartTime"
           displayFormat="YYYY-MM-DD HH:mm"
           cancelText="{{'Cancel' | translate}}"
@@ -69,7 +68,7 @@
       </div>
     </div>
     <div *ngIf="data.get('remindEndTime').dirty && data.get('remindEndTime').errors" class="form-error">
-      {{'Please Enter Title' | translate}}
+      {{'Please Enter Time' | translate}}
     </div>
 
     <div class="time" (click)="presentActionSheet()">

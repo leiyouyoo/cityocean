@@ -2,7 +2,7 @@
   <div class="content-group no-group-wrap">
     <div class="sailing-message">
       <!-- <i class="ship-icon"></i> -->
-      <img [src]="sailingSchedulesListItem.imageUrl" />
+      <img [src]="sailingSchedulesListItem.imageUrl.replace('http://', 'https://')" />
       <div>
         <span>{{ sailingSchedulesListItem['Vessel/Voyage'] }}</span>
         <span>{{ sailingSchedulesListItem.carrierCode }}</span>
