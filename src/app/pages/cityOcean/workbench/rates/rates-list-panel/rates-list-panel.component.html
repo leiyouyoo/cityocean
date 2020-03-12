@@ -1,35 +1,37 @@
-<div class="content-wrap" >
+<div class="content-wrap">
   <div class="first-content">
     <div class="money-wrap">
       <!-- <i></i> -->
-      <img [src]="rateListItem?.carrierLogo" />
+      <img [src]="rateListItem?.carrierLogo.replace('http://', 'https://')" />
       <div>
         <span class="font-12">$</span>
-        <span *ngIf="rateListItem?.chargesGroups" class="font-22">{{rateListItem?.chargesGroups[0]?.freightCharges?.rate}}</span>
+        <span *ngIf="rateListItem?.chargesGroups" class="font-22">{{
+          (rateListItem?.chargesGroups)[0]?.freightCharges?.rate
+        }}</span>
       </div>
     </div>
     <div class="location-wrap">
       <div class="start">
         <div class="flag"></div>
         <span>装运港</span>
-        <span>{{rateListItem?.oceanBaseItem?.polName}}</span>
+        <span>{{ rateListItem?.oceanBaseItem?.polName }}</span>
       </div>
       <div class="line"></div>
       <div class="end">
         <div class="flag"></div>
         <span>目的港</span>
-        <span>{{rateListItem?.oceanBaseItem?.podName}}</span>
+        <span>{{ rateListItem?.oceanBaseItem?.podName }}</span>
       </div>
     </div>
   </div>
   <div class="time-wrap">
     <div class="date-wrap">
       <span>Expiry date</span>
-      <span>{{getTime(rateListItem?.fromDate)}}</span>
+      <span>{{ getTime(rateListItem?.fromDate) }}</span>
     </div>
     <div class="tt-wrap">
       <span>TT</span>
-      <span>{{getTT(rateListItem)}} days</span>
+      <span>{{ getTT(rateListItem) }} days</span>
     </div>
     <div (click)="chatWithCustomer($event)" class="chat-bg"></div>
   </div>
