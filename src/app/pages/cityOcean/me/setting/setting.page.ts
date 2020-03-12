@@ -54,7 +54,7 @@ export class SettingPage {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: this.translate.instant('Login Out'),
+          text: this.translate.instant('Log Out'),
           icon: 'log-out',
           handler: () => {
             this.cityOceanService.loginOut();
