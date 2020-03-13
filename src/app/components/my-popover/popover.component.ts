@@ -29,33 +29,35 @@ export class PopoverComponent implements OnInit {
       // 客服
       this.cityOceanService.chatWithCustomerService();
     } else if (type === 'booking') {
-      if (this.popoverList.bookingIds.length === 1) {
-        this.nav.navigateForward([`/cityOcean/workbench/booking/bookingDetail`], {
+      if (this.popoverList.bookingIds.length) {
+        this.nav.navigateForward([`/cityOcean/home/booking/bookingDetail`], {
           queryParams: {
             id: this.popoverList.bookingIds[0],
           },
         });
-      }else{
-        this.nav.navigateForward(['/cityOcean/workbench/billing'], {
-          queryParams: {
-            ids: this.popoverList.bookingIds.join(',')
-          },
-        });
       }
+      // else{
+      //   this.nav.navigateForward(['/cityOcean/home/booking'], {
+      //     queryParams: {
+      //       ids: this.popoverList.bookingIds.join(',')
+      //     },
+      //   });
+      // }
     }else if (type === 'billing') {
-      if (this.popoverList.billingIds.length === 1) {
-        this.nav.navigateForward([`/cityOcean/workbench/billing/billingDetail`], {
+      if (this.popoverList.billingIds.length) {
+        this.nav.navigateForward([`/cityOcean/home/billing/billingDetail`], {
           queryParams: {
             id: this.popoverList.billingIds[0],
           },
         });
-      }else{
-        this.nav.navigateForward(['/cityOcean/workbench/billing'], {
-          queryParams: {
-            ids: this.popoverList.bookingIds.join(',')
-          },
-        });
       }
+      // else{
+      //   this.nav.navigateForward(['/cityOcean/home/billing'], {
+      //     queryParams: {
+      //       ids: this.popoverList.bookingIds.join(',')
+      //     },
+      //   });
+      // }
     }
     this.popoverCtrl.dismiss({ data: 'FooBar!' });
   }

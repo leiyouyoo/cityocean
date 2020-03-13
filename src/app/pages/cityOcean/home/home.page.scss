@@ -362,8 +362,7 @@ ion-content {
 
         div {
             padding: px2rem(10px) 0;
-
-            flex: auto;
+            width: 22vw;
             text-align: center;
         }
 
@@ -375,17 +374,7 @@ ion-content {
 
         .tabs-rates {
             color: #007AFF;
-
-            &::after {
-                content: "";
-                width: 22vw;
-                display: inline-block;
-                border-bottom: 2px solid #007Aff;
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-            }
+            border-bottom: 2px solid #007Aff;
         }
     }
 }
