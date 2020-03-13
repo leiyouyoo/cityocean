@@ -71,7 +71,7 @@ export class ShipmentPage implements OnInit {
     });
   }
   getShipmentListByVisitor(event?) {
-    if (this.searchText) {
+    if (this.searchText.length) {
       this.helper.showLoading('Loading...');
       this.cityOceanService.GetRouteDetailsByShipmentNo(String(this.searchText)).subscribe((res: any) => {
         console.log(res);

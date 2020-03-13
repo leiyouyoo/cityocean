@@ -93,7 +93,6 @@
 section.search-group {
     // background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
     overflow: hidden;
-    position: fixed;
     width: 100%;
     background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
     top: 0;
@@ -169,7 +168,6 @@ header {
 .tools-group {
     display: flex;
     flex-wrap: wrap;
-    margin-top: px2rem(100px);
     padding-top: px2rem(20px);
     background: linear-gradient(124deg, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, rgba(65, 157, 255, 0.98) 0%, #538fff 100%);
 

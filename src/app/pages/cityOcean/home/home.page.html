@@ -1,16 +1,18 @@
 <ion-app>
+  <ion-header>
+    <section class="search-group clearfix">
+      <div class="search-box">
+        <div id="inputForSearch">
+          <input type="search" name="searh" readonly (click)="onInputChange()" [placeholder]="'Search' | translate" />
+          <i (click)="onInputChange()" class="search-icon"></i>
+        </div>
+        <i (click)="onInputChange()" class="search-right-icon"></i>
+        <i (click)="chatWithCustomer()" class="customer-service"></i>
+      </div>
+    </section>
+  </ion-header>
   <ion-content [scrollEvents]="true" (ionScroll)="ionScroll($event)" fullscreen>
     <header>
-      <section class="search-group clearfix">
-        <div class="search-box">
-          <div id="inputForSearch">
-            <input type="search" name="searh" readonly (click)="onInputChange()" [placeholder]="'Search' | translate" />
-            <i (click)="onInputChange()" class="search-icon"></i>
-          </div>
-          <i (click)="onInputChange()" class="search-right-icon"></i>
-          <i (click)="chatWithCustomer()" class="customer-service"></i>
-        </div>
-      </section>
       <div class="tools-group">
         <div [style.order]="item.order" *ngFor="let item of toolsList">
           <i (click)="toolTypeClick(item)" [class]="item.type"></i>

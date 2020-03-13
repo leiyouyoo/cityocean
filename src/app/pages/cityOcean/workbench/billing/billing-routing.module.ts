@@ -9,7 +9,7 @@ const routes: Routes = [
     component: BillingPage
   },
   {
-    path: 'billiingDetail',
+    path: 'billingDetail',
     loadChildren: () => import('./billiing-detail/billiing-detail.module').then( m => m.BilliingDetailPageModule)
   }
 ];

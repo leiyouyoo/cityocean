@@ -18,7 +18,7 @@ export class BillingPage implements OnInit {
   };
   ids: any = []; // 可能为多个id
   billingStatus: any; // 筛选状态
-  searchText: any;
+  searchText: string = '';
   routeBackType: any;
   constructor(
     private billingServiceService: BillingServiceService,
@@ -89,7 +89,7 @@ export class BillingPage implements OnInit {
     this.getBillingList({});
   }
   gotoBillingDetail(item) {
-    this.nav.navigateForward(['/cityOcean/workbench/billing/billiingDetail'], {
+    this.nav.navigateForward(['/cityOcean/workbench/billing/billingDetail'], {
       queryParams: { id: item.id },
     });
   }

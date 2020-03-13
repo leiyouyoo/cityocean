@@ -98,7 +98,7 @@ export class GlobelSearchComponent implements OnInit {
   gotoBillingDetail(item) {
     this.setHistory();
     this.modalController.dismiss();
-    this.nav.navigateForward(['/cityOcean/workbench/billing/billiingDetail'], {
+    this.nav.navigateForward(['/cityOcean/workbench/billing/billingDetail'], {
       queryParams: { id: item.id },
     });
   }
