@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { environment } from '@env/environment';
@@ -25,7 +25,6 @@ import { CityOceanService } from '../../city-ocean.service';
 import { Location } from '@angular/common';
 import { Helper } from '@shared/helper';
 import * as moment from 'moment';
-import { cloneDeep } from 'lodash';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -63,7 +62,6 @@ export class ChatPage implements OnInit {
     private nav: NavController,
     public popoverController: PopoverController,
     private transfer: FileTransfer,
-    // private file: File,
     private camera: Camera,
     private imagePicker: ImagePicker,
     private activatedRoute: ActivatedRoute,
@@ -483,5 +481,8 @@ export class ChatPage implements OnInit {
       return true
     }
     return false
+  }
+  valueChange(o){
+    this.scrollToBottom(1);
   }
 }

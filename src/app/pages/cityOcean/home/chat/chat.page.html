@@ -64,14 +64,18 @@
 <ion-footer id="keyboard-flex">
   <div *ngIf="!isDisbanded" class="foot-wrap">
     <i class="yuyin"></i>
-    <input
+    <textarea
       type="text"
       [(ngModel)]="sendingMessage"
       (click)="showTools = false"
       placeholder="Type a message"
       name=""
+      autosize 
+      minRows = '1'
+      maxRows = '4'
+      (ngModelChange)="valueChange($event)"
       id="inputElement"
-    />
+    ></textarea>
     <i *ngIf="!sendingMessage && !showTools" (click)="showTools = true" class="change"></i>
     <i *ngIf="!sendingMessage && showTools" (click)="showTools = false" class="qiehuan"></i>
     <i *ngIf="sendingMessage" (click)="send()" class="send"></i>

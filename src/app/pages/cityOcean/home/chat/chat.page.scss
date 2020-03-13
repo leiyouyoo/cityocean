@@ -15,6 +15,7 @@ ion-header {
 
 ion-content {
   --background: rgba(245, 245, 246, 1);
+
   .type-wrap {
     position: fixed;
     width: 100%;
@@ -22,13 +23,16 @@ ion-content {
     z-index: 10;
     background: rgba(245, 245, 246, 1);
   }
+
   section.chat-content-wrap {
     &.chat-content-wrap-margin {
       margin-top: px2rem(136px) !important;
     }
+
     margin-top: px2rem(20px);
     display: flex;
     flex-direction: column;
+
     ion-card.card-in-group {
       align-self: flex-start;
       background: rgba(255, 255, 255, 1);
@@ -70,20 +74,23 @@ ion-content {
       ion-card-content {
         padding: 0;
 
-        & > span {
+        &>span {
           padding: 0;
           margin: 0;
           font-family: PingFangSC-Regular;
           color: rgba(76, 75, 94, 0.9);
-          @include font-dpr(14px);
+          font-size: 14px;
+          word-break: break-all;
+          white-space: pre-line;
         }
-        #image-element{
-          width: auto;
-          height: auto;
+
+        ion-img-viewer {
+          max-width: px2rem(120px);
         }
       }
     }
   }
+
   .message-show-time {
     font-size: 12px;
     font-family: PingFangSC-Regular, PingFang SC;
@@ -142,7 +149,7 @@ ion-footer {
     margin-top: px2rem(20px);
     padding: 0 px2rem(12px);
 
-    & > div {
+    &>div {
       width: px2rem(100px);
       height: px2rem(80px);
       display: flex;
@@ -173,8 +180,15 @@ ion-footer {
       }
     }
 
-    & > div:nth-child(2) {
+    &>div:nth-child(2) {
       margin: 0 px2rem(10px);
     }
+  }
+
+  textarea {
+    border: 0;
+    flex: auto;
+    outline: none;
+    color: var(--ion-color-dark);
   }
 }

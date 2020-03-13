@@ -5,10 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 import { ChatPageRoutingModule } from './chat-routing.module';
-
 import { ChatPage } from './chat.page';
 import { SharedModule } from '@shared';
-
+import { AutosizeModule } from 'ngx-autosize';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,8 +15,9 @@ import { SharedModule } from '@shared';
     IonicModule,
     ChatPageRoutingModule,
     SharedModule,
-    NgxIonicImageViewerModule
+    NgxIonicImageViewerModule,
+    AutosizeModule,
   ],
-  declarations: [ChatPage]
+  declarations: [ChatPage],
 })
 export class ChatPageModule {}
