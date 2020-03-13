@@ -61,13 +61,12 @@ export class BillingPage implements OnInit {
       params.status = this.billingStatus;
     }
     this.searchText ? (params.SearchKey = this.searchText) : delete params.SearchKey;
-    if (!event && !this.searchText) {
+    if (!event && !this.searchText.length) {
       // 如果为下拉加载，不展示loading
       this.helper.showLoading('Loading...');
     }
     this.billingServiceService.getAllBilling(params).subscribe((res: any) => {
       console.log(res);
-      this.helper.hideLoading();
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.billingList = this.billingList.concat(res.items);
       this.pageInfo.skipCount++;
@@ -75,6 +74,9 @@ export class BillingPage implements OnInit {
         // 已加载全部数据，禁用上拉刷新
         event.target.disabled = true;
       }
+    },()=>{
+    },()=>{
+      this.helper.hideLoading();
     });
   }
   resetFilter() {

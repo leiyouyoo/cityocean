@@ -75,6 +75,7 @@
     "ion2-calendar": "^3.0.0-rc.0",
     "jpush-phonegap-plugin": "^3.7.3",
     "moment": "^2.24.0",
+    "ngx-autosize": "^1.7.5",
     "ngx-countdown": "^3.1.0",
     "ngx-ionic-image-viewer": "^0.7.0",
     "rxjs": "~6.5.1",

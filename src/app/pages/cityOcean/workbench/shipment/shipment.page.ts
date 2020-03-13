@@ -52,13 +52,12 @@ export class ShipmentPage implements OnInit {
     this.searchText ? (this.currentParams.searchText = this.searchText) : delete this.currentParams.searchText;
     this.currentParams.MaxResultCount = this.pageInfo.maxResultCount;
     this.currentParams.SkipCount = this.pageInfo.skipCount * this.pageInfo.maxResultCount;
-    if (!event && !this.searchText) {
+    if (!event && !this.searchText.length) {
       // 如果为下拉加载，不展示loading
       this.helper.showLoading('Loading...');
     }
     this.myShipmentService.GetAll(this.currentParams).subscribe((res) => {
       console.log(res);
-      this.helper.hideLoading();
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.shipmentsList = this.shipmentsList.concat(res.items);
       this.pageInfo.skipCount++;
@@ -66,6 +65,9 @@ export class ShipmentPage implements OnInit {
         // 已加载全部数据，禁用上拉刷新
         event.target.disabled = true;
       }
+    },()=>{
+    },()=>{
+      this.helper.hideLoading();
     });
   }
   getShipmentListByVisitor(event?) {

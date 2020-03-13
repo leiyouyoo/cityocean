@@ -65,7 +65,7 @@ export class BookingPage implements OnInit {
     } else {
       delete this.currentParams.BookingStatus;
     }
-    if (!event && !this.searchKey) {
+    if (!event && !this.searchKey.length) {
       // 如果为下拉加载，不展示loading
       this.helper.showLoading('Loading...');
     }
@@ -79,6 +79,9 @@ export class BookingPage implements OnInit {
         // 已加载全部数据，禁用上拉刷新
         event.target.disabled = true;
       }
+    },()=>{
+    },()=>{
+      this.helper.hideLoading();
     });
   }
   gotoBookingDetail(item) {

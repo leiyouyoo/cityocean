@@ -69,7 +69,6 @@ export class RatesPage implements OnInit {
       this.helper.showLoading('Loading...');
     }
     this.ratesService.geFreightRates(param).subscribe((res: any) => {
-      this.helper.hideLoading();
       console.log(res);
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.ratesList = this.ratesList.concat(res.items);
@@ -78,6 +77,9 @@ export class RatesPage implements OnInit {
         // 已加载全部数据，禁用上拉刷新
         event.target.disabled = true;
       }
+    },()=>{
+    },()=>{
+      this.helper.hideLoading();
     });
   }
   goback() {
