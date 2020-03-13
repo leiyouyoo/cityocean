@@ -1,14 +1,23 @@
 <ion-header mode="ios">
   <ion-toolbar>
-    <ion-buttons slot="start" class="title-left">
-      <ion-icon name="chevron-back-outline" (click)="goback()" style="font-size: 1.5em;"></ion-icon>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="cityOcean"></ion-back-button>
     </ion-buttons>
 
     <ion-title>{{routeDetail?.shipmentNo}}</ion-title>
 
     <ion-buttons slot="end" class="title-right">
-      <ion-icon *ngIf="!isfromChat" name="chatbubble-ellipses" (click)="chatWithCustomer()" style="font-size: 1.5em;margin-right: 0.5em;"></ion-icon>
-      <ion-icon  name="ellipsis-vertical" (click)="showRelatedBusinessPopover($event)" style="font-size: 1.5em;"></ion-icon>    
+      <ion-icon
+        *ngIf="!isfromChat"
+        name="chatbubble-ellipses"
+        (click)="chatWithCustomer()"
+        style="font-size: 1.5em;margin-right: 0.5em;"
+      ></ion-icon>
+      <ion-icon
+        name="ellipsis-vertical"
+        (click)="showRelatedBusinessPopover($event)"
+        style="font-size: 1.5em;"
+      ></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -50,7 +59,7 @@
             <span>{{basicDetail?.containerNos}}</span>
           </p>
         </ng-container>
-        
+
         <ng-container *ngIf="basicDetail?.quantityString>0">
           <label class="title">{{"Cargo" | translate}}</label>
           <p>
@@ -92,7 +101,9 @@
             <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{shipperInfo?.shipperNetWorkInfo?.name}}</span>
           </p>
           <p class="arrival-location">
-            <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{shipperInfo.shipperNetWorkInfo?.streetAddress}}</span>
+            <span [id]=" isLoginWithTourist?'isLoginWithTourist':''"
+              >{{shipperInfo.shipperNetWorkInfo?.streetAddress}}</span
+            >
           </p>
           <p [class]="routeDetail?.status>=2?'left-line':'left-dashed-line'">
             <span>{{"Container No" | translate}}</span>
@@ -125,7 +136,10 @@
         <span>{{"Arrived" | translate}}</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualDepatureOrginPortDate)}}</span>
       </p>
-      <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'">
+      <p
+        [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''"
+        [class]="routeDetail?.status>=5?'left-line':'left-dashed-line'"
+      >
         <span>Carrier</span>
         <span [id]=" isLoginWithTourist?'isLoginWithTourist':''"
           >{{routeDetail?.routeDetails?.carrierCustomerName}}</span
@@ -147,18 +161,26 @@
         <span>{{"Estimated Pick-Up" | translate}}</span>
         <span>{{getTime(routeDetail?.routeDetails?.actualPickUpTruckDestinationDate)}}</span>
       </p>
-      <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+      <p
+        [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''"
+        [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'"
+      >
         <span>Carrier</span>
         <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{routeDetail?.routeDetails?.truckCustomerName}}</span>
       </p>
       <!-- 目的地 -->
       <ng-container *ngFor="let consigneeInfo of routeDetail?.routeDetails?.consigneeInfos; let i=index">
         <ng-container *ngIf="consigneeShow || i ===0">
-          <p [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''" [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'">
+          <p
+            [id]=" isLoginWithTourist?'isLoginWithTourist-bg':''"
+            [class]="routeDetail?.status>=7?'left-line':'left-dashed-line'"
+          >
             <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{consigneeInfo.consigneeNetWorkInfo?.name}}</span>
           </p>
           <p [class]="routeDetail?.status>=7?'arrival-location':'unarrival-location'">
-            <span [id]=" isLoginWithTourist?'isLoginWithTourist':''">{{consigneeInfo.consigneeNetWorkInfo?.streetAddress}}</span>
+            <span [id]=" isLoginWithTourist?'isLoginWithTourist':''"
+              >{{consigneeInfo.consigneeNetWorkInfo?.streetAddress}}</span
+            >
           </p>
           <p>
             <span>{{"Container No" | translate}}</span>
