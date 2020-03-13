@@ -351,6 +351,7 @@ ion-content {
     ion-infinite-scroll {
         background: #fff;
     }
+
     .my-tabs {
         display: flex;
         align-items: center;
@@ -360,16 +361,33 @@ ion-content {
         font-weight: 400;
         color: #D6D6D6;
         margin-bottom: px2rem(16px);
+
         div {
             padding: px2rem(10px) 0;
-            width: 22vw;
+
+            flex: auto;
             text-align: center;
+        }
+
+        .ripple-parent {
+            position: relative;
+            overflow: hidden;
+
         }
 
         .tabs-rates {
             color: #007AFF;
-            border-bottom: 2px solid #007Aff;
-           
+
+            &::after {
+                content: "";
+                width: 22vw;
+                display: inline-block;
+                border-bottom: 2px solid #007Aff;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
     }
 }

@@ -64,7 +64,6 @@ export class HomePage implements OnInit {
   }
   ionScroll(event) {
     const inputForSearch = this.el.nativeElement.querySelector('#inputForSearch');
-
     const searchIicon = this.el.nativeElement.querySelector('.search-right-icon');
     const contentGroup = this.el.nativeElement.querySelector('.content-group');
     const searchetail = this.el.nativeElement.querySelector('.search-detail');

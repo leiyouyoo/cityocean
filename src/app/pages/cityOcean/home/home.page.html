@@ -1,90 +1,101 @@
-<ion-content [scrollEvents]="true" (ionScroll)="ionScroll($event)" fullscreen>
-  <header>
-    <section class="search-group clearfix">
-      <div class="search-box">
-        <div id="inputForSearch">
-          <input type="search" name="searh" readonly (click)="onInputChange()" [placeholder]="'Search' | translate" />
-          <i (click)="onInputChange()" class="search-icon"></i>
+<ion-app>
+  <ion-content [scrollEvents]="true" (ionScroll)="ionScroll($event)" fullscreen>
+    <header>
+      <section class="search-group clearfix">
+        <div class="search-box">
+          <div id="inputForSearch">
+            <input type="search" name="searh" readonly (click)="onInputChange()" [placeholder]="'Search' | translate" />
+            <i (click)="onInputChange()" class="search-icon"></i>
+          </div>
+          <i (click)="onInputChange()" class="search-right-icon"></i>
+          <i (click)="chatWithCustomer()" class="customer-service"></i>
         </div>
-        <i (click)="onInputChange()" class="search-right-icon"></i>
-        <i (click)="chatWithCustomer()" class="customer-service"></i>
+      </section>
+      <div class="tools-group">
+        <div [style.order]="item.order" *ngFor="let item of toolsList">
+          <i (click)="toolTypeClick(item)" [class]="item.type"></i>
+          <span (click)="toolTypeClick(item)" class="font-14">{{item.name | translate}}</span>
+        </div>
+      </div>
+
+      <div [ngClass]="{'search-detail-padding': checkIsLoginWithTourist}" class="search-detail">
+        <div class="my-tabs" *ngIf="!checkIsLoginWithTourist">
+          <div
+            class="ion-activatable ripple-parent"
+            [ngClass]="{'tabs-rates': searchType =='seachRates'}"
+            (click)="typeChoosed('seachRates')"
+          >
+            {{"Rates" | translate}}
+            <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+          </div>
+          <div
+            class="ion-activatable ripple-parent"
+            [ngClass]="{'tabs-rates': searchType =='searchSailingSchedules'}"
+            (click)="typeChoosed('searchSailingSchedules')"
+          >
+            <ion-ripple-effect></ion-ripple-effect>
+            {{"Schedules" | translate}}
+          </div>
+        </div>
+        <div class="qiyungang">
+          <i></i>
+          <input
+            (click)="searchLocaltion('start')"
+            [(ngModel)]="orignPort.name"
+            type="text"
+            placeholder="{{'Port of loading' | translate}}"
+          />
+        </div>
+        <div class="search-line"></div>
+        <div class="mudigang">
+          <i></i>
+          <input
+            type="text"
+            (click)="searchLocaltion('destination')"
+            [(ngModel)]="deliveryPort.name"
+            placeholder="{{'Port of discharge' | translate}}"
+          />
+        </div>
+        <button
+          *ngIf="searchType == 'searchSailingSchedules'"
+          (click)="go4search()"
+          [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
+          class="search-yunjia font-12"
+        >
+          {{ "searchSailingSchedules" | translate }}
+        </button>
+        <button
+          *ngIf="searchType == 'seachRates'"
+          (click)="go4search()"
+          [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
+          class="search-yunjia font-12"
+        >
+          {{ "seachRates" | translate }}
+        </button>
+      </div>
+    </header>
+
+    <section class="content-group">
+      <app-message-rolling *ngIf="scrollList.length>0" [massgeList]="scrollList"></app-message-rolling>
+      <div class="massge-group-wrap">
+        <ion-item-sliding *ngFor="let msg of conversationsList; let i = index" #slide>
+          <ion-item lines="none" class="app-massage-wrap" (click)="gotoChat(msg)">
+            <app-massage [detail]="msg"></app-massage>
+          </ion-item>
+          <ion-item-options>
+            <i class="delete-icon" *ngIf="!showDeleteButton" (click)="showDeleteButtonFn(slide)"></i>
+            <ng-container *ngIf="showDeleteButton">
+              <span class="cancel-delete-icon" (click)="canceDelete(slide)">取消</span>
+              <i class="confirm-delete-icon" (click)="deleteItem(i,msg,slide)"></i>
+            </ng-container>
+          </ion-item-options>
+        </ion-item-sliding>
       </div>
     </section>
-    <div class="tools-group">
-      <div [style.order]="item.order" *ngFor="let item of toolsList">
-        <i (click)="toolTypeClick(item)" [class]="item.type"></i>
-        <span (click)="toolTypeClick(item)" class="font-14">{{item.name | translate}}</span>
-      </div>
-    </div>
 
-    <div [ngClass]="{'search-detail-padding': checkIsLoginWithTourist}" class="search-detail">
-      <div class="my-tabs" *ngIf="!checkIsLoginWithTourist">
-        <div [ngClass]="{'tabs-rates': searchType =='seachRates'}" (click)="typeChoosed('seachRates')">
-          {{"Rates" | translate}}
-        </div>
-        <div
-          [ngClass]="{'tabs-rates': searchType =='searchSailingSchedules'}"
-          (click)="typeChoosed('searchSailingSchedules')"
-        >
-          {{"Schedules" | translate}}
-        </div>
-      </div>
-      <div class="qiyungang">
-        <i></i>
-        <input
-          (click)="searchLocaltion('start')"
-          [(ngModel)]="orignPort.name"
-          type="text"
-          placeholder="{{'Port of loading' | translate}}"
-        />
-      </div>
-      <div class="search-line"></div>
-      <div class="mudigang">
-        <i></i>
-        <input
-          type="text"
-          (click)="searchLocaltion('destination')"
-          [(ngModel)]="deliveryPort.name"
-          placeholder="{{'Port of discharge' | translate}}"
-        />
-      </div>
-      <button *ngIf="searchType == 'searchSailingSchedules'"
-        (click)="go4search()"
-        [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
-        class="search-yunjia font-12"
-      >
-        {{ "searchSailingSchedules" | translate }}
-      </button>
-      <button *ngIf="searchType == 'seachRates'"
-      (click)="go4search()"
-      [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
-      class="search-yunjia font-12"
-    >
-      {{ "seachRates" | translate }}
-    </button>
-    </div>
-  </header>
-
-  <section class="content-group">
-    <app-message-rolling *ngIf="scrollList.length>0" [massgeList]="scrollList"></app-message-rolling>
-    <div class="massge-group-wrap">
-      <ion-item-sliding *ngFor="let msg of conversationsList; let i = index" #slide>
-        <ion-item lines="none" class="app-massage-wrap" (click)="gotoChat(msg)">
-          <app-massage [detail]="msg"></app-massage>
-        </ion-item>
-        <ion-item-options>
-          <i class="delete-icon" *ngIf="!showDeleteButton" (click)="showDeleteButtonFn(slide)"></i>
-          <ng-container *ngIf="showDeleteButton">
-            <span class="cancel-delete-icon" (click)="canceDelete(slide)">取消</span>
-            <i class="confirm-delete-icon" (click)="deleteItem(i,msg,slide)"></i>
-          </ng-container>
-        </ion-item-options>
-      </ion-item-sliding>
-    </div>
-  </section>
-
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-</ion-content>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-app>

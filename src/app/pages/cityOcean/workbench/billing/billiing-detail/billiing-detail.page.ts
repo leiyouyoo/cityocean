@@ -5,7 +5,7 @@ import { BillingServiceService } from '../billing-service.service';
 import * as moment from 'moment';
 import { CityOceanService } from '../../../city-ocean.service';
 import { NavController } from '@ionic/angular';
-import { PopoverComponent } from '../../../share-components/my-popover/popover.component';
+import { PopoverComponent } from '../../../../../components/my-popover/popover.component';
 
 @Component({
   selector: 'app-billiing-detail',

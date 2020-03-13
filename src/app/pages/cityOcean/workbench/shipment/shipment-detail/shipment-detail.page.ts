@@ -9,7 +9,7 @@ import { CityOceanService } from '../../../city-ocean.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Helper } from '@shared/helper';
-import { PopoverComponent } from '../../../share-components/my-popover/popover.component';
+import { PopoverComponent } from '../../../../../components/my-popover/popover.component';
 
 @Component({
   selector: 'app-shipment-detail',

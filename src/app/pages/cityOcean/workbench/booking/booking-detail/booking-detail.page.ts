@@ -7,7 +7,7 @@ import { BookingServiceService } from '../booking-service.service';
 import { bookingStatus } from '../class/bookingStatus';
 import { CityOceanService } from '../../../city-ocean.service';
 import { NavController } from '@ionic/angular';
-import { PopoverComponent } from '../../../share-components/my-popover/popover.component';
+import { PopoverComponent } from '../../../../../components/my-popover/popover.component';
 
 @Component({
   selector: 'app-booking-detail',

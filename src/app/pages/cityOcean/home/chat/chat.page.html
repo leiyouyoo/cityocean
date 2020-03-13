@@ -77,8 +77,8 @@
       id="inputElement"
     ></textarea>
     <i *ngIf="!sendingMessage && !showTools" (click)="showTools = true" class="change"></i>
-    <i *ngIf="!sendingMessage && showTools" (click)="showTools = false" class="qiehuan"></i>
-    <i *ngIf="sendingMessage" (click)="send()" class="send"></i>
+    <i *ngIf="!sendingMessage && showTools" (click)="showKeyboard()" class="qiehuan"></i>
+    <span *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</span>
   </div>
   <div class="hide-tools" *ngIf="showTools">
     <div (click)="imgUpload()">

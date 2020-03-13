@@ -1,4 +1,4 @@
-@import "../.././../../../theme/variables";
+@import "../../../theme/variables";
 
 .popover-wrap {
     &>div {
@@ -15,23 +15,23 @@
         }
 
         i.rates {
-            @include bg-image("../../../../../assets/icon/home/chat/more/rates");
+            @include bg-image("../../../assets/icon/home/chat/more/rates");
         }
 
         i.quotes {
-            @include bg-image("../../../../../assets/icon/home/chat/more/quotes");
+            @include bg-image("../../../assets/icon/home/chat/more/quotes");
         }
 
         i.booking {
-            @include bg-image("../../../../../assets/icon/home/chat/more/booking");
+            @include bg-image("../../../assets/icon/home/chat/more/booking");
         }
 
         i.billing {
-            @include bg-image("../../../../../assets/icon/home/chat/more/biling");
+            @include bg-image("../../../assets/icon/home/chat/more/biling");
         }
 
         i.contacts {
-            @include bg-image("../../../../../assets/icon/home/chat/more/contacts");
+            @include bg-image("../../../assets/icon/home/chat/more/contacts");
         }
 
         span {

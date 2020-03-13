@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, Renderer } from '@angular/core';
 import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { environment } from '@env/environment';
@@ -9,16 +9,7 @@ import { HomeService } from '../home.service';
 import { ShipmentStatusType } from '../../workbench/shipment/class/shipment-status-type';
 import { BookingStatusType } from '../../workbench/booking/class/booking-status-type';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import {
-  createTextMessage,
-  onMessage,
-  getMessageList,
-  sendmessage,
-  createImageMessage,
-  getGroupMemberlist,
-  getGroupProfile,
-} from '@cityocean/im-library';
-import { PressPopoverComponent } from './press-popover/press-popover.component';
+import { createTextMessage, onMessage, sendmessage, createImageMessage, getGroupProfile } from '@cityocean/im-library';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 import { CityOceanService } from '../../city-ocean.service';
@@ -52,7 +43,7 @@ export class ChatPage implements OnInit {
   };
   bussinessType; //业务类型
   bussinessId; //业务ID
-  bussinessDetail = { No: '', status: -1, soNo: '',shipmentNo:'' }; //业务详情
+  bussinessDetail = { No: '', status: -1, soNo: '', shipmentNo: '' }; //业务详情
   conversationType: any;
   popoverList; // 更多列表数据
   isDisbanded: boolean;
@@ -73,6 +64,8 @@ export class ChatPage implements OnInit {
     private location: Location,
     private helper: Helper,
     private statusBar: StatusBar,
+    private el: ElementRef,
+    private renderer: Renderer,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -183,6 +176,13 @@ export class ChatPage implements OnInit {
       });
     }
   }
+  /**
+   *对消息列表进行处理
+   *
+   * @param {*} res
+   * @param {*} event
+   * @memberof ChatPage
+   */
   ionRefresherCheck(res, event) {
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
@@ -216,8 +216,9 @@ export class ChatPage implements OnInit {
           .format();
         const checkTime = (i) => {
           let _element = _chatList[i];
-          if(has5MinInclude){ // 如果消息包含当前时间5分以内的，插入5分钟内最前面的消息时间
-            chatListWithTime.unshift({ isTimeShow: true, time: _chatList[i+1].msgTime });
+          if (has5MinInclude) {
+            // 如果消息包含当前时间5分以内的，插入5分钟内最前面的消息时间
+            chatListWithTime.unshift({ isTimeShow: true, time: _chatList[i + 1].msgTime });
             has5MinInclude = false;
           }
           chatListWithTime.unshift(_element);
@@ -228,7 +229,7 @@ export class ChatPage implements OnInit {
               _element.isChecked = true;
             } else {
               this.nowTime = _element.msgTime;
-              chatListWithTime.unshift({ isTimeShow: true, time: _element.msgTime });  // 如果消息时间差超过5分钟，插入时间
+              chatListWithTime.unshift({ isTimeShow: true, time: _element.msgTime }); // 如果消息时间差超过5分钟，插入时间
               return;
             }
           } else {
@@ -299,6 +300,8 @@ export class ChatPage implements OnInit {
         text: this.sendingMessage,
       },
     });
+    const inputElement = this.el.nativeElement.querySelector('#inputElement');
+    this.renderer.invokeElementMethod(inputElement, 'focus');
     this.scrollToBottom(1);
     this.sendingMessage = '';
   }
@@ -341,6 +344,12 @@ export class ChatPage implements OnInit {
       this.chatList.push({ isTimeShow: true, time: now });
     }
   }
+  /**
+   *导航到业务详情
+   *
+   * @returns
+   * @memberof ChatPage
+   */
   gotoDetail() {
     if (!this.isC2C) {
       if (this.bussinessType !== 'booking' && this.bussinessType !== 'shipment') {
@@ -353,13 +362,12 @@ export class ChatPage implements OnInit {
       this.nav.navigateForward([`/cityOcean/workbench/${_bussinessType}/${this.bussinessType}Detail`], {
         queryParams: {
           id: this.bussinessId,
-          fromChat:true
+          fromChat: true,
         },
       });
     }
   }
 
-  
   goback() {
     this.location.back();
   }
@@ -380,6 +388,14 @@ export class ChatPage implements OnInit {
     this.cityOceanService.gotoUserProfile(userId);
   }
 
+  /**
+   *转为file对象
+   *
+   * @param {string} dataurl
+   * @param {*} filename
+   * @returns
+   * @memberof ChatPage
+   */
   dataURLtoFile(dataurl: string, filename) {
     const data = atob(dataurl);
     let n = data.length;
@@ -437,6 +453,11 @@ export class ChatPage implements OnInit {
       },
     );
   }
+  /**
+   *发送图片
+   *
+   * @memberof ChatPage
+   */
   imageUpload() {
     const options: ImagePickerOptions = {
       maximumImagesCount: 9, // 可选择的图片数量默认 15，1为单选
@@ -476,13 +497,35 @@ export class ChatPage implements OnInit {
       return environment.ImImageUrl + url;
     }
   }
-  getCardShow():boolean{
-    if(this.conversationType == 'shipment' || this.conversationType == 'booking'){
-      return true
+  /**
+   *聊天顶部的业务卡片是否显示
+   *
+   * @returns {boolean}
+   * @memberof ChatPage
+   */
+  getCardShow(): boolean {
+    if (this.conversationType == 'shipment' || this.conversationType == 'booking') {
+      return true;
     }
-    return false
+    return false;
   }
-  valueChange(o){
+  /**
+   *文本输入框
+   *
+   * @param {*} o
+   * @memberof ChatPage
+   */
+  valueChange(o) {
     this.scrollToBottom(1);
+  }
+  /**
+   *控制键盘显示
+   *
+   * @memberof ChatPage
+   */
+  showKeyboard() {
+    this.showTools = false;
+    const inputElement = this.el.nativeElement.querySelector('#inputElement');
+    this.renderer.invokeElementMethod(inputElement, 'focus');
   }
 }
