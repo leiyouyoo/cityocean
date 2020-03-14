@@ -1,11 +1,20 @@
 {
-    "api": {
-        "target": "https://api.cityocean.com123",
+    "/api": {
+        "target": "https://api.cityocean.com:20001",
         "secure": false,
         "loglevel": "debug",
         "changeOrigin": true,
         "pathRewrite": {
             "^/api": ""
+        }
+    },
+    "/api-signalR": {
+        "target": "https://api.cityocean.com:20002",
+        "secure": false,
+        "loglevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api-signalR": ""
         }
     },
     "/sso": {

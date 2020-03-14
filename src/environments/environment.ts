@@ -2,14 +2,18 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`
 
+// const baseApiUrl = `http://192.168.1.5:8001`
+// const signalRUrl = `http://192.168.1.5:8002`
+const baseApiUrl = `http://localhost:8100/api`
+const signalRUrl = `http://localhost:8100/api-signalR`
 export const environment = {
-  MOCK_URL: `https://api.cityocean.com:20001`,
-  SERVER_URL: `https://api.cityocean.com:20001`, // 远端服务器地址（必需的）
-  SignalR_Url: `https://api.cityocean.com:20002`, // SignalR_SERVER_URL服务器地址（必需的）
+  MOCK_URL: baseApiUrl,
+  SERVER_URL: baseApiUrl, // 远端服务器地址（必需的）
+  SignalR_Url: signalRUrl, // SignalR_SERVER_URL服务器地址（必需的）
   appBaseUrl: `https://localhost:8100/`, // APP 地址
-  StoreUrl: 'https://api.cityocean.com:20001',
-  uploadUrl: `https://api.cityocean.com:20001/Storage/File/Upload`,
-  ImImageUrl: `https://api.cityocean.com:20001`,
+  StoreUrl: baseApiUrl,
+  uploadUrl: `${baseApiUrl}/Storage/File/Upload`,
+  ImImageUrl: baseApiUrl,
   cityoceanId: 2,
   production: false,
   useHash: true,
