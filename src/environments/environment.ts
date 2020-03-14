@@ -4,8 +4,8 @@
 
 // const baseApiUrl = `http://192.168.1.5:8001`
 // const signalRUrl = `http://192.168.1.5:8002`
-const baseApiUrl = `http://localhost:8100/api`
-const signalRUrl = `http://localhost:8100/api-signalR`
+const baseApiUrl = `http://localhost:8100/api`;
+const signalRUrl = `http://localhost:8100/api-signalR`;
 export const environment = {
   MOCK_URL: baseApiUrl,
   SERVER_URL: baseApiUrl, // 远端服务器地址（必需的）

@@ -16,41 +16,5 @@
         "pathRewrite": {
             "^/api-signalR": ""
         }
-    },
-    "/sso": {
-        "target": "https://api.cityocean.com123",
-        "secure": false,
-        "loglevel": "debug",
-        "changeOrigin": true,
-        "pathRewrite": {
-            "^/api": ""
-        }
-    },
-    "/crm": {
-        "target": "https://api.cityocean.com123",
-        "secure": false,
-        "loglevel": "debug",
-        "changeOrigin": true,
-        "pathRewrite": {
-            "^/api": ""
-        }
-    },
-    "/csp": {
-        "target": "https://api.cityocean.com123",
-        "secure": false,
-        "loglevel": "debug",
-        "changeOrigin": true,
-        "pathRewrite": {
-            "^/api": ""
-        }
-    },
-    "/platform": {
-        "target": "https://api.cityocean.com123",
-        "secure": false,
-        "loglevel": "debug",
-        "changeOrigin": true,
-        "pathRewrite": {
-            "^/api": ""
-        }
     }
 }
