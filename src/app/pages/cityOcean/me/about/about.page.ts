@@ -105,9 +105,9 @@ export class AboutPage implements OnInit {
 
   downloadApp() {
     // 4.下载apk
-    const targetUrl = environment.SERVER_URL + '/app/CITYOCEAN.apk';
+    const targetUrl = environment.appDownloadUrl + '/apps/cityocean.apk';
     const fileTransfer: FileTransferObject = this.transfer.create();
-    fileTransfer.download(targetUrl, this.file.dataDirectory + 'CITYOCEAN.apk').then(
+    fileTransfer.download(targetUrl, this.file.dataDirectory + 'cityocean.apk').then(
       (entry) => {
         this.fileOpener
           .open(entry.toURL(), 'application/vnd.android.package-archive')

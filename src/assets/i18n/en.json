@@ -1,9 +1,9 @@
 {
-  "pleaseEnter": "Please Enter...",
+  "Please Enter": "Please Enter...",
   "Search history": "Search history",
   "Schedules": "Schedules",
   "Welcome to cityocean": "Welcome to cityocean,Have a good mood",
-  "key_word":"Search",
+  "key_word": "Search",
   "billing": "Billings",
   "quotes": "Quotes",
   "rates": "Rates",
@@ -11,12 +11,11 @@
   "shipments": "Shipments",
   "booking": "Bookings",
   "seachRates": "Search Rates",
-  "searchSailingSchedules":"Search Schedule",
-  "sailingSchedules":"Schedule",
-  "registerCustomer":"Ask for an account Call",
-  "shipments All":"All",
-  "shipmentStatus":"Status",
-  "shipmentMode":"Mode",
-  "payStatus":"Status"
-  
+  "searchSailingSchedules": "Search Schedule",
+  "sailingSchedules": "Schedule",
+  "registerCustomer": "Ask for an account Call",
+  "shipments All": "All",
+  "shipmentStatus": "Status",
+  "shipmentMode": "Mode",
+  "payStatus": "Status"
 }

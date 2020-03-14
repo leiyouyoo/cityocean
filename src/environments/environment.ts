@@ -10,6 +10,7 @@ export const environment = {
   MOCK_URL: baseApiUrl,
   SERVER_URL: baseApiUrl, // 远端服务器地址（必需的）
   SignalR_Url: signalRUrl, // SignalR_SERVER_URL服务器地址（必需的）
+  appDownloadUrl: `http://download.cityocean.com`,
   appBaseUrl: `https://localhost:8100/`, // APP 地址
   StoreUrl: baseApiUrl,
   uploadUrl: `${baseApiUrl}/Storage/File/Upload`,

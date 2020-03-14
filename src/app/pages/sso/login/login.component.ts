@@ -9,6 +9,7 @@ import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomerPhoneComponent } from './customer-phone/customer-phone.component';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'user-login',
@@ -18,10 +19,11 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   validateForm: FormGroup;
   errorTip = '';
-  savedUser;
   pwshow = false;
   focusPassword = false;
   passwordElement: HTMLElement;
+  savedUser: any;
+  pleaseEnter: string;
   constructor(
     public helper: Helper,
     private router: Router,
@@ -36,20 +38,50 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pleaseEnter = this.translate.instant('Please Enter');
     this.validateForm = this.fb.group({
-      username: ['', [Validators.required,Validators.pattern(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/),]],
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/,
+          ),
+        ],
+      ],
       password: [null, [Validators.required]],
     });
-    this.savedUser = JSON.parse(localStorage.getItem('autocompletePassword'));
-    if (this.savedUser) {
-      this.validateForm.controls.password.setValue(this.savedUser.password);
-      this.validateForm.controls.username.setValue(this.savedUser.username);
-    }
+
     this.passwordElement = document.getElementById('passwordElement');
     this.passwordElement.onfocus = ($event) => {
       $event.stopPropagation();
       this.focusPassword = true;
     };
+
+    this.savedUser = JSON.parse(localStorage.getItem('autocompletePassword'));
+    if (this.savedUser) {
+      this.validateForm.patchValue({
+        username: this.savedUser.username,
+        password: this.savedUser.password,
+      });
+    }
+
+    let canAutoLogin = false;
+
+    if (this.savedUser && this.savedUser.time) {
+      const loginTime = moment(this.savedUser.time)
+        .subtract(1, 'days')
+        .format('YYYY-MM-DD');
+      const threeMonthLater = moment(this.savedUser.time)
+        .add(3, 'months')
+        .format('YYYY-MM-DD');
+      const today = moment(new Date()).format('YYYY-MM-DD');
+      canAutoLogin = moment(today).isBetween(loginTime, threeMonthLater);
+    }
+    if (canAutoLogin) {
+      localStorage.setItem('isLoginWithTourist', 'false');
+      this.onLogin();
+    }
   }
   @HostListener('document:click', ['$event.target'])
   public onClick(targetElement) {
@@ -61,11 +93,14 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    // tslint:disable-next-line: forin
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    if (!this.validateForm.valid) return;
+    if (!this.validateForm.valid) {
+      return;
+    }
     this.errorTip = '';
     let obj = this.validateForm.value;
     /*

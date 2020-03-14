@@ -1,7 +1,7 @@
 <ion-content>
   <div (click)="handleButtonClick($event)" class="sign-up">
-    <ion-icon  name="signup"></ion-icon>
-    <span>Sign Up</span>
+    <ion-icon name="signup"></ion-icon>
+    <span>{{ 'Sign Up' | translate }}</span>
   </div>
   <section class="logo-group">
     <i class="logo-wrap"></i>
@@ -19,7 +19,7 @@
           }"
           formControlName="username"
           type="text"
-          [placeholder]="'pleaseEnter' | translate"
+          [placeholder]="pleaseEnter"
           autocomplete="username"
         />
         <i *ngIf="!username.invalid && (username.dirty || username.touched)" class="input-success"></i>
@@ -45,7 +45,7 @@
             'input-success-border': !password.invalid && (password.dirty || password.touched),
             'input-writing': focusPassword
           }"
-          [placeholder]="'pleaseEnter' | translate"
+          [placeholder]="pleaseEnter"
         />
         <i
           *ngIf="focusPassword"

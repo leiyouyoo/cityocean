@@ -70,7 +70,9 @@ export class AppComponent {
     this.translate.addLangs(['zh', 'en']);
     // 设置默认语言
     this.lang = LocalStorage.localStorage.get('Language');
-    if (this.lang) {
+    if (this.lang === 'zh') {
+      this.translate.setDefaultLang(this.lang);
+    } else if (this.lang === 'en') {
       this.translate.setDefaultLang(this.lang);
     } else {
       this.translate.setDefaultLang('en');
@@ -96,7 +98,16 @@ export class AppComponent {
    */
   backButtonEvent() {
     this.platform.backButton.subscribe(() => {
-      if (this.router.url.endsWith('home') || this.router.url.endsWith('login')) {
+      if (
+        this.router.url === '/cityOcean/schedule' ||
+        this.router.url === '/cityOcean/workbench' ||
+        this.router.url === '/cityOcean/contacts' ||
+        this.router.url === '/cityOcean/me'
+      ) {
+        this.router.navigateByUrl('/cityOcean');
+      }
+
+      if (this.router.url === '/cityOcean/home' || this.router.url === '/login') {
         if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
           navigator['app'].exitApp(); // 退出APP
         } else {

@@ -57,6 +57,7 @@ export class SettingPage {
           text: this.translate.instant('Log Out'),
           icon: 'log-out',
           handler: () => {
+            window.localStorage.removeItem('autocompletePassword');
             this.cityOceanService.loginOut();
           },
         },

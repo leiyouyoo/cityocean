@@ -57,6 +57,7 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    debugger;
     this.infiniteScroll.disabled = true;
     if (!this.checkIsLoginWithTourist) {
       this.imLogin();
@@ -312,8 +313,8 @@ export class HomePage implements OnInit {
         break;
     }
   }
-  typeChoosed(type){
-    this.searchType = type
+  typeChoosed(type) {
+    this.searchType = type;
   }
   async moreClick() {
     const modal = await this.modalController.create({

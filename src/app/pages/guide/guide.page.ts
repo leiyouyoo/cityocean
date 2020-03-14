@@ -1,48 +1,52 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { NavController, IonSlides } from "@ionic/angular";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, IonSlides } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-guide",
-  templateUrl: "./guide.page.html",
-  styleUrls: ["./guide.page.scss"]
+  selector: 'app-guide',
+  templateUrl: './guide.page.html',
+  styleUrls: ['./guide.page.scss'],
 })
 export class GuidePage implements OnInit {
   @ViewChild(IonSlides, { static: true }) ionslides: IonSlides;
-  constructor(private nav: NavController) {}
+  constructor(private nav: NavController, public router: Router) {}
   slides = [
     {
       order0: 0,
       order1: 1,
-      order2: 2
+      order2: 2,
     },
     {
       order0: 1,
       order1: 0,
-      order2: 2
+      order2: 2,
     },
     {
       order0: 2,
       order1: 0,
-      order2: 1
-    }
+      order2: 1,
+    },
   ];
+
   ngOnInit() {}
 
   skipGuide() {
-    this.nav.navigateRoot("/login");
+    this.nav.navigateRoot('/login');
+    window.localStorage.setItem('guideShow', 'true');
   }
-  slideNext(){
-    this.ionslides.isEnd().then(res => {
+  slideNext() {
+    this.ionslides.isEnd().then((res) => {
       res && this.skipGuide();
       return;
     });
-    this.ionslides.slideNext()
+    this.ionslides.slideNext();
   }
   ionSlideDrag() {
-    this.ionslides.isEnd().then(res => {
-      res && setTimeout(()=>{
-        this.skipGuide();
-      },100) 
+    this.ionslides.isEnd().then((res) => {
+      res &&
+        setTimeout(() => {
+          this.skipGuide();
+        }, 100);
     });
   }
 }

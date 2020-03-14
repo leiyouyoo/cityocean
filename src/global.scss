@@ -145,6 +145,7 @@ ion-toast {
   text-align: center;
   --border-radius: 20px;
   width: 85%;
+  margin-top: 15%;
   margin-left: 7.5%;
 }
 
@@ -287,8 +288,8 @@ button.days-btn small {
 ion-searchbar {
   --icon-color: #ffffff !important;
   --placeholder-color: #ffffff !important;
-  --color: #fff!important;
-  --clear-button-color: #fff!important;
+  --color: #fff !important;
+  --clear-button-color: #fff !important;
   .searchbar-input {
     border-radius: 20px !important;
   }
