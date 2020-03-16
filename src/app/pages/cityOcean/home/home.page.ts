@@ -88,16 +88,14 @@ export class HomePage implements OnInit {
       this.toolsList = [
         // 游客模式业务类型
         {
-          name: this.translate.instant('Schedules'),
+          icon:'icon-app-schedules',
+          displayName: this.translate.instant('Schedules'),
           type: 'sailingSchedules',
-          marker: false,
-          id: 0,
         },
         {
-          name: this.translate.instant('Shipments'),
+          displayName: this.translate.instant('Shipments'),
+          icon:'icon-app-shipments',
           type: 'shipments',
-          marker: false,
-          id: 0,
         },
       ];
     } else {
