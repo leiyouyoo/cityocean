@@ -70,7 +70,10 @@ ion-content {
       img.anchor-out {
         margin-left: px2rem(10px);
       }
-
+      .emoji-text{
+        width: px2rem(24px)!important;
+        height: px2rem(24px)!important;
+      }
       ion-card-content {
         padding: 0;
 
@@ -209,7 +212,6 @@ ion-footer {
     width: px2rem(37px);
     height: px2rem(37px);
   }
-
   .emojis {
     display: flex;
     flex-wrap: wrap;

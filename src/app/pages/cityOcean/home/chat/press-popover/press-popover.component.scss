@@ -1,0 +1,14 @@
+@import "../../../../../../theme/variables";
+button {
+    background: transparent;
+    color: #fff;
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    height: px2rem(43px);
+    padding: 0 px2rem(12px);
+    border-right: 1px solid #333;
+    &:last-child{
+        border: 0;
+    }
+}

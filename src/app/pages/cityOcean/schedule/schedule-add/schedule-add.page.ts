@@ -179,6 +179,7 @@ export class ScheduleAddPage implements OnInit {
     const popover = await this.popoverController.create({
       component: ScheduleAddEditComponent,
       showBackdrop: false,
+      mode:'ios',
       backdropDismiss: true,
       event: event,
       cssClass: 'chat-popover',

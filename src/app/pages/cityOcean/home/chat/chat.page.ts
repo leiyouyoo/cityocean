@@ -18,6 +18,7 @@ import { Helper } from '@shared/helper';
 import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 import { emojiMap, emojiName, emojiUrl } from '../../../../shared/utils/emojiMap';
+import { decodeText } from '@shared/utils/decodeText';
 
 @Component({
   selector: 'app-chat',
@@ -536,5 +537,8 @@ export class ChatPage implements OnInit {
 
   chooseEmoji(data){
     this.sendingMessage += data;
+  }
+  contentList(text){
+    return decodeText(text);
   }
 }

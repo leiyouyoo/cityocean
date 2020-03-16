@@ -352,7 +352,10 @@ $font-base-size: 12px;
 .billing-popover {
   --background: var(--ionc-color-biling-more);
 }
-
+.press-card-popover{
+  --background: var(--ion-color-dark);
+  --width: unset;
+}
 .chat-popover {
   --width: 4.2rem;
 }

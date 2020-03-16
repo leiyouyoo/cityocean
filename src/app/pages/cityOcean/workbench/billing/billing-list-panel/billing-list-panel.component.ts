@@ -26,6 +26,7 @@ export class BillingListPanelComponent implements OnInit {
     const popover = await this.popoverController.create({
       component: BillingPopoverComponent,
       showBackdrop: false,
+      mode:'ios',
       event: event,
       backdropDismiss: true,
       cssClass: 'billing-popover',

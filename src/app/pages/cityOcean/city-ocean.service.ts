@@ -298,6 +298,7 @@ export class CityOceanService {
     const popover = await this.popoverController.create({
       component: component,
       showBackdrop: false,
+      mode:'ios',
       event: event,
       backdropDismiss: true,
       cssClass: cssClass,

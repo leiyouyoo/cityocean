@@ -133,7 +133,7 @@ export class LoginComponent implements OnInit {
   }
   loginWithTourist() {
     this.loginService
-      .login('guest', 'co@123', 4, true)
+      .login('anonymous', 'co@123', 4, true)
       .then((res: any) => {
         if (res.access_token) {
           localStorage.setItem('isLoginWithTourist', 'true');
@@ -154,6 +154,7 @@ export class LoginComponent implements OnInit {
       component: CustomerPhoneComponent,
       showBackdrop: false,
       event: event,
+      mode:'ios',
       backdropDismiss: true,
       cssClass: 'billing-popover',
     });

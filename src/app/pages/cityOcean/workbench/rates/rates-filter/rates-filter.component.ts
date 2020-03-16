@@ -165,6 +165,7 @@ export class RatesFilterComponent implements OnInit {
       component: InputSearchComponent,
       showBackdrop: false,
       event: event,
+      mode:'ios',
       keyboardClose: false,
       backdropDismiss: true,
       cssClass: 'my-popover-input-search my-rates-popover-input-search billing-popover',
