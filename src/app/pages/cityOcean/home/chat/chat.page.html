@@ -76,8 +76,9 @@
       (ngModelChange)="valueChange($event)"
       id="inputElement"
     ></textarea>
-    <i *ngIf="!sendingMessage && !showTools" (click)="showTools = true" class="change"></i>
-    <i *ngIf="!sendingMessage && showTools" (click)="showKeyboard()" class="qiehuan"></i>
+    <ion-icon *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false" name="happy"></ion-icon>
+    <i *ngIf="showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
+    <i *ngIf="!sendingMessage" (click)="showTools = true;showEmoji= false" class="change"></i>
     <span *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</span>
   </div>
   <div class="hide-tools" *ngIf="showTools">
@@ -92,6 +93,11 @@
     <div>
       <i class="business-card"></i>
       <span>个人名片</span>
+    </div>
+  </div>
+  <div *ngIf="showEmoji" class="emojis">
+    <div *ngFor="let item of emojiName" class="emoji" (click)="chooseEmoji(item)">
+      <img [src]="emojiUrl + emojiMap[item]"/>
     </div>
   </div>
 </ion-footer>

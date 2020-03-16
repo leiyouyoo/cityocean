@@ -62,7 +62,7 @@
         <div *ngFor="let item of typeList">
           <p (click)="typeClick(item)">
             <i [class]="'icon-'+item.type"></i>
-            <span>{{item.name}}</span>
+            <span>{{item.displayName | translate}}</span>
           </p>
         </div>
       </div>

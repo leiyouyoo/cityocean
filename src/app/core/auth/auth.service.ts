@@ -38,6 +38,7 @@ export class AuthService {
         client_id: 'cityOcean',
         client_secret: '282F4E3E-AD56-4FE1-BAF3-FE99BBC11AD2',
         grant_type: 'password',
+        platform:'mobile'
       };
 
       this.headers = new HttpHeaders({

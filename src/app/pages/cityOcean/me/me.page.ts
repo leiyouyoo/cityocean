@@ -5,6 +5,8 @@ import { LocalStorage } from '@shared/localstorage';
 import { Router } from '@angular/router';
 import { Helper } from '@shared/helper';
 import { CityOceanService } from '../city-ocean.service';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+import { NATIVE_FORWARD } from '@core/constants';
 
 @Component({
   selector: 'app-me',
@@ -16,7 +18,8 @@ export class MePage {
   userLogin = true;
   userMsg: any;
   constructor(
-    private nav: NavController,
+    public nativePageTransitions: NativePageTransitions,
+    private navCtrl: NavController,
     public device: Device,
     private router: Router,
     private helper: Helper,

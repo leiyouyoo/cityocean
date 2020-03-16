@@ -13,9 +13,9 @@ export class HomeService {
   getGroupMsgMobileList(params: { FromAccount: number }) {
     return this.httpService.get('/IM/Message/GetGroupMsgMobileList', params);
   }
-  
+
   // 获取群聊信息列表
-  getGroupMsg(params:any={}) {
+  getGroupMsg(params: any = {}) {
     return this.httpService.get('/IM/Message/GetGroupMsg', params);
   }
   // 获取单聊信息列表
@@ -28,38 +28,41 @@ export class HomeService {
       to_Account: to_Account,
       tagList: ['Tag_Profile_IM_Image', 'Tag_Profile_IM_Nick', 'Tag_Profile_IM_Role'],
     };
-    return this.httpService.postJson('/IM/AccountManage/PortraitGet', params)
+    return this.httpService.postJson('/IM/AccountManage/PortraitGet', params);
   }
   // 批量获取用户职位集合
-  GetBatchUserPositions(ids:Array<any>) {
-    let params={UserIds:ids};
+  GetBatchUserPositions(ids: Array<any>) {
+    let params = { UserIds: ids };
     return this.httpService.get('/Platform/Position/GetBatchUserPositions', params);
   }
-  // 获取快捷入口
-  getQuickEntrance(): Observable<any> {
-    return this.httpService.get('/CSP/QuickEntrance/GetAllList', {});
+  // 获取我收藏的菜单集合
+  getMyFavorites(): Observable<any> {
+    return this.httpService.get('/Platform/Menu/GetMyFavorites', {});
   }
-  //添加快捷入口
-  createQuickEntrance(obj = {}): Observable<any> {
-    let params = obj;
-    return this.httpService.postJson('/CSP/QuickEntrance/CreateAsync', params);
+
+  // 批量收藏用户菜单
+  addBatchToMyFavorites(menuIds: Array<any>): Observable<any> {
+    return this.httpService.postJson('/Platform/Menu/AddBatchToMyFavorites', { menuIds });
+  }
+  // 批量删除收藏用户菜单
+  removeFromMyFavorites(menuIds: Array<any>): Observable<any> {
+    return this.httpService.postJson('/Platform/Menu/RemoveFromMyFavorites', { menuIds });
   }
   // 同步SSO资料 undo：暂时使用
   SynchronousUserInfo(GroupId): Observable<any> {
-    return this.httpService.postJson('/IM/AccountManage/SynchronousUserInfo?GroupId='+GroupId, {});
+    return this.httpService.postJson('/IM/AccountManage/SynchronousUserInfo?GroupId=' + GroupId, {});
   }
-  
- 
+
   //获取可邀请加入群聊的用户列表
   getMayInviteUserList(obj = {}): Observable<any> {
     let params = obj;
     return this.httpService.get('/CSP/IM/GetMayInviteUserList', params);
   }
   //获取客户下的联系人（包含合作伙伴的）,以及客户绑定的业务员
-  getMayInviteUserC2CList(params = {customerId:''}): Observable<any> {
+  getMayInviteUserC2CList(params = { customerId: '' }): Observable<any> {
     return this.httpService.get('/CRM/ContactExternal/GetContactAndSaleByCustomerId', params);
   }
-// 添加群成员
+  // 添加群成员
   AddGroupMembers(obj = {}): Observable<any> {
     let params = obj;
     return this.httpService.postJson('/IM/GroupManage/AddGroupMember', params);
