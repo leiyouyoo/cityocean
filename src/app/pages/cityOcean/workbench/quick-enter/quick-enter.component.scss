@@ -98,27 +98,19 @@ section {
             line-height: px2rem(13px);
           }
 
-          i.icon-rates {
-            @include bg-image("../../../../../assets/icon/workbench/chayunjia")
-          }
-
-          i.icon-sailingSchedules {
-            @include bg-image("../../../../../assets/icon/workbench/chachuanqi")
-          }
-
-          i.icon-shipments {
+          i.icon-app-shipments-color {
             @include bg-image("../../../../../assets/icon/workbench/yundan")
           }
 
-          i.icon-booking {
+          i.icon-app-bookings-color {
             @include bg-image("../../../../../assets/icon/workbench/dingdan")
           }
 
-          i.icon-billing {
+          i.icon-app-billing-color {
             @include bg-image("..//../../../../assets/icon/workbench/zhangdan")
           }
 
-          i.icon-quotes {
+          i.icon-app-quotes-color {
             @include bg-image("../../../../../assets/icon/workbench/baojia")
           }
         }

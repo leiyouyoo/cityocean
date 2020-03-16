@@ -203,4 +203,22 @@ ion-footer {
     color: var(--ion-color-dark);
     resize: none;
   }
+
+  .emojis {
+    display: flex;
+    flex-wrap: wrap;
+    height: px2rem(160px);
+    padding-top: px2rem(10px);
+    overflow: auto;
+
+    .emoji {
+      width: 12.5%;
+      height: 40px;
+      text-align: center;
+      img {
+        width: 24px;
+        height: 24px
+      }
+    }
+  }
 }

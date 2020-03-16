@@ -57,7 +57,6 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    debugger;
     this.infiniteScroll.disabled = true;
     if (!this.checkIsLoginWithTourist) {
       this.imLogin();
@@ -73,20 +72,13 @@ export class HomePage implements OnInit {
       searchetail.clientHeight &&
       searchetail.clientHeight + toolsGroupElement.clientHeight <= event.detail.scrollTop
     ) {
-      // toolsGroupElement.style.display = 'none';
-      // searchetail.style.display = 'none';
-      // this.renderer2.addClass(contentGroup, 'overFlow-hide-header');
       inputForSearch.style.display = 'none';
       searchIicon.style.display = 'inline-block';
-      // this.ionContent.scrollToPoint(null, 1);
     }
-    // if (event.detail.scrollTop === 0 && searchetail.style.display == 'none') {
     if (event.detail.scrollTop === 0) {
-      // toolsGroupElement.style.display = 'flex';
       searchetail.style.display = 'block';
       inputForSearch.style.display = 'flex';
       searchIicon.style.display = 'none';
-      // this.ionContent.scrollToPoint(null, searchetail.clientHeight + toolsGroupElement.clientHeight - 1);
       this.renderer2.removeClass(contentGroup, 'overFlow-hide-header');
     }
   }
@@ -109,11 +101,22 @@ export class HomePage implements OnInit {
         },
       ];
     } else {
-      this.homeService.getQuickEntrance().subscribe((res) => {
-        this.toolsList = res.items;
+      this.homeService.getMyFavorites().subscribe((res) => {
+        console.log(res)
+        this.toolsList = res;
+        this.toolsList.forEach((e) => {
+          if (e.name === 'MBillings') {
+            e.type = 'billing';
+          } else if (e.name === 'MBookings') {
+            e.type = 'booking';
+          } else if (e.name === 'MShipments') {
+            e.type = 'shipments';
+          }
+        });
         this.toolsList.push({
-          name: 'More',
+          displayName: 'More',
           type: 'More',
+          icon: 'icon-app-Add',
         });
         this.setToolListOrder();
       });
@@ -331,8 +334,9 @@ export class HomePage implements OnInit {
       if (res.data) {
         this.toolsList = res.data;
         this.toolsList.push({
-          name: 'More',
+          displayName: 'More',
           type: 'More',
+          icon: 'icon-app-Add',
         });
         this.setToolListOrder();
       }

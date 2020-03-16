@@ -241,24 +241,6 @@ ion-content {
       display: inline-block;
     }
 
-    i.icon-add {
-      position: absolute;
-      right: px2rem(-6px);
-      transform: translateX(100%);
-      width: px2rem(16px);
-      height: px2rem(16px);
-      @include bg-image('../../../../assets/icon/workbench/my-icon-add');
-    }
-
-    i.icon-delete {
-      position: absolute;
-      right: px2rem(-6px);
-      transform: translateX(100%);
-      width: px2rem(16px);
-      height: px2rem(16px);
-      @include bg-image('../../../../assets/icon/workbench/my-icon-delete');
-    }
-
     .all-applications,
     .quick-enter-applictions,
     .more-applictions {
