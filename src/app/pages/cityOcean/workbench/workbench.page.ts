@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, ActionSheetController, ModalController, AlertController } from '@ionic/angular';
+import { NavController, ActionSheetController, ModalController } from '@ionic/angular';
 import { SearchlocaltionComponent } from '../home/search-localtion/search-localtion.component';
 import { WorkbenchService } from './workbench.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,7 +18,7 @@ export class WorkbenchPage implements OnInit {
 
   title: any;
   titleStatisticsList: any;
-  @ViewChild('quickEnter', {static: false}) quickEnter:QuickEnterComponent
+  @ViewChild('quickEnter', { static: false }) quickEnter: QuickEnterComponent;
   isLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
   searchTransportationCost = false; // 搜索展示
   isEditing = false; // 控制是否添加快捷入口
@@ -32,49 +32,19 @@ export class WorkbenchPage implements OnInit {
     private modalController: ModalController,
     private workbenchService: WorkbenchService,
     private homeService: HomeService,
-    private alertController: AlertController,
-    private cityOceanService: CityOceanService
+    private cityOceanService: CityOceanService,
   ) {}
   ionViewDidEnter() {
-    this.typeList = [
-      // 所有业务类型
-      // {
-      //   name: this.translate.instant('Rates'),
-      //   type: 'rates',
-      //   marker: false,
-      //   id: 0,
-      // },
-      // {
-      //   name: this.translate.instant('Schedules'),
-      //   type: 'sailingSchedules',
-      //   marker: false,
-      //   id: 0,
-      // },
-      {
-        name: this.translate.instant('Shipments'),
-        type: 'shipments',
-        marker: false,
-        id: 0,
-      },
-      {
-        name: this.translate.instant('Bookings'),
-        type: 'booking',
-        marker: false,
-        id: 0,
-      },
-      {
-        name: this.translate.instant('Quotes'),
-        type: 'quotes',
-        marker: false,
-        id: 0,
-      },
-      {
-        name: this.translate.instant('Billings'),
-        type: 'billing',
-        marker: false,
-        id: 0,
-      },
-    ];
+    this.typeList = abp.nav.menus.MainMenu.items;
+    this.typeList.forEach((e) => {
+      if (e.name === 'MBillings') {
+        e.type = 'billing';
+      } else if (e.name === 'MBookings') {
+        e.type = 'booking';
+      } else if (e.name === 'MShipments') {
+        e.type = 'shipments';
+      }
+    });
     this.title = this.translate.instant('Shipments');
     this.titleStatisticsList = [
       {
@@ -90,12 +60,11 @@ export class WorkbenchPage implements OnInit {
     ];
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ionViewWillEnter() {
     this.shipmentStatistics();
-    this.homeService.getQuickEntrance().subscribe((res) => {
-      this.quickEnterList = res.items;
+    this.homeService.getMyFavorites().subscribe((res) => {
+      this.quickEnterList = res;
     });
   }
   confirm() {
@@ -254,29 +223,10 @@ export class WorkbenchPage implements OnInit {
   clickLoginWithTourist(type): boolean {
     if (this.cityOceanService.getIsLoginWithTourist()) {
       if (type != 'sailingSchedules' && type != 'shipments') {
-        this.cityOceanService.chatWithCustomerService()
+        this.cityOceanService.chatWithCustomerService();
         return true;
       }
     }
-  }
-  async showMore() {
-    const alert = await this.alertController.create({
-      header: this.translate.instant('Jump to login') + '?',
-      message: this.translate.instant('Show more detail'),
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: (blah) => {},
-        },
-        {
-          text: 'Yes',
-          handler: (blah) => {
-            window.location.href = '/login';
-          },
-        },
-      ],
-    });
-    await alert.present();
   }
   /**
    * 导航到运价或船期列表
@@ -287,7 +237,7 @@ export class WorkbenchPage implements OnInit {
     if (!this.orignPort.id || !this.deliveryPort.id) {
       return;
     }
-    this.cityOceanService.setRatesOrSailSearchHistory(this.searchType,this.orignPort,this.deliveryPort);
+    this.cityOceanService.setRatesOrSailSearchHistory(this.searchType, this.orignPort, this.deliveryPort);
     if (this.searchType === 'seachRates') {
       this.nav.navigateForward(['/cityOcean/workbench/rates'], {
         queryParams: {
@@ -295,7 +245,7 @@ export class WorkbenchPage implements OnInit {
           orignPortName: this.orignPort.name,
           deliveryPortId: this.deliveryPort.id,
           deliveryPortName: this.deliveryPort.name,
-          routeBackType: "workbench",
+          routeBackType: 'workbench',
         },
       });
     } else if (this.searchType === 'searchSailingSchedules') {
@@ -303,7 +253,7 @@ export class WorkbenchPage implements OnInit {
         queryParams: {
           orignPortId: this.orignPort.id,
           deliveryPortId: this.deliveryPort.id,
-          routeBackType: "workbench",
+          routeBackType: 'workbench',
         },
       });
     }
@@ -342,7 +292,7 @@ export class WorkbenchPage implements OnInit {
   goRouter(item) {
     this.nav.navigateForward(['/cityOcean/workbench/' + item.type], {
       queryParams: {
-        routeBackType: "workbench",
+        routeBackType: 'workbench',
       },
     });
   }

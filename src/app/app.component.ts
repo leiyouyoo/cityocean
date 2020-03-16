@@ -70,7 +70,6 @@ export class AppComponent {
     this.translate.addLangs(['zh', 'en']);
     // 设置默认语言
     this.lang = LocalStorage.localStorage.get('Language');
-    debugger;
     if (this.lang === 'zh') {
       this.translate.setDefaultLang(this.lang);
       window.localStorage.setItem('Language', this.lang);

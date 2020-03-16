@@ -17,6 +17,7 @@ import { Location } from '@angular/common';
 import { Helper } from '@shared/helper';
 import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
+import { emojiMap, emojiName, emojiUrl } from '../../../../shared/utils/emojiMap';
 
 @Component({
   selector: 'app-chat',
@@ -28,7 +29,8 @@ export class ChatPage implements OnInit {
   @ViewChild(IonRefresher, { static: true }) ionRefresher: IonRefresher;
   statusType: any = { '-1': '暂无' }; //状态枚举
   showTools = false; //隐藏底部功能区
-  sendingMessage: string;
+  showEmoji = false; // 表情区
+  sendingMessage: string = '';
   chatList = [];
   currentPopover: any;
   conversationID: any;
@@ -46,8 +48,11 @@ export class ChatPage implements OnInit {
   bussinessDetail = { No: '', status: -1, soNo: '', shipmentNo: '' }; //业务详情
   conversationType: any;
   popoverList; // 更多列表数据
-  isDisbanded: boolean;
+  isDisbanded: boolean; // 如果聊天解散了，隐藏输入框
   nowTime: string;
+  emojiUrl = emojiUrl;
+  emojiMap = emojiMap;
+  emojiName = emojiName;
 
   constructor(
     private nav: NavController,
@@ -524,8 +529,12 @@ export class ChatPage implements OnInit {
    * @memberof ChatPage
    */
   showKeyboard() {
-    this.showTools = false;
+    this.showEmoji = false;
     const inputElement = this.el.nativeElement.querySelector('#inputElement');
     this.renderer.invokeElementMethod(inputElement, 'focus');
+  }
+
+  chooseEmoji(data){
+    this.sendingMessage += data;
   }
 }

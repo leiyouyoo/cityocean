@@ -15,8 +15,8 @@
     <header>
       <div class="tools-group">
         <div [style.order]="item.order" *ngFor="let item of toolsList">
-          <i (click)="toolTypeClick(item)" [class]="item.type"></i>
-          <span (click)="toolTypeClick(item)" class="font-14">{{item.name | translate}}</span>
+          <i (click)="toolTypeClick(item)" [ngClass]="{'iconfont': true}" [class]="item.icon"></i>
+          <span (click)="toolTypeClick(item)" class="font-14">{{item.displayName | translate}}</span>
         </div>
       </div>
 
