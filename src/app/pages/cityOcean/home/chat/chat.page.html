@@ -76,8 +76,8 @@
       (ngModelChange)="valueChange($event)"
       id="inputElement"
     ></textarea>
-    <ion-icon *ngIf="!showEmoji" class="happy head-anchor-size" (click)="showEmoji = true;showTools = false" name="happy"></ion-icon>
-    <i *ngIf="!sendingMessage && showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
+    <ion-icon *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false" name="happy"></ion-icon>
+    <i *ngIf="showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
     <i *ngIf="!sendingMessage" (click)="showTools = true;showEmoji= false" class="change"></i>
     <span *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</span>
   </div>

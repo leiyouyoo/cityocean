@@ -204,6 +204,12 @@ ion-footer {
     resize: none;
   }
 
+  .happy {
+    color: #3293ff;
+    width: px2rem(37px);
+    height: px2rem(37px);
+  }
+
   .emojis {
     display: flex;
     flex-wrap: wrap;
@@ -215,9 +221,10 @@ ion-footer {
       width: 12.5%;
       height: 40px;
       text-align: center;
+
       img {
         width: 24px;
-        height: 24px
+        height: 24px;
       }
     }
   }

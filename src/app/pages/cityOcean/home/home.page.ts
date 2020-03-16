@@ -124,6 +124,11 @@ export class HomePage implements OnInit {
     this.getConversationsList();
   }
 
+  /**
+   * 获取会话列表
+   *
+   * @memberof HomePage
+   */
   getConversationsList() {
     const initConversationList = (list) => {
       list = list.filter((e) => {
@@ -206,6 +211,12 @@ export class HomePage implements OnInit {
     this.cityOceanService.chatWithCustomerService();
   }
 
+  /**
+   *全局搜索
+   *
+   * @returns
+   * @memberof HomePage
+   */
   async onInputChange() {
     const modal = await this.modalController.create({
       component: GlobelSearchComponent,
@@ -239,6 +250,13 @@ export class HomePage implements OnInit {
     }, 1000);
   }
 
+  /**
+   *导航到聊天页面
+   *
+   * @param {*} item
+   * @returns
+   * @memberof HomePage
+   */
   gotoChat(item) {
     if (item.type === 'welcome') {
       return;
@@ -256,6 +274,13 @@ export class HomePage implements OnInit {
       });
     }
   }
+
+  /**
+   *船期和运价 的搜索
+   *
+   * @returns
+   * @memberof HomePage
+   */
   go4search() {
     if (!this.orignPort.id || !this.deliveryPort.id) {
       return;
@@ -281,6 +306,13 @@ export class HomePage implements OnInit {
       });
     }
   }
+
+  /**
+   *快捷入口的点击事件
+   *
+   * @param {*} item
+   * @memberof HomePage
+   */
   toolTypeClick(item) {
     switch (item.type) {
       case 'rates':
@@ -316,9 +348,23 @@ export class HomePage implements OnInit {
         break;
     }
   }
+
+  /**
+   *船期和运价的搜索切换
+   *
+   * @param {*} type
+   * @memberof HomePage
+   */
   typeChoosed(type) {
     this.searchType = type;
   }
+
+  /**
+   *添加快捷入口
+   *
+   * @returns
+   * @memberof HomePage
+   */
   async moreClick() {
     const modal = await this.modalController.create({
       cssClass: 'home-quick-enter',
@@ -343,9 +389,12 @@ export class HomePage implements OnInit {
     });
     return await modal.present();
   }
-  segmentChanged(event) {
-    this.searchType = event.detail.value;
-  }
+
+  /**
+   *快捷入口增加顺序order
+   *
+   * @memberof HomePage
+   */
   setToolListOrder() {
     let _order = 3;
     this.toolsList.forEach((e) => {
@@ -363,6 +412,16 @@ export class HomePage implements OnInit {
       }
     });
   }
+
+  /**
+   *删除会话
+   *
+   * @param {*} i
+   * @param {*} data
+   * @param {*} node
+   * @returns
+   * @memberof HomePage
+   */
   deleteItem(i: any, data, node) {
     this.showDeleteButton = false;
     node.close();
@@ -385,6 +444,13 @@ export class HomePage implements OnInit {
       },
     );
   }
+
+  /**
+   *删除会话按钮隐藏
+   *
+   * @param {*} node
+   * @memberof HomePage
+   */
   showDeleteButtonFn(node) {
     this.showDeleteButton = true;
     node.close();
@@ -394,6 +460,14 @@ export class HomePage implements OnInit {
     this.showDeleteButton = false;
     node.close();
   }
+
+  /**
+   * 船期和运价的地址查询
+   *
+   * @param {*} type
+   * @returns
+   * @memberof HomePage
+   */
   async searchLocaltion(type) {
     const modal = await this.modalController.create({
       component: SearchlocaltionComponent,
