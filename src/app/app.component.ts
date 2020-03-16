@@ -70,22 +70,20 @@ export class AppComponent {
     this.translate.addLangs(['zh', 'en']);
     // 设置默认语言
     this.lang = LocalStorage.localStorage.get('Language');
+    debugger;
     if (this.lang === 'zh') {
       this.translate.setDefaultLang(this.lang);
+      window.localStorage.setItem('Language', this.lang);
     } else if (this.lang === 'en') {
       this.translate.setDefaultLang(this.lang);
+      window.localStorage.setItem('Language', this.lang);
     } else {
       this.translate.setDefaultLang('en');
+      window.localStorage.setItem('Language', 'en');
     }
 
     // 语言切换处理
     this.translate.use(this.lang);
-    window.localStorage.setItem('Language', this.lang);
-    // if (this.translate.getBrowserLang() != undefined) {
-    //   this.translate.use(this.translate.getBrowserLang());
-    // } else {
-    //   this.translate.use(this.lang)
-    // }
   }
 
   lastTimeBackPress = 0;

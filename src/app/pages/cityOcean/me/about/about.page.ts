@@ -68,10 +68,10 @@ export class AboutPage implements OnInit {
     this.appService
       .checkUpdate({
         appType: 1,
-        version: this.device.version,
+        version: this.version,
       })
       .subscribe((res: any) => {
-        if (res.result === true) {
+        if (res === true) {
           this.showAlert();
         } else {
           this.helper.toast(this.translate.instant('Already the latest version'));
