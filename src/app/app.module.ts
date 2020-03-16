@@ -35,6 +35,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StartupService } from '@core';
 import { BaseInfoModule } from '@cityocean/basicdata-library/basicdata.module';
 import { RouteGuardService } from './route-guard.service';
+import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
@@ -87,6 +88,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AmapLibraryModule,
     DelonModule.forRoot(),
     IonicModule.forRoot({
+      animated: false,
+      rippleEffect: false,
+
       backButtonText: '', // 配置返回按钮
       backButtonIcon: 'chevron-back-outline', // 配置返回图标
     }),
@@ -112,6 +116,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouteGuardService,
     { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }, // 重载手势方向
     JPush,
+    NativePageTransitions,
     ...INTERCEPTOR_PROVIDES,
     ...APPINIT_PROVIDES,
     ...IONIC_NATIVE_PROVIDERS,
