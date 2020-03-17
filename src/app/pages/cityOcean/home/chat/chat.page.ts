@@ -102,7 +102,7 @@ export class ChatPage implements OnInit {
     });
   }
   @HostListener('document:click', ['$event'])
-  onclick() {
+  onclick($event) {
     this.ngOnDestroy();
     this.showPopover = false;
   }
