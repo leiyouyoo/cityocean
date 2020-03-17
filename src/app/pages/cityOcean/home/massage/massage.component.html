@@ -13,24 +13,24 @@
   <div class="text-group">
     <div *ngIf="detail" class="number-wrap">
       <div>
-        <span [ngClass]="{ 'welcome-title': detail?.type == 'welcome' }" class="number-text font-10">{{
+        <span [ngClass]="{ 'welcome-title': detail?.type == 'welcome' }" class="number-text">{{
           detail.type === 'C2C' ? (detail.userProfile.nick ? detail.userProfile.nick : detail.name) : detail.name
         }}</span>
-        <span *ngIf="showLabel()" [ngClass]="{ lables: true, 'font-10': true }" [class]="'lable-' + detail?.type">{{
+        <span *ngIf="showLabel()" [ngClass]="{ lables: true }" [class]="'lable-' + detail?.type">{{
           detail?.type
         }}</span>
       </div>
 
-      <span class="time font-12">{{ getImtime(detail?.lastMessage?.lastTime) }}</span>
+      <span class="time">{{ getImtime(detail?.lastMessage?.lastTime) }}</span>
     </div>
     <p
       *ngIf="detail?.type != 'welcome'"
-      class="state font-14"
+      class="state"
       [innerHtml]="justText(detail.lastMessage.messageForShow)"
     ></p>
     <span
       [ngClass]="{ 'welcome-span': detail?.type == 'welcome' }"
-      class="description font-10"
+      class="description"
       [innerHtml]="justText(detail.lastMessage.messageForShow)"
     ></span>
   </div>

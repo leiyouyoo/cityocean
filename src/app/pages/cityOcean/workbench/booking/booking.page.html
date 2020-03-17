@@ -26,9 +26,7 @@
     ></app-booking-list-panel>
     </ng-container>
     
-    <div class="noResluts" *ngIf="bookingList.length == 0">
-      {{"No Resluts" | translate}}
-    </div>
+    <app-no-data *ngIf="initDataCompleted && bookingList.length == 0"></app-no-data>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getBookingList($event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">

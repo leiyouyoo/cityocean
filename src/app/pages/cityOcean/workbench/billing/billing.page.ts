@@ -20,6 +20,7 @@ export class BillingPage implements OnInit {
   billingStatus: any; // 筛选状态
   searchText: string = '';
   routeBackType: any;
+  initDataCompleted = false; // 数据是否加载完成
   constructor(
     private billingServiceService: BillingServiceService,
     private actionSheetController: ActionSheetController,
@@ -42,6 +43,7 @@ export class BillingPage implements OnInit {
     if (this.ids.length) {
       this.billingServiceService.GetBillingListByIds(this.ids).subscribe((res: any) => {
         this.billingList = this.billingList.concat(res.items);
+        this.initDataCompleted = true;
       });
     } else {
       this.getBillingList({});
@@ -77,6 +79,7 @@ export class BillingPage implements OnInit {
     },()=>{
     },()=>{
       this.helper.hideLoading();
+      this.initDataCompleted = true;
     });
   }
   resetFilter() {

@@ -120,36 +120,6 @@ $font-base-size: 12px;
   }
 }
 
-[data-dpr='1'] {
-
-  .email-wrap,
-  .password-wrap {
-    input::-webkit-input-placeholder {
-      font-size: 1px * 16;
-    }
-  }
-}
-
-[data-dpr='2'] {
-
-  .email-wrap,
-  .password-wrap {
-    input::-webkit-input-placeholder {
-      font-size: 2px * 16;
-    }
-  }
-}
-
-[data-dpr='3'] {
-
-  .email-wrap,
-  .password-wrap {
-    input::-webkit-input-placeholder {
-      font-size: 3px * 16;
-    }
-  }
-}
-
 @mixin font-dpr($font-size) {
   // font-size: $font-size;
 
@@ -366,16 +336,16 @@ $font-base-size: 12px;
   --height: 12rem;
   --border-radius: 0.4rem;
 }
+// 首页快捷入口modal自定义样式
+.home-quick-enter {
+  --height: 80%;
 
-// .home-quick-enter {
-//   --height: 72%;
-
-//   .modal-wrapper {
-//     border-radius: 0.5333333333rem 0.5333333333rem 0 0;
-//     position: absolute;
-//     bottom: 0;
-//   }
-// }
+  .modal-wrapper {
+    border-radius: 0.5333333333rem 0.5333333333rem 0 0;
+    position: absolute;
+    bottom: 0;
+  }
+}
 
 .my-popover-input-search {
   --min-width: 80%;

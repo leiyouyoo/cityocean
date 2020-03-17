@@ -9,10 +9,10 @@
 
 <ion-content>
   <section class="member-group">
-    <label class="font-16" for="">Members</label>
+    <label for="">Members</label>
     <div (click)="addMember()" class="add-members">
       <i></i>
-      <span class="font-16">Add member</span>
+      <span>Add member</span>
     </div>
     <div class="member-wrap" *ngFor="let item of membersList">
       <img
@@ -21,32 +21,32 @@
         alt="头像"
       />
       <div>
-        <span class="member-name font-16">{{item.nick?item.nick:item.userID}}</span>
-        <span class="member-type font-14">{{item.positionName?item.positionName:"角色未设置"}}</span>
+        <span class="member-name">{{item.nick?item.nick:item.userID}}</span>
+        <span class="member-type">{{item.positionName?item.positionName:"角色未设置"}}</span>
       </div>
     </div>
   </section>
 
   <section class="setting-group">
-    <label class="font-16" for="">Settings</label>
+    <label for="">Settings</label>
     <div (click)="searchConversation()">
       <i class="search"></i>
-      <span class="font-16">Search in conversation</span>
+      <span>Search in conversation</span>
       <i class="right-arrow"></i>
     </div>
     <div *ngIf="!isC2C && canEditGroupName" (click)="editGroupName()">
       <i class="change-group-name"></i>
-      <span class="font-16">Change group name </span>
+      <span>Change group name </span>
       <i class="right-arrow"></i>
     </div>
     <div (click)="changeWallpaper()">
       <i class="change-wallpaper"></i>
-      <span class="font-16">Change wallpaper</span>
+      <span>Change wallpaper</span>
       <i class="right-arrow"></i>
     </div>
     <div *ngIf="!isC2C" (click)="quitGroupModal()">
       <i class="exit-group"></i>
-      <span class="font-16">退出群聊</span>
+      <span>退出群聊</span>
     </div>
   </section>
 </ion-content>

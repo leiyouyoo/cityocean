@@ -4,8 +4,8 @@
       <!-- <i></i> -->
       <img [src]="rateListItem?.carrierLogo.replace('http://', 'https://')" />
       <div>
-        <span class="font-12">$</span>
-        <span *ngIf="rateListItem?.chargesGroups" class="font-22">{{
+        <span>$</span>
+        <span *ngIf="rateListItem?.chargesGroups">{{
           (rateListItem?.chargesGroups)[0]?.freightCharges?.rate
         }}</span>
       </div>

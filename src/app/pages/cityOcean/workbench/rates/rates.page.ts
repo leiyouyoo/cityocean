@@ -29,6 +29,7 @@ export class RatesPage implements OnInit {
   deliveryPortName: any;
   orignPortName: any;
   routeBackType: any;
+  initDataCompleted = false; // 数据是否加载完成
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -80,6 +81,7 @@ export class RatesPage implements OnInit {
     },()=>{
     },()=>{
       this.helper.hideLoading();
+      this.initDataCompleted = true;
     });
   }
   goback() {

@@ -27,6 +27,7 @@ ion-content {
             span {
                 font-family: Helvetica;
                 color: rgba(76, 75, 94, 1);
+                font-size:16px;
             }
 
             i {
@@ -69,13 +70,13 @@ ion-content {
                 justify-content: center;
 
                 .member-name {
-                    @include font-dpr(16px);
+                    font-size:16px;
                     font-family: PingFangSC-Regular;
                     color: rgba(112, 111, 126, 1);
                 }
 
                 .member-type {
-                    @include font-dpr(14px);
+                    font-size:14px;
                     font-family: PingFangSC-Regular, PingFang SC;
                     font-weight: 400;
                     color: rgba(159, 159, 175, 0.6);

@@ -15,13 +15,13 @@
         />
         <i class="delete" *ngIf="searchText" (click)="delete()"></i>
       </div>
-      <span class="font-16" (click)="dismissModal()">Cancel</span>
+      <span (click)="dismissModal()">Cancel</span>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
   <section>
-    <span *ngIf="chatList.length==0" class="no-data font-16">快速搜索聊天内容</span>
+    <span *ngIf="chatList.length==0" class="no-data">快速搜索聊天内容</span>
     <ion-card *ngFor="let item of chatList">
       <img
         (click)="gotoUserProfile(item.from)"

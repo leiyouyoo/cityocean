@@ -17,13 +17,13 @@
       />
     </div>
     <div class="text-wrap">
-      <span class="font-18 name">{{userProfile[0].nick}}</span>
-      <span class="font-15 role">{{userProfile[0].role?userProfile[0].role:'角色未设置'}}</span>
+      <span class="name">{{userProfile[0].nick}}</span>
+      <span class="role">{{userProfile[0].role?userProfile[0].role:'角色未设置'}}</span>
       <div class="change-remarks-wrap">
-        <span class="remarks font-15">备注和描述</span>
+        <span class="remarks">备注和描述</span>
         <!-- <i *ngIf="myUserId == userId" (click)= "changeRemarks()" class="change-remarks"></i> -->
       </div>
-      <span class="description font-14"
+      <span class="description"
         >{{userProfile[0].selfSignature?userProfile[0].selfSignature:'暂未填写描述'}}</span
       >
     </div>
@@ -31,7 +31,7 @@
 </ion-content>
 
 <ion-footer *ngIf="!isSelf" id="keyboard-flex">
-  <div (click)="sendMessage()" class="foot-wrap font-16">
+  <div (click)="sendMessage()" class="foot-wrap">
     发消息
   </div>
 </ion-footer>

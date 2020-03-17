@@ -5,7 +5,7 @@ ion-content {
         position: absolute;
         z-index: 10;
         right: px2rem(35px);
-        @include font-dpr(16px);
+        font-size: 16px;
         top: px2rem(30px);
         color: rgba(255, 255, 255, 0.8);
     }

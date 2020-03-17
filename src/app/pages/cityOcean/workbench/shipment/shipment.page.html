@@ -19,16 +19,11 @@
   <section>
     <ng-container *ngIf="shipmentsList.length">
       <ng-container *ngFor="let item of shipmentsList; let i=index">
-        <app-shipment-list-panel
-        [shipmentListItem]="item"
-        (click)="gotoShipmentDetail(item)"
-      ></app-shipment-list-panel>
+        <app-shipment-list-panel [shipmentListItem]="item" (click)="gotoShipmentDetail(item)"></app-shipment-list-panel>
       </ng-container>
     </ng-container>
 
-    <div class="noResluts" *ngIf="shipmentsList.length == 0">
-      {{"No Resluts" | translate}}
-    </div>
+    <app-no-data *ngIf="initDataCompleted && shipmentsList.length == 0"></app-no-data>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getShipmentList($event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">

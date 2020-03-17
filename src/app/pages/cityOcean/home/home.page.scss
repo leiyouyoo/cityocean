@@ -81,7 +81,7 @@
         width: 100%;
         height: px2rem(44px);
         margin-top: px2rem(17px);
-        @include font-dpr(12px);
+        font-size:12px;
         background: rgba(83, 143, 255, 1);
         // box-shadow: 0px px2rem(-12px) px2rem(12px) 0px rgba(71, 135, 254, 1);
         border-radius: px2rem(6px);
@@ -215,7 +215,7 @@ header {
 
         span {
             color: rgba(255, 255, 255, 1);
-            @include font-dpr(14px);
+            font-size: 14px;
             height: px2rem(13px);
             line-height: px2rem(13px);
             font-family: PingFangSC-Regular, PingFang SC;
@@ -383,8 +383,8 @@ ion-content {
         }
 
         .tabs-rates {
-            color: #007AFF;
-            border-bottom: 2px solid #007Aff;
+            color: var(--ion-color-primary);
+            border-bottom: 2px solid var(--ion-color-primary);
         }
     }
 }

@@ -22,9 +22,7 @@
       ></app-sailing-schedules-list-panel>
     </ng-container>
 
-    <div class="noResluts" *ngIf="sailingList.length == 0">
-      {{"No Resluts" | translate}}
-    </div>
+    <app-no-data *ngIf="initDataCompleted && sailingList.length == 0"> </app-no-data>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getSailingList(null,$event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">

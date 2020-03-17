@@ -22,6 +22,7 @@ export class BookingPage implements OnInit {
   currentParams: any = {}; //筛选条件
   ids: any = []; // 可能为多个id
   routeBackType: any;
+  initDataCompleted = false; // 数据是否加载完成
   constructor(
     private bookingServiceService: BookingServiceService,
     private actionSheetController: ActionSheetController,
@@ -44,6 +45,7 @@ export class BookingPage implements OnInit {
     if (this.ids.length) {
       this.bookingServiceService.GetBookingListByIds(this.ids).subscribe((res: any) => {
         this.bookingList = this.bookingList.concat(res.items);
+        this.initDataCompleted = true;
       });
     } else {
       this.getBookingList();
@@ -82,6 +84,7 @@ export class BookingPage implements OnInit {
     },()=>{
     },()=>{
       this.helper.hideLoading();
+      this.initDataCompleted = true;
     });
   }
   gotoBookingDetail(item) {

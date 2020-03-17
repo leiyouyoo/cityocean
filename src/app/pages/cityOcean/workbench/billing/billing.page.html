@@ -20,15 +20,13 @@
   <section>
     <ng-container *ngIf="billingList.length">
       <app-billing-list-panel
-      [billingListItem]="item"
-      (click)="gotoBillingDetail(item)"
-      *ngFor="let item of billingList; let i=index"
-    ></app-billing-list-panel>
+        [billingListItem]="item"
+        (click)="gotoBillingDetail(item)"
+        *ngFor="let item of billingList; let i=index"
+      ></app-billing-list-panel>
     </ng-container>
-    
-    <div class="noResluts" *ngIf="billingList.length == 0">
-      {{"No Resluts" | translate}}
-    </div>
+
+    <app-no-data *ngIf="initDataCompleted && billingList.length == 0"> </app-no-data>
   </section>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getBillingList({},$event)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">

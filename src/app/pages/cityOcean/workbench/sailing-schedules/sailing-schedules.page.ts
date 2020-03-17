@@ -24,6 +24,7 @@ export class SailingSchedulesPage implements OnInit {
   };
   routeBackType: any;
   currentParams: {};
+  initDataCompleted = false; // 数据是否加载完成
   constructor(
     private nav: NavController,
     private modalController: ModalController,
@@ -80,6 +81,7 @@ export class SailingSchedulesPage implements OnInit {
     },()=>{
     },()=>{
       this.helper.hideLoading();
+      this.initDataCompleted = false;
     });
   }
 

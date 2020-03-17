@@ -33,6 +33,7 @@ import { SailingSchedulesListPanelComponent } from '../pages/cityOcean/workbench
 import { RatesListPanelComponent } from '../pages/cityOcean/workbench/rates/rates-list-panel/rates-list-panel.component';
 import { BookingListPanelComponent } from '../pages/cityOcean/workbench/booking/booking-list-panel/booking-list-panel.component';
 import { QuickEnterComponent } from '../pages/cityOcean/workbench/quick-enter/quick-enter.component';
+import { NoDataComponent } from '../components/no-data/no-data.component';
 const COMPONENTS_ENTRY = [BusinessTypeComponent,
    InputSearchComponent,
     ContactsComponent,
@@ -41,7 +42,8 @@ const COMPONENTS_ENTRY = [BusinessTypeComponent,
     SailingSchedulesListPanelComponent,
     RatesListPanelComponent,
     BookingListPanelComponent,
-    QuickEnterComponent];
+    QuickEnterComponent,
+    NoDataComponent];
 const COMPONENTS = [...COMPONENTS_ENTRY];
 const DIRECTIVES = [
   DebounceInputDirective,

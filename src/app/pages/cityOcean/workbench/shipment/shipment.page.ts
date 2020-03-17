@@ -21,6 +21,7 @@ export class ShipmentPage implements OnInit {
   currentParams: any = {};
   isLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
   routeBackType: any;
+  initDataCompleted = false; // 数据是否加载完成
   constructor(
     private nav: NavController,
     private myShipmentService: MyShipmentService,
@@ -68,6 +69,7 @@ export class ShipmentPage implements OnInit {
     },()=>{
     },()=>{
       this.helper.hideLoading();
+      this.initDataCompleted = true;
     });
   }
   getShipmentListByVisitor(event?) {

@@ -88,29 +88,21 @@ export class HomePage implements OnInit {
       this.toolsList = [
         // 游客模式业务类型
         {
-          icon:'icon-app-schedules',
+          icon: 'icon-app-schedules',
           displayName: this.translate.instant('Schedules'),
           type: 'sailingSchedules',
         },
         {
           displayName: this.translate.instant('Shipments'),
-          icon:'icon-app-shipments',
+          icon: 'icon-app-shipments',
           type: 'shipments',
         },
       ];
     } else {
       this.homeService.getMyFavorites().subscribe((res) => {
-        console.log(res)
+        console.log(res);
         this.toolsList = res;
-        this.toolsList.forEach((e) => {
-          if (e.name === 'MBillings') {
-            e.type = 'billing';
-          } else if (e.name === 'MBookings') {
-            e.type = 'booking';
-          } else if (e.name === 'MShipments') {
-            e.type = 'shipments';
-          }
-        });
+        this.setToolsListType();
         this.toolsList.push({
           displayName: 'More',
           type: 'More',
@@ -122,6 +114,22 @@ export class HomePage implements OnInit {
     this.getConversationsList();
   }
 
+  /**
+   *给快捷入口增加type字段，用于路由和判断
+   *
+   * @memberof HomePage
+   */
+  setToolsListType() {
+    this.toolsList.forEach((e) => {
+      if (e.name === 'MBillings') {
+        e.type = 'billing';
+      } else if (e.name === 'MBookings') {
+        e.type = 'booking';
+      } else if (e.name === 'MShipments') {
+        e.type = 'shipments';
+      }
+    });
+  }
   /**
    * 获取会话列表
    *
@@ -375,6 +383,7 @@ export class HomePage implements OnInit {
     modal.onWillDismiss().then((res) => {
       if (res.data) {
         this.toolsList = res.data;
+        this.setToolsListType();
         this.toolsList.push({
           displayName: 'More',
           type: 'More',

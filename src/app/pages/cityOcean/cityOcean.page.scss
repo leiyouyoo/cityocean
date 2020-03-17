@@ -135,5 +135,5 @@ ion-tabs {
     line-height: px2rem(20px);
     height: px2rem(20px);
     font-family:PingFangSC-Regular,PingFang SC;
-    @include font-dpr(10px);
+    font-size:10px;
 }

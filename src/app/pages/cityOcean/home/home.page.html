@@ -16,7 +16,7 @@
       <div class="tools-group">
         <div [style.order]="item.order" *ngFor="let item of toolsList">
           <i (click)="toolTypeClick(item)" [ngClass]="{'iconfont': true}" [class]="item.icon"></i>
-          <span (click)="toolTypeClick(item)" class="font-14">{{item.displayName | translate}}</span>
+          <span (click)="toolTypeClick(item)">{{item.displayName | translate}}</span>
         </div>
       </div>
 
@@ -62,7 +62,7 @@
           *ngIf="searchType == 'searchSailingSchedules'"
           (click)="go4search()"
           [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
-          class="search-yunjia font-12"
+          class="search-yunjia"
         >
           {{ "searchSailingSchedules" | translate }}
         </button>
@@ -70,7 +70,7 @@
           *ngIf="searchType == 'seachRates'"
           (click)="go4search()"
           [ngClass]="{'search-yunjia-valid': !deliveryPort.name || !orignPort.name}"
-          class="search-yunjia font-12"
+          class="search-yunjia"
         >
           {{ "seachRates" | translate }}
         </button>

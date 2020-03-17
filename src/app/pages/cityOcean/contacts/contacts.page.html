@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines="none" mode="ios">
+  <ion-list *ngIf="initDataCompleted" lines="none" mode="ios">
     <ion-item *ngFor="let detial of list" lines="none">
       <ion-avatar slot="start">
         <img src="/assets/images/Logo.png" />
@@ -15,6 +15,22 @@
       <ion-label>
         <h2>{{ detial.name }}({{ detial.surname }})</h2>
         <p>{{ detial.email }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <app-no-data [showText] = "'No Contacts'" *ngIf="initDataCompleted && list.length == 0"> </app-no-data>
+  <ion-list *ngIf="!initDataCompleted">
+    <ion-item *ngFor="let item of loadingListLenth" lines="none">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
       </ion-label>
     </ion-item>
   </ion-list>

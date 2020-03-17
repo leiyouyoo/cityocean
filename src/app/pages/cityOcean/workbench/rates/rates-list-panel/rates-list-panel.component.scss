@@ -15,15 +15,9 @@ div.content-wrap {
         display: flex;
         justify-content: space-between;
 
-        // i {
-        //     display: inline-block;
-        //     width: px2rem(30px);
-        //     height: px2rem(17px);
-        //     background: #007aff;
-        // }
-
         div {
             span:nth-child(1) {
+                font-size: 12px;
                 height: px2rem(17px);
                 @include font-dpr(12px);
                 font-family: PingFang-SC-Bold, PingFang-SC;
@@ -34,7 +28,7 @@ div.content-wrap {
 
             span:nth-child(2) {
                 height: px2rem(30px);
-                @include font-dpr(22px);
+                font-size: 22px;
                 font-family: PingFang-SC-Bold, PingFang-SC;
                 font-weight: bold;
                 color: rgba(0, 122, 255, 1);

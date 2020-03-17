@@ -79,7 +79,7 @@
         height: px2rem(17px);
         font-family: PingFang-SC-Medium, PingFang-SC;
         font-weight: 500;
-        @include font-dpr(12px);
+        font-size:12px;
         color: rgba(204, 204, 204, 1);
         line-height: px2rem(17px);
     }
@@ -99,14 +99,14 @@
             justify-content: space-between;
 
             span.number-text {
-                @include font-dpr(10px);
+                font-size:10px;
             }
 
             span.lables {
                 height: px2rem(16px);
                 line-height: px2rem(16px);
                 color: var(--ion-color-dark);
-                @include font-dpr(10px);
+                font-size:10px;
                 background: rgba(96, 71, 255, 0.14);
                 border-radius: px2rem(2px);
                 padding: px2rem(1px) px2rem(4px);
@@ -144,7 +144,7 @@
             height: px2rem(20px);
             line-height: px2rem(20px);
             color: rgba(76, 75, 94, 0.8);
-            @include font-dpr(14px);
+            font-size:14px;
             font-weight: bold;
             letter-spacing: px2rem(1px);
             font-family: PingFang-SC-Medium;
@@ -159,7 +159,7 @@
             width: 72.3vw;
             font-family: PingFang-SC-Regular, PingFang-SC;
             font-weight: 400;
-            @include font-dpr(10px);
+            font-size:10px;
             color: rgba(159, 159, 175, 1);
             letter-spacing: px2rem(1px);
             overflow: hidden;

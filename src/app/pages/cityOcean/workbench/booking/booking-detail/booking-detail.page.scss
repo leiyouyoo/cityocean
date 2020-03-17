@@ -54,7 +54,7 @@ ion-content {
             }
 
             &.check-bg::before {
-                border-left: px2rem(2px) dashed #007AFF;
+                border-left: px2rem(2px) dashed var(--ion-color-primary);
             }
 
             &.not-check-bg::before {
@@ -204,7 +204,7 @@ ion-content {
             position: absolute;
             height: 100%;
             left: px2rem(27px);
-            border-left: px2rem(1px) solid #007AFF;
+            border-left: px2rem(1px) solid var(--ion-color-primary);
         }
 
         i.originPortShow {
@@ -239,7 +239,7 @@ ion-content {
             position: absolute;
             height: 100%;
             left: px2rem(27px);
-            border-left: px2rem(1px) solid #007AFF;
+            border-left: px2rem(1px) solid var(--ion-color-primary);
         }
     }
 

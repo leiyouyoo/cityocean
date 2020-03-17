@@ -11,7 +11,7 @@ ion-content {
   ion-segment {
     --background-checked: #fff;
     --color: var(--ion-color-dark);
-    --color-checked: #007aff;
+    --color-checked: var(--ion-color-primary);
     margin-bottom: px2rem(8px);
     ion-segment-button {
       min-width: 1.81rem;

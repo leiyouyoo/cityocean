@@ -42,7 +42,7 @@ section {
             @include bg-image('../../../../../../assets/icon/workbench/billiing/bank-account');
         }
 
-        background: linear-gradient(135deg, #61ADFF 0%, #007AFF 100%);
+        background: linear-gradient(135deg, #61ADFF 0%, var(--ion-color-primary) 100%);
     }
 
     .pay {

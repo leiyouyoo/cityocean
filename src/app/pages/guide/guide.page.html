@@ -7,7 +7,7 @@
 <ion-content fullscreen scroll-y="false">
   <ion-slides #ionslides (ionSlideDrag)="ionSlideDrag()">
     <ion-slide *ngFor="let item of slides,let i = index">
-      <span (click)="skipGuide()" class="skip-guide font-16">jump over</span>
+      <span (click)="skipGuide()" class="skip-guide">jump over</span>
       <div [class]="'guide_bg_' + (i+1)">
         <div class="arrow_group">
           <div class="Rectangle-gorup">
