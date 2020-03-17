@@ -22,7 +22,7 @@
 <ion-content fullscreen>
   <section>
     <span *ngIf="chatList.length==0" class="no-data">快速搜索聊天内容</span>
-    <ion-card *ngFor="let item of chatList">
+    <ion-card (click)="gotoChatHistory(item)" *ngFor="let item of chatList">
       <img
         (click)="gotoUserProfile(item.from)"
         class="head-anchor"
@@ -30,7 +30,7 @@
       />
       <div class="content-wrap">
         <div class="name-group">
-          <h5>{{ item?.nickName ? item?.nickName : item?.from }}</h5>
+          <h5>{{ item?.fromNickName ? item?.fromNickName : item?.from }}</h5>
           <span>{{ getTime(item?.msgTime) }}</span>
         </div>
 

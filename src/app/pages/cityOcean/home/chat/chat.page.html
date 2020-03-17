@@ -1,4 +1,4 @@
-<ion-header mode="ios">
+<ion-header mode="ios" class="ionheader">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button text="" defaultHref="cityOcean"></ion-back-button>
@@ -17,6 +17,17 @@
 </ion-header>
 
 <ion-content>
+  <section style="position:fixed;width:100%;z-index: 1;" [style.height]="showPopover?'100%':'0'">
+    <div
+      class="popoverContainerwrap"
+      style="position: fixed;margin-left: 5px;"
+      [style.top]="popoverOffsetTop"
+      [style.right]="popoverOffsetRgiht"
+    >
+      <ng-template #popoverContainer></ng-template>
+    </div>
+  </section>
+
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -30,7 +41,12 @@
   <section [ngClass]="{'chat-content-wrap-margin': getCardShow()}" class="chat-content-wrap">
     <ng-container *ngFor="let item of chatList">
       <div *ngIf="!!item.isTimeShow" class="message-show-time">{{getImChatTime(item.time)}}</div>
-      <ion-card *ngIf="!item.isTimeShow" [class]="'card-' + item.flow +'-group'">
+      <ion-card
+        #ionCard
+        (press)="pressMessage($event,item,ionCard)"
+        *ngIf="!item.isTimeShow"
+        [class]="'card-' + item.flow +'-group'"
+      >
         <img
           *ngIf="item.flow=='out'"
           (click)="gotoUserProfile(item.from)"
@@ -50,7 +66,7 @@
           <ng-container *ngIf="item?.type === 'TIMTextElem'">
             <ng-container *ngFor="let item of contentList(item.payload)">
               <span *ngIf="item.name === 'text'" [innerHTML]="item.text"></span>
-              <img *ngIf="item.name === 'img'" [src]="item.src" class="emoji-text"/>
+              <img *ngIf="item.name === 'img'" [src]="item.src" class="emoji-text" />
               <span [innerHTML]=""></span>
             </ng-container>
           </ng-container>

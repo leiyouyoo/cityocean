@@ -1,4 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2, Renderer } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Renderer2,
+  Renderer,
+  ComponentRef,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  ComponentFactory,
+  HostListener,
+} from '@angular/core';
 import { NavController, PopoverController, IonContent, AlertController, IonRefresher } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { environment } from '@env/environment';
@@ -19,6 +31,7 @@ import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 import { emojiMap, emojiName, emojiUrl } from '../../../../shared/utils/emojiMap';
 import { decodeText } from '@shared/utils/decodeText';
+import { PressPopoverComponent } from './press-popover/press-popover.component';
 
 @Component({
   selector: 'app-chat',
@@ -28,6 +41,8 @@ import { decodeText } from '@shared/utils/decodeText';
 export class ChatPage implements OnInit {
   @ViewChild(IonContent, { static: true }) ioncontent: IonContent;
   @ViewChild(IonRefresher, { static: true }) ionRefresher: IonRefresher;
+  componentRef: ComponentRef<PressPopoverComponent>;
+  @ViewChild('popoverContainer', { static: true, read: ViewContainerRef }) container: ViewContainerRef;
   statusType: any = { '-1': '暂无' }; //状态枚举
   showTools = false; //隐藏底部功能区
   showEmoji = false; // 表情区
@@ -54,7 +69,9 @@ export class ChatPage implements OnInit {
   emojiUrl = emojiUrl;
   emojiMap = emojiMap;
   emojiName = emojiName;
-
+  popoverOffsetTop = '0px';
+  popoverOffsetRgiht = 'unset';
+  showPopover: boolean;
   constructor(
     private nav: NavController,
     public popoverController: PopoverController,
@@ -72,6 +89,7 @@ export class ChatPage implements OnInit {
     private statusBar: StatusBar,
     private el: ElementRef,
     private renderer: Renderer,
+    private resolver: ComponentFactoryResolver,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -82,6 +100,11 @@ export class ChatPage implements OnInit {
       this.bussinessType = this.groupID.replace(/\d/gi, '').toLowerCase();
       this.bussinessId = this.groupID.replace(/[^\d]/g, '');
     });
+  }
+  @HostListener('document:click', ['$event'])
+  onclick() {
+    this.ngOnDestroy();
+    this.showPopover = false;
   }
   ngOnInit() {
     this.nowTime = moment(new Date()).format();
@@ -138,7 +161,23 @@ export class ChatPage implements OnInit {
       } catch (error) {}
     }
   }
-
+  async pressMessage(event, item, ionCard) {
+    this.showPopover = true;
+    if (item.flow == 'out') {
+      this.popoverOffsetRgiht = '5px';
+    } else {
+      this.popoverOffsetRgiht = 'unset';
+    }
+    const tmp = (ionCard.el as HTMLElement).getBoundingClientRect();
+    this.popoverOffsetTop = tmp.top - this.el.nativeElement.querySelector('.ionheader').clientHeight - 7 + 'px';
+    this.container.clear();
+    const factory: ComponentFactory<PressPopoverComponent> = this.resolver.resolveComponentFactory(
+      PressPopoverComponent,
+    );
+    this.componentRef = this.container.createComponent(factory);
+    this.componentRef.instance.outClick.subscribe((msg: string) => 
+    console.log(msg,item));
+  }
   ionViewWillEnter() {
     this.statusBar.overlaysWebView(false);
     this.statusBar.backgroundColorByHexString('#3e8eff');
@@ -151,6 +190,9 @@ export class ChatPage implements OnInit {
 
   ionViewDidEnter() {
     this.scrollToBottom(1);
+  }
+  ngOnDestroy() {
+    this.componentRef && this.componentRef.destroy();
   }
   /**
    * 获取列表
@@ -343,9 +385,10 @@ export class ChatPage implements OnInit {
   insertCurrentTime() {
     const now = moment(new Date()).format();
     const element = this.chatList[this.chatList.length - 1];
-    if(!element){ // 如果一条消息都有没有的情况
+    if (!element) {
+      // 如果一条消息都有没有的情况
       this.chatList.push({ isTimeShow: true, time: now });
-      return
+      return;
     }
     const time = moment(element.msgTime).format();
     const add5Min = moment(time)

@@ -1,4 +1,20 @@
 @import "../../../../../../theme/variables";
+
+p {
+    background: var(--ion-color-dark);
+    border-radius: 6px;
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        border-width: 7px;
+        border-style: solid;
+        border-color: var(--ion-color-dark) transparent transparent transparent;
+    }
+}
+
 button {
     background: transparent;
     color: #fff;
@@ -6,9 +22,10 @@ button {
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     height: px2rem(43px);
-    padding: 0 px2rem(12px);
+    padding: 0 px2rem(10px);
     border-right: 1px solid #333;
-    &:last-child{
+
+    &:last-child {
         border: 0;
     }
 }
