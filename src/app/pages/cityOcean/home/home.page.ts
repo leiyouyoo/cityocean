@@ -163,7 +163,6 @@ export class HomePage implements OnInit {
       that.cityOceanService.loginOut();
     });
     onConversationUpdate(function updateConversationList(event) {
-      console.log(event);
       initConversationList(event.data);
     });
     onSDKReady(async () => {
@@ -177,7 +176,6 @@ export class HomePage implements OnInit {
       //   this.infiniteScroll.disabled = true;
       // }
       initConversationList(imRes.data.conversationList);
-      console.log(this.conversationsList);
     });
     if (this.checkIsLoginWithTourist) {
       this.conversationsList = [

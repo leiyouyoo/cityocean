@@ -113,14 +113,15 @@ export class ChatPage implements OnInit {
         break;
     }
     this.getChatList();
-    onMessage((imRes) => {
+    const that = this;
+    onMessage(function messageRecived(imRes) {
       if (imRes.data[0].type == 'TIMImageElem') {
         let url = imRes.data[0].payload.imageInfoArray[0].imageUrl;
         imRes.data[0]['msgBody'] = [{ msgContent: { ImageInfoArray: [{ URL: url }] } }];
       }
 
-      this.chatList = this.chatList.concat(imRes.data[0]);
-      this.scrollToBottom(1);
+      that.chatList = that.chatList.concat(imRes.data[0]);
+      that.scrollToBottom(1);
     });
     window.onresize = () => {
       this.scrollToBottom(1);
@@ -340,9 +341,13 @@ export class ChatPage implements OnInit {
    * @memberof ChatPage
    */
   insertCurrentTime() {
-    const element = this.chatList[this.chatList.length - 1];
-    const time = moment(element.msgTime).format();
     const now = moment(new Date()).format();
+    const element = this.chatList[this.chatList.length - 1];
+    if(!element){ // 如果一条消息都有没有的情况
+      this.chatList.push({ isTimeShow: true, time: now });
+      return
+    }
+    const time = moment(element.msgTime).format();
     const add5Min = moment(time)
       .add(5, 'minutes')
       .format();
@@ -535,10 +540,10 @@ export class ChatPage implements OnInit {
     this.renderer.invokeElementMethod(inputElement, 'focus');
   }
 
-  chooseEmoji(data){
+  chooseEmoji(data) {
     this.sendingMessage += data;
   }
-  contentList(text){
+  contentList(text) {
     return decodeText(text);
   }
 }

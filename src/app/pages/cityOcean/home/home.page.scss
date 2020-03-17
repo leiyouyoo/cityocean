@@ -241,8 +241,16 @@ ion-content {
         min-height: 100vh;
 
         .massge-group-wrap {
-
+            position: relative;
             padding: 0 px2rem(24px);
+
+            &::after{
+                content: "";
+                border-bottom: 1px solid #f2f2f9;
+                width: calc(100% - 2.13rem);
+                right: 0;
+                position: absolute;
+            }
 
             .wolcome-wrap {
                 display: flex;
