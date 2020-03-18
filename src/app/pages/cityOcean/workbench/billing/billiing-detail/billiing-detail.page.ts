@@ -167,6 +167,7 @@ export class BilliingDetailPage implements OnInit {
 
   businessTypeTitle: any;
   isfromChat: boolean;
+  routeBackType = 'home';
   constructor(
     private activatedRoute: ActivatedRoute,
     private billingServiceService: BillingServiceService,
@@ -176,6 +177,7 @@ export class BilliingDetailPage implements OnInit {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
       this.isfromChat = Boolean(data.fromChat);
+      this.routeBackType = data.routeBackType;
     });
   }
 
@@ -204,7 +206,7 @@ export class BilliingDetailPage implements OnInit {
     }, 0);
   }
   showRelatedBusinessPopover(event) {
-    this.cityOceanService.showRelatedBusinessPopover(event,{},PopoverComponent,'billing');
+    this.cityOceanService.showRelatedBusinessPopover(event,{},PopoverComponent,'billing',this.routeBackType);
   }
   getContainerType(data) {
     let str = '';

@@ -71,25 +71,28 @@ export class BookingPage implements OnInit {
       // 如果为下拉加载，不展示loading
       this.helper.showLoading('Loading...');
     }
-    this.bookingServiceService.GetAllBookingList(this.currentParams).subscribe((res) => {
-      console.log(res);
-      this.helper.hideLoading();
-      this.initDataCompleted = true;
-      event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
-      this.bookingList = this.bookingList.concat(res.items);
-      this.pageInfo.skipCount++;
-      if (this.bookingList.length >= res.totalCount && event) {
-        // 已加载全部数据，禁用上拉刷新
-        event.target.disabled = true;
-      }
-    },()=>{
-      this.helper.hideLoading();
-      this.initDataCompleted = true;
-    });
+    this.bookingServiceService.GetAllBookingList(this.currentParams).subscribe(
+      (res) => {
+        console.log(res);
+        this.helper.hideLoading();
+        this.initDataCompleted = true;
+        event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
+        this.bookingList = this.bookingList.concat(res.items);
+        this.pageInfo.skipCount++;
+        if (this.bookingList.length >= res.totalCount && event) {
+          // 已加载全部数据，禁用上拉刷新
+          event.target.disabled = true;
+        }
+      },
+      () => {
+        this.helper.hideLoading();
+        this.initDataCompleted = true;
+      },
+    );
   }
   gotoBookingDetail(item) {
     this.nav.navigateForward([`/cityOcean/${this.routeBackType}/booking/bookingDetail`], {
-      queryParams: { id: item.id },
+      queryParams: { id: item.id, routeBackType: this.routeBackType },
     });
   }
   goback() {

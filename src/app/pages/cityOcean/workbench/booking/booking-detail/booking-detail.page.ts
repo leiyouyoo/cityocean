@@ -291,6 +291,7 @@ export class BookingDetailPage implements OnInit {
   };
   statusStep: number;
   isfromChat: boolean;
+  routeBackType = 'home';
 
   constructor(private activatedRoute: ActivatedRoute, 
     private bookingServiceService: BookingServiceService,
@@ -299,6 +300,7 @@ export class BookingDetailPage implements OnInit {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
       this.isfromChat = Boolean(data.fromChat);
+      this.routeBackType = data.routeBackType;
     });
   }
   setRequestProcess() {
@@ -436,7 +438,7 @@ export class BookingDetailPage implements OnInit {
     window.history.back();
   }
   showRelatedBusinessPopover(event) {
-    this.cityOceanService.showRelatedBusinessPopover(event,{},PopoverComponent,'booking');
+    this.cityOceanService.showRelatedBusinessPopover(event,{},PopoverComponent,'booking',this.routeBackType);
   }
   // 客服
   chatWithCustomer() {
