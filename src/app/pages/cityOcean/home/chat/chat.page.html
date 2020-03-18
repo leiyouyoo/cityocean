@@ -94,9 +94,9 @@
       minRows="1"
       maxRows="4"
       (ngModelChange)="valueChange($event)"
-      id="inputElement"
+      id="inputElement"i
     ></textarea>
-    <ion-icon *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false" name="happy"></ion-icon>
+    <i *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false"></i>
     <i *ngIf="showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
     <i *ngIf="!sendingMessage" (click)="showTools = true;showEmoji= false" class="change"></i>
     <span *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</span>

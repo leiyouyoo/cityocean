@@ -135,7 +135,9 @@ ion-footer {
     i.change {
       @include bg-image('../../../../../assets/icon/home/chat/change');
     }
-
+    i.happy {
+      @include bg-image('../../../../../assets/icon/home/chat/smile');
+    }
     span.send {
       height: px2rem(30px);
       line-height: px2rem(30px);
@@ -207,11 +209,6 @@ ion-footer {
     resize: none;
   }
 
-  .happy {
-    color: #3293ff;
-    width: px2rem(37px);
-    height: px2rem(37px);
-  }
   .emojis {
     display: flex;
     flex-wrap: wrap;

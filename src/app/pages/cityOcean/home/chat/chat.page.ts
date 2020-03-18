@@ -175,8 +175,7 @@ export class ChatPage implements OnInit {
       PressPopoverComponent,
     );
     this.componentRef = this.container.createComponent(factory);
-    this.componentRef.instance.outClick.subscribe((msg: string) => 
-    console.log(msg,item));
+    this.componentRef.instance.outClick.subscribe((msg: string) => console.log(msg, item));
   }
   ionViewWillEnter() {
     this.statusBar.overlaysWebView(false);
@@ -240,6 +239,10 @@ export class ChatPage implements OnInit {
       e.msgTime = moment(e.msgTime).format();
     });
     res.items.reverse(); //消息按时间排序
+    // undo 之前已经遍历过，后续可以优化是否需要重新遍历
+    this.chatList.forEach(e=>{
+      e.isChecked = false;
+    })
     let tmpChatLists = res.items.concat(this.chatList);
     let _chatList = tmpChatLists.filter((e) => {
       return !e.isTimeShow;
@@ -288,9 +291,7 @@ export class ChatPage implements OnInit {
         };
         checkTime(index);
         console.log(this.nowTime);
-      } else if (
-        !element.isChecked &&
-        !element.isTimeShow &&
+      } else if ( !element.isTimeShow &&
         !moment(this.nowTime).isSame(msgTime) &&
         moment(msgTime).isBetween(subtract5Min, this.nowTime)
       ) {

@@ -86,8 +86,8 @@ export class SearchConversationComponent implements OnInit {
     this.chatList = res.items.concat(this.chatList);
     this.pageInfo.skipCount++;
   }
-  dismissModal() {
-    this.modalController.dismiss(
+  dismissModal(data) {
+    this.modalController.dismiss(data
     );
   }
   getTime(time){
@@ -112,7 +112,7 @@ export class SearchConversationComponent implements OnInit {
         FromAccount: [data.from,data.to],
         ToAccount:[data.to,data.from],
         MaxResultCount: this.pageInfo.maxResultCount,
-        SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
+        SkipCount: 0,
         Sorting: 'msgTime asc',
         id:data.id,
         isforword:false

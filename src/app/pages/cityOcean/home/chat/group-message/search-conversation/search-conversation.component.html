@@ -22,7 +22,7 @@
 <ion-content fullscreen>
   <section>
     <span *ngIf="chatList.length==0" class="no-data">快速搜索聊天内容</span>
-    <ion-card (click)="gotoChatHistory(item)" *ngFor="let item of chatList">
+    <ion-card (click)="dismissModal(item)" *ngFor="let item of chatList">
       <img
         (click)="gotoUserProfile(item.from)"
         class="head-anchor"
