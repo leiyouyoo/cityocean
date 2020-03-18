@@ -36,6 +36,7 @@ import { StartupService } from '@core';
 import { BaseInfoModule } from '@cityocean/basicdata-library/basicdata.module';
 import { RouteGuardService } from './route-guard.service';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
+import { BroadcastService } from '@shared/utils/broadcast.service';
 
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
@@ -114,6 +115,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     TranslateService,
     RouteGuardService,
+    BroadcastService,
     { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }, // 重载手势方向
     JPush,
     NativePageTransitions,

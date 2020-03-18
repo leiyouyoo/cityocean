@@ -242,15 +242,7 @@ ion-content {
 
         .massge-group-wrap {
             position: relative;
-            padding: 0 px2rem(24px);
-
-            &::after{
-                content: "";
-                border-bottom: 1px solid #f2f2f9;
-                width: calc(100% - 2.13rem);
-                right: 0;
-                position: absolute;
-            }
+            padding-left: px2rem(24px);
 
             .wolcome-wrap {
                 display: flex;
@@ -303,10 +295,11 @@ ion-content {
                     line-height: 14px;
                 }
             }
-
+            app-massage{
+                width: 100%;
+            }
             ion-item-sliding {
                 --inner-border-width: 0;
-
                 .app-massage-wrap {
                     --padding-start: 0;
                     --inner-padding-end: 0;
