@@ -154,7 +154,7 @@ export class LoginComponent implements OnInit {
       component: CustomerPhoneComponent,
       showBackdrop: false,
       event: event,
-      mode:'ios',
+      mode: 'ios',
       backdropDismiss: true,
       cssClass: 'billing-popover',
     });

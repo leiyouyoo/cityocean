@@ -168,6 +168,9 @@ export class HomePage implements OnInit {
     const that = this;
     onKickedOut(function kickedOut() {
       that.helper.toast('账号在其他地方登录，请确认并重新登录。');
+      let savedUser = JSON.parse(localStorage.getItem('autocompletePassword'));
+      savedUser.password = null;
+      localStorage.setItem('autocompletePassword', JSON.stringify(savedUser));
       that.cityOceanService.loginOut();
     });
     onConversationUpdate(function updateConversationList(event) {
