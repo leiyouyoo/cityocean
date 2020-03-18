@@ -2,8 +2,8 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`
 
-const baseApiUrl = `http://192.168.1.6:8000`
-const signalRUrl = `http://192.168.1.6:8002`
+const baseApiUrl = `http://192.168.1.6:8000`;
+const signalRUrl = `http://192.168.1.6:8002`;
 // const baseApiUrl = `http://localhost:8100/api`;
 // const signalRUrl = `http://localhost:8100/api-signalR`;
 export const environment = {
