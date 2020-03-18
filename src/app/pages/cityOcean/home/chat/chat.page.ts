@@ -46,14 +46,12 @@ export class ChatPage implements OnInit {
   statusType: any = { '-1': '暂无' }; //状态枚举
   showTools = false; //隐藏底部功能区
   showEmoji = false; // 表情区
-  sendingMessage: string = '';
+  sendingMessage: string = ''; // 输入框类容
   chatList = [];
-  currentPopover: any;
-  conversationID: any;
+  conversationID: any; //会话ID
   isC2C = false;
   groupID: any;
   groupName: any;
-  pressStatus: boolean;
   userId = this.cityOceanService.customerId;
   pageInfo = {
     maxResultCount: 10,
@@ -62,16 +60,17 @@ export class ChatPage implements OnInit {
   bussinessType; //业务类型
   bussinessId; //业务ID
   bussinessDetail = { No: '', status: -1, soNo: '', shipmentNo: '' }; //业务详情
-  conversationType: any;
+  conversationType: any; // 会话类型，C2C 或者其他
   popoverList; // 更多列表数据
   isDisbanded: boolean; // 如果聊天解散了，隐藏输入框
-  nowTime: string;
+  nowTime: string; // 当前事件
   emojiUrl = emojiUrl;
   emojiMap = emojiMap;
   emojiName = emojiName;
   popoverOffsetTop = '0px';
   popoverOffsetRgiht = 'unset';
   showPopover: boolean;
+  messageId: any; // 是否为搜索聊天记录跳转带过来的消息id
   constructor(
     private nav: NavController,
     public popoverController: PopoverController,
@@ -99,6 +98,7 @@ export class ChatPage implements OnInit {
       this.groupName = data.groupName;
       this.bussinessType = this.groupID.replace(/\d/gi, '').toLowerCase();
       this.bussinessId = this.groupID.replace(/[^\d]/g, '');
+      this.messageId = data.messageId;
     });
   }
   @HostListener('document:click', ['$event'])
@@ -135,7 +135,6 @@ export class ChatPage implements OnInit {
       default:
         break;
     }
-    this.getChatList();
     const that = this;
     onMessage(function messageRecived(imRes) {
       if (imRes.data[0].type == 'TIMImageElem') {
@@ -178,6 +177,12 @@ export class ChatPage implements OnInit {
     this.componentRef.instance.outClick.subscribe((msg: string) => console.log(msg, item));
   }
   ionViewWillEnter() {
+    this.pageInfo = {
+      maxResultCount: 10,
+      skipCount: 0,
+    };
+    this.chatList = [];
+    this.getChatList();
     this.statusBar.overlaysWebView(false);
     this.statusBar.backgroundColorByHexString('#3e8eff');
   }
@@ -188,7 +193,9 @@ export class ChatPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.scrollToBottom(1);
+    if (!this.messageId) {
+      this.scrollToBottom(1);
+    }
   }
   ngOnDestroy() {
     this.componentRef && this.componentRef.destroy();
@@ -199,7 +206,7 @@ export class ChatPage implements OnInit {
    * @param {*} [event]
    * @memberof ChatPage
    */
-  getChatList(event?) {
+  getChatList(event?, isforword?) {
     if (!this.isC2C) {
       let params = {
         GroupId: this.groupID,
@@ -207,8 +214,17 @@ export class ChatPage implements OnInit {
         SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
         Sorting: 'msgTime desc',
       };
+      if (this.messageId) {
+        params['MegSeq'] = this.messageId;
+        params['isforword'] = false;
+        params.Sorting = 'msgTime asc';
+        if (isforword) {
+          params['isforword'] = true;
+          params.Sorting = 'msgTime desc';
+        }
+      }
       this.homeService.getGroupMsg(params).subscribe((res: any) => {
-        this.ionRefresherCheck(res, event);
+        this.ionRefresherCheck(res, event, params.Sorting);
       });
     } else {
       let params = {
@@ -218,8 +234,17 @@ export class ChatPage implements OnInit {
         SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
         Sorting: 'msgTime desc',
       };
+      if (this.messageId) {
+        params['id'] = this.messageId;
+        params['isforword'] = false;
+        params.Sorting = 'msgTime asc';
+        if (isforword) {
+          params['isforword'] = true;
+          params.Sorting = 'msgTime desc';
+        }
+      }
       this.homeService.getC2CMsg(params).subscribe((res: any) => {
-        this.ionRefresherCheck(res, event);
+        this.ionRefresherCheck(res, event, params.Sorting);
         console.log(res);
       });
     }
@@ -231,18 +256,20 @@ export class ChatPage implements OnInit {
    * @param {*} event
    * @memberof ChatPage
    */
-  ionRefresherCheck(res, event) {
+  ionRefresherCheck(res, event, sorting) {
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
       e.type = e.msgBody[0].msgType;
       e['payload'] = { text: e.msgBody[0].msgContent.Text };
       e.msgTime = moment(e.msgTime).format();
     });
-    res.items.reverse(); //消息按时间排序
+    if (sorting === 'msgTime desc') {
+      res.items.reverse(); //消息按时间排序
+    }
     // undo 之前已经遍历过，后续可以优化是否需要重新遍历
-    this.chatList.forEach(e=>{
+    this.chatList.forEach((e) => {
       e.isChecked = false;
-    })
+    });
     let tmpChatLists = res.items.concat(this.chatList);
     let _chatList = tmpChatLists.filter((e) => {
       return !e.isTimeShow;
@@ -290,8 +317,8 @@ export class ChatPage implements OnInit {
           }
         };
         checkTime(index);
-        console.log(this.nowTime);
-      } else if ( !element.isTimeShow &&
+      } else if (
+        !element.isTimeShow &&
         !moment(this.nowTime).isSame(msgTime) &&
         moment(msgTime).isBetween(subtract5Min, this.nowTime)
       ) {
@@ -321,8 +348,8 @@ export class ChatPage implements OnInit {
     return this.cityOceanService.getImChatTime(time);
   }
   // 上拉刷新
-  doRefresh(event) {
-    this.getChatList(event);
+  doRefresh(event, isforword) {
+    this.getChatList(event, isforword);
   }
   /**
    *发送消息
@@ -542,7 +569,6 @@ export class ChatPage implements OnInit {
 
   pressCard(event) {
     console.log(event);
-    this.pressStatus = true;
     // this.showPopover(event, PressPopoverComponent, 'press-css-class');
   }
   getImgUrl(url) {

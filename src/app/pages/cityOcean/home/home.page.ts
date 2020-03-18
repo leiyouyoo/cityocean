@@ -137,11 +137,11 @@ export class HomePage implements OnInit {
    */
   getConversationsList() {
     const initConversationList = (list) => {
-      list = list.filter((e) => {
-        return e.type.indexOf('TIM') == -1 && e.type.indexOf('SYSTEM') == -1;
-      });
       this.scrollList = list.filter((e) => {
         return e.type.indexOf('SYSTEM') != -1;
+      });
+      list = list.filter((e) => {
+        return e.type.indexOf('TIM') == -1 && e.type.indexOf('SYSTEM') == -1;
       });
 
       list.forEach((ele) => {

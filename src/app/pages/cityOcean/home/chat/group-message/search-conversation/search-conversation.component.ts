@@ -87,48 +87,10 @@ export class SearchConversationComponent implements OnInit {
     this.pageInfo.skipCount++;
   }
   dismissModal(data) {
-    this.modalController.dismiss(data
-    );
+    this.modalController.dismiss(data);
   }
   getTime(time){
     if(!time){return ''}
     return moment(time).format("dddd A h:mm")
-  }
-  gotoChatHistory(data){
-    if (!this.isC2C) {
-      let params = {
-        GroupId: this.groupID,
-        MaxResultCount: this.pageInfo.maxResultCount,
-        SkipCount: this.pageInfo.skipCount * this.pageInfo.maxResultCount,
-        Sorting: 'msgTime desc',
-        MegSeq:data.id
-      };
-      this.homeService.getGroupMsg(params).subscribe((res: any) => {
-        console.log(res);
-        this.ionRefresherCheck(res);
-      });
-    } else {
-      let params = {
-        FromAccount: [data.from,data.to],
-        ToAccount:[data.to,data.from],
-        MaxResultCount: this.pageInfo.maxResultCount,
-        SkipCount: 0,
-        Sorting: 'msgTime asc',
-        id:data.id,
-        isforword:false
-      };
-      // params = {
-      //   FromAccount: [data.from,data.to],
-      //   ToAccount:[data.to,data.from],
-      //   MaxResultCount: this.pageInfo.maxResultCount,
-      //   SkipCount: 0,
-      //   Sorting: 'msgTime desc',
-      //   id:data.id,
-      //   isforword:true
-      // }
-      this.homeService.getC2CMsg(params).subscribe((res: any) => {
-        console.log(res);
-      });
-    }
   }
 }

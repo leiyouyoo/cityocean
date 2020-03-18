@@ -211,7 +211,16 @@ export class GroupMessagePage implements OnInit {
     });
     modal.onWillDismiss().then((res) => {
       if (type == 'search') {
-        console.log(res);
+        // this.nav.navigateForward(['/cityOcean/home/chat'], {
+        //   queryParams: {
+        //     conversationID: this.conversationID,
+        //     C2C: this.isC2C,
+        //     id: this.groupID,
+        //     groupName: this.groupName,
+        //     conversationType: this.conversationType,
+        //     messageId:res.data.id
+        //   },
+        // });
       } else {
         console.log(res);
       }
