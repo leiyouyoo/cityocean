@@ -2,5 +2,5 @@
   <button (click)="click('copy')">复制</button>
   <button (click)="click('delete')">删除</button>
   <button (click)="click('choose')">多选</button>
-  <button (click)="click('chehui')">撤回</button>
+  <button *ngIf="message.flow === 'out'" (click)="click('revoke')">撤回</button>
 </p>

@@ -188,7 +188,10 @@ export function createFileMessage(
 export function sendmessage(message): any {
   return tim.sendMessage(message);
 }
-
+/*撤回单聊消息或者群聊消息。撤回成功后，消息对象的 isRevoked 属性值为 true。*/
+export function revokeMessage(message): any {
+  return tim.revokeMessage(message);
+}
 /**
  * 将某会话下的未读消息状态设置为已读，置为已读的消息不会计入到未读统计
  * @param conversationID 会话Id

@@ -1,22 +1,22 @@
-<ion-header mode="ios" class="ionheader">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="" defaultHref="cityOcean"></ion-back-button>
-    </ion-buttons>
+<ion-app>
+  <ion-header mode="ios" class="ionheader">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button text="" defaultHref="cityOcean"></ion-back-button>
+      </ion-buttons>
 
-    <ion-title>{{groupName}}</ion-title>
+      <ion-title>{{groupName}}</ion-title>
 
-    <ion-buttons slot="end">
-      <ion-icon
-        [name]="!isC2C?'people':'person'"
-        (click)="gotoGroup()"
-        style="font-size: 1.5em;margin-right: 0.5em;"
-      ></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+      <ion-buttons slot="end">
+        <ion-icon
+          [name]="!isC2C?'people':'person'"
+          (click)="gotoGroup()"
+          style="font-size: 1.5em;margin-right: 0.5em;"
+        ></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <!-- 长按悬浮气泡 start -->
   <section style="position:fixed;width:100%;z-index: 1;" [style.height]="showPopover?'100%':'0'">
     <div
       class="popoverContainerwrap"
@@ -27,101 +27,102 @@
       <ng-template #popoverContainer></ng-template>
     </div>
   </section>
-
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event,true)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <div *ngIf="getCardShow()" class="type-wrap">
-    <app-business-type
-      (click)="gotoDetail()"
-      [title]="{title1:bussinessDetail.No, title2: this.bussinessDetail.soNo}"
-      [status]="statusType[bussinessDetail.status]"
-    ></app-business-type>
-  </div>
-  <section [ngClass]="{'chat-content-wrap-margin': getCardShow()}" class="chat-content-wrap">
-    <ng-container *ngFor="let item of chatList">
-      <div *ngIf="!!item.isTimeShow" class="message-show-time">{{getImChatTime(item.time)}}</div>
-      <ion-card
-        #ionCard
-        (press)="pressMessage($event,item,ionCard)"
-        *ngIf="!item.isTimeShow"
-        [class]="'card-' + item.flow +'-group'"
-      >
-        <img
-          *ngIf="item.flow=='out'"
-          (click)="gotoUserProfile(item.from)"
-          [class]="'anchor-' + item.flow"
-          class="head-anchor"
-          [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
-        />
-        <img
-          *ngIf="item.flow=='in'"
-          (click)="gotoUserProfile(item.from)"
-          [class]="'anchor-' + item.flow"
-          class="head-anchor"
-          [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
-        />
-        <ion-card-content>
-          <span *ngIf="item?.type === 'TIMCustomElem'" [innerHTML]="item.msgBody[0].msgContent.Ext"></span>
-          <ng-container *ngIf="item?.type === 'TIMTextElem'">
-            <ng-container *ngFor="let item of contentList(item.payload)">
-              <span *ngIf="item.name === 'text'" [innerHTML]="item.text"></span>
-              <img *ngIf="item.name === 'img'" [src]="item.src" class="emoji-text" />
-              <span [innerHTML]=""></span>
+  <!-- 长按悬浮气泡 end -->
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event,true)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div *ngIf="getCardShow()" class="type-wrap">
+      <app-business-type
+        (click)="gotoDetail()"
+        [title]="{title1:bussinessDetail.No, title2: this.bussinessDetail.soNo}"
+        [status]="statusType[bussinessDetail.status]"
+      ></app-business-type>
+    </div>
+    <section [ngClass]="{'chat-content-wrap-margin': getCardShow()}" class="chat-content-wrap">
+      <ng-container *ngFor="let item of chatList">
+        <div *ngIf="!!item.isTimeShow" class="message-show-time">{{getImChatTime(item.time)}}</div>
+        <ion-card
+          #ionCard
+          (press)="pressMessage($event,item,ionCard)"
+          *ngIf="!item.isTimeShow"
+          [class]="'card-' + item.flow +'-group'"
+        >
+          <img
+            *ngIf="item.flow=='out'"
+            (click)="gotoUserProfile(item.from)"
+            [class]="'anchor-' + item.flow"
+            class="head-anchor"
+            [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
+          />
+          <img
+            *ngIf="item.flow=='in'"
+            (click)="gotoUserProfile(item.from)"
+            [class]="'anchor-' + item.flow"
+            class="head-anchor"
+            [src]="item.fromAccountImageUrl?item.fromAccountImageUrl:'../../../../../assets/icon/avatar-2.png'"
+          />
+          <ion-card-content>
+            <span *ngIf="item?.type === 'TIMCustomElem'" [innerHTML]="item.msgBody[0].msgContent.Ext"></span>
+            <ng-container *ngIf="item?.type === 'TIMTextElem'">
+              <ng-container *ngFor="let item of contentList(item.payload)">
+                <span *ngIf="item.name === 'text'" [innerHTML]="item.text"></span>
+                <img *ngIf="item.name === 'img'" [src]="item.src" class="emoji-text" />
+              </ng-container>
             </ng-container>
-          </ng-container>
 
-          <div *ngIf="item?.type === 'TIMImageElem'">
-            <ion-img-viewer scheme="dark" [src]="getImgUrl(item.msgBody[0].msgContent.ImageInfoArray[0].URL)">
-            </ion-img-viewer>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </ng-container>
-  </section>
-  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="doRefresh($event,false)">
+            <div *ngIf="item?.type === 'TIMImageElem'">
+              <ion-img-viewer scheme="dark" [src]="getImgUrl(item.msgBody[0].msgContent.ImageInfoArray[0].URL)">
+              </ion-img-viewer>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+    </section>
+    <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="doRefresh($event,false)">
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll> -->
-</ion-content>
+  </ion-content>
 
-<ion-footer id="keyboard-flex">
-  <div *ngIf="!isDisbanded" class="foot-wrap">
-    <i class="yuyin"></i>
-    <textarea
-      type="text"
-      [(ngModel)]="sendingMessage"
-      (click)="showTools = false"
-      placeholder="Type a message"
-      name=""
-      autosize
-      minRows="1"
-      maxRows="4"
-      (ngModelChange)="valueChange($event)"
-      id="inputElement"i
-    ></textarea>
-    <i *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false"></i>
-    <i *ngIf="showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
-    <i *ngIf="!sendingMessage" (click)="showTools = true;showEmoji= false" class="change"></i>
-    <span *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</span>
-  </div>
-  <div class="hide-tools" *ngIf="showTools">
-    <div (click)="imgUpload()">
-      <i class="camera"></i>
-      <span>拍照</span>
+  <ion-footer id="keyboard-flex">
+    <div *ngIf="!isDisbanded" class="foot-wrap">
+      <i class="yuyin"></i>
+      <textarea
+        type="text"
+        [(ngModel)]="sendingMessage"
+        (click)="showTools = false"
+        placeholder="Type a message"
+        name=""
+        autosize
+        minRows="1"
+        maxRows="4"
+        (ngModelChange)="valueChange($event)"
+        id="inputElement"
+      ></textarea>
+      <i *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false"></i>
+      <i *ngIf="showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
+      <i *ngIf="!sendingMessage" (click)="showTools = true;showEmoji= false" class="change"></i>
+      <span *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</span>
     </div>
-    <div (click)="imageUpload()">
-      <i class="photo"></i>
-      <span>照片</span>
+    <div class="hide-tools" *ngIf="showTools">
+      <div (click)="imgUpload()">
+        <i class="camera"></i>
+        <span>拍照</span>
+      </div>
+      <div (click)="imageUpload()">
+        <i class="photo"></i>
+        <span>照片</span>
+      </div>
+      <div>
+        <i class="business-card"></i>
+        <span>个人名片</span>
+      </div>
     </div>
-    <div>
-      <i class="business-card"></i>
-      <span>个人名片</span>
+    <div *ngIf="showEmoji" class="emojis">
+      <div *ngFor="let item of emojiName" class="emoji" (click)="chooseEmoji(item)">
+        <img [src]="emojiUrl + emojiMap[item]" />
+      </div>
     </div>
-  </div>
-  <div *ngIf="showEmoji" class="emojis">
-    <div *ngFor="let item of emojiName" class="emoji" (click)="chooseEmoji(item)">
-      <img [src]="emojiUrl + emojiMap[item]" />
-    </div>
-  </div>
-</ion-footer>
+  </ion-footer>
+</ion-app>

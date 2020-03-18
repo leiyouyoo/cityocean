@@ -21,17 +21,26 @@ import { HomeService } from '../home.service';
 import { ShipmentStatusType } from '../../workbench/shipment/class/shipment-status-type';
 import { BookingStatusType } from '../../workbench/booking/class/booking-status-type';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { createTextMessage, onMessage, sendmessage, createImageMessage, getGroupProfile } from '@cityocean/im-library';
+import {
+  createTextMessage,
+  getMessageList,
+  revokeMessage,
+  onMessage,
+  sendmessage,
+  createImageMessage,
+  getGroupProfile,
+} from '@cityocean/im-library';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 import { CityOceanService } from '../../city-ocean.service';
 import { Location } from '@angular/common';
 import { Helper } from '@shared/helper';
 import * as moment from 'moment';
-import { forkJoin } from 'rxjs';
+import { forkJoin, fromEvent } from 'rxjs';
 import { emojiMap, emojiName, emojiUrl } from '../../../../shared/utils/emojiMap';
 import { decodeText } from '@shared/utils/decodeText';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @Component({
   selector: 'app-chat',
@@ -89,6 +98,7 @@ export class ChatPage implements OnInit {
     private el: ElementRef,
     private renderer: Renderer,
     private resolver: ComponentFactoryResolver,
+    private clipboard:Clipboard,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -107,6 +117,9 @@ export class ChatPage implements OnInit {
     this.showPopover = false;
   }
   ngOnInit() {
+    fromEvent(this.el.nativeElement.querySelector(".chat-content-wrap"), 'resize').subscribe(() => { 
+      this.scrollToBottom(1);
+    });
     this.nowTime = moment(new Date()).format();
     switch (this.bussinessType) {
       case 'booking':
@@ -161,6 +174,10 @@ export class ChatPage implements OnInit {
     }
   }
   async pressMessage(event, item, ionCard) {
+    let list;
+    getMessageList(this.conversationID).then((r) => {
+      list = r.data.messageList;
+    });
     this.showPopover = true;
     if (item.flow == 'out') {
       this.popoverOffsetRgiht = '5px';
@@ -174,7 +191,27 @@ export class ChatPage implements OnInit {
       PressPopoverComponent,
     );
     this.componentRef = this.container.createComponent(factory);
-    this.componentRef.instance.outClick.subscribe((msg: string) => console.log(msg, item));
+    this.componentRef.instance.message = item;
+    this.componentRef.instance.outClick.subscribe((msg: string) => {
+      switch (msg) {
+        case 'copy':
+          if(item.type === 'TIMTextElem'){
+            this.clipboard.copy(item.payload.text);
+          }
+          break;
+        case 'delete':
+          break;
+        case 'choose':
+          break;
+        case 'revoke':
+          revokeMessage(list[list.length-1]).then((IMRes) => {
+            console.log(IMRes);
+          });
+          break;
+        default:
+          break;
+      }
+    });
   }
   ionViewWillEnter() {
     this.pageInfo = {
@@ -192,11 +229,6 @@ export class ChatPage implements OnInit {
     this.statusBar.styleLightContent();
   }
 
-  ionViewDidEnter() {
-    if (!this.messageId) {
-      this.scrollToBottom(1);
-    }
-  }
   ngOnDestroy() {
     this.componentRef && this.componentRef.destroy();
   }
@@ -342,6 +374,7 @@ export class ChatPage implements OnInit {
       }
     }
     event && event.target.complete();
+    this.scrollToBottom(1);
   }
   // 格式化显示时间
   getImChatTime(time) {
@@ -365,18 +398,10 @@ export class ChatPage implements OnInit {
     }
     textMessage = createTextMessage(this.groupID, this.isC2C ? 'signle' : 'group', this.sendingMessage);
     await sendmessage(textMessage).then((imRes) => {
-      console.log(imRes);
+      this.insertCurrentTime();
+      this.chatList.push(imRes.data.message);
     });
-    this.insertCurrentTime();
-    this.chatList.push({
-      flow: 'out',
-      from: this.userId,
-      type: 'TIMTextElem',
-      msgBody: [{ msgType: 'TIMTextElem', msgContent: { Text: this.sendingMessage } }],
-      payload: {
-        text: this.sendingMessage,
-      },
-    });
+
     const inputElement = this.el.nativeElement.querySelector('#inputElement');
     this.renderer.invokeElementMethod(inputElement, 'focus');
     this.scrollToBottom(1);
@@ -564,7 +589,7 @@ export class ChatPage implements OnInit {
   scrollToBottom(int) {
     setTimeout(() => {
       this.ioncontent.scrollToBottom(1);
-    }, 10);
+    }, 50);
   }
 
   pressCard(event) {
