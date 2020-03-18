@@ -58,7 +58,8 @@ export class ShipmentPage implements OnInit {
       this.helper.showLoading('Loading...');
     }
     this.myShipmentService.GetAll(this.currentParams).subscribe((res) => {
-      console.log(res);
+      this.helper.hideLoading();
+      this.initDataCompleted = true;
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.shipmentsList = this.shipmentsList.concat(res.items);
       this.pageInfo.skipCount++;
@@ -66,7 +67,6 @@ export class ShipmentPage implements OnInit {
         // 已加载全部数据，禁用上拉刷新
         event.target.disabled = true;
       }
-    },()=>{
     },()=>{
       this.helper.hideLoading();
       this.initDataCompleted = true;
@@ -78,12 +78,16 @@ export class ShipmentPage implements OnInit {
       this.cityOceanService.GetRouteDetailsByShipmentNo(String(this.searchText)).subscribe((res: any) => {
         console.log(res);
         this.helper.hideLoading();
+        this.initDataCompleted = true;
         this.shipmentsList = this.shipmentsList.concat([res]);
         if (event) {
           // 已加载全部数据，禁用上拉刷新
           event.target.disabled = true;
           event.target.complete();
         }
+      },()=>{
+        this.helper.hideLoading();
+        this.initDataCompleted = true;
       });
     }
   }
@@ -98,8 +102,8 @@ export class ShipmentPage implements OnInit {
     // window.history.back()
   }
   gotoShipmentDetail(item) {
-    this.nav.navigateForward(['/cityOcean/workbench/shipments/shipmentDetail'], {
-      queryParams: { id: item.id },
+    this.nav.navigateForward([`/cityOcean/${this.routeBackType}/shipments/shipmentDetail`], {
+      queryParams: { id: item.id ,routeBackType:this.routeBackType},
     });
   }
   async shipmentFilter(type) {

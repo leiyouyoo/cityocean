@@ -9,10 +9,13 @@ import { CityOceanService } from '../../pages/cityOcean/city-ocean.service';
 export class PopoverComponent implements OnInit {
   @Input() popoverList;
   @Input() type;
+  @Input() routeBackType = 'home';
   list = [];
-  constructor(private popoverCtrl: PopoverController,
+  constructor(
+    private popoverCtrl: PopoverController,
     private cityOceanService: CityOceanService,
-    private nav:NavController) {}
+    private nav: NavController,
+  ) {}
   ngOnInit(): void {
     if (this.type === 'shipment') {
       if (this.popoverList.bookingIds) {
@@ -29,35 +32,37 @@ export class PopoverComponent implements OnInit {
       // 客服
       this.cityOceanService.chatWithCustomerService();
     } else if (type === 'booking') {
-      if (this.popoverList.bookingIds.length) {
-        this.nav.navigateForward([`/cityOcean/home/booking/bookingDetail`], {
+      if (this.popoverList.bookingIds.length === 1) {
+        this.nav.navigateForward([`/cityOcean/${this.routeBackType}/booking/bookingDetail`], {
           queryParams: {
             id: this.popoverList.bookingIds[0],
+            routeBackType: this.routeBackType,
+          },
+        });
+      } else {
+        this.nav.navigateForward([`/cityOcean/${this.routeBackType}/booking`], {
+          queryParams: {
+            ids: this.popoverList.bookingIds.join(','),
+            routeBackType: this.routeBackType,
           },
         });
       }
-      // else{
-      //   this.nav.navigateForward(['/cityOcean/home/booking'], {
-      //     queryParams: {
-      //       ids: this.popoverList.bookingIds.join(',')
-      //     },
-      //   });
-      // }
-    }else if (type === 'billing') {
-      if (this.popoverList.billingIds.length) {
-        this.nav.navigateForward([`/cityOcean/home/billing/billingDetail`], {
+    } else if (type === 'billing') {
+      if (this.popoverList.billingIds.length === 1) {
+        this.nav.navigateForward([`/cityOcean/${this.routeBackType}/billing/billingDetail`], {
           queryParams: {
             id: this.popoverList.billingIds[0],
+            routeBackType: this.routeBackType,
+          },
+        });
+      } else {
+        this.nav.navigateForward([`/cityOcean/${this.routeBackType}/billing`], {
+          queryParams: {
+            ids: this.popoverList.bookingIds.join(','),
+            routeBackType: this.routeBackType,
           },
         });
       }
-      // else{
-      //   this.nav.navigateForward(['/cityOcean/home/billing'], {
-      //     queryParams: {
-      //       ids: this.popoverList.bookingIds.join(',')
-      //     },
-      //   });
-      // }
     }
     this.popoverCtrl.dismiss({ data: 'FooBar!' });
   }

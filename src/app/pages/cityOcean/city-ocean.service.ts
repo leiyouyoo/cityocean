@@ -294,7 +294,7 @@ export class CityOceanService {
     }
   }
 
-  async showRelatedBusinessPopover(event,popoverList,component,bussinessType, cssClass?) {
+  async showRelatedBusinessPopover(event,popoverList,component,bussinessType,routeBackType, cssClass?) {
     const popover = await this.popoverController.create({
       component: component,
       showBackdrop: false,
@@ -302,7 +302,7 @@ export class CityOceanService {
       event: event,
       backdropDismiss: true,
       cssClass: cssClass,
-      componentProps: { popoverList: popoverList, type: bussinessType },
+      componentProps: { popoverList: popoverList, type: bussinessType,routeBackType:routeBackType },
     });
     popover.onDidDismiss().then((event) => {
     });

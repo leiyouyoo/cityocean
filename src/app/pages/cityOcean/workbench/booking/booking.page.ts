@@ -21,7 +21,7 @@ export class BookingPage implements OnInit {
   BookingStatus: any; // 筛选状态
   currentParams: any = {}; //筛选条件
   ids: any = []; // 可能为多个id
-  routeBackType: any;
+  routeBackType = 'home';
   initDataCompleted = false; // 数据是否加载完成
   constructor(
     private bookingServiceService: BookingServiceService,
@@ -74,6 +74,7 @@ export class BookingPage implements OnInit {
     this.bookingServiceService.GetAllBookingList(this.currentParams).subscribe((res) => {
       console.log(res);
       this.helper.hideLoading();
+      this.initDataCompleted = true;
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.bookingList = this.bookingList.concat(res.items);
       this.pageInfo.skipCount++;
@@ -82,13 +83,12 @@ export class BookingPage implements OnInit {
         event.target.disabled = true;
       }
     },()=>{
-    },()=>{
       this.helper.hideLoading();
       this.initDataCompleted = true;
     });
   }
   gotoBookingDetail(item) {
-    this.nav.navigateForward(['/cityOcean/workbench/booking/bookingDetail'], {
+    this.nav.navigateForward([`/cityOcean/${this.routeBackType}/booking/bookingDetail`], {
       queryParams: { id: item.id },
     });
   }

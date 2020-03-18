@@ -70,7 +70,8 @@ export class SailingSchedulesPage implements OnInit {
       this.helper.showLoading('Loading...');
     }
     this.sailService.getSailingSchedules(params).subscribe((res: any) => {
-      console.log(res);
+      this.helper.hideLoading();
+      this.initDataCompleted = false;
       event && event.target.complete(); //告诉ion-infinite-scroll数据已经更新完成
       this.sailingList = this.sailingList.concat(res.items);
       this.pageInfo.skipCount++;
@@ -78,7 +79,6 @@ export class SailingSchedulesPage implements OnInit {
         // 已加载全部数据，禁用上拉刷新
         event.target.disabled = true;
       }
-    },()=>{
     },()=>{
       this.helper.hideLoading();
       this.initDataCompleted = false;

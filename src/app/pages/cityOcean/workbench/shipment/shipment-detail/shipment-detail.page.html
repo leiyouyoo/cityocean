@@ -1,7 +1,7 @@
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="" defaultHref="cityOcean"></ion-back-button>
+      <ion-back-button text="" [defaultHref]="routeBackType?'cityOcean/'+routeBackType+'/shipments':'cityOcean'"></ion-back-button>
     </ion-buttons>
 
     <ion-title>{{routeDetail?.shipmentNo}}</ion-title>

@@ -61,6 +61,7 @@ export class ShipmentDetailPage implements OnInit {
   isLoginWithTourist: boolean;
   popoverList: any;
   isfromChat: boolean;
+  routeBackType: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private myShipmentService: MyShipmentService,
@@ -73,6 +74,7 @@ export class ShipmentDetailPage implements OnInit {
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
+      this.routeBackType = data.routeBackType;
       this.isfromChat = Boolean(data.fromChat);
     });
   }
@@ -172,6 +174,6 @@ export class ShipmentDetailPage implements OnInit {
     return str;
   }
   showRelatedBusinessPopover(event) {
-    this.cityOceanService.showRelatedBusinessPopover(event,this.popoverList,PopoverComponent,'shipment');
+    this.cityOceanService.showRelatedBusinessPopover(event,this.popoverList,PopoverComponent,'shipment',this.routeBackType);
   }
 }
