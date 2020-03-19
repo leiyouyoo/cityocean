@@ -2,9 +2,10 @@ import TIM from "tim-js-sdk";
 // 发送图片、文件等消息需要的 COS SDK
 import COS from "cos-js-sdk-v5";
 import { Attribute } from "@angular/core";
+import { environment } from '@env/environment';
 
 let options = {
-  SDKAppID: 1400335203 // 接入时需要将0替换为您的即时通信应用的 SDKAppID
+  SDKAppID: environment.SDKAppID // 接入时需要将0替换为您的即时通信应用的 SDKAppID
 };
 // 创建 SDK 实例，TIM.create() 方法对于同一个 SDKAppID 只会返回同一份实例
 let tim = TIM.create(options); // SDK 实例通常用 tim 表示
@@ -75,8 +76,7 @@ export function genTestUserSig(userID) {
    * 注意：该方案仅适用于调试Demo，正式上线前请将 UserSig 计算代码和密钥迁移到您的后台服务器上，以避免加密密钥泄露导致的流量盗用。
    * 文档：https://cloud.tencent.com/document/product/647/17275#Server
    */
-  let SECRETKEY =
-    "bb62d7cfb38f34a580d91071ac5216824c6e5bd782cd445556067a9ecf91ee03";
+  let SECRETKEY = environment.SDK_SECRETKEY;
   let generator = new (window as any).LibGenerateTestUserSig(
     SDKAPPID,
     SECRETKEY,

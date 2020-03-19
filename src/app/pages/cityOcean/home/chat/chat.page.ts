@@ -98,7 +98,7 @@ export class ChatPage implements OnInit {
     private el: ElementRef,
     private renderer: Renderer,
     private resolver: ComponentFactoryResolver,
-    private clipboard:Clipboard,
+    private clipboard: Clipboard,
   ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.conversationID = data.conversationID;
@@ -181,7 +181,12 @@ export class ChatPage implements OnInit {
       this.popoverOffsetRgiht = 'unset';
     }
     const tmp = (ionCard.el as HTMLElement).getBoundingClientRect();
-    this.popoverOffsetTop = tmp.top - this.el.nativeElement.querySelector('.ionheader').clientHeight - 7 + 'px';
+    const subHeight = tmp.top - this.el.nativeElement.querySelector('.ionheader').clientHeight;
+    if (subHeight > 60) {
+      this.popoverOffsetTop = subHeight - 7 + 'px';
+    } else {
+      this.popoverOffsetTop = tmp.top + ionCard.el.clientHeight + 7 + 'px';
+    }
     this.container.clear();
     const factory: ComponentFactory<PressPopoverComponent> = this.resolver.resolveComponentFactory(
       PressPopoverComponent,
@@ -191,7 +196,7 @@ export class ChatPage implements OnInit {
     this.componentRef.instance.outClick.subscribe((msg: string) => {
       switch (msg) {
         case 'copy':
-          if(item.type === 'TIMTextElem'){
+          if (item.type === 'TIMTextElem') {
             this.clipboard.copy(item.payload.text);
           }
           break;
@@ -200,7 +205,7 @@ export class ChatPage implements OnInit {
         case 'choose':
           break;
         case 'revoke':
-          revokeMessage(list[list.length-1]).then((IMRes) => {
+          revokeMessage(list[list.length - 1]).then((IMRes) => {
             console.log(IMRes);
           });
           break;

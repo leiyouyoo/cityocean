@@ -15,4 +15,6 @@ export const environment = {
   production: false,
   useHash: true,
   hmr: false,
+  SDKAppID:1400333951,
+  SDK_SECRETKEY:'c9960f5d79de860d8d4ba37cfd82fdafb7132f9d4810641825bed04b486d0912'
 };
