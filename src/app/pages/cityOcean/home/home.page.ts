@@ -350,7 +350,6 @@ export class HomePage implements OnInit {
         });
         break;
       case 'More':
-        // this.nav.navigateForward(['/cityOcean/workbench']);
         this.moreClick();
         break;
     }

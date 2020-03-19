@@ -475,9 +475,6 @@ export class ChatPage implements OnInit {
     }
   }
 
-  goback() {
-    this.location.back();
-  }
   // 群聊信息
   gotoGroup() {
     this.nav.navigateForward(['/cityOcean/home/chat/groupMessage'], {
@@ -592,10 +589,6 @@ export class ChatPage implements OnInit {
     }, 50);
   }
 
-  pressCard(event) {
-    console.log(event);
-    // this.showPopover(event, PressPopoverComponent, 'press-css-class');
-  }
   getImgUrl(url) {
     if (url.indexOf('data:image/png;base64') != -1 || url.indexOf('http') != -1) {
       return url;
@@ -635,9 +628,22 @@ export class ChatPage implements OnInit {
     this.renderer.invokeElementMethod(inputElement, 'focus');
   }
 
+  /**
+   *选中表情
+   *
+   * @param {*} data
+   * @memberof ChatPage
+   */
   chooseEmoji(data) {
     this.sendingMessage += data;
   }
+  /**
+   *处理表情和文本消息
+   *
+   * @param {*} text
+   * @returns
+   * @memberof ChatPage
+   */
   contentList(text) {
     return decodeText(text);
   }
