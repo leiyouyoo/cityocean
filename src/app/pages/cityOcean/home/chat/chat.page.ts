@@ -117,10 +117,6 @@ export class ChatPage implements OnInit {
     this.showPopover = false;
   }
   ngOnInit() {
-    fromEvent(this.el.nativeElement.querySelector(".chat-content-wrap"), 'resize').subscribe(() => { 
-      this.scrollToBottom(1);
-    });
-    this.nowTime = moment(new Date()).format();
     switch (this.bussinessType) {
       case 'booking':
         this.statusType = BookingStatusType; //状态枚举
@@ -214,6 +210,7 @@ export class ChatPage implements OnInit {
     });
   }
   ionViewWillEnter() {
+    this.nowTime = moment(new Date()).format();
     this.pageInfo = {
       maxResultCount: 10,
       skipCount: 0,
