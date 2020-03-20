@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpService } from '@cityocean/common-library';
 import { Observable } from 'rxjs';
 import { StartupService } from '@core';
-import { createTextMessage, logOut, sendmessage, setMessageRead } from '@cityocean/im-library';
+import { createTextMessage, logOut, sendmessage, setMessageRead, genTestUserSig, login } from '@cityocean/im-library';
 import { NavController, ActionSheetController, PopoverController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,23 +29,8 @@ export class CityOceanService {
     private actionSheetController: ActionSheetController,
     private callNumber: CallNumber,
     @Inject(DA_SERVICE_TOKEN) private tokenSrv: ITokenService,
-    private popoverController:PopoverController
-  ) {
-    this.getCustomerId().then((res) => {
-      if (this.getIsLoginWithTourist()) {
-        this.GetIdByEmail();
-      } else {
-        this.GetCoUserByCustomer({ customerId: abp.session.user.customerId }).subscribe((res) => {
-          if (res.id) {
-            this.globelCustomerId = res.id;
-            this.globelCustomerName = res.name;
-          } else {
-            this.GetIdByEmail();
-          }
-        });
-      }
-    });
-  }
+    private popoverController: PopoverController,
+  ) {}
   /**
    *判断是否为游客登录
    *
@@ -83,8 +68,8 @@ export class CityOceanService {
     }
     return this.firstEnterAppTime;
   }
-  
-// shipment业务对话获取相关的业务id（app端）
+
+  // shipment业务对话获取相关的业务id（app端）
   GetRelatedBusiness(params: { id: number }) {
     return this.httpService.get('/CSP/Shipment/GetRelatedBusiness', params);
   }
@@ -95,7 +80,7 @@ export class CityOceanService {
   }
   // 根据shipmentNo获取列表
   GetRouteDetailsByShipmentNo(id: any) {
-    return this.httpService.get('/CSP/Shipment/GetRouteDetailsByShipmentNo', { shipmentNo:id });
+    return this.httpService.get('/CSP/Shipment/GetRouteDetailsByShipmentNo', { shipmentNo: id });
   }
   /**
    *获取当前登录人的id
@@ -294,18 +279,17 @@ export class CityOceanService {
     }
   }
 
-  async showRelatedBusinessPopover(event,popoverList,component,bussinessType,routeBackType, cssClass?) {
+  async showRelatedBusinessPopover(event, popoverList, component, bussinessType, routeBackType, cssClass?) {
     const popover = await this.popoverController.create({
       component: component,
       showBackdrop: false,
-      mode:'ios',
+      mode: 'ios',
       event: event,
       backdropDismiss: true,
       cssClass: cssClass,
-      componentProps: { popoverList: popoverList, type: bussinessType,routeBackType:routeBackType },
+      componentProps: { popoverList: popoverList, type: bussinessType, routeBackType: routeBackType },
     });
-    popover.onDidDismiss().then((event) => {
-    });
+    popover.onDidDismiss().then((event) => {});
     await popover.present();
   }
 }
