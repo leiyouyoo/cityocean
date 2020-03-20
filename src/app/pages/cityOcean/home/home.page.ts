@@ -146,10 +146,10 @@ export class HomePage implements OnInit {
 
       list.forEach((ele) => {
         if (ele.type == 'C2C') {
-          ele.type = ele.type;
+          ele.bussinessType = ele.type;
           ele.name = ele.userProfile.userID;
         } else if (ele.type != '@TIM#SYSTEM') {
-          ele.type = ele.groupProfile.groupID.replace(/\d/g, '').toLowerCase();
+          ele.bussinessType = ele.groupProfile.groupID.replace(/\d/g, '').toLowerCase();
           ele.name = ele.groupProfile.name;
         }
       });
@@ -160,7 +160,7 @@ export class HomePage implements OnInit {
             messageForShow: this.translate.instant('Welcome to cityocean'),
             lastTime: this.cityOceanService.getEnterAppTime() || moment(new Date()).format('HH:mm'),
           },
-          type: 'welcome',
+          bussinessType: 'welcome',
         });
       }
       this.conversationsList = [...list];
@@ -196,7 +196,7 @@ export class HomePage implements OnInit {
             messageForShow: this.translate.instant('Welcome to cityocean'),
             lastTime: this.cityOceanService.getEnterAppTime() || moment(new Date()).format('HH:mm'),
           },
-          type: 'welcome',
+          bussinessType: 'welcome',
         },
       ];
     }
@@ -265,10 +265,10 @@ export class HomePage implements OnInit {
    * @memberof HomePage
    */
   async gotoChat(item) {
-    if (item.type === 'welcome') {
+    if (item.bussinessType === 'welcome') {
       return;
     }
-    if (item.type) {
+    if (item.bussinessType) {
       if (item.unreadCount != 0) {
         setMessageRead(item.conversationID)
       }
@@ -276,10 +276,10 @@ export class HomePage implements OnInit {
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: item.conversationID,
-          C2C: item.type == 'C2C' ? true : false,
-          id: item.type == 'C2C' ? item.userProfile.userID : item.groupProfile.groupID,
-          groupName: item.type === 'C2C' ? (item.userProfile.nick ? item.userProfile.nick : item.name) : item.name,
-          conversationType: item.type,
+          C2C: item.bussinessType == 'C2C' ? true : false,
+          id: item.bussinessType == 'C2C' ? item.userProfile.userID : item.groupProfile.groupID,
+          groupName: item.bussinessType === 'C2C' ? (item.userProfile.nick ? item.userProfile.nick : item.name) : item.name,
+          conversationType: item.bussinessType,
         },
       });
     }
@@ -435,7 +435,7 @@ export class HomePage implements OnInit {
   deleteItem(i: any, data, node) {
     this.showDeleteButton = false;
     node.close();
-    if (data.type === 'welcome') {
+    if (data.bussinessType === 'welcome') {
       this.deleteWecomeFlag = true;
       localStorage.setItem('deleteWecomeFlag', 'true');
       this.conversationsList.splice(i, 1);
