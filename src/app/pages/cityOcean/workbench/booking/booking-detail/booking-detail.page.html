@@ -22,7 +22,7 @@
     ></app-business-type>
   </div>
   <section class="request-wrap">
-    <p *ngIf="bookingDetail.status==0">{{"Draft" | translate}}</p>
+    <!-- <p *ngIf="bookingDetail.status==0">{{"Draft" | translate}}</p>
     <p *ngIf="bookingDetail.status==1">{{"Waiting for Confirm" | translate}}</p>
     <p *ngIf="bookingDetail.status==2">{{"Submitted" | translate}}</p>
     <p *ngIf="bookingDetail.status==3">{{"Booked" | translate}}</p>
@@ -33,7 +33,9 @@
     <p *ngIf="bookingDetail.status==8">{{"Shipping Cancelled" | translate}}</p>
     <p *ngIf="bookingDetail.status==9">{{"Price Confirmed By Customer" | translate}}</p>
     <p *ngIf="bookingDetail.status==10">{{"Shipping order is requested with the carrier." | translate}}</p>
-    <p *ngIf="bookingDetail.status==11">{{"Notified SO successfully with the customer." | translate}}</p>
+    <p *ngIf="bookingDetail.status==11">{{"Notified SO successfully with the customer." | translate}}</p> -->
+
+    <p>{{requestProcess[statusStep]?.name | translate}}</p>
 
     <div
       *ngFor="let process of requestProcess"
