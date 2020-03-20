@@ -74,26 +74,9 @@ export class HomeService {
     return this.httpService.get('/IM/GroupManage/GetGroupMemberInfo', params);
   }
 
-  //获取订单列表
-  getOrderList(obj = {}): Observable<any> {
+  revokeC2CMessage(obj = {from_Account:'',to_Account:'',msgKey:''}): Observable<any> {
     let params = obj;
-    return this.httpService.postJson('/CSP/PurchaseOrder/GetAll', params);
+    return this.httpService.postJson('/IM/Message/WithdrawC2CMsg', params);
   }
-
-  //创建采购订单
-  getCreatePurchaseOrderInfo(obj): Observable<any> {
-    let params = obj;
-    return this.httpService.postJson('/CSP/PurchaseOrder/Create', params);
-  }
-
-  /*上传excel表格*/
-  uploadExcel(params: any): Observable<any> {
-    return this.http.post(environment.StoreUrl + '/Storage/CSPExcel/OrderImport', params);
-  }
-
-  /*确认修改记录已经被查看 */
-  OrderHistoryConfirmed(id: number): Observable<any> {
-    let params = { Id: id };
-    return this.httpService.postJson('/CSP/PurchaseOrder/ViewChange', params);
-  }
+  
 }

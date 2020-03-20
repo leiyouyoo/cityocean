@@ -6,30 +6,30 @@
     <i
       *ngIf="!detail?.groupProfile?.avatar"
       [class]="!detail?.groupProfile?.avatar ? 'default-avatar' : ''"
-      [id]="detail.type"
+      [id]="detail.bussinessType"
     ></i>
   </div>
   <img *ngIf="detail?.groupProfile?.avatar" [src]="detail?.groupProfile?.avatar" class="image-element" />
-  <div class="text-group">
-    <div *ngIf="detail" class="number-wrap">
+  <div [ngClass]="{ 'welcome-container': detail?.bussinessType == 'welcome' }"  class="text-group">
+    <div *ngIf="detail"  class="number-wrap">
       <div>
-        <span [ngClass]="{ 'welcome-title': detail?.type == 'welcome' }" class="number-text">{{
-          detail.type === 'C2C' ? (detail.userProfile.nick ? detail.userProfile.nick : detail.name) : detail.name
+        <span [ngClass]="{ 'welcome-title': detail?.bussinessType == 'welcome' }" class="number-text">{{
+          detail.bussinessType === 'C2C' ? (detail.userProfile.nick ? detail.userProfile.nick : detail.name) : detail.name
         }}</span>
-        <span *ngIf="showLabel()" [ngClass]="{ lables: true }" [class]="'lable-' + detail?.type">{{
-          detail?.type
+        <span *ngIf="showLabel()" [ngClass]="{ lables: true }" [class]="'lable-' + detail?.bussinessType">{{
+          detail?.bussinessType
         }}</span>
       </div>
 
       <span class="time">{{ getImtime(detail?.lastMessage?.lastTime) }}</span>
     </div>
     <p
-      *ngIf="detail?.type != 'welcome'"
+      *ngIf="detail?.bussinessType != 'welcome'"
       class="state"
       [innerHtml]="justText(detail.lastMessage.messageForShow)"
     ></p>
     <span
-      [ngClass]="{ 'welcome-span': detail?.type == 'welcome' }"
+      [ngClass]="{ 'welcome-span': detail?.bussinessType == 'welcome' }"
       class="description"
       [innerHtml]="justText(detail.lastMessage.messageForShow)"
     ></span>

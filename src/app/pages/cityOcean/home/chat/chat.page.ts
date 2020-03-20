@@ -23,8 +23,6 @@ import { BookingStatusType } from '../../workbench/booking/class/booking-status-
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {
   createTextMessage,
-  getMessageList,
-  revokeMessage,
   onMessage,
   sendmessage,
   createImageMessage,
@@ -170,10 +168,6 @@ export class ChatPage implements OnInit {
     }
   }
   async pressMessage(event, item, ionCard) {
-    let list;
-    getMessageList(this.conversationID).then((r) => {
-      list = r.data.messageList;
-    });
     this.showPopover = true;
     if (item.flow == 'out') {
       this.popoverOffsetRgiht = '5px';
@@ -205,9 +199,9 @@ export class ChatPage implements OnInit {
         case 'choose':
           break;
         case 'revoke':
-          revokeMessage(list[list.length - 1]).then((IMRes) => {
-            console.log(IMRes);
-          });
+          this.homeService.revokeC2CMessage({from_Account:item.from,to_Account:item.to,msgKey:item.msgKey}).subscribe(r=>{
+            console.log(r)
+          })
           break;
         default:
           break;
@@ -293,6 +287,7 @@ export class ChatPage implements OnInit {
   ionRefresherCheck(res, event, sorting) {
     res.items.forEach((e) => {
       e.flow = e.from == this.userId ? 'out' : 'in';
+      e.anchorImgUrl = this.isC2C ? e.fromImageUrl : e.fromAccountImageUrl;
       e.type = e.msgBody[0].msgType;
       e['payload'] = { text: e.msgBody[0].msgContent.Text };
       e.msgTime = moment(e.msgTime).format();
