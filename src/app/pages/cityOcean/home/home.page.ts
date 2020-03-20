@@ -22,7 +22,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonContent } from '@ionic/angular';
 import * as moment from 'moment';
 import { Helper } from '@shared/helper';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -52,16 +54,35 @@ export class HomePage implements OnInit {
     private statusBar: StatusBar,
     private helper: Helper,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private el: ElementRef,
     private renderer2: Renderer2,
   ) {}
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
-    if (!this.checkIsLoginWithTourist) {
-      this.imLogin();
-    }
+
+    this.cityOceanService.getCustomerId().then((res) => {
+      const Id = '' + res;
+      const sigReturn = genTestUserSig(Id);
+      const userSig = sigReturn.userSig;
+      login(Id, userSig);
+
+      if (this.cityOceanService.getIsLoginWithTourist()) {
+        this.cityOceanService.GetIdByEmail();
+      } else {
+        this.cityOceanService.GetCoUserByCustomer({ customerId: abp.session.user.customerId }).subscribe((res) => {
+          if (res.id) {
+            this.cityOceanService.globelCustomerId = res.id;
+            this.cityOceanService.globelCustomerName = res.name;
+          } else {
+            this.cityOceanService.GetIdByEmail();
+          }
+        });
+      }
+    });
   }
+
   ionScroll(event) {
     const inputForSearch = this.el.nativeElement.querySelector('#inputForSearch');
     const searchIicon = this.el.nativeElement.querySelector('.search-right-icon');
@@ -202,17 +223,6 @@ export class HomePage implements OnInit {
     }
   }
 
-  /**
-   * 初始化并登陆 IM
-   */
-  async imLogin() {
-    this.cityOceanService.getCustomerId().then((res) => {
-      let Id = '' + res;
-      let sigReturn = genTestUserSig(Id);
-      let userSig = sigReturn.userSig;
-      login(Id, userSig);
-    });
-  }
   // 客服
   chatWithCustomer() {
     this.cityOceanService.chatWithCustomerService();

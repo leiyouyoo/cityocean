@@ -49,32 +49,8 @@ export class LoginComponent implements OnInit {
       $event.stopPropagation();
       this.focusPassword = true;
     };
-
-    this.savedUser = JSON.parse(localStorage.getItem('autocompletePassword'));
-    if (this.savedUser) {
-      this.validateForm.patchValue({
-        username: this.savedUser.username,
-        password: this.savedUser.password,
-      });
-    }
-
-    let canAutoLogin = false;
-
-    if (this.savedUser && this.savedUser.time) {
-      const loginTime = moment(this.savedUser.time)
-        .subtract(1, 'days')
-        .format('YYYY-MM-DD');
-      const threeMonthLater = moment(this.savedUser.time)
-        .add(3, 'months')
-        .format('YYYY-MM-DD');
-      const today = moment(new Date()).format('YYYY-MM-DD');
-      canAutoLogin = moment(today).isBetween(loginTime, threeMonthLater);
-    }
-    if (canAutoLogin) {
-      localStorage.setItem('isLoginWithTourist', 'false');
-      this.onLogin();
-    }
   }
+
   @HostListener('document:click', ['$event.target'])
   public onClick(targetElement) {
     this.focusPassword = false;
@@ -118,7 +94,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('isLoginWithTourist', 'false');
           obj.time = new Date();
           localStorage.setItem('autocompletePassword', JSON.stringify(obj));
-          this.router.navigateByUrl('/cityOcean', { replaceUrl: true });
+          this.router.navigate(['/cityOcean/home'], {
+            replaceUrl: true,
+          });
         } else {
           this.errorTip = this.translate.instant('Login Error');
         }
@@ -137,7 +115,9 @@ export class LoginComponent implements OnInit {
       .then((res: any) => {
         if (res.access_token) {
           localStorage.setItem('isLoginWithTourist', 'true');
-          this.router.navigateByUrl('/cityOcean');
+          this.router.navigate(['/cityOcean/home'], {
+            replaceUrl: true,
+          });
         } else {
           this.errorTip = this.translate.instant('Login Error');
         }

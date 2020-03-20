@@ -65,7 +65,6 @@ export class AppComponent {
    * @memberof AppComponent
    */
   initTranslateConfig() {
-    console.log('initTranslateConfig...');
     // 添加要支持的语言
     this.translate.addLangs(['zh', 'en']);
     // 设置默认语言
@@ -77,6 +76,7 @@ export class AppComponent {
       this.translate.setDefaultLang(this.lang);
       window.localStorage.setItem('Language', this.lang);
     } else {
+      this.lang = 'en';
       this.translate.setDefaultLang('en');
       window.localStorage.setItem('Language', 'en');
     }
@@ -101,7 +101,7 @@ export class AppComponent {
         this.router.url === '/cityOcean/contacts' ||
         this.router.url === '/cityOcean/me'
       ) {
-        this.router.navigateByUrl('/cityOcean');
+        window.history.back();
       }
 
       if (this.router.url === '/cityOcean/home' || this.router.url === '/login') {
