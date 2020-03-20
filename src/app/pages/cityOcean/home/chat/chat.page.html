@@ -42,10 +42,13 @@
     <section [ngClass]="{'chat-content-wrap-margin': getCardShow()}" class="chat-content-wrap">
       <ng-container *ngFor="let item of chatList">
         <div *ngIf="!!item.isTimeShow" class="message-show-time">{{getImChatTime(item.time)}}</div>
+        <div *ngIf="!!item.isDeleted" class="message-show-time">
+          {{getRevokeName(item)}}
+        </div>
         <ion-card
           #ionCard
           (press)="pressMessage($event,item,ionCard)"
-          *ngIf="!item.isTimeShow"
+          *ngIf="!item.isTimeShow && !item.isDeleted"
           [class]="'card-' + item.flow +'-group'"
         >
           <img

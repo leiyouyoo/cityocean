@@ -21,13 +21,7 @@ import { HomeService } from '../home.service';
 import { ShipmentStatusType } from '../../workbench/shipment/class/shipment-status-type';
 import { BookingStatusType } from '../../workbench/booking/class/booking-status-type';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import {
-  createTextMessage,
-  onMessage,
-  sendmessage,
-  createImageMessage,
-  getGroupProfile,
-} from '@cityocean/im-library';
+import { createTextMessage, onMessage, sendmessage, createImageMessage, getGroupProfile } from '@cityocean/im-library';
 import { BookingServiceService } from '../../workbench/booking/booking-service.service';
 import { MyShipmentService } from '../../workbench/shipment/shipment.service';
 import { CityOceanService } from '../../city-ocean.service';
@@ -199,9 +193,11 @@ export class ChatPage implements OnInit {
         case 'choose':
           break;
         case 'revoke':
-          this.homeService.revokeC2CMessage({from_Account:item.from,to_Account:item.to,msgKey:item.msgKey}).subscribe(r=>{
-            console.log(r)
-          })
+          this.homeService
+            .revokeC2CMessage({ from_Account: item.from, to_Account: item.to, msgKey: item.msgKey })
+            .subscribe((r) => {
+              console.log(r);
+            });
           break;
         default:
           break;
@@ -643,5 +639,14 @@ export class ChatPage implements OnInit {
    */
   contentList(text) {
     return decodeText(text);
+  }
+  getRevokeName(item) {
+    if (item.deleterUserId == this.userId) {
+      return '你撤回了一条消息';
+    } else if (item.deleterUserId == item.from) {
+      return item.fromNickName + '你撤回了一条消息';
+    } else if (item.deleterUserId == item.to) {
+      return item.toNickName + '你撤回了一条消息';
+    }
   }
 }
