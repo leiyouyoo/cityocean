@@ -33,6 +33,7 @@ import { emojiMap, emojiName, emojiUrl } from '../../../../shared/utils/emojiMap
 import { decodeText } from '@shared/utils/decodeText';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-chat',
@@ -196,7 +197,8 @@ export class ChatPage implements OnInit {
           this.homeService
             .revokeC2CMessage({ from_Account: item.from, to_Account: item.to, msgKey: item.msgKey })
             .subscribe((r) => {
-              console.log(r);
+              item.deleterUserId = this.userId;
+              item.isDeleted = true;
             });
           break;
         default:
@@ -249,6 +251,7 @@ export class ChatPage implements OnInit {
       }
       this.homeService.getGroupMsg(params).subscribe((res: any) => {
         this.ionRefresherCheck(res, event, params.Sorting);
+        console.log(res);
       });
     } else {
       let params = {
@@ -392,7 +395,9 @@ export class ChatPage implements OnInit {
     textMessage = createTextMessage(this.groupID, this.isC2C ? 'signle' : 'group', this.sendingMessage);
     await sendmessage(textMessage).then((imRes) => {
       this.insertCurrentTime();
-      this.chatList.push(imRes.data.message);
+      let _data = cloneDeep(imRes.data.message);
+      _data.msgKey = `${_data.sequence}_${_data.random}_${_data.time}`;
+      this.chatList.push(_data);
     });
 
     const inputElement = this.el.nativeElement.querySelector('#inputElement');
@@ -643,10 +648,15 @@ export class ChatPage implements OnInit {
   getRevokeName(item) {
     if (item.deleterUserId == this.userId) {
       return '你撤回了一条消息';
-    } else if (item.deleterUserId == item.from) {
-      return item.fromNickName + '你撤回了一条消息';
-    } else if (item.deleterUserId == item.to) {
-      return item.toNickName + '你撤回了一条消息';
+    }
+    if (this.isC2C) {
+      if (item.deleterUserId == item.from) {
+        return item.fromNickName + '撤回了一条消息';
+      } else if (item.deleterUserId == item.to) {
+        return item.toNickName + '撤回了一条消息';
+      }
+    }else{
+      return item.nickName + '撤回了一条消息';
     }
   }
 }
