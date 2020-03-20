@@ -50,6 +50,6 @@
       <div class="flag"></div>
       <span>{{"Destination Location" | translate}}</span>
     </div>
-    <span [id]=" isLoginWithTourist?'isLoginWithTourist-text':''">{{ shipmentListItem?.routeDetails.consigneeInfos[0].consigneeNetWorkInfo.streetAddress }}</span>
+    <span [id]=" isLoginWithTourist?'isLoginWithTourist-text':''">{{ shipmentListItem?.routeDetails.consigneeInfos[0].consigneeNetWorkInfo?.streetAddress }}</span>
   </div>
 </div>
