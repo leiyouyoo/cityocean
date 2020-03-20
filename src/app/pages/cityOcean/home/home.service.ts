@@ -73,10 +73,15 @@ export class HomeService {
     let params = obj;
     return this.httpService.get('/IM/GroupManage/GetGroupMemberInfo', params);
   }
-
+  // 单聊撤退消息
   revokeC2CMessage(obj = {from_Account:'',to_Account:'',msgKey:''}): Observable<any> {
     let params = obj;
     return this.httpService.postJson('/IM/Message/WithdrawC2CMsg', params);
   }
-  
+
+  // 群组消息撤回
+  revokeGroupMessage(groupId,msgSeq): Observable<any> {
+    let params = {groupId:groupId,msgSeqList:[{msgSeq:msgSeq}]};
+    return this.httpService.postJson('/IM/GroupManage/GroupMsgRecall', params);
+  }
 }

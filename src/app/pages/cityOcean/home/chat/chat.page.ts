@@ -28,12 +28,13 @@ import { CityOceanService } from '../../city-ocean.service';
 import { Location } from '@angular/common';
 import { Helper } from '@shared/helper';
 import * as moment from 'moment';
-import { forkJoin, fromEvent } from 'rxjs';
+import { forkJoin, fromEvent, Observable } from 'rxjs';
 import { emojiMap, emojiName, emojiUrl } from '../../../../shared/utils/emojiMap';
 import { decodeText } from '@shared/utils/decodeText';
 import { PressPopoverComponent } from './press-popover/press-popover.component';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { cloneDeep } from 'lodash';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
@@ -194,12 +195,20 @@ export class ChatPage implements OnInit {
         case 'choose':
           break;
         case 'revoke':
-          this.homeService
-            .revokeC2CMessage({ from_Account: item.from, to_Account: item.to, msgKey: item.msgKey })
-            .subscribe((r) => {
+          if (this.isC2C) {
+            this.homeService
+              .revokeC2CMessage({ from_Account: item.from, to_Account: item.to, msgKey: item.msgKey })
+              .subscribe((r) => {
+                item.deleterUserId = this.userId;
+                item.isDeleted = true;
+              });
+          } else {
+            this.homeService.revokeGroupMessage(this.groupID, item.msgSeq).subscribe((r) => {
               item.deleterUserId = this.userId;
               item.isDeleted = true;
             });
+          }
+
           break;
         default:
           break;
@@ -655,7 +664,7 @@ export class ChatPage implements OnInit {
       } else if (item.deleterUserId == item.to) {
         return item.toNickName + '撤回了一条消息';
       }
-    }else{
+    } else {
       return item.nickName + '撤回了一条消息';
     }
   }

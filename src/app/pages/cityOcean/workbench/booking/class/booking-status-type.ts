@@ -15,7 +15,7 @@ export enum BookingStatusType {
   /// 已申请取消
   /// </summary>
   ///[Description("已申请取消")]
-  'Waiting for confirm' = 1,
+  'Waiting for Confirm' = 1,
 
   /// <summary>
   /// 已提交预订舱
@@ -52,7 +52,8 @@ export enum BookingStatusType {
   /// </summary>
   //////[Description("业务员已确认取消")]
   Cancelled = 7,
-
-  ///[Description("ICP 端已下载")]
-  IcpDownloaded = 8,
+  "Shipping Cancelled" = 8,
+  "Price Confirmed By Customer" = 9,
+  "Shipping order is requested with the carrier." = 10,
+  "Notified SO successfully with the customer." = 11,
 }
