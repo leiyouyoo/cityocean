@@ -4,11 +4,10 @@ import { HttpService } from '@cityocean/common-library';
 import { AuthService } from '@core/auth/auth.service';
 import { NavController, PopoverController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
-import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
-import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomerPhoneComponent } from './customer-phone/customer-phone.component';
 import { Router } from '@angular/router';
+import { Device } from '@ionic-native/device/ngx';
 
 @Component({
   selector: 'user-login',
@@ -26,6 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public helper: Helper,
     private router: Router,
+    public device: Device,
     private fb: FormBuilder,
     public loginService: AuthService,
     private nav: NavController,
@@ -132,6 +132,11 @@ export class LoginComponent implements OnInit {
   }
 
   async handleButtonClick(event) {
+    if (this.device.platform !== 'Android') {
+      this.router.navigateByUrl('/login/register');
+      return;
+    }
+
     const popover = await this.popoverController.create({
       component: CustomerPhoneComponent,
       showBackdrop: false,
