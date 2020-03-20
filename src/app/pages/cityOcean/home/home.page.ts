@@ -61,7 +61,10 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
+    this.bindIM();
+  }
 
+  bindIM() {
     this.cityOceanService.getCustomerId().then((res) => {
       const Id = '' + res;
       const sigReturn = genTestUserSig(Id);

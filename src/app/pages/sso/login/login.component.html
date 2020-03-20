@@ -1,4 +1,8 @@
 <ion-content>
+  <div
+    style="height: 10em;
+  background: linear-gradient(#cce0f5, #ffffff);"
+  ></div>
   <div (click)="handleButtonClick($event)" class="sign-up">
     <ion-icon name="signup"></ion-icon>
     <span>{{ 'Sign Up' | translate }}</span>
@@ -81,43 +85,3 @@
     </section>
   </section>
 </ion-content>
-
-<!-- <div class="login-main">
-  <form [formGroup]="validateForm" class="login-form" autocomplete="off">
-    <div class="form-logo">{{ 'LOGIN.login' | translate }}</div>
-    <div>
-      <i class="icon-pwd"
-        ><img src="/assets//images/icon_denglu@3x.png" alt=""
-      /></i>
-      <input
-        type="text"
-        autocomplete="username"
-        name="lastname_74758209201093747"
-        class="input-field"
-        formControlName="username"
-        placeholder="Username"
-        (keyup)="onUsernameKeyup($event)"
-      />
-    </div>
-    <div>
-      <i class="icon-pwd"
-        ><img src="/assets//images/icon_suo@3x.png" alt=""
-      /></i>
-      <input
-        type="{{ !pwshow ? 'text' : 'password' }}"
-        class="input-field"
-        formControlName="password"
-        placeholder="Password"
-        autocomplete="new-password"
-      />
-      <ion-icon
-        class="pwshow"
-        (click)="pwshow = !pwshow"
-        name="{{ pwshow ? 'eye-off' : 'eye' }}"
-      ></ion-icon>
-      <p class="infoMessage option-block">
-      </p>
-    </div>
-    <button class="login-form-button" (click)="login()">LOGIN</button>
-  </form>
-</div> -->
