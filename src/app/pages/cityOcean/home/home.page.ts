@@ -264,12 +264,15 @@ export class HomePage implements OnInit {
    * @returns
    * @memberof HomePage
    */
-  gotoChat(item) {
+  async gotoChat(item) {
     if (item.type === 'welcome') {
       return;
     }
     if (item.type) {
-      setMessageRead(item.conversationID);
+      if (item.unreadCount != 0) {
+        setMessageRead(item.conversationID)
+      }
+      
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: item.conversationID,

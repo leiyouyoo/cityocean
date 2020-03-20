@@ -19,8 +19,8 @@ export const environment = {
   production: false,
   useHash: true,
   hmr: false,
-  SDKAppID:1400335203,   // 测试坏境账号
-  SDK_SECRETKEY:'bb62d7cfb38f34a580d91071ac5216824c6e5bd782cd445556067a9ecf91ee03',
-  // SDKAppID:1400333951, // 正式坏境账号
-  // SDK_SECRETKEY:'c9960f5d79de860d8d4ba37cfd82fdafb7132f9d4810641825bed04b486d0912'
+  // SDKAppID:1400335203,   // 测试坏境账号
+  // SDK_SECRETKEY:'bb62d7cfb38f34a580d91071ac5216824c6e5bd782cd445556067a9ecf91ee03',
+  SDKAppID:1400333951, // 正式坏境账号
+  SDK_SECRETKEY:'c9960f5d79de860d8d4ba37cfd82fdafb7132f9d4810641825bed04b486d0912'
 };

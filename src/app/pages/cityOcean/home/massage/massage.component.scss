@@ -92,7 +92,13 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        border-bottom: 1px solid #f2f2f9;
+        &::after{
+            content: '';
+            position: absolute;
+            width: 100%;
+            border-bottom: 1px solid #f2f2f9;
+            bottom: px2rem(4px);
+        }
 
         .number-wrap {
             display: flex;
