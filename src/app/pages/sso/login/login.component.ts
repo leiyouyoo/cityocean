@@ -9,7 +9,6 @@ import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomerPhoneComponent } from './customer-phone/customer-phone.component';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
 
 @Component({
   selector: 'user-login',
@@ -33,9 +32,7 @@ export class LoginComponent implements OnInit {
     public httpService: HttpService,
     private translate: TranslateService,
     private popoverController: PopoverController,
-  ) {
-    // this.helper.setStatuBar('#ffffff');
-  }
+  ) {}
 
   ngOnInit(): void {
     this.pleaseEnter = this.translate.instant('Please Enter');
@@ -49,6 +46,11 @@ export class LoginComponent implements OnInit {
       $event.stopPropagation();
       this.focusPassword = true;
     };
+
+    const savedUser = JSON.parse(localStorage.getItem('autocompletePassword'));
+    if (savedUser) {
+      this.validateForm.patchValue({ username: savedUser.username });
+    }
   }
 
   @HostListener('document:click', ['$event.target'])

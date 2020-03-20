@@ -14,11 +14,11 @@
   <ion-list lines="none" class="me-list">
     <h6 style="padding: 1em;">{{'Account' | translate}}</h6>
 
-    <ion-item detail tappable (click)="onInvoicePage()">
+    <ion-item detail tappable (click)="onInvoicePage()" *ngIf="isAndroid">
       <ion-label> <img src="assets/icon/me/fapiao@3x.png" color="dark" />{{'Invoice' | translate }}</ion-label>
     </ion-item>
 
-    <ion-item detail tappable (click)="onWalletPage()">
+    <ion-item detail tappable (click)="onWalletPage()" *ngIf="isAndroid">
       <ion-label> <img src="assets/icon/me/qianbao@3x.png" color="dark" />{{'Wallet' | translate }}</ion-label>
     </ion-item>
 

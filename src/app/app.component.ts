@@ -101,7 +101,7 @@ export class AppComponent {
         this.router.url === '/cityOcean/contacts' ||
         this.router.url === '/cityOcean/me'
       ) {
-        window.history.back();
+        this.router.navigateByUrl('/cityOcean/home');
       }
 
       if (this.router.url === '/cityOcean/home' || this.router.url === '/login') {

@@ -63,6 +63,7 @@ export class AboutPage implements OnInit {
    * @desc 获取APP版本信息
    */
   initData() {
+    this.helper.showLoading('loading...');
     const token = LocalStorage.localStorage.get('Token');
     const numversion = this.version.replace(/\./g, '');
     this.appService
@@ -70,13 +71,20 @@ export class AboutPage implements OnInit {
         appType: 1,
         version: this.version,
       })
-      .subscribe((res: any) => {
-        if (res === true) {
-          this.showAlert();
-        } else {
-          this.helper.toast(this.translate.instant('Already the latest version'));
-        }
-      });
+      .subscribe(
+        (res: any) => {
+          this.helper.hideLoading();
+          if (res === true) {
+            this.showAlert();
+          } else {
+            this.helper.toast(this.translate.instant('Already the latest version'));
+          }
+        },
+        (err) => {
+          this.helper.hideLoading();
+          this.helper.toast(this.translate.instant('Error'));
+        },
+      );
   }
 
   async showAlert() {
