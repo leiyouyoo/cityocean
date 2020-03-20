@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Helper } from '@shared/helper';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterPage implements OnInit {
     public helper: Helper,
     public nav: NavController,
     public activeRoute: ActivatedRoute,
+    public translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -67,6 +69,6 @@ export class RegisterPage implements OnInit {
   }
 
   sendSms() {
-    this.helper.toast('手机号码格式不正确');
+    this.helper.toast(this.translate.instant('Mobile number format is incorrect'));
   }
 }
