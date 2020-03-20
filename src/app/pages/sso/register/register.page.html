@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'Register' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="login_content">
+    <form [formGroup]="RegisterForm" (submit)="onRegister(RegisterForm.value)">
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label color="primary" position="floating">
+            {{'account number' | translate}}
+          </ion-label>
+          <ion-input type="text" formControlName="userName" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" position="floating">
+            {{'nickname' | translate}}
+          </ion-label>
+          <ion-input type="text" formControlName="nickName" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" position="floating">
+            {{'phone' | translate}}
+          </ion-label>
+          <ion-input type="number" formControlName="userPhone" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">
+            {{'Verification code' | translate}}
+          </ion-label>
+          <ion-input type="number" formControlName="phoneNum" required></ion-input>
+
+          <ion-button slot="end" position="floating" style="margin-top: 3em;" (click)="sendSms()"
+            >{{'get verification code' | translate}}</ion-button
+          >
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">
+            {{'Password' | translate}}
+          </ion-label>
+          <ion-input type="password" formControlName="userPwd" required></ion-input>
+        </ion-item>
+        <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!RegisterForm.valid"
+          >{{'Sign Up' | translate}}</ion-button
+        >
+      </ion-list>
+    </form>
+  </div>
+</ion-content>

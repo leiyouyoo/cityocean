@@ -1,0 +1,36 @@
+.login_form {
+    margin: 2em;
+}
+
+.show_pwd {
+    display: none;
+}
+
+.selecteds {
+    color: var(--ion-color-primary) !important;
+}
+
+.login_img img{
+    width: 5em;
+    height: 5em;
+}
+
+.login_content {
+    padding: 1em;
+}
+
+.login-bottom {
+
+
+}
+
+.login-bottom p {
+    font-size: 0.8em;
+    text-align: center;
+    margin: 0.5em 0;
+    color: var(--ion-color-medium);
+}
+
+.submit-btn {
+    margin-top: 3em;
+}
