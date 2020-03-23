@@ -637,6 +637,12 @@ export class ChatPage implements OnInit {
     this.renderer.invokeElementMethod(inputElement, 'focus');
   }
 
+  showEmojiFun() {
+    setTimeout(() => {
+      this.showTools = false;
+      this.showEmoji = true;
+    }, 50);
+  }
   /**
    *选中表情
    *

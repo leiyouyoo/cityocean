@@ -87,7 +87,7 @@
       <textarea
         type="text"
         [(ngModel)]="sendingMessage"
-        (click)="showTools = false"
+        (click)="showTools = false;showEmoji = false;"
         placeholder="Type a message"
         name=""
         autosize
@@ -96,7 +96,7 @@
         (ngModelChange)="valueChange($event)"
         id="inputElement"
       ></textarea>
-      <i *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false"></i>
+      <i *ngIf="!showEmoji" class="happy" (click)="showEmojiFun();"></i>
       <i *ngIf="showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
       <i *ngIf="!sendingMessage" (click)="showTools = true;showEmoji= false" class="change"></i>
       <label for="inputElement" *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</label>
