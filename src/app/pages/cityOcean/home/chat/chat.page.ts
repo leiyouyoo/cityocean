@@ -108,6 +108,7 @@ export class ChatPage implements OnInit {
     this.ngOnDestroy();
     this.showPopover = false;
   }
+
   ngOnInit() {
     switch (this.bussinessType) {
       case 'booking':
@@ -395,9 +396,9 @@ export class ChatPage implements OnInit {
       this.chatList.push(imRes.data.message);
     });
 
-    const inputElement = this.el.nativeElement.querySelector('#inputElement');
-    this.renderer.invokeElementMethod(inputElement, 'focus');
-    this.scrollToBottom(1);
+    // const inputElement = this.el.nativeElement.querySelector('#inputElement');
+    // this.renderer.invokeElementMethod(inputElement, 'focus');
+    // this.scrollToBottom(1);
     this.sendingMessage = '';
   }
   async sendImg(imageData, picture) {
