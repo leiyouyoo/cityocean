@@ -138,7 +138,7 @@ ion-footer {
     i.happy {
       @include bg-image('../../../../../assets/icon/home/chat/smile');
     }
-    span.send {
+    .send {
       height: px2rem(30px);
       line-height: px2rem(30px);
       width: px2rem(50px);
