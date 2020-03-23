@@ -380,7 +380,7 @@ export class ChatPage implements OnInit {
       }
     }
     event && event.target.complete();
-    this.scrollToBottom(1);
+    !event && this.scrollToBottom(1);
   }
   // 格式化显示时间
   getImChatTime(time) {
@@ -397,6 +397,7 @@ export class ChatPage implements OnInit {
    * @memberof ChatPage
    */
   async send() {
+    this.showEmoji = false;
     this.groupID += '';
     let textMessage: any = {};
     if (this.sendingMessage == '' || this.groupID == null || this.sendingMessage == undefined) {
@@ -412,7 +413,7 @@ export class ChatPage implements OnInit {
 
     // const inputElement = this.el.nativeElement.querySelector('#inputElement');
     // this.renderer.invokeElementMethod(inputElement, 'focus');
-    // this.scrollToBottom(1);
+    this.scrollToBottom(1);
     this.sendingMessage = '';
   }
   async sendImg(imageData, picture) {

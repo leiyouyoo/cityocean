@@ -52,17 +52,10 @@
           [class]="'card-' + item.flow +'-group'"
         >
           <img
-            *ngIf="item.flow=='out'"
             (click)="gotoUserProfile(item.from)"
             [class]="'anchor-' + item.flow"
             class="head-anchor"
-            [src]="item.anchorImgUrl?item.anchorImgUrl:'../../../../../assets/icon/avatar-2.png'"
-          />
-          <img
-            *ngIf="item.flow=='in'"
-            (click)="gotoUserProfile(item.from)"
-            [class]="'anchor-' + item.flow"
-            class="head-anchor"
+            onerror="this.src='../../../../../assets/icon/avatar-2.png'"
             [src]="item.anchorImgUrl?item.anchorImgUrl:'../../../../../assets/icon/avatar-2.png'"
           />
           <ion-card-content>
