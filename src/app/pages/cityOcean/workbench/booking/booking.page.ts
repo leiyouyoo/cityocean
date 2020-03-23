@@ -128,7 +128,7 @@ export class BookingPage implements OnInit {
           },
         },
         {
-          text: this.translate.instant('Waiting for pricing'),
+          text: this.translate.instant('Waiting for Pricing'),
           role: this.BookingStatus == 4 ? 'selected' : '',
           handler: () => {
             console.log('4');
@@ -136,7 +136,7 @@ export class BookingPage implements OnInit {
           },
         },
         {
-          text: this.translate.instant('Waiting for buyer'),
+          text: this.translate.instant('Waiting for Buyer'),
           role: this.BookingStatus == 5 ? 'selected' : '',
           handler: () => {
             console.log('5');
@@ -144,7 +144,7 @@ export class BookingPage implements OnInit {
           },
         },
         {
-          text: this.translate.instant('Waiting for seller'),
+          text: this.translate.instant('Waiting for Seller'),
           role: this.BookingStatus == 6 ? 'selected' : '',
           handler: () => {
             this.filterConfirm(6);

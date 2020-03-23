@@ -25,17 +25,17 @@ export class BookingDetailPage implements OnInit {
       checked: false,
     },
     {
-      name: 'Shipping order  is requested with the carrier..',
+      name: 'Shipping order is requested with the carrier.',
       status: 'requested',
       checked: false,
     },
     {
-      name: 'Notified SO successfully with the customer..',
+      name: 'Notified SO successfully with the customer.',
       status: 'Notified',
       checked: false,
     },
     {
-      name: 'Shipping order is done..',
+      name: 'Shipping order is done.',
       status: 'done',
       checked: false,
     },
@@ -293,10 +293,12 @@ export class BookingDetailPage implements OnInit {
   isfromChat: boolean;
   routeBackType = 'home';
 
-  constructor(private activatedRoute: ActivatedRoute, 
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private bookingServiceService: BookingServiceService,
-    private cityOceanService:CityOceanService,
-    private nav:NavController) {
+    private cityOceanService: CityOceanService,
+    private nav: NavController,
+  ) {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       this.id = data.id;
       this.isfromChat = Boolean(data.fromChat);
@@ -312,17 +314,17 @@ export class BookingDetailPage implements OnInit {
           checked: false,
         },
         {
-          name: 'Shipping order  is requested with the carrier..',
+          name: 'Shipping order is requested with the carrier.',
           status: 'requested',
           checked: false,
         },
         {
-          name: 'Notified SO successfully with the customer..',
+          name: 'Notified SO successfully with the customer.',
           status: 'Notified',
           checked: false,
         },
         {
-          name: 'Shipping order is done..',
+          name: 'Shipping order is done.',
           status: 'done',
           checked: false,
         },
@@ -335,22 +337,22 @@ export class BookingDetailPage implements OnInit {
           checked: false,
         },
         {
-          name: 'Freight quote  is sended to the customer.',
+          name: 'Freight quote is sended to the customer.',
           status: 'requested',
           checked: false,
         },
         {
-          name: 'Shipping order  is requested with the carrier..',
+          name: 'Shipping order is requested with the carrier.',
           status: 'requested',
           checked: false,
         },
         {
-          name: 'Notified SO successfully with the customer..',
+          name: 'Notified SO successfully with the customer.',
           status: 'Notified',
           checked: false,
         },
         {
-          name: 'Shipping order is done..',
+          name: 'Shipping order is done.',
           status: 'done',
           checked: false,
         },
@@ -363,27 +365,27 @@ export class BookingDetailPage implements OnInit {
           checked: false,
         },
         {
-          name: 'Freight quote  is sended to the customer.',
+          name: 'Freight quote is sended to the customer.',
           status: 'requested',
           checked: false,
         },
         {
-          name: 'Quote  is comfirmed by the customer.',
+          name: 'Quote is comfirmed by the customer.',
           status: 'requested',
           checked: false,
         },
         {
-          name: 'Shipping order  is requested with the carrier..',
+          name: 'Shipping order is requested with the carrier.',
           status: 'requested',
           checked: false,
         },
         {
-          name: 'Notified SO successfully with the customer..',
+          name: 'Notified SO successfully with the customer.',
           status: 'Notified',
           checked: false,
         },
         {
-          name: 'Shipping order is done..',
+          name: 'Shipping order is done.',
           status: 'done',
           checked: false,
         },
@@ -398,14 +400,23 @@ export class BookingDetailPage implements OnInit {
       console.log(res);
       this.bookingDetail = res;
       switch (res.status) {
-        case bookingStatus.Cancelled:
+        case bookingStatus.BookingDraft:
           this.statusStep = 0;
           break;
-        case bookingStatus.Submitted:
-          this.statusStep = 1;
+        case bookingStatus.BookingSubmitted:
+          this.statusStep = 0;
           break;
-        case bookingStatus.Booked:
+        case bookingStatus.ShippingDone:
+          this.statusStep = 5;
+          break;
+        case bookingStatus.PriceConfirmedByCustomer:
           this.statusStep = 3;
+          break;
+        case bookingStatus.ShippingSubmittedToCarrier:
+          this.statusStep = 3;
+          break;
+        case bookingStatus.SoNumberNotifiedToCustomer:
+          this.statusStep = 4;
           break;
         case bookingStatus.WaitingForPricing:
           if (res.tradeType != 1) {
@@ -417,20 +428,29 @@ export class BookingDetailPage implements OnInit {
         case bookingStatus.WaitingForBuyer:
           this.statusStep = 1;
           break;
-        case bookingStatus.WaitingForSellerr:
+        case bookingStatus.WaitingForSeller:
           this.statusStep = 1;
           break;
-        case bookingStatus.ConfirmCancelled:
+        case bookingStatus.WaitingForCancelling:
           this.statusStep = -1;
           break;
+        case bookingStatus.BookingCancelled:
+          this.statusStep = -1;
+          break;
+        case bookingStatus.ShippingCancelled:
+          this.statusStep = 2;
+          break;
         default:
+          this.statusStep = 0;
           break;
       }
       this.setRequestProcess();
     });
   }
   getTime(time) {
-    if(!time){return ''}
+    if (!time) {
+      return '';
+    }
     return moment(time).format('MMM D YYYY');
   }
   goback() {
@@ -438,11 +458,11 @@ export class BookingDetailPage implements OnInit {
     window.history.back();
   }
   showRelatedBusinessPopover(event) {
-    this.cityOceanService.showRelatedBusinessPopover(event,{},PopoverComponent,'booking',this.routeBackType);
+    this.cityOceanService.showRelatedBusinessPopover(event, {}, PopoverComponent, 'booking', this.routeBackType);
   }
   // 客服
   chatWithCustomer() {
-    this.cityOceanService.chatWithCustomerService('Booking',this.id,this.bookingDetail.bookingNo);
+    this.cityOceanService.chatWithCustomerService('Booking', this.id, this.bookingDetail.bookingNo);
   }
 
   getContainerType(data) {
@@ -451,7 +471,7 @@ export class BookingDetailPage implements OnInit {
       if (data.containerType) {
         let containerType = JSON.parse(data.containerType);
         containerType.forEach((element) => {
-          if(element.value){
+          if (element.value) {
             str += ' ' + element.value + '*' + element.name;
           }
         });
