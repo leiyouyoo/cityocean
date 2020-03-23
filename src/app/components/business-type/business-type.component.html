@@ -5,6 +5,6 @@
       <span *ngIf="title?.title2" class="detail">{{title?.title2}}</span>
     </div>
     <i *ngIf="type" [class]="type"></i>
-    <span class="status" *ngIf="status">{{status}}</span>
+    <span class="status" *ngIf="status">{{status | translate}}</span>
   </div>
 </div>

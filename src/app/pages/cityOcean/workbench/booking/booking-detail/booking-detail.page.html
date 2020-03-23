@@ -22,63 +22,71 @@
     ></app-business-type>
   </div>
   <section class="request-wrap">
-    <p *ngIf="bookingDetail.status==1">Cancel request is submitted</p>
-    <p *ngIf="bookingDetail.status==2">Booking request is submitting</p>
-    <p *ngIf="bookingDetail.status==3">Shipping order is done</p>
-    <p *ngIf="bookingDetail.status==4">Freight quotes is needed by City Ocean</p>
-    <p *ngIf="bookingDetail.status==5">Quote is waiting for comfirm by the customer</p>
-    <p *ngIf="bookingDetail.status==6">Quote is waiting for comfirm by the customer</p>
-    <p *ngIf="bookingDetail.status==7">shipping order is cancelled</p>
+    <!-- <p *ngIf="bookingDetail.status==0">{{"Draft" | translate}}</p>
+    <p *ngIf="bookingDetail.status==1">{{"Waiting for Confirm" | translate}}</p>
+    <p *ngIf="bookingDetail.status==2">{{"Submitted" | translate}}</p>
+    <p *ngIf="bookingDetail.status==3">{{"Booked" | translate}}</p>
+    <p *ngIf="bookingDetail.status==4">{{"Waiting for Pricing" | translate}}</p>
+    <p *ngIf="bookingDetail.status==5">{{"Waiting for Buyer" | translate}}</p>
+    <p *ngIf="bookingDetail.status==6">{{"Waiting for Seller" | translate}}</p>
+    <p *ngIf="bookingDetail.status==7">{{"Cancelled" | translate}}</p>
+    <p *ngIf="bookingDetail.status==8">{{"Shipping Cancelled" | translate}}</p>
+    <p *ngIf="bookingDetail.status==9">{{"Price Confirmed By Customer" | translate}}</p>
+    <p *ngIf="bookingDetail.status==10">{{"Shipping order is requested with the carrier." | translate}}</p>
+    <p *ngIf="bookingDetail.status==11">{{"Notified SO successfully with the customer." | translate}}</p> -->
+
+    <p>{{requestProcess[statusStep]?.name | translate}}</p>
+
     <div
       *ngFor="let process of requestProcess"
       [ngClass]="{ 'not-check-bg': !process.checked,'check-bg':process.checked}"
     >
       <i class="checked-flag"></i>
-      <span>{{process.name}}</span>
+      <span>{{process.name | translate}}</span>
     </div>
   </section>
   <section class="content-wrap base-wrap">
     <div class="detail-wrap">
-      <label class="title">Basic</label>
+      <label class="title">{{"Basic" | translate}}</label>
       <p>
-        <span>Cargo Ready day</span>
+        <span>{{"Cargo Ready Date" | translate}}</span>
         <span>{{getTime(bookingDetail.cargoReadyDate)}}</span>
       </p>
       <p>
-        <span>Incoterms</span>
+        <span>{{"Incotermse" | translate}}</span>
         <span>{{bookingDetail.incotermsString}}</span>
       </p>
       <p *ngIf="getContainerType(bookingDetail)">
-        <span>Container Type</span>
+        <span>{{"Container Type" | translate}}</span>
         <span>{{getContainerType(bookingDetail)}}</span>
       </p>
       <div *ngIf="baseShow">
         <ng-container *ngIf="bookingDetail?.quantity>0">
-          <label class="title">Cargo</label>
+          <label class="title">{{"Cargo" | translate}}</label>
           <p>
-            <span>Quantity</span>
+            <span>{{"Quantity" | translate}}</span>
             <span>{{bookingDetail?.quantity}}{{bookingDetail?.quantityUnitString}}</span>
           </p>
           <p>
-            <span>Total Weight</span>
+            <span>{{"Total Weight" | translate}}</span>
             <span>{{bookingDetail?.weight}}{{bookingDetail?.weightUnitString}}</span>
           </p>
           <p>
-            <span>Total Volume</span>
+            <span>{{"Total Volume" | translate}}</span>
             <span>{{bookingDetail?.volume}}{{bookingDetail?.volumeUnitString}}</span>
           </p>
         </ng-container>
         <ng-container *ngIf="bookingDetail?.isContainsSpecialGoods">
-          <label class="title">Specifics</label>
-          <label class="title">Description Of Products</label>
+          <label class="title">{{"Specifics" | translate}}</label>
+          <label class="title">{{"Description Of Products" | translate}}</label>
           <p>
-            <span>PLASTIC STORAGE BOX PLASTIC STORAGE BOX</span>
+            <span>{{bookingDetail?.description}}</span>
           </p>
-          <label class="title">Special goods</label>
+          <label class="title">{{"Special goods" | translate}}</label>
           <p>
             <span>{{getSpecialGoodsName(bookingDetail?.containsSpecialGoodsTypes)}}</span>
           </p>
-          <label class="title">Special Instructions</label>
+          <label class="title">{{"Special Instructions" | translate}}</label>
           <p>
             <span>{{bookingDetail?.specialInstructions}}</span>
           </p>

@@ -61,7 +61,9 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.infiniteScroll.disabled = true;
-    this.bindIM();
+    setTimeout(() => {
+      this.bindIM();
+    }, 100);
   }
 
   bindIM() {
@@ -283,15 +285,16 @@ export class HomePage implements OnInit {
     }
     if (item.bussinessType) {
       if (item.unreadCount != 0) {
-        setMessageRead(item.conversationID)
+        setMessageRead(item.conversationID);
       }
-      
+
       this.nav.navigateForward(['/cityOcean/home/chat'], {
         queryParams: {
           conversationID: item.conversationID,
           C2C: item.bussinessType == 'C2C' ? true : false,
           id: item.bussinessType == 'C2C' ? item.userProfile.userID : item.groupProfile.groupID,
-          groupName: item.bussinessType === 'C2C' ? (item.userProfile.nick ? item.userProfile.nick : item.name) : item.name,
+          groupName:
+            item.bussinessType === 'C2C' ? (item.userProfile.nick ? item.userProfile.nick : item.name) : item.name,
           conversationType: item.bussinessType,
         },
       });

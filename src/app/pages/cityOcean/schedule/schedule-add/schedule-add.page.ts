@@ -143,10 +143,17 @@ export class ScheduleAddPage implements OnInit {
       .toString();
     items.remindStartTime = new Date(items.remindStartTime).toISOString();
     items.remindEndTime = new Date(items.remindEndTime).toISOString();
-    this.scheduleService.createAsync(items).subscribe((res: any) => {
-      this.helper.toast(this.translate.instant('Add Success') + '!');
-      this.refresh();
-    });
+    this.helper.showLoading('loading...');
+    this.scheduleService.createAsync(items).subscribe(
+      (res: any) => {
+        this.helper.hideLoading();
+        this.helper.toast(this.translate.instant('Add Success') + '!');
+        this.refresh();
+      },
+      (err) => {
+        this.helper.hideLoading();
+      },
+    );
   }
 
   onEdit() {
@@ -179,7 +186,7 @@ export class ScheduleAddPage implements OnInit {
     const popover = await this.popoverController.create({
       component: ScheduleAddEditComponent,
       showBackdrop: false,
-      mode:'ios',
+      mode: 'ios',
       backdropDismiss: true,
       event: event,
       cssClass: 'chat-popover',

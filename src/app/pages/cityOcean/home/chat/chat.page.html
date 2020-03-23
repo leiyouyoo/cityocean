@@ -106,7 +106,7 @@
       <i *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false"></i>
       <i *ngIf="showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
       <i *ngIf="!sendingMessage" (click)="showTools = true;showEmoji= false" class="change"></i>
-      <span *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</span>
+      <label for="inputElement" *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</label>
     </div>
     <div class="hide-tools" *ngIf="showTools">
       <div (click)="imgUpload()">
