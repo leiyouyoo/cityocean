@@ -574,9 +574,9 @@ export class ChatPage implements OnInit {
   imageUpload() {
     const options: ImagePickerOptions = {
       maximumImagesCount: 9, // 可选择的图片数量默认 15，1为单选
-      width: 400, // 图片宽
-      height: 500, //图片高
-      quality: 80, //图片质量，质量越高图片越大,请根据实际情况选择
+      // width: 400, // 图片宽
+      // height: 500, //图片高
+      quality: 100, //图片质量，质量越高图片越大,请根据实际情况选择
       outputType: 1,
       /** 文件输出类型，你可以选择图片URL，或者base64的文件编码
       这里建议选择文件编码  0  ：文件地址  1：图片base64编码*/
