@@ -20,7 +20,6 @@ export class AppComponent {
   private lang: string;
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private storage: Storage,
     private alertController: AlertController,
@@ -34,7 +33,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.splashScreen.hide();
+      SplashScreen.hide();
       let color = '#3e8eff';
       const theme = LocalStorage.localStorage.get('ThemeType');
       document.body.classList.remove('blue');
