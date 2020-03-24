@@ -165,17 +165,17 @@ export class WorkbenchPage implements OnInit {
               this.titleStatisticsList = [
                 {
                   type: 'intransit',
-                  name: this.translate.instant('已付'),
+                  name: this.translate.instant('Paid'),
                   value: payed,
                 },
                 {
                   type: 'finished',
-                  name: this.translate.instant('未付'),
+                  name: this.translate.instant('unpaid'),
                   value: paying,
                 },
                 {
                   type: 'delay',
-                  name: this.translate.instant('逾期'),
+                  name: this.translate.instant('Overdue'),
                   value: delay,
                 },
               ];

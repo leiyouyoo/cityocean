@@ -16,6 +16,8 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 export class SettingPage {
   ThemeType: any;
   version: any;
+  logName = this.translate.instant('Log Out');
+
   constructor(
     private nav: NavController,
     public actionSheetController: ActionSheetController,
@@ -29,6 +31,9 @@ export class SettingPage {
     this.appVersion.getVersionNumber().then((version: string) => {
       this.version = version;
     });
+    if (this.cityOceanService.getIsLoginWithTourist()) {
+      this.logName = this.translate.instant('Login');
+    }
   }
 
   /**

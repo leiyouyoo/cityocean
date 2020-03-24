@@ -29,7 +29,7 @@
 }
 
 .search-detail {
-    padding: 0 px2rem(24px) px2rem(27px) px2rem(24px);
+    padding: 0 px2rem(24px) px2rem(10px) px2rem(24px);
     box-shadow: 0px -12px 12px 0px rgba(71, 135, 254, 1);
     border-radius: 0.5333333333rem 0.5333333333rem 0 0;
     background: #fff;
@@ -81,7 +81,7 @@
         width: 100%;
         height: px2rem(44px);
         margin-top: px2rem(17px);
-        font-size:12px;
+        font-size: 12px;
         background: rgba(83, 143, 255, 1);
         // box-shadow: 0px px2rem(-12px) px2rem(12px) 0px rgba(71, 135, 254, 1);
         border-radius: px2rem(6px);
@@ -295,11 +295,14 @@ ion-content {
                     line-height: 14px;
                 }
             }
-            app-massage{
+
+            app-massage {
                 width: 100%;
             }
+
             ion-item-sliding {
                 --inner-border-width: 0;
+
                 .app-massage-wrap {
                     --padding-start: 0;
                     --inner-padding-end: 0;

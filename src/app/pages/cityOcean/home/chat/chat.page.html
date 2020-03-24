@@ -52,17 +52,10 @@
           [class]="'card-' + item.flow +'-group'"
         >
           <img
-            *ngIf="item.flow=='out'"
             (click)="gotoUserProfile(item.from)"
             [class]="'anchor-' + item.flow"
             class="head-anchor"
-            [src]="item.anchorImgUrl?item.anchorImgUrl:'../../../../../assets/icon/avatar-2.png'"
-          />
-          <img
-            *ngIf="item.flow=='in'"
-            (click)="gotoUserProfile(item.from)"
-            [class]="'anchor-' + item.flow"
-            class="head-anchor"
+            onerror="this.src='../../../../../assets/icon/avatar-2.png'"
             [src]="item.anchorImgUrl?item.anchorImgUrl:'../../../../../assets/icon/avatar-2.png'"
           />
           <ion-card-content>
@@ -94,7 +87,7 @@
       <textarea
         type="text"
         [(ngModel)]="sendingMessage"
-        (click)="showTools = false"
+        (click)="showTools = false;showEmoji = false;"
         placeholder="Type a message"
         name=""
         autosize
@@ -103,7 +96,7 @@
         (ngModelChange)="valueChange($event)"
         id="inputElement"
       ></textarea>
-      <i *ngIf="!showEmoji" class="happy" (click)="showEmoji = true;showTools = false"></i>
+      <i *ngIf="!showEmoji" class="happy" (click)="showEmojiFun();"></i>
       <i *ngIf="showEmoji" (click)="showKeyboard()" class="qiehuan"></i>
       <i *ngIf="!sendingMessage" (click)="showTools = true;showEmoji= false" class="change"></i>
       <label for="inputElement" *ngIf="sendingMessage" (click)="send()" class="send">{{"Send" | translate}}</label>

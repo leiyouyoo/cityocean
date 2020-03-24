@@ -380,7 +380,7 @@ export class ChatPage implements OnInit {
       }
     }
     event && event.target.complete();
-    this.scrollToBottom(1);
+    !event && this.scrollToBottom(1);
   }
   // 格式化显示时间
   getImChatTime(time) {
@@ -397,6 +397,7 @@ export class ChatPage implements OnInit {
    * @memberof ChatPage
    */
   async send() {
+    this.showEmoji = false;
     this.groupID += '';
     let textMessage: any = {};
     if (this.sendingMessage == '' || this.groupID == null || this.sendingMessage == undefined) {
@@ -412,7 +413,7 @@ export class ChatPage implements OnInit {
 
     // const inputElement = this.el.nativeElement.querySelector('#inputElement');
     // this.renderer.invokeElementMethod(inputElement, 'focus');
-    // this.scrollToBottom(1);
+    this.scrollToBottom(1);
     this.sendingMessage = '';
   }
   async sendImg(imageData, picture) {
@@ -573,9 +574,9 @@ export class ChatPage implements OnInit {
   imageUpload() {
     const options: ImagePickerOptions = {
       maximumImagesCount: 9, // 可选择的图片数量默认 15，1为单选
-      width: 400, // 图片宽
-      height: 500, //图片高
-      quality: 80, //图片质量，质量越高图片越大,请根据实际情况选择
+      // width: 400, // 图片宽
+      // height: 500, //图片高
+      quality: 100, //图片质量，质量越高图片越大,请根据实际情况选择
       outputType: 1,
       /** 文件输出类型，你可以选择图片URL，或者base64的文件编码
       这里建议选择文件编码  0  ：文件地址  1：图片base64编码*/
@@ -636,6 +637,12 @@ export class ChatPage implements OnInit {
     this.renderer.invokeElementMethod(inputElement, 'focus');
   }
 
+  showEmojiFun() {
+    setTimeout(() => {
+      this.showTools = false;
+      this.showEmoji = true;
+    }, 50);
+  }
   /**
    *选中表情
    *

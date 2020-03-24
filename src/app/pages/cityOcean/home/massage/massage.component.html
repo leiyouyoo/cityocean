@@ -1,4 +1,4 @@
-<div *ngIf="detail" class="massage-group">
+<div *ngIf="detail" [id]="detail?.bussinessType == 'welcome' ? 'welcome-id' : ''" class="massage-group">
   <div class="avatar-unread">
     <span class="unread-count" *ngIf="detail.unreadCount > 0">
       {{ detail.unreadCount <= 99 ? detail.unreadCount : 99 }}
@@ -10,11 +10,15 @@
     ></i>
   </div>
   <img *ngIf="detail?.groupProfile?.avatar" [src]="detail?.groupProfile?.avatar" class="image-element" />
-  <div [ngClass]="{ 'welcome-container': detail?.bussinessType == 'welcome' }"  class="text-group">
-    <div *ngIf="detail"  class="number-wrap">
+  <div [ngClass]="{ 'welcome-container': detail?.bussinessType == 'welcome' }" class="text-group">
+    <div *ngIf="detail" class="number-wrap">
       <div>
         <span [ngClass]="{ 'welcome-title': detail?.bussinessType == 'welcome' }" class="number-text">{{
-          detail.bussinessType === 'C2C' ? (detail.userProfile.nick ? detail.userProfile.nick : detail.name) : detail.name
+          detail.bussinessType === 'C2C'
+            ? detail.userProfile.nick
+              ? detail.userProfile.nick
+              : detail.name
+            : detail.name
         }}</span>
         <span *ngIf="showLabel()" [ngClass]="{ lables: true }" [class]="'lable-' + detail?.bussinessType">{{
           detail?.bussinessType

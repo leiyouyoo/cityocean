@@ -34,7 +34,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.splashScreen.hide();
+      this.splashScreen.hide;
       let color = '#3e8eff';
       const theme = LocalStorage.localStorage.get('ThemeType');
       document.body.classList.remove('blue');
