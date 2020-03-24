@@ -12,6 +12,7 @@ import { File } from '@ionic-native/file/ngx';
 import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '@env/environment';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-me-about',
@@ -25,6 +26,7 @@ export class AboutPage implements OnInit {
     // tslint:disable-next-line: deprecation
     private transfer: FileTransfer,
     private appVersion: AppVersion,
+    private iab: InAppBrowser,
     public alertController: AlertController,
     private androidPermissions: AndroidPermissions,
     private fileOpener: FileOpener,
@@ -40,7 +42,11 @@ export class AboutPage implements OnInit {
     this.activeRoute.queryParams.subscribe((params: Params) => {
       const update = params.update;
       if (update) {
-        this.downloadApp();
+        if (this.device.platform === 'Android') {
+          this.downloadApp();
+        } else if (this.device.platform === 'IOS') {
+          this.iab.create('https://apps.apple.com/us/app/cityocean/id1499450194?l=zh&ls=1', '_system');
+        }
       }
     });
 
