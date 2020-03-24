@@ -35,7 +35,7 @@ export class RatesFilterComponent implements OnInit {
   @Input() deliveryPortName;
   @Input() orignPortId;
   @Input() deliveryPortId;
-  Ratesvaliddays=this.translate.instant("Rates valid days");
+  Ratesvaliddays = this.translate.instant('Rates valid days');
   carrierList = [];
   private searchTerms = new Subject<string>();
 
@@ -66,18 +66,18 @@ export class RatesFilterComponent implements OnInit {
       )
       .subscribe((type) => {
         if (type == 'originPortSearchText' || type == 'deliveryPortSearchText') {
-          this.locationLibraryService.GetAllPort({ Name: this.profileForm[type] }).subscribe((res: any) => {
-            console.log(res.items);
-            this.myMessageServiceService.messageAction(res.items);
-          });
-        }
-        if (type == 'originLocatonSearchText' || type == 'destinationLocationSearchText') {
           this.locationLibraryService
             .GetAllPort({ Name: this.profileForm[type], IsOcean: true })
             .subscribe((res: any) => {
-              console.log(res);
+              console.log(res.items);
               this.myMessageServiceService.messageAction(res.items);
             });
+        }
+        if (type == 'originLocatonSearchText' || type == 'destinationLocationSearchText') {
+          this.locationLibraryService.GetAllPort({ Name: this.profileForm[type] }).subscribe((res: any) => {
+            console.log(res);
+            this.myMessageServiceService.messageAction(res.items);
+          });
         }
       });
   }
@@ -165,7 +165,7 @@ export class RatesFilterComponent implements OnInit {
       component: InputSearchComponent,
       showBackdrop: false,
       event: event,
-      mode:'ios',
+      mode: 'ios',
       keyboardClose: false,
       backdropDismiss: true,
       cssClass: 'my-popover-input-search my-rates-popover-input-search billing-popover',
