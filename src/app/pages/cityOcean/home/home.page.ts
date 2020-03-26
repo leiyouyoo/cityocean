@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Renderer2, ElementRef } from '@angular/core';
-import { NavController, ModalController } from '@ionic/angular';
+import { NavController, ModalController, AlertController } from '@ionic/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
 import 'hammerjs';
 import { SearchlocaltionComponent } from './search-localtion/search-localtion.component';
@@ -23,8 +23,9 @@ import { IonContent } from '@ionic/angular';
 import * as moment from 'moment';
 import { Helper } from '@shared/helper';
 import { Router, Params } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { ScheduleService } from '@cityocean/basicdata-library/region/service/schedule.service';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-home',
@@ -43,20 +44,22 @@ export class HomePage implements OnInit {
   deliveryPort: any = {}; // 目的港
   totalCount: any;
   scrollList = []; // 系统消息列表
-  deleteWecomeFlag = JSON.parse(localStorage.getItem('deleteWecomeFlag')); //删除welcome标记
+  deleteWecomeFlag = JSON.parse(localStorage.getItem('deleteWecomeFlag')); // 删除welcome标记
   checkIsLoginWithTourist = this.cityOceanService.getIsLoginWithTourist();
+
   constructor(
     private nav: NavController,
     private modalController: ModalController,
     private homeService: HomeService,
     private translate: TranslateService,
     private cityOceanService: CityOceanService,
-    private statusBar: StatusBar,
     private helper: Helper,
+    private appVersion: AppVersion,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private el: ElementRef,
+    private appService: ScheduleService,
     private renderer2: Renderer2,
+    private alertController: AlertController,
   ) {}
 
   ngOnInit() {
@@ -64,6 +67,47 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.bindIM();
     }, 100);
+  }
+
+  checkUpdate() {
+    debugger;
+    this.appVersion.getVersionNumber().then((appVersion: string) => {
+      this.appService
+        .checkUpdate({
+          appType: 1,
+          version: appVersion,
+        })
+        .subscribe((res: any) => {
+          if (res === true) {
+            this.presentAlert();
+          }
+        });
+    });
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('Update'),
+      message: this.translate.instant('New version exists, do you need to update') + '?',
+      buttons: [
+        {
+          text: this.translate.instant('Cancel'),
+          role: 'cancel',
+          handler: (blah) => {},
+        },
+        {
+          text: this.translate.instant('Ok'),
+          handler: () => {
+            this.router.navigate(['cityOcean/me/about'], {
+              queryParams: {
+                update: true,
+              },
+            });
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   bindIM() {
@@ -85,6 +129,8 @@ export class HomePage implements OnInit {
           }
         });
       }
+
+      this.checkUpdate();
     });
   }
 

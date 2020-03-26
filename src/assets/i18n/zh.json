@@ -196,5 +196,6 @@
   "Verification code": "验证码",
   "get verification code": "获取验证码",
   "password": "密码",
-  "Mobile number format is incorrect":"手机号码格式不正确"
+  "Mobile number format is incorrect":"手机号码格式不正确",
+  "New version exists, do you need to update":"存在新的版本，您需要更新吗"
 }
