@@ -7,21 +7,25 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./billing-popover.component.scss'],
 })
 export class BillingPopoverComponent implements OnInit {
-  @Input() BillId:number;
-  typeList = [{
-    name:'银行账户',
-    type:'bank'
-  },{
-    name:'在线支付',
-    type:'pay'
-  },{
-    name:'申请开票',
-    type:'chicket'
-  },]
+  @Input() BillId: string;
+  typeList = [
+    {
+      name: '银行账户',
+      type: 'bank',
+    },
+    {
+      name: '在线支付',
+      type: 'pay',
+    },
+    {
+      name: '申请开票',
+      type: 'chicket',
+    },
+  ];
   constructor(private popoverController: PopoverController) {}
 
   ngOnInit() {}
   dismissPopover(item) {
-    this.popoverController.dismiss( {...item ,BillId:this.BillId});
+    this.popoverController.dismiss({ ...item, BillId: this.BillId });
   }
 }

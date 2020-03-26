@@ -27,7 +27,7 @@ export class ContactsComponent implements OnInit {
       if (this.ids) {
         this.ids.split(',').forEach((e) => {
           this.list.forEach((element) => {
-            if (Number(e) === element.userId) {
+            if (e === element.userId) {
               element.isChecked = true;
             }
           });

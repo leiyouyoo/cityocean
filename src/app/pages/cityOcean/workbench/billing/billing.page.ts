@@ -32,7 +32,7 @@ export class BillingPage implements OnInit {
     this.activatedRoute.queryParams.subscribe((data: any) => {
       if (data.ids) {
         this.ids = data.ids.split(',').map((e) => {
-          return Number(e);
+          return e;
         });
       }
       this.routeBackType = data.routeBackType;

@@ -16,7 +16,5 @@ export class GetAllBillingInput implements IGetAllBillingInput {
   endTime: Date | null | undefined;
   maxResultCount: number | null | undefined;
   skipCount: number | null | undefined;
-  shipmentId?: number;
+  shipmentId?: string;
 }
-
-

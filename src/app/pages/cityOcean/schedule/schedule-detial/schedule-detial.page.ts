@@ -8,13 +8,13 @@ import { ScheduleService } from '@cityocean/basicdata-library/region/service/sch
   styleUrls: ['schedule-detial.page.scss'],
 })
 export class ScheduleDetialPage implements OnInit {
-  id: number;
-  data:any;
+  id: string;
+  data: any;
   constructor(public activeRoute: ActivatedRoute, public scheduleService: ScheduleService) {}
 
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((params: Params) => {
-      this.id = Number(params.id);
+      this.id = params.id;
       this.initData();
     });
   }
@@ -22,7 +22,6 @@ export class ScheduleDetialPage implements OnInit {
   initData() {
     this.scheduleService.get(this.id).subscribe((res) => {
       this.data = res;
-
     });
   }
 

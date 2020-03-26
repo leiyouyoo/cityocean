@@ -23,11 +23,11 @@ export class ScheduleService {
     return this.http.put('/CSP/Schedule/UpdateAsync', data);
   }
 
-  get(id: number) {
+  get(id: string) {
     return this.http.get('/CSP/Schedule/Get', { id: id });
   }
 
-  delete(id: number) {
+  delete(id: string) {
     return this.http.delete('/CSP/Schedule/Delete', { id: id });
   }
 

@@ -18,7 +18,7 @@ import { ScheduleAddEditComponent } from './edit/schedule-add-edit.component';
   styleUrls: ['schedule-add.page.scss'],
 })
 export class ScheduleAddPage implements OnInit {
-  id: any;
+  id: string;
   edit = false;
   choosedContacts: any = [];
   data: FormGroup;
@@ -51,7 +51,7 @@ export class ScheduleAddPage implements OnInit {
 
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params.id) {
-        this.id = Number(params.id);
+        this.id = params.id;
         this.scheduleService.get(this.id).subscribe((res: any) => {
           this.data.patchValue({
             remindContent: res.remindContent,
@@ -65,7 +65,7 @@ export class ScheduleAddPage implements OnInit {
               let arr = res.remindPeople.split(',');
               arr.forEach((e) => {
                 ress.items.forEach((element) => {
-                  if (Number(e) === element.userId) {
+                  if (e === element.userId) {
                     this.choosedContacts.push(element);
                   }
                 });

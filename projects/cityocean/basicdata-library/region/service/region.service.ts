@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '@cityocean/common-library';
 import { Observable } from 'rxjs';
 
-interface CreateInfo {
-
-}
+interface CreateInfo {}
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +15,7 @@ export class RegionService {
     return this.http.get('/PUB/Region/GetAll', params);
   }
 
-  get(id: number): Observable<any> {
+  get(id: string): Observable<any> {
     return this.http.get('/PUB/Region/Get', { id });
   }
 

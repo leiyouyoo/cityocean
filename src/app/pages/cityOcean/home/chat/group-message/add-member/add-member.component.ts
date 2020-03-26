@@ -10,7 +10,7 @@ import { addGroupNumber, createGroup } from '@cityocean/im-library';
 })
 export class AddMemberComponent implements OnInit {
   constructor(public modalController: ModalController, public homeService: HomeService) {}
-  @Input() BusinessId: number;
+  @Input() BusinessId: string;
   @Input() BusinessType: number;
   @Input() groupID: string;
   @Input() isC2C = false;
@@ -28,7 +28,7 @@ export class AddMemberComponent implements OnInit {
       };
       /^\d*$/.test(this.BusinessId.toString()) &&
         this.homeService
-          .getMayInviteUserList({ BusinessId: Number(this.BusinessId), BusinessType: map[this.BusinessType] })
+          .getMayInviteUserList({ BusinessId: this.BusinessId, BusinessType: map[this.BusinessType] })
           .subscribe((res) => {
             console.log(res);
             this.membersList = res.items.filter((e) => {
@@ -54,11 +54,16 @@ export class AddMemberComponent implements OnInit {
   dismissModal(data?) {
     this.modalController.dismiss(data);
   }
-  isBusinessType(){
-    if (this.conversationType == 'shipment' || this.conversationType == 'booking'|| this.conversationType == 'billing'|| this.conversationType == 'rates'){
-      return true
-    }else{
-      return false
+  isBusinessType() {
+    if (
+      this.conversationType == 'shipment' ||
+      this.conversationType == 'booking' ||
+      this.conversationType == 'billing' ||
+      this.conversationType == 'rates'
+    ) {
+      return true;
+    } else {
+      return false;
     }
   }
   save() {
@@ -68,12 +73,16 @@ export class AddMemberComponent implements OnInit {
           return e.checked;
         })
         .map((e) => {
-          return { userID: ''+e.id };
+          return { userID: '' + e.id };
         });
 
       createGroup({
         type: 'private',
-        name: this.membersList.map(e=>{return e.surname?e.surname + ' '+ e.name: e.name}).join(','),
+        name: this.membersList
+          .map((e) => {
+            return e.surname ? e.surname + ' ' + e.name : e.name;
+          })
+          .join(','),
         memberList: list, // 如果填写了 memberList，则必须填写 userID
       }).then((res) => {
         console.log(res);

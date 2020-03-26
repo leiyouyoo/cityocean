@@ -85,7 +85,7 @@ declare namespace abp {
       /**
        * 当前租户Id，为空时表示主机方
        */
-      readonly id?: number;
+      readonly id?: string;
 
       /**
        * 租户显示名称
@@ -115,7 +115,7 @@ declare namespace abp {
       /**
        * //当前模拟的租户Id
        */
-      readonly impersonatorTenantId?: number;
+      readonly impersonatorTenantId?: string;
     }
 
     /**
@@ -127,7 +127,7 @@ declare namespace abp {
       /**
        * 用户Id
        */
-      readonly id: number;
+      readonly id: string;
 
       /**
        *  customerId
@@ -175,7 +175,7 @@ declare namespace abp {
        * 当前模拟用户Id
        *
        */
-      readonly impersonatorUserId?: number;
+      readonly impersonatorUserId?: string;
     }
 
     /**
@@ -599,7 +599,7 @@ declare namespace abp {
        * 用户Id
        *
        */
-      userId: number;
+      userId: string;
 
       /**
        * 阅读状态

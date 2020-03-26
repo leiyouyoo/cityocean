@@ -4,9 +4,9 @@ export interface RegionDto {
   name: string;
   nameLocalization: string;
   isValid: boolean;
-  parentId: number;
+  parentId: string;
   children: RegionDto[];
   creatorUserName: string;
   creationTime: string;
-  id: number;
+  id: string;
 }

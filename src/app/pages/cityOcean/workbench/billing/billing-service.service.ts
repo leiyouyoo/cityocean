@@ -3,11 +3,10 @@ import { HttpService } from '@cityocean/common-library';
 import { GetAllBillingInput } from './class/GetAllBillingInput';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BillingServiceService {
-  constructor(public http: HttpService) {
-  }
+  constructor(public http: HttpService) {}
 
   /**
    * 获取billing列表
@@ -21,25 +20,25 @@ export class BillingServiceService {
   /**
    *获取billing详情
    *
-   * @param {number} id
+   * @param {string} id
    * @returns
    * @memberof BillingServiceService
    */
-  getBillingDetail(id: number) {
+  getBillingDetail(id: string) {
     return this.http.get('/CSP/Billing/GetBill', { id });
   }
   /**
    * 获取银行账户
    *
-   * @param {number} id
+   * @param {string} id
    * @returns
    * @memberof BillingServiceService
    */
-  GetBankAccount(BillId: number) {
+  GetBankAccount(BillId: string) {
     return this.http.get('/CSP/Billing/GetBankAccount', { BillId });
   }
 
   GetBillingListByIds(input: Array<any>) {
-    return this.http.postJson('/CSP/Billing/GetListByIds', input );
+    return this.http.postJson('/CSP/Billing/GetListByIds', input);
   }
 }
